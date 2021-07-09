@@ -1,14 +1,33 @@
 package com.example.meter
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log.d
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
+import com.example.meter.databinding.ActivityMainBinding
+import com.ismaeldivita.chipnavigation.ChipNavigationBar
+
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        initBottomNav()
+    }
 
-        d("tagtag", "smth")
+    private fun initBottomNav() {
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        val navView = binding.navView
+        val chipNavigation: ChipNavigationBar = binding.bottomNavBar
+
+        chipNavigation.setOnItemSelectedListener { itemId ->
+            navView.selectedItemId = itemId
+        }
+        NavigationUI.setupWithNavController(navView, navController)
     }
 }
