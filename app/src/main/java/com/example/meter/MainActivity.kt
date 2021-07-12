@@ -6,8 +6,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.meter.databinding.ActivityMainBinding
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
+import dagger.hilt.android.AndroidEntryPoint
 
-
+    @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 

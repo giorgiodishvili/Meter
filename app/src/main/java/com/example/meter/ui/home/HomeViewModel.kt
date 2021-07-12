@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.meter.entity.AutomobileCategory
+import com.example.meter.entity.Model
 import com.example.meter.network.Resource
 import com.example.meter.repository.AutomobileCategoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,6 +19,11 @@ class HomeViewModel @Inject constructor(private val categoryRepository: Automobi
     val categories: LiveData<Resource<List<AutomobileCategory>>>
         get() = _categories
 
+    private val _make = MutableLiveData<Resource<Model>>()
+
+    val make: LiveData<Resource<Model>>
+        get() = _make
+
     fun getAllCategories() =
         viewModelScope.launch {
             _categories.postValue(Resource.loading())
@@ -29,4 +35,16 @@ class HomeViewModel @Inject constructor(private val categoryRepository: Automobi
                 }
             }
         }
+
+    fun getModelFromMake(make: String) =
+        viewModelScope.launch {
+            _make.postValue(Resource.loading())
+        categoryRepository.getModelsForMake(make).let {
+            if (it.isSuccessful) {
+                _make.postValue(Resource.success(it.body()!!))
+            } else {
+                _make.postValue(Resource.error(it.message().toString()))
+            }
+        }
+    }
 }
