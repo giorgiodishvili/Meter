@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'com.google.gms.google-services'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -62,4 +64,31 @@ dependencies {
     // Firebase Auth
     implementation 'com.google.firebase:firebase-bom:28.2.1'
 
+
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
+    implementation 'com.airbnb.android:lottie:3.7.0'
+
+    // dependancy injection dagger hilt
+    implementation 'com.google.dagger:hilt-android:2.37'
+    kapt 'com.google.dagger:hilt-compiler:2.37'
+
+    // For instrumentation tests
+    androidTestImplementation  'com.google.dagger:hilt-android-testing:2.37'
+    kaptAndroidTest 'com.google.dagger:hilt-compiler:2.37'
+
+    // For local unit tests
+    testImplementation 'com.google.dagger:hilt-android-testing:2.37'
+    kaptTest 'com.google.dagger:hilt-compiler:2.37'
+
+}
+
+kapt {
+    correctErrorTypes true
+}
+
+hilt {
+    enableTransformForLocalTests = true
 }
