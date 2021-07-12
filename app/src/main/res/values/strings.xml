@@ -6,4 +6,20 @@
     <string name="profile">Profile</string>
     <string name="connect_with_google">Connect with Google</string>
     <string name="log_out">Log out</string>
+    <string name="sign_in_to_continue">Sign in to continue</string>
+    <string name="welcome">Welcome</string>
+    <string name="sign_up">Sign up</string>
+
+    <string name="login">Login</string>
+    <string name="forgot_password">Forgot password ?</string>
+    <string name="sign_up_to_get_started">Sign up to get started</string>
+    <string name="create_account">Create Account</string>
+    <string name="sign_in">Sign in</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="enter_an_email_address_you_use_to_sign_in_to">Enter an email address you use to sign in to</string>
+    <string name="reset">Reset</string>
 </resources>
