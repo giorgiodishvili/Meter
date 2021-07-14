@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.meter.screens.bottom_nav.home.HomeFragment"
+        android:label="home_fragment"
+        tools:layout="@layout/home_fragment" >
+        <action
+            android:id="@+id/action_navigation_home_to_postCarFragment"
+            app:destination="@id/postCarFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="com.example.meter.screens.bottom_nav.search.SearchFragment"
+        android:label="search_fragment"
+        tools:layout="@layout/search_fragment" />
+    <fragment
+        android:id="@+id/navigation_favourites"
+        android:name="com.example.meter.screens.bottom_nav.favourites.FavouritesFragment"
+        android:label="favourites_fragment"
+        tools:layout="@layout/favourites_fragment" >
+        <action
+            android:id="@+id/action_navigation_favourites_to_main_auth"
+            app:destination="@id/main_auth" />
+    </fragment>
+    <fragment
+        android:id="@+id/main_auth"
+        android:name="com.example.meter.screens.auth.MainAuthFragment"
+        android:label="main_auth_fragment"
+        tools:layout="@layout/main_auth_fragment" >
+        <action
+            android:id="@+id/action_main_auth_to_navigation_profile"
+            app:destination="@id/navigation_profile" />
+        <action
+            android:id="@+id/action_main_auth_to_navigation_favourites"
+            app:destination="@id/navigation_favourites" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.meter.screens.bottom_nav.profile.ProfileFragment"
+        android:label="profile_fragment"
+        tools:layout="@layout/profile_fragment" >
+        <action
+            android:id="@+id/action_navigation_profile_to_main_auth"
+            app:destination="@id/main_auth" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_navigation_profile"
+        app:destination="@id/navigation_profile"
+        app:popUpTo="@id/main_navigation"
+        app:popUpToInclusive="true" />
+    <action
+        android:id="@+id/action_global_navigation_home"
+        app:destination="@id/navigation_home"
+        app:popUpTo="@id/main_navigation"
+        app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/postCarFragment"
+        android:name="com.example.meter.screens.bottom_nav.PostCarFragment"
+        android:label="post_car_fragment"
+        tools:layout="@layout/post_car_fragment" >
+        <action
+            android:id="@+id/action_postCarFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+
+</navigation>
