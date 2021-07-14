@@ -2,7 +2,7 @@ package com.example.meter
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
+import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.meter.databinding.ActivityMainBinding
@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         chipNavigation.setOnItemSelectedListener { itemId ->
             navView.selectedItemId = itemId
         }
+
         NavigationUI.setupWithNavController(navView, navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -41,17 +42,16 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_favourites -> chipNavigation.setItemSelected(R.id.navigation_favourites)
                 R.id.navigation_profile -> chipNavigation.setItemSelected(R.id.navigation_profile)
             }
+            hideIfAuth(destination, chipNavigation)
 
-            if (destination.id == R.id.main_auth) {
-                chipNavigation.setGone()
-            } else {
-                chipNavigation.show()
-            }
         }
     }
 
-    override fun onBackPressed() {
-
+    private fun hideIfAuth(destination: NavDestination, navBar: ChipNavigationBar) {
+        if (destination.id == R.id.main_auth)
+            navBar.setGone()
+        else
+            navBar.show()
     }
 
 }

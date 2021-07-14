@@ -9,6 +9,7 @@ import com.example.meter.R
 import com.example.meter.repository.FirebaseRepository
 import com.example.shualeduri.extensions.showToast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,6 +22,10 @@ class LoginViewModel @Inject constructor(private val firebaseAuth: FirebaseRepos
     private var _loginStatus = MutableLiveData<Boolean>()
     val loginStatus: LiveData<Boolean> = _loginStatus
 
+    private var _loginGoogleStatus = MutableLiveData<Boolean>()
+    val loginGoogleStatus: LiveData<Boolean> = _loginGoogleStatus
+
+
     fun loginStart(email: String, password: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -29,6 +34,20 @@ class LoginViewModel @Inject constructor(private val firebaseAuth: FirebaseRepos
                         _loginStatus.postValue(true)
                     else
                         _loginStatus.postValue(false)
+                }
+            }
+        }
+    }
+
+    fun firebaseAuthWithGoogle(idToken: String) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                val credential = GoogleAuthProvider.getCredential(idToken, null)
+                firebaseAuth.signInWithGoogle(credential).addOnCompleteListener { process ->
+                    if (process.isSuccessful)
+                        _loginGoogleStatus.postValue(true)
+                    else
+                        _loginGoogleStatus.postValue(false)
                 }
             }
         }

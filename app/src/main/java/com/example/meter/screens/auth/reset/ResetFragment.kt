@@ -8,7 +8,6 @@ import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.ResetFragmentBinding
 import com.example.meter.extensions.isEmail
 import com.example.shualeduri.extensions.showToast
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,7 +40,7 @@ class ResetFragment : BaseFragment<ResetFragmentBinding, ResetViewModel>(
     private fun observer() {
         viewModel.resetStatus.observe(viewLifecycleOwner, { resetStatus ->
             if (resetStatus)
-                findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                findNavController().navigate(R.id.action_resetFragment_to_loginFragment)
             else
                 requireActivity().showToast("Error")
         })
