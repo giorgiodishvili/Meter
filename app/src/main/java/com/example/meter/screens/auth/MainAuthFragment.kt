@@ -17,7 +17,14 @@ class MainAuthFragment : BaseFragment<MainAuthFragmentBinding, MainAuthViewModel
     }
 
     private fun init() {
+        backButton()
+    }
 
+    private fun backButton() {
+        binding.authBackButton.setOnClickListener {
+            val navController = requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+            navController.navController.navigate(R.id.action_global_navigation_home)
+        }
     }
 
 }

@@ -12,7 +12,7 @@
         tools:layout="@layout/home_fragment" >
         <action
             android:id="@+id/action_navigation_home_to_postCarFragment"
-            app:destination="@id/postCarFragment" />
+            app:destination="@id/navigation_post" />
     </fragment>
     <fragment
         android:id="@+id/navigation_search"
@@ -47,7 +47,8 @@
         tools:layout="@layout/profile_fragment" >
         <action
             android:id="@+id/action_navigation_profile_to_main_auth"
-            app:destination="@id/main_auth" />
+            app:destination="@id/main_auth"
+            app:enterAnim="@android:anim/fade_in" />
     </fragment>
     <action
         android:id="@+id/action_global_navigation_profile"
@@ -60,7 +61,7 @@
         app:popUpTo="@id/main_navigation"
         app:popUpToInclusive="true" />
     <fragment
-        android:id="@+id/postCarFragment"
+        android:id="@+id/navigation_post"
         android:name="com.example.meter.screens.bottom_nav.PostCarFragment"
         android:label="post_car_fragment"
         tools:layout="@layout/post_car_fragment" >

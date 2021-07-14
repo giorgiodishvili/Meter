@@ -2,9 +2,12 @@ package com.example.meter
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.meter.databinding.ActivityMainBinding
+import com.example.meter.extensions.setGone
+import com.example.meter.extensions.show
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,10 +19,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initBottomNav()
+        bottomNavBarSetup()
     }
 
-    private fun initBottomNav() {
+    private fun bottomNavBarSetup() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
@@ -31,14 +34,24 @@ class MainActivity : AppCompatActivity() {
         }
         NavigationUI.setupWithNavController(navView, navController)
 
-//        navController.addOnDestinationChangedListener { controller, destination, arguments ->
-//            if (destination.id == R.id.main_auth) {
-//                binding.bottomNavBar.setGone()
-//            } else {
-//                binding.bottomNavBar.show()
-//            }
-//        }
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.navigation_home -> chipNavigation.setItemSelected(R.id.navigation_home)
+                R.id.navigation_search -> chipNavigation.setItemSelected(R.id.navigation_search)
+                R.id.navigation_favourites -> chipNavigation.setItemSelected(R.id.navigation_favourites)
+                R.id.navigation_profile -> chipNavigation.setItemSelected(R.id.navigation_profile)
+            }
+
+            if (destination.id == R.id.main_auth) {
+                chipNavigation.setGone()
+            } else {
+                chipNavigation.show()
+            }
+        }
     }
 
+    override fun onBackPressed() {
+
+    }
 
 }

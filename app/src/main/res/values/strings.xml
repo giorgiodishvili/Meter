@@ -22,4 +22,5 @@
     <string name="reset_password">Reset Password</string>
     <string name="enter_an_email_address_you_use_to_sign_in_to">Enter an email address you use to sign in to</string>
     <string name="reset">Reset</string>
+    <string name="add_post">Add Post</string>
 </resources>

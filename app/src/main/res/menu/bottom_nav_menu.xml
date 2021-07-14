@@ -15,6 +15,13 @@
         android:title="@string/search"/>
 
     <item
+        android:id="@+id/navigation_post"
+        app:cnb_iconColor="@color/main_color"
+        android:icon="@drawable/ic_plus"
+        android:title="@string/add_post" />
+
+
+    <item
         android:id="@+id/navigation_favourites"
         app:cnb_iconColor="@color/main_color"
         android:icon="@drawable/ic_heart"
