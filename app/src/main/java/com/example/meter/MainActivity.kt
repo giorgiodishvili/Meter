@@ -16,5 +16,29 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        initBottomNav()
     }
+
+    private fun initBottomNav() {
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        val navView = binding.navView
+        val chipNavigation: ChipNavigationBar = binding.bottomNavBar
+
+        chipNavigation.setOnItemSelectedListener { itemId ->
+            navView.selectedItemId = itemId
+        }
+        NavigationUI.setupWithNavController(navView, navController)
+
+//        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+//            if (destination.id == R.id.main_auth) {
+//                binding.bottomNavBar.setGone()
+//            } else {
+//                binding.bottomNavBar.show()
+//            }
+//        }
+    }
+
+
 }
