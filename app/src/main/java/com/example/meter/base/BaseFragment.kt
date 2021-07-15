@@ -38,4 +38,5 @@ abstract class BaseFragment<VB : ViewBinding>(
         inflater: LayoutInflater,
         container: ViewGroup?
     )
+
 }
