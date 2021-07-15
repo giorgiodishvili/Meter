@@ -1,6 +1,7 @@
-package com.example.meter.extension
+package com.example.meter.extensions
 
 import android.annotation.SuppressLint
+import android.text.InputType
 import android.view.MotionEvent
 import android.widget.EditText
 
@@ -19,4 +20,10 @@ fun EditText.onRightDrawableClicked(onClicked: (view: EditText) -> Unit) {
         }
         hasConsumed
     }
+}
+
+fun EditText.setReadOnly(value: Boolean, inputType: Int = InputType.TYPE_NULL) {
+    isFocusable = !value
+    isFocusableInTouchMode = !value
+    this.inputType = inputType
 }

@@ -48,9 +48,9 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
-    implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     // custom bottom nav bar
@@ -64,7 +64,12 @@ dependencies {
     // Firebase Auth
     implementation 'com.google.firebase:firebase-bom:28.2.1'
     implementation 'com.google.firebase:firebase-auth'
-    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'
+    implementation 'com.google.firebase:firebase-database-ktx:20.0.0'
+    implementation 'com.google.firebase:firebase-storage-ktx:20.0.0'
+
+    // app check firebase
+    implementation 'com.google.firebase:firebase-appcheck-safetynet:16.0.0-beta02'
 
 
     // Retrofit
@@ -85,10 +90,10 @@ dependencies {
     testImplementation 'com.google.dagger:hilt-android-testing:2.37'
     kaptTest 'com.google.dagger:hilt-compiler:2.37'
 
-
-    //GLIDE
+    // glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+
 
 }
 

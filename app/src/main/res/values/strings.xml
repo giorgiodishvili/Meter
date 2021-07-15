@@ -24,4 +24,11 @@
     <string name="enter_an_email_address_you_use_to_sign_in_to">Enter an email address you use to sign in to</string>
     <string name="reset">Reset</string>
     <string name="add_post">Add Post</string>
+    <string name="your_name">Your name</string>
+    <string name="phone_number">Phone number</string>
+    <string name="personal_info">Personal Info</string>
+    <string name="verified">verified</string>
+    <string name="save">Save</string>
+    <string name="fill_the_information">Fill the information</string>
+    <string name="edit_info">Edit Info</string>
 </resources>

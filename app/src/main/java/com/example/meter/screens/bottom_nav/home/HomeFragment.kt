@@ -9,7 +9,7 @@ import com.example.meter.adapter.LatestPostRecyclerViewAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.HomeFragmentBinding
 import com.example.meter.entity.PostItem
-import com.example.meter.extension.onRightDrawableClicked
+import com.example.meter.extensions.onRightDrawableClicked
 import com.example.meter.network.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
