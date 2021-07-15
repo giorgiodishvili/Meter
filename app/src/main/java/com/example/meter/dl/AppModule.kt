@@ -1,10 +1,11 @@
 package com.example.meter.dl
 
 import androidx.viewbinding.BuildConfig
-import com.example.meter.entity.AutomobileCategory
 import com.example.meter.network.ApiService
-import com.example.meter.repository.AutomobileCategoryRepository
-import com.example.meter.repository.AutomobileCategoryRepositoryImpl
+import com.example.meter.repository.automobile.AutomobileCategoryRepository
+import com.example.meter.repository.automobile.AutomobileCategoryRepositoryImpl
+import com.example.meter.repository.post.PostRepository
+import com.example.meter.repository.post.PostRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -53,5 +54,9 @@ object AppModule{
     @Singleton
     fun automobileCategoryRepository(automobileCategoryRepo: AutomobileCategoryRepositoryImpl): AutomobileCategoryRepository = automobileCategoryRepo
 
+
+    @Provides
+    @Singleton
+    fun providePostRepository(postRepository: PostRepositoryImpl): PostRepository = postRepository
 
 }

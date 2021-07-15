@@ -53,7 +53,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-    // Custom bottom nav bar
+    // custom bottom nav bar
     implementation 'com.github.ismaeldivita:chip-navigation-bar:1.3.4'
 
     // Nav Components
@@ -63,8 +63,7 @@ dependencies {
 
     // Firebase Auth
     implementation 'com.google.firebase:firebase-bom:28.2.1'
-    implementation 'com.google.firebase:firebase-auth'
-    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -72,7 +71,7 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
     implementation 'com.airbnb.android:lottie:3.7.0'
 
-    // Dependency injection dagger hilt
+    // dependancy injection dagger hilt
     implementation 'com.google.dagger:hilt-android:2.37'
     kapt 'com.google.dagger:hilt-compiler:2.37'
 
@@ -83,6 +82,11 @@ dependencies {
     // For local unit tests
     testImplementation 'com.google.dagger:hilt-android-testing:2.37'
     kaptTest 'com.google.dagger:hilt-compiler:2.37'
+
+
+    //GLIDE
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
 }
 
