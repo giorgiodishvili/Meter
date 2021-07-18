@@ -1,14 +1,14 @@
 package com.example.meter.screens.auth
 
 import androidx.lifecycle.ViewModel
-import com.example.meter.repository.RealtimeDbRepository
-import com.example.meter.repository.StorageRepository
+import com.example.meter.repository.firebase.RealtimeDbRepImpl
+import com.example.meter.repository.firebase.StorageRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class MainAuthViewModel @Inject constructor(
-    private val realtimeDbRepository: RealtimeDbRepository,
-    private val firebaseStorage: StorageRepository
+    private val realtimeDbRepImpl: RealtimeDbRepImpl,
+    private val firebaseStorageImpl: StorageRepositoryImpl
 ): ViewModel() {
 }

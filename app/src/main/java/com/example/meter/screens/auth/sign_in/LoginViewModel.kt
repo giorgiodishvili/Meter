@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.meter.repository.FirebaseRepository
+import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import com.google.firebase.auth.GoogleAuthProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +13,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val firebaseAuth: FirebaseRepository) : ViewModel() {
+class LoginViewModel @Inject constructor(private val firebaseAuthImpl: FirebaseRepositoryImpl) : ViewModel() {
 
     private var _loginStatus = MutableLiveData<Boolean>()
     val loginStatus: LiveData<Boolean> = _loginStatus
@@ -25,7 +25,7 @@ class LoginViewModel @Inject constructor(private val firebaseAuth: FirebaseRepos
     fun loginStart(email: String, password: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                firebaseAuth.signInUser(email, password).addOnCompleteListener { process ->
+                firebaseAuthImpl.signInUser(email, password).addOnCompleteListener { process ->
                     if (process.isSuccessful)
                         _loginStatus.postValue(true)
                     else
@@ -39,7 +39,7 @@ class LoginViewModel @Inject constructor(private val firebaseAuth: FirebaseRepos
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val credential = GoogleAuthProvider.getCredential(idToken, null)
-                firebaseAuth.signInWithGoogle(credential).addOnCompleteListener { process ->
+                firebaseAuthImpl.signInWithGoogle(credential).addOnCompleteListener { process ->
                     if (process.isSuccessful)
                         _loginGoogleStatus.postValue(true)
                     else

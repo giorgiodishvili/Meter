@@ -3,9 +3,9 @@ package com.example.meter.network
 import com.example.meter.entity.AutomobileCategory
 import com.example.meter.entity.Model
 import com.example.meter.entity.PostItem
+import com.example.meter.entity.UserDetails
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface ApiService {
     @GET("/category")
@@ -18,4 +18,20 @@ interface ApiService {
 
     @GET("/api/cars/latest")
     suspend fun getLatestPosts(): Response<List<PostItem>>
+
+    @GET("/user/{uid}")
+    suspend fun getUserPersonalInfo(@Path("uid") uid: String): Response<UserDetails>
+
+    @FormUrlEncoded
+    @POST("/user/")
+    suspend fun postUserPersonalInfo(
+        @Field ("id") uid: String,
+        @Field ("email") email: String,
+        @Field ("name") name: String,
+        @Field ("number") number: String,
+        @Field ("verified") verified: Boolean,
+    ): Response<UserDetails>
+//
+//    @PUT("/api/cars/latest")
+//    suspend fun putUserPersonalInfo(@Field("uid") uid: String): Response<UserDetails>
 }

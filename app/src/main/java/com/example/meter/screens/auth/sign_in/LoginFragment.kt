@@ -13,7 +13,7 @@ import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.LoginFragmentBinding
 import com.example.meter.extensions.isEmail
 import com.example.meter.extensions.isNotEmail
-import com.example.meter.repository.FirebaseRepository
+import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import com.example.shualeduri.extensions.showToast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -37,7 +37,7 @@ class LoginFragment : BaseFragment<LoginFragmentBinding, LoginViewModel>(
     private lateinit var gso: GoogleSignInOptions
 
     @Inject
-    lateinit var firebaseAuth: FirebaseRepository
+    lateinit var firebaseAuthImpl: FirebaseRepositoryImpl
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,7 +45,7 @@ class LoginFragment : BaseFragment<LoginFragmentBinding, LoginViewModel>(
         savedInstanceState: Bundle?
     ): View? {
 
-        if (firebaseAuth.getUserId() != null) {
+        if (firebaseAuthImpl.getUserId() != null) {
             val navController = requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
             navController.navController.navigate(R.id.action_global_navigation_profile)
         }

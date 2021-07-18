@@ -26,9 +26,12 @@
     <string name="add_post">Add Post</string>
     <string name="your_name">Your name</string>
     <string name="phone_number">Phone number</string>
-    <string name="personal_info">Personal Info</string>
+    <string name="personal_info">Complete Info</string>
     <string name="verified">verified</string>
     <string name="save">Save</string>
     <string name="fill_the_information">Fill the information</string>
     <string name="edit_info">Edit Info</string>
+    <string name="add_phone">Add phone number to complete</string>
+    <string name="community">Community</string>
+    <string name="market">Market</string>
 </resources>

@@ -6,13 +6,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bumptech.glide.load.HttpException
 import com.example.meter.entity.UserDetails
-import com.example.meter.repository.RealtimeDbRepository
-import com.example.meter.repository.StorageRepository
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
+import com.example.meter.network.Resource
+import com.example.meter.repository.firebase.StorageRepositoryImpl
+import com.example.meter.repository.userInfo.UserInfoRepositoryImpl
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseException
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.StorageException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
@@ -20,15 +20,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val realtimeDbRepository: RealtimeDbRepository,
-    private val firebaseStorage: StorageRepository
+    private val firebaseStorageImpl: StorageRepositoryImpl,
+    private val userInfo: UserInfoRepositoryImpl,
+    private val firebaseAuth: FirebaseAuth
 ) : ViewModel() {
 
-    private var _writeInDbStatus = MutableLiveData<Boolean>()
-    val writeInDbStatus: LiveData<Boolean> = _writeInDbStatus
+    private var _readUserInfo = MutableLiveData<Resource<UserDetails>>()
+    val readUserInfo: LiveData<Resource<UserDetails>> = _readUserInfo
 
-    private var _readFormDbStatus = MutableLiveData<UserDetails?>()
-    val readFormDbStatus: LiveData<UserDetails?> = _readFormDbStatus
+    private var _postUserInfo = MutableLiveData<Resource<UserDetails>>()
+    val postUserInfo: LiveData<Resource<UserDetails>> = _postUserInfo
 
     private var _uploadImageStatus = MutableLiveData<Boolean>()
     val uploadImageStatus: LiveData<Boolean> = _uploadImageStatus
@@ -37,59 +38,68 @@ class ProfileViewModel @Inject constructor(
     val readImageStatus: LiveData<Uri> = _readImageStatus
 
 
-    fun uploadUserInfo(uid: String, model: UserDetails, uri: Uri) {
+    fun uploadUserInfo(email: String, name: String, number: String, verified: Boolean, uri: Uri?=null, uploadBoth: Boolean=true) {
+        if (uploadBoth) {
+            viewModelScope.launch {
+                val infoPost = async {
+                    withContext(Dispatchers.Default) {
+                        try {
+                            val result = userInfo.postUserPersonalInfo(firebaseAuth.currentUser?.uid!!, email, name, number, verified)
+                            _postUserInfo.postValue(result)
+                        } catch (e: HttpException) {
+                            Log.d("tagtag", "${e.message}")
+                        }
+                    }
+                }
+                val imagePost = async {
+                    withContext(Dispatchers.Default) {
+                        try {
+                            uri?.let { uri ->
+                                firebaseStorageImpl.uploadImage(uri).addOnCompleteListener { process ->
+                                    _uploadImageStatus.postValue(process.isSuccessful)
+                                }
+                            }
+                        } catch (e: StorageException) {
+                            Log.d("tagtag", "${e.message}")
+                        }
+                    }
+                }
+                val writeProcess = listOf(infoPost, imagePost)
+                writeProcess.awaitAll()
+            }
+        } else {
+            viewModelScope.launch {
+                    withContext(Dispatchers.Default) {
+                        try {
+                            val result = userInfo.postUserPersonalInfo(firebaseAuth.currentUser?.uid!!, email, name, number, verified)
+                            _postUserInfo.postValue(result)
+                        } catch (e: HttpException) {
+                            Log.d("tagtag", "${e.message}")
+                        }
+                }
+            }
+        }
+
+    }
+
+    fun loadUserInfo() {
         viewModelScope.launch {
-            val infoPost = async {
+            val getInfo = async {
                 withContext(Dispatchers.Default) {
                     try {
-                        realtimeDbRepository.addToDb(uid, model).addOnCompleteListener { process ->
-                            _writeInDbStatus.postValue(process.isSuccessful)
-                        }
+                        val result = userInfo.getUserPersonalInfo(firebaseAuth.currentUser?.uid!!)
+                        _readUserInfo.postValue(result)
                     } catch (e: DatabaseException) {
                         Log.d("tagtag", "${e.message}")
                     }
                 }
             }
-            val imagePost = async {
-                withContext(Dispatchers.Default) {
-                    try {
-                        firebaseStorage.uploadImage(uri).addOnCompleteListener { process ->
-                            _uploadImageStatus.postValue(process.isSuccessful)
-                        }
-                    } catch (e: StorageException) {
-                        Log.d("tagtag", "${e.message}")
-                    }
-                }
-            }
-            val writeProcess = listOf(infoPost, imagePost)
-            writeProcess.awaitAll()
-
-        }
-    }
-
-    fun readFromDb(uid: String) {
-        viewModelScope.launch {
-            val getInfo = async {
-                withContext(Dispatchers.Default) {
-                    realtimeDbRepository.readFromDB(uid).addValueEventListener(object : ValueEventListener {
-                        override fun onDataChange(snapshot: DataSnapshot) {
-
-                            val result = snapshot.getValue(UserDetails::class.java)
-                            if (result != null)
-                                _readFormDbStatus.postValue(result)
-                        }
-                        override fun onCancelled(error: DatabaseError) {
-                            Log.d("tagtag", "$error")
-                        }
-                    })
-                }
-            }
             val getUserImage = async {
                 withContext(Dispatchers.Default) {
                     try {
-                        firebaseStorage.getImage().addOnCompleteListener { proccess ->
-                            if (proccess.isSuccessful)
-                                _readImageStatus.postValue(proccess.result)
+                        firebaseStorageImpl.getImage().addOnCompleteListener { process ->
+                            if (process.isSuccessful)
+                                _readImageStatus.postValue(process.result)
                         }
                     } catch (e: StorageException) {
                         Log.d("tagtag", "${e.message}")
@@ -102,4 +112,5 @@ class ProfileViewModel @Inject constructor(
 
         }
     }
+
 }

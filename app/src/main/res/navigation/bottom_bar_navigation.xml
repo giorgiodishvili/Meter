@@ -14,11 +14,11 @@
             android:id="@+id/action_navigation_home_to_postCarFragment"
             app:destination="@id/navigation_post" />
     </fragment>
-    <fragment
-        android:id="@+id/navigation_search"
-        android:name="com.example.meter.screens.bottom_nav.search.SearchFragment"
-        android:label="search_fragment"
-        tools:layout="@layout/search_fragment" />
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_search"-->
+<!--        android:name="com.example.meter.screens.bottom_nav.search.SearchFragment"-->
+<!--        android:label="search_fragment"-->
+<!--        tools:layout="@layout/search_fragment" />-->
     <fragment
         android:id="@+id/navigation_favourites"
         android:name="com.example.meter.screens.bottom_nav.favourites.FavouritesFragment"

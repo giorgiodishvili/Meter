@@ -25,13 +25,12 @@ class FirebaseModule {
     @Provides
     @Singleton
     fun provideFirebaseDB(): DatabaseReference {
-        return FirebaseDatabase.getInstance().getReference("userInfo")
+        return FirebaseDatabase.getInstance().getReference("User")
     }
 
     @Provides
-    @Singleton
     fun provideFirebaseStorage(): StorageReference {
-        return FirebaseStorage.getInstance().getReference("images/${provideFireBaseAuth().currentUser?.uid}")
+        return FirebaseStorage.getInstance().getReference("User")
     }
 
 }
