@@ -13,13 +13,14 @@ import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.LoginFragmentBinding
 import com.example.meter.extensions.isEmail
 import com.example.meter.extensions.isNotEmail
+import com.example.meter.repository.FirebaseRepository
 import com.example.shualeduri.extensions.showToast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -33,16 +34,18 @@ class LoginFragment : BaseFragment<LoginFragmentBinding, LoginViewModel>(
     }
 
     private lateinit var googleSignInClient: GoogleSignInClient
-    private val mAuth: FirebaseAuth by lazy {
-        FirebaseAuth.getInstance()
-    }
+    private lateinit var gso: GoogleSignInOptions
+
+    @Inject
+    lateinit var firebaseAuth: FirebaseRepository
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        if (mAuth.currentUser != null) {
+
+        if (firebaseAuth.getUserId() != null) {
             val navController = requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
             navController.navController.navigate(R.id.action_global_navigation_profile)
         }
@@ -93,21 +96,6 @@ class LoginFragment : BaseFragment<LoginFragmentBinding, LoginViewModel>(
         validate(email, password)
     }
 
-    private fun signInGoogle() {
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
-    }
-
-    private fun googleServiceInit() {
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-
-        googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
-
-    }
-
     private fun observer() {
         viewModel.loginStatus.observe(viewLifecycleOwner, { loginStatus ->
             if (loginStatus) {
@@ -128,6 +116,22 @@ class LoginFragment : BaseFragment<LoginFragmentBinding, LoginViewModel>(
                 requireActivity().showToast("Error")
             }
         })
+    }
+
+
+    private fun signInGoogle() {
+        val signInIntent = googleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+
+    private fun googleServiceInit() {
+        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
