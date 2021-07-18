@@ -1,8 +1,9 @@
 package com.example.meter.entity.community.post
 
 data class User(
-    val id: Int,
+    val email: String,
+    val id: String,
     val name: String,
-    val phone: String,
-    val token: String
+    val number: String,
+    val verified: Boolean
 )

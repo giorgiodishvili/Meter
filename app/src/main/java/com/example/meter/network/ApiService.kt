@@ -21,5 +21,5 @@ interface ApiService {
     suspend fun getLatestPosts(): Response<List<SellCarPost>>
 
     @GET("/community/post/")
-    suspend fun getCommunityPosts(): Response<List<CommunityPost>>
+    suspend fun getCommunityPosts(): Response<CommunityPost>
 }

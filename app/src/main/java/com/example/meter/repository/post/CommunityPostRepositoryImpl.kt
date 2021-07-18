@@ -6,6 +6,6 @@ import retrofit2.Response
 import javax.inject.Inject
 
 class CommunityPostRepositoryImpl  @Inject constructor(private val apiService: ApiService): CommunityPostRepository {
-    override suspend fun getCommunityPost(): Response<List<CommunityPost>> =
+    override suspend fun getCommunityPost(): Response<CommunityPost> =
         apiService.getCommunityPosts();
 }
