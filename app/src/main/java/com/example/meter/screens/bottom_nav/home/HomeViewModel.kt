@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.meter.entity.AutomobileCategory
 import com.example.meter.entity.Model
-import com.example.meter.entity.PostItem
+import com.example.meter.entity.SellCarPost
 import com.example.meter.network.Resource
 import com.example.meter.repository.automobile.AutomobileCategoryRepository
 import com.example.meter.repository.post.PostRepository
@@ -27,9 +27,9 @@ class HomeViewModel @Inject constructor(private val categoryRepository: Automobi
     val make: LiveData<Resource<Model>>
         get() = _make
 
-    private val _latestPosts = MutableLiveData<Resource<List<PostItem>>>()
+    private val _latestPosts = MutableLiveData<Resource<List<SellCarPost>>>()
 
-    val latestPosts: LiveData<Resource<List<PostItem>>>
+    val latestPosts: LiveData<Resource<List<SellCarPost>>>
         get() = _latestPosts
 
     fun getAllCategories() =

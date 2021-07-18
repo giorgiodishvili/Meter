@@ -69,5 +69,10 @@
             android:id="@+id/action_postCarFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
     </fragment>
+    <fragment
+        android:id="@+id/communityFragment"
+        android:name="com.example.meter.screens.community.CommunityFragment"
+        android:label="community_fragment"
+        tools:layout="@layout/community_fragment" />
 
 </navigation>

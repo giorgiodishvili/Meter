@@ -8,14 +8,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meter.adapter.LatestPostRecyclerViewAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.HomeFragmentBinding
-import com.example.meter.entity.PostItem
+import com.example.meter.entity.SellCarPost
 import com.example.meter.extension.onRightDrawableClicked
 import com.example.meter.network.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<HomeFragmentBinding,HomeViewModel>(HomeFragmentBinding::inflate,HomeViewModel::class.java) {
+class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>(HomeFragmentBinding::inflate,
+    HomeViewModel::class.java) {
     private lateinit var adapter: LatestPostRecyclerViewAdapter
     private lateinit var manufacturersList: List<String>
     private lateinit var makeList: List<String>
@@ -30,7 +31,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding,HomeViewModel>(HomeFragmen
         viewModel.getLatestPosts()
     }
 
-    private fun initRecycler(data: List<PostItem>?) {
+    private fun initRecycler(data: List<SellCarPost>?) {
         adapter = LatestPostRecyclerViewAdapter(data!!)
         binding.recentPostsRV.adapter = adapter
         binding.recentPostsRV.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL, false)

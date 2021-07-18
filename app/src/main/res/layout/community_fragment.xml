@@ -20,7 +20,7 @@
         android:inputType="text"
         android:maxLines="1"
         android:drawableEnd="@drawable/ic_search"
-         />
+        />
 
 
     <androidx.recyclerview.widget.RecyclerView

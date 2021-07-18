@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.meter.R
 import com.example.meter.databinding.RecentPostItemLayoutBinding
-import com.example.meter.entity.PostItem
+import com.example.meter.entity.SellCarPost
 
-class LatestPostRecyclerViewAdapter(private val latestPosts: List<PostItem>,) :
+class LatestPostRecyclerViewAdapter(private val latestSellCarPosts: List<SellCarPost>,) :
     RecyclerView.Adapter<LatestPostRecyclerViewAdapter.ViewHolder>() {
 
 
@@ -18,14 +18,14 @@ class LatestPostRecyclerViewAdapter(private val latestPosts: List<PostItem>,) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind()
 
-    override fun getItemCount(): Int = latestPosts.size
+    override fun getItemCount(): Int = latestSellCarPosts.size
 
     inner class ViewHolder(private val binding: RecentPostItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind() {
-            i("HERE", latestPosts[0].toString())
+            i("HERE", latestSellCarPosts[0].toString())
             var url = ""
-            if(latestPosts[adapterPosition].photoUrl.isNotEmpty()){
-                url = latestPosts[adapterPosition].photoUrl[0]
+            if(latestSellCarPosts[adapterPosition].photoUrl.isNotEmpty()){
+                url = latestSellCarPosts[adapterPosition].photoUrl[0]
             }
             Glide
                 .with(binding.root.context)
@@ -33,8 +33,8 @@ class LatestPostRecyclerViewAdapter(private val latestPosts: List<PostItem>,) :
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .centerCrop()
                 .into(binding.cardViewImage);
-            binding.articleHeaderTV.text = latestPosts[adapterPosition].articleHeader
-            binding.priceTV.text = latestPosts[adapterPosition].price.toString()
+            binding.articleHeaderTV.text = latestSellCarPosts[adapterPosition].articleHeader
+            binding.priceTV.text = latestSellCarPosts[adapterPosition].price.toString()
         }
     }
 }

@@ -2,7 +2,7 @@ package com.example.meter.entity
 
 import com.google.gson.annotations.SerializedName
 
-data class PostItem(
+data class SellCarPost(
     val articleHeader: String,
     val id: Int,
     val model: String,
