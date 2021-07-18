@@ -44,7 +44,7 @@ class ProfileViewModel @Inject constructor(
                 val infoPost = async {
                     withContext(Dispatchers.Default) {
                         try {
-                            val result = userInfo.postUserPersonalInfo(firebaseAuth.currentUser?.uid!!, email, name, number, verified)
+                            val result = userInfo.postUserPersonalInfo(email, name, number, verified)
                             _postUserInfo.postValue(result)
                         } catch (e: HttpException) {
                             Log.d("tagtag", "${e.message}")
@@ -71,7 +71,7 @@ class ProfileViewModel @Inject constructor(
             viewModelScope.launch {
                     withContext(Dispatchers.Default) {
                         try {
-                            val result = userInfo.postUserPersonalInfo(firebaseAuth.currentUser?.uid!!, email, name, number, verified)
+                            val result = userInfo.postUserPersonalInfo(email, name, number, verified)
                             _postUserInfo.postValue(result)
                         } catch (e: HttpException) {
                             Log.d("tagtag", "${e.message}")

@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.meter.R
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.ProfileFragmentBinding
-import com.example.meter.entity.UserDetails
 import com.example.meter.extensions.*
 import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
@@ -240,7 +239,6 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
         val email = firebaseAuthImpl.getUser()!!.email
 
         if (number.isNotBlank()) {
-            val model = UserDetails(name, number, email, true)
             firebaseAuthImpl.getUserId()?.let { uid ->
                 viewModel.uploadUserInfo(email!!, name!!, number, true)
             }

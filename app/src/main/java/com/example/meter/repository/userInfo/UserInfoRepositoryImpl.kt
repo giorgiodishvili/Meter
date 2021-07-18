@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class UserInfoRepositoryImpl @Inject constructor(private val postService: ApiService, private val firebaseAuth: FirebaseAuth)  : UserInfoRepository {
 
-    override suspend fun postUserPersonalInfo(uid: String, email: String, name: String, number: String, verified: Boolean): Resource<UserDetails> {
+    override suspend fun postUserPersonalInfo(email: String, name: String, number: String, verified: Boolean): Resource<UserDetails> {
         return  try {
             val response = postService.postUserPersonalInfo(firebaseAuth.currentUser?.uid!!,email, name, number, verified)
             if (response.isSuccessful) {

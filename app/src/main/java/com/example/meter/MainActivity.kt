@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.navigation_home -> chipNavigation.setItemSelected(R.id.navigation_home)
-                R.id.navigation_search -> chipNavigation.setItemSelected(R.id.navigation_search)
+//                R.id.navigation_search -> chipNavigation.setItemSelected(R.id.navigation_search)
                 R.id.navigation_favourites -> chipNavigation.setItemSelected(R.id.navigation_favourites)
                 R.id.navigation_profile -> chipNavigation.setItemSelected(R.id.navigation_profile)
             }
