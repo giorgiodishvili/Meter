@@ -1,4 +1,4 @@
-package com.example.meter.screens.bottom_nav.profile
+package com.example.meter.screens.bottom_nav.profile.editprofile
 
 import android.net.Uri
 import android.util.Log
@@ -38,8 +38,8 @@ class ProfileViewModel @Inject constructor(
     val readImageStatus: LiveData<Uri> = _readImageStatus
 
 
-    fun uploadUserInfo(email: String, name: String, number: String, verified: Boolean, uri: Uri?=null, uploadBoth: Boolean=true) {
-        if (uploadBoth) {
+    fun uploadUserInfo(email: String, name: String, number: String, verified: Boolean, uri: Uri?=null, uploadWithImage: Boolean=true) {
+        if (uploadWithImage) {
             viewModelScope.launch {
                 val infoPost = async {
                     withContext(Dispatchers.Default) {
@@ -82,9 +82,38 @@ class ProfileViewModel @Inject constructor(
 
     }
 
-    fun loadUserInfo() {
-        viewModelScope.launch {
-            val getInfo = async {
+    fun loadUserInfo(loadWithImage: Boolean = true) {
+        if (loadWithImage) {
+            viewModelScope.launch {
+                val getInfo = async {
+                    withContext(Dispatchers.Default) {
+                        try {
+                            val result = userInfo.getUserPersonalInfo(firebaseAuth.currentUser?.uid!!)
+                            _readUserInfo.postValue(result)
+                        } catch (e: DatabaseException) {
+                            Log.d("tagtag", "${e.message}")
+                        }
+                    }
+                }
+                val getUserImage = async {
+                    withContext(Dispatchers.Default) {
+                        try {
+                            firebaseStorageImpl.getImage().addOnCompleteListener { process ->
+                                if (process.isSuccessful)
+                                    _readImageStatus.postValue(process.result)
+                            }
+                        } catch (e: StorageException) {
+                            Log.d("tagtag", "${e.message}")
+                        }
+                    }
+                }
+
+                val readProcess = listOf(getInfo, getUserImage)
+                readProcess.awaitAll()
+            }
+
+        } else {
+            viewModelScope.launch {
                 withContext(Dispatchers.Default) {
                     try {
                         val result = userInfo.getUserPersonalInfo(firebaseAuth.currentUser?.uid!!)
@@ -94,23 +123,8 @@ class ProfileViewModel @Inject constructor(
                     }
                 }
             }
-            val getUserImage = async {
-                withContext(Dispatchers.Default) {
-                    try {
-                        firebaseStorageImpl.getImage().addOnCompleteListener { process ->
-                            if (process.isSuccessful)
-                                _readImageStatus.postValue(process.result)
-                        }
-                    } catch (e: StorageException) {
-                        Log.d("tagtag", "${e.message}")
-                    }
-                }
-            }
-
-            val readProcess = listOf(getInfo, getUserImage)
-            readProcess.awaitAll()
-
         }
+
     }
 
 }

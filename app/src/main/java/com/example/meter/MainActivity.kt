@@ -1,6 +1,8 @@
 package com.example.meter
 
 import android.os.Bundle
+import android.util.Log.d
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
@@ -14,17 +16,23 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navHostFragment: NavHostFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        init()
+    }
+
+    private fun init() {
         bottomNavBarSetup()
     }
 
     private fun bottomNavBarSetup() {
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         val navView = binding.navView
         val chipNavigation: ChipNavigationBar = binding.bottomNavBar
@@ -37,10 +45,16 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.navigation_home -> chipNavigation.setItemSelected(R.id.navigation_home)
-//                R.id.navigation_search -> chipNavigation.setItemSelected(R.id.navigation_search)
+                R.id.navigation_home -> {
+                    chipNavigation.setItemSelected(R.id.navigation_home)
+                }
                 R.id.navigation_favourites -> chipNavigation.setItemSelected(R.id.navigation_favourites)
-                R.id.navigation_profile -> chipNavigation.setItemSelected(R.id.navigation_profile)
+                R.id.navigation_profile -> {
+                    chipNavigation.setItemSelected(R.id.navigation_profile)
+                }
+                R.id.main_auth -> {
+                    handleBackPressed(destination)
+                }
             }
             hideIfAuth(destination, chipNavigation)
 
@@ -52,6 +66,23 @@ class MainActivity : AppCompatActivity() {
             navBar.setGone()
         else
             navBar.show()
+    }
+
+    private fun handleBackPressed(destination: NavDestination) {
+        onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                when (destination.id) {
+                    R.id.main_auth -> {
+                        d("loglog", "executed")
+                        val navController = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+                        navController.navController.navigate(R.id.action_global_navigation_home)
+                    }
+                    R.id.navigation_home -> {
+
+                    }
+                }
+            }
+        })
     }
 
 }

@@ -1,12 +1,10 @@
-package com.example.meter.screens.bottom_nav.profile
+package com.example.meter.screens.bottom_nav.profile.editprofile
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
 import android.util.Log.d
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.navigation.fragment.findNavController
@@ -34,18 +32,6 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
     private lateinit var imageUri: Uri
     private var authorisedWithGoogle: Boolean = false
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        if (firebaseAuthImpl.getUserId() == null) {
-            findNavController().navigate(R.id.action_navigation_profile_to_main_auth)
-        }
-        return super.onCreateView(inflater, container, savedInstanceState)
-
-    }
-
     override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
         init()
         observers()
@@ -53,22 +39,25 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
 
     private fun init() {
 
-        firebaseAuthImpl.getUserId()?.let {
-            viewModel.loadUserInfo()
-        }
-
         authorisedWithGoogle = firebaseAuthImpl.getUser()?.photoUrl != null
 
-        if (authorisedWithGoogle)
+        if (authorisedWithGoogle) {
             googleUserLogin()
-        else
-
+            viewModel.loadUserInfo(false)
+        } else {
+            viewModel.loadUserInfo(true)
+        }
 
 
         if (binding.tvUserName.text.isNullOrBlank()) {
             binding.status.setGone()
             binding.tvUserName.setGone()
         }
+
+        listeners()
+    }
+
+    private fun listeners() {
 
         binding.saveButton.setOnClickListener {
             if (authorisedWithGoogle)
@@ -81,9 +70,8 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
             getUri()
         }
 
-        binding.logOutButton.setOnClickListener {
-            firebaseAuthImpl.signOut()
-            findNavController().navigate(R.id.action_navigation_profile_to_main_auth)
+        binding.backbtn.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_completeProfileInfo_to_navigation_profile)
         }
 
         binding.nameInput.doOnTextChanged { _, _, _, count ->
@@ -95,7 +83,6 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
             if (count != 0)
                 binding.numberInput.removeDrawableEnd()
         }
-
     }
 
     private fun saveToDB() {
@@ -105,7 +92,6 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
         val emailInfo = firebaseAuthImpl.getUser()?.email
 
         if (inputCheck()) {
-//            val model = UserDetails(name, number, emailInfo, true)
 
             if (!this::imageUri.isInitialized) {
                 viewModel.uploadUserInfo(emailInfo!!, name, number, true, null, false)
@@ -128,12 +114,10 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
                     }
                 }
                 Resource.Status.ERROR -> {
-                    requireActivity().showToast("ErrorRetrieving")
                     d("errorTAG", "${status.message}")
                 }
                 Resource.Status.LOADING -> {}
             }
-
         })
 
         viewModel.uploadImageStatus.observe(viewLifecycleOwner, { status ->
@@ -161,8 +145,6 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
 
                 }
             }
-
-
         })
 
         viewModel.readImageStatus.observe(viewLifecycleOwner, { image ->
@@ -194,7 +176,6 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
     }
 
     private fun inputCheck(): Boolean {
-
         return !binding.nameInput.text.isNullOrBlank() && !binding.numberInput.text.isNullOrBlank() && binding.numberInput.text!!.length == 9
     }
 
@@ -233,7 +214,6 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
     }
 
     private fun uploadGoogleInfo() {
-
         val name = firebaseAuthImpl.getUser()!!.displayName
         val number = binding.numberInput.text.toString().trim()
         val email = firebaseAuthImpl.getUser()!!.email

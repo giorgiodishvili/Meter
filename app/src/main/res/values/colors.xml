@@ -9,8 +9,11 @@
     <color name="white">#FFFFFFFF</color>
     <color name="dark_blue">#101520</color>
     <color name="dark_gray">#2E2E2E</color>
+    <color name="gray">#656565</color>
     <color name="gray_blue">#FF94A0AC</color>
     <color name="main_color">#4371E9</color>
+    <color name="button_color">#CAD7F9</color>
+    <color name="exit_btn_color">#FF758E</color>
     <color name="light_gray">#e5e5e5</color>
 
 </resources>

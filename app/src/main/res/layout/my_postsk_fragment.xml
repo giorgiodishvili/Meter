@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:background="@color/white"
     android:layout_height="match_parent"
-    tools:context=".screens.bottom_nav.profile.favourites.FavouritesFragment">
+    tools:context=".screens.bottom_nav.profile.myposts.MyPostskFragment">
 
     <TextView
         android:layout_width="match_parent"
@@ -12,6 +12,6 @@
         android:textColor="@color/main_color"
         android:textSize="50sp"
         android:layout_height="match_parent"
-        android:text="FAVOURITES FRAGMENT" />
+        android:text="MY POSTS FRAGMENT" />
 
 </FrameLayout>
