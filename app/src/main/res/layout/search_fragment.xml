@@ -6,18 +6,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".screens.bottom_nav.home.HomeFragment">
 
-    <include layout="@layout/toolbar" android:id="@+id/my_toolbar"/>
+    <include layout="@layout/toolbar" />
+
 
     <EditText
         android:id="@+id/search_bar"
         android:imeOptions="actionSearch"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:textColor="@color/black"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/card_shape"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
-        android:hint="Search..."
+        android:hint="@string/search_hint"
+        android:textColorHint="@color/gray_blue"
         android:inputType="text"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
         android:maxLines="1"
         android:drawableEnd="@drawable/ic_search"
         />
@@ -26,8 +36,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recentPostsRV"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:clipToPadding="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_bar" />

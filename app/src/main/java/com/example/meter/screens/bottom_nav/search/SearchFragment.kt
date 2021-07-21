@@ -1,15 +1,14 @@
 package com.example.meter.screens.bottom_nav.search
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meter.adapter.CommunityPostsRecyclerViewAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.SearchFragmentBinding
-import com.example.meter.entity.community.post.Content
-import com.example.meter.network.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SearchFragment : BaseFragment<SearchFragmentBinding, SearchViewModel>(
@@ -24,30 +23,26 @@ class SearchFragment : BaseFragment<SearchFragmentBinding, SearchViewModel>(
     }
 
     private fun makeInitialCalls() {
+        initRecycler()
         observe()
         viewModel.getCommunityPosts()
     }
 
-    private fun initRecycler(data: List<Content>) {
-        adapter = CommunityPostsRecyclerViewAdapter(data)
+    private fun initRecycler() {
+        binding.recentPostsRV.layoutManager = LinearLayoutManager(
+            requireContext(),
+            LinearLayoutManager.VERTICAL, false
+        )
+        adapter = CommunityPostsRecyclerViewAdapter()
         binding.recentPostsRV.adapter = adapter
-        binding.recentPostsRV.layoutManager = LinearLayoutManager(requireContext(),
-            LinearLayoutManager.VERTICAL, false)
     }
 
     private fun observe() {
-        viewModel.latestPosts.observe(viewLifecycleOwner, { resource ->
-            when(resource.status){
-                Resource.Status.SUCCESS -> {
-                    resource.data?.let { initRecycler(it.content) }
-                }
-                Resource.Status.ERROR -> {
-                    Log.i("shjowDialog", resource.toString())
-                }
-                else -> {}
+        viewModel.getCommunityPosts().observe(viewLifecycleOwner, { resource ->
+            lifecycleScope.launch {
+                adapter.submitData(resource)
             }
         })
     }
-
 
 }

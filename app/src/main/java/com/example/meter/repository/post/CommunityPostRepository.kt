@@ -1,9 +1,10 @@
 package com.example.meter.repository.post
 
-import com.example.meter.entity.community.post.CommunityPost
-import retrofit2.Response
+import androidx.lifecycle.LiveData
+import androidx.paging.PagingData
+import com.example.meter.entity.community.post.Content
 
 interface CommunityPostRepository {
-    suspend fun getCommunityPost(): Response<CommunityPost>
+    fun getCommunityPost(): LiveData<PagingData<Content>>
 
 }

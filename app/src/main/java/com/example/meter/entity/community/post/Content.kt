@@ -4,5 +4,6 @@ data class Content(
     val description: String,
     val id: Int,
     val photoCarUrl: List<String>,
+    val title: String,
     val user: User
 )

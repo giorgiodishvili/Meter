@@ -2,11 +2,11 @@ package com.example.meter.network
 
 import com.example.meter.entity.AutomobileCategory
 import com.example.meter.entity.Model
+import com.example.meter.entity.Pageable
 import com.example.meter.entity.SellCarPost
 import com.example.meter.entity.community.post.CommunityPost
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface ApiService {
     @GET("/category")
@@ -21,5 +21,5 @@ interface ApiService {
     suspend fun getLatestPosts(): Response<List<SellCarPost>>
 
     @GET("/community/post/")
-    suspend fun getCommunityPosts(): Response<CommunityPost>
+    suspend fun getCommunityPosts(@Query("page") page: Int,@Query("size") size:Int): Response<CommunityPost>
 }

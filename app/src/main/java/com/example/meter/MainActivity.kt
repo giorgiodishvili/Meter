@@ -1,11 +1,16 @@
 package com.example.meter
 
+import android.animation.Animator
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.meter.databinding.ActivityMainBinding
+import com.example.meter.extensions.hide
 import com.example.meter.extensions.setGone
 import com.example.meter.extensions.show
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
@@ -19,10 +24,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        bottomNavBarSetup()
+        binding.lottieAnimation.playAnimation()
+        setUpAnimation()
     }
 
     private fun bottomNavBarSetup() {
+        binding.lottieAnimation.setGone()
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
@@ -43,7 +50,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_profile -> chipNavigation.setItemSelected(R.id.navigation_profile)
             }
             hideIfAuth(destination, chipNavigation)
-
         }
     }
 
@@ -54,4 +60,23 @@ class MainActivity : AppCompatActivity() {
             navBar.show()
     }
 
+    private fun setUpAnimation() {
+        binding.lottieAnimation.addAnimatorListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(animation: Animator?) {
+            }
+
+            override fun onAnimationEnd(animation: Animator?) {
+                bottomNavBarSetup()
+            }
+
+            override fun onAnimationCancel(animation: Animator?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onAnimationRepeat(animation: Animator?) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
 }

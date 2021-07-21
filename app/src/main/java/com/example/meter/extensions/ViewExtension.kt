@@ -6,6 +6,9 @@ import android.widget.ImageView
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.MultiTransformation
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.meter.R
 
 fun View.show() {
@@ -21,9 +24,11 @@ fun View.setGone() {
 }
 
 fun ImageView.loadImg(url: String) {
+
     Glide.with(this.context)
         .load(url)
-        .circleCrop()
+        .centerCrop()
+        .transform(MultiTransformation(CenterCrop(), RoundedCorners(8)))
         .placeholder(R.drawable.ic_dot)
         .error(R.drawable.ic_info_button)
         .into(this)

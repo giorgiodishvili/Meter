@@ -27,7 +27,7 @@ CommunityViewModel::class.java) {
     }
 
     private fun initRecycler(data: List<Content>?) {
-        adapter = CommunityPostsRecyclerViewAdapter(data!!)
+        adapter = CommunityPostsRecyclerViewAdapter()
         binding.recentPostsRV.adapter = adapter
         binding.recentPostsRV.layoutManager = LinearLayoutManager(requireContext(),
             LinearLayoutManager.VERTICAL, false)
