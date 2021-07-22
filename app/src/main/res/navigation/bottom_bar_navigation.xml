@@ -97,7 +97,7 @@
         android:id="@+id/myPostskFragment"
         android:name="com.example.meter.screens.bottom_nav.profile.myposts.MyPostskFragment"
         android:label="my_postsk_fragment"
-        tools:layout="@layout/my_postsk_fragment">
+        tools:layout="@layout/my_comm_posts_fragment">
         <action
             android:id="@+id/action_myPostskFragment_to_navigation_profile"
             app:destination="@id/navigation_profile"

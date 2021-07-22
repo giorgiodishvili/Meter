@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.example.meter.R
 import com.example.meter.base.BaseFragment
@@ -37,6 +39,7 @@ class CompleteProfileFragment :
     }
 
     override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
+        navigationBarSetup()
         init()
     }
 
@@ -69,13 +72,13 @@ class CompleteProfileFragment :
             findNavController().navigate(R.id.action_navigation_profile_to_navigation_completeProfileInfo)
         }
 
-        binding.savedpostsButton.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_profile_to_navigation_favourites)
-        }
-
-        binding.mypostsButton.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_profile_to_myPostskFragment)
-        }
+//        binding.savedpostsButton.setOnClickListener {
+//            findNavController().navigate(R.id.action_navigation_profile_to_navigation_favourites)
+//        }
+//
+//        binding.mypostsButton.setOnClickListener {
+//            findNavController().navigate(R.id.action_navigation_profile_to_myPostskFragment)
+//        }
 
         binding.logOutButton.setOnClickListener {
             firebaseAuthImpl.signOut()
@@ -87,6 +90,15 @@ class CompleteProfileFragment :
             findNavController().navigate(R.id.action_navigation_profile_to_navigation_home)
         }
 
+    }
+
+    private fun navigationBarSetup() {
+        val navController = (childFragmentManager.findFragmentById(R.id.postsHostFragment) as NavHostFragment).navController
+
+        val popupMenu = PopupMenu(requireActivity(), null)
+        popupMenu.inflate(R.menu.post_menu)
+        val menu = popupMenu.menu
+        binding.bottomBar.setupWithNavController(menu, navController)
     }
 
 }

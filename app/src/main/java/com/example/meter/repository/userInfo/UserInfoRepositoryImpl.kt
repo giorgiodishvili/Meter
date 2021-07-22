@@ -1,6 +1,7 @@
 package com.example.meter.repository.userInfo
 
 import com.example.meter.entity.UserDetails
+import com.example.meter.entity.community.post.CommunityPost
 import com.example.meter.network.ApiService
 import com.example.meter.network.Resource
 import com.google.firebase.auth.FirebaseAuth
@@ -38,6 +39,19 @@ class UserInfoRepositoryImpl @Inject constructor(
     override suspend fun getUserPersonalInfo(): Resource<UserDetails> {
         return try {
             val response = postService.getUserPersonalInfo(firebaseAuth.currentUser?.uid!!)
+            if (response.isSuccessful) {
+                Resource.success(response.body()!!)
+            } else {
+                Resource.error(response.errorBody().toString())
+            }
+        } catch (e: Exception) {
+            Resource.error(e.message.toString())
+        }
+    }
+
+    override suspend fun getUserPosts(): Resource<CommunityPost> {
+        return try {
+            val response = postService.getUserPosts(firebaseAuth.currentUser?.uid!!)
             if (response.isSuccessful) {
                 Resource.success(response.body()!!)
             } else {

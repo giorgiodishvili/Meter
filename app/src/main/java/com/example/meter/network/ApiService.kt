@@ -22,6 +22,9 @@ interface ApiService {
     @GET("/user/{uid}")
     suspend fun getUserPersonalInfo(@Path("uid") uid: String): Response<UserDetails>
 
+    @GET("/user/post/community/{uid}")
+    suspend fun getUserPosts(@Path("uid") uid: String): Response<CommunityPost>
+
     @FormUrlEncoded
     @POST("/user/")
     suspend fun postUserPersonalInfo(

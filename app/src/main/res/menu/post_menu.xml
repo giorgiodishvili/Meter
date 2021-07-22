@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_commPosts"
+        android:icon="@drawable/ic_community"
+        android:title="Community Posts" />
+
+    <item
+        android:id="@+id/navigation_marketPosts"
+        android:icon="@drawable/ic_buy"
+        android:title="Market Posts" />
+
+
+</menu>
