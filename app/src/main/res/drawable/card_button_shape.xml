@@ -3,9 +3,8 @@
     android:shape="rectangle">
 
     <corners
-        android:topLeftRadius="20dp"
-        android:topRightRadius="20dp" />
+        android:radius="18dp" />
     <solid
-        android:color="#74F3F3F3"/>
+        android:color="@color/button_color" />
 
 </shape>

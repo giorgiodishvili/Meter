@@ -1,4 +1,4 @@
-package com.example.meter.screens.bottom_nav.favourites
+package com.example.meter.screens.bottom_nav.profile.favourites
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

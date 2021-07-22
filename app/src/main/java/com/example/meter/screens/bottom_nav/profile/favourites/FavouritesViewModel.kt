@@ -1,4 +1,4 @@
-package com.example.meter.screens.bottom_nav.favourites
+package com.example.meter.screens.bottom_nav.profile.favourites
 
 import androidx.lifecycle.ViewModel
 

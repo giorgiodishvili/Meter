@@ -6,7 +6,6 @@ import androidx.navigation.fragment.NavHostFragment
 import com.example.meter.R
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.MainAuthFragmentBinding
-import dagger.hilt.android.AndroidEntryPoint
 
 class MainAuthFragment : BaseFragment<MainAuthFragmentBinding, MainAuthViewModel>(
     MainAuthFragmentBinding::inflate,
@@ -26,5 +25,7 @@ class MainAuthFragment : BaseFragment<MainAuthFragmentBinding, MainAuthViewModel
             navController.navController.navigate(R.id.action_global_navigation_home)
         }
     }
+
+
 
 }

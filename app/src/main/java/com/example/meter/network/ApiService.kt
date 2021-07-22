@@ -2,11 +2,10 @@ package com.example.meter.network
 
 import com.example.meter.entity.AutomobileCategory
 import com.example.meter.entity.Model
-import com.example.meter.entity.Pageable
-import com.example.meter.entity.SellCarPost
-import com.example.meter.entity.community.post.CommunityPost
+import com.example.meter.entity.PostItem
 import retrofit2.Response
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface ApiService {
     @GET("/category")
@@ -18,8 +17,25 @@ interface ApiService {
     suspend fun searchPosts(query: String): Response<List<SellCarPost>>
 
     @GET("/api/cars/latest")
-    suspend fun getLatestPosts(): Response<List<SellCarPost>>
+    suspend fun getLatestPosts(): Response<List<PostItem>>
+
+    @GET("/user/{uid}")
+    suspend fun getUserPersonalInfo(@Path("uid") uid: String): Response<UserDetails>
+
+    @FormUrlEncoded
+    @POST("/user/")
+    suspend fun postUserPersonalInfo(
+        @Field ("id") uid: String,
+        @Field ("email") email: String,
+        @Field ("name") name: String,
+        @Field ("number") number: String,
+        @Field ("verified") verified: Boolean,
+    ): Response<UserDetails>
 
     @GET("/community/post/")
     suspend fun getCommunityPosts(@Query("page") page: Int,@Query("size") size:Int): Response<CommunityPost>
+
+    //    @PUT("/api/cars/latest")
+//    suspend fun putUserPersonalInfo(@Field("uid") uid: String): Response<UserDetails>
+
 }

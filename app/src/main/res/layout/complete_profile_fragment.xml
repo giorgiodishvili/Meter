@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".screens.bottom_nav.profile.complete.CompleteProfileFragment">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/profilePic"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="80dp"
+        android:src="@drawable/ic_profile_user"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/nameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/helvatica_heavy"
+        android:textColor="@color/gray"
+        android:textSize="21sp"
+        app:layout_constraintStart_toEndOf="@+id/profilePic"
+        app:layout_constraintTop_toTopOf="@+id/profilePic" />
+
+    <TextView
+        android:id="@+id/surnameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/helvatice_thin"
+        android:textColor="@color/gray_blue"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="@+id/nameTv"
+        app:layout_constraintTop_toBottomOf="@+id/nameTv" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="42dp"
+        android:background="@drawable/card_button_shape"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profilePic" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/editProfileButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/card_button_shape"
+        android:fontFamily="@font/helvatice_thin"
+        android:text="@string/edit_info"
+        android:textAllCaps="false"
+        android:textColor="@color/dark_gray"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/mypostsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <Button
+        android:id="@+id/mypostsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/card_button_shape"
+        android:fontFamily="@font/helvatice_thin"
+        android:text="@string/my_pots"
+        android:textAllCaps="false"
+        android:textColor="@color/dark_gray"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/mysellpostsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editProfileButton" />
+
+    <Button
+        android:id="@+id/mysellpostsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/card_button_shape"
+        android:fontFamily="@font/helvatice_thin"
+        android:text="@string/my_sells"
+        android:textAllCaps="false"
+        android:textColor="@color/dark_gray"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/savedpostsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mypostsButton" />
+
+    <Button
+        android:id="@+id/savedpostsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/card_button_shape"
+        android:fontFamily="@font/helvatice_thin"
+        android:text="@string/saved_posts"
+        android:textAllCaps="false"
+        android:textColor="@color/dark_gray"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/savedSellpostsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mysellpostsButton" />
+
+    <Button
+        android:id="@+id/savedSellpostsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/card_button_shape"
+        android:fontFamily="@font/helvatice_thin"
+        android:text="@string/saved_sell"
+        android:textAllCaps="false"
+        android:textColor="@color/dark_gray"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/logOutButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/savedpostsButton" />
+
+    <Button
+        android:id="@+id/logOutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/exit_button_shape"
+        android:fontFamily="@font/helvatice_thin"
+        android:text="@string/log_out"
+        android:textAllCaps="false"
+        android:textColor="@color/dark_gray"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/savedSellpostsButton" />
+</androidx.constraintlayout.widget.ConstraintLayout>

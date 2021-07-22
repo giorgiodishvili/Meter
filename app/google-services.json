@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "969450493409",
+    "firebase_url": "https://tbcfinaluri-default-rtdb.firebaseio.com",
     "project_id": "tbcfinaluri",
     "storage_bucket": "tbcfinaluri.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "969450493409-d8jmcfamteq4vmnkpi9tmrjp557c9nc4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.meter",
+            "certificate_hash": "2bb747e9297679d894fd1e7254ae9c214010cfa5"
+          }
+        },
         {
           "client_id": "969450493409-9t4q8hk74vghmlmdi83omhlk91tp45o8.apps.googleusercontent.com",
           "client_type": 3
