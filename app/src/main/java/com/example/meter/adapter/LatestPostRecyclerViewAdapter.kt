@@ -9,22 +9,24 @@ import com.example.meter.R
 import com.example.meter.databinding.RecentPostItemLayoutBinding
 import com.example.meter.entity.SellCarPost
 
-class LatestPostRecyclerViewAdapter(private val latestSellCarPosts: List<SellCarPost>,) :
+class LatestPostRecyclerViewAdapter(private val latestSellCarPosts: List<SellCarPost>) :
     RecyclerView.Adapter<LatestPostRecyclerViewAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
-        RecentPostItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        RecentPostItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind()
 
     override fun getItemCount(): Int = latestSellCarPosts.size
 
-    inner class ViewHolder(private val binding: RecentPostItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: RecentPostItemLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind() {
             i("HERE", latestSellCarPosts[0].toString())
             var url = ""
-            if(latestSellCarPosts[adapterPosition].photoUrl.isNotEmpty()){
+            if (latestSellCarPosts[adapterPosition].photoUrl.isNotEmpty()) {
                 url = latestSellCarPosts[adapterPosition].photoUrl[0]
             }
             Glide

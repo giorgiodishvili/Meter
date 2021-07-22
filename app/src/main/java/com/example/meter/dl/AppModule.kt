@@ -6,8 +6,6 @@ import com.example.meter.repository.automobile.AutomobileCategoryRepository
 import com.example.meter.repository.automobile.AutomobileCategoryRepositoryImpl
 import com.example.meter.repository.post.CommunityPostRepository
 import com.example.meter.repository.post.CommunityPostRepositoryImpl
-import com.example.meter.repository.post.PostRepository
-import com.example.meter.repository.post.PostRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,20 +19,20 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule{
+object AppModule {
 
     @Provides
     fun provideBaseUrl() = "https://automobile-api.herokuapp.com"
 
     @Singleton
     @Provides
-    fun provideOkHttpClient() = if (BuildConfig.DEBUG){
+    fun provideOkHttpClient() = if (BuildConfig.DEBUG) {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
         OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .build()
-    }else{
+    } else {
         OkHttpClient
             .Builder()
             .build()
@@ -42,7 +40,7 @@ object AppModule{
 
     @Singleton
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient, BASE_URL:String): Retrofit = Retrofit.Builder()
+    fun provideRetrofit(okHttpClient: OkHttpClient, BASE_URL: String): Retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
         .baseUrl(BASE_URL)
         .client(okHttpClient)
@@ -54,15 +52,17 @@ object AppModule{
 
     @Provides
     @Singleton
-    fun automobileCategoryRepository(automobileCategoryRepo: AutomobileCategoryRepositoryImpl): AutomobileCategoryRepository = automobileCategoryRepo
+    fun automobileCategoryRepository(automobileCategoryRepo: AutomobileCategoryRepositoryImpl): AutomobileCategoryRepository =
+        automobileCategoryRepo
 
+//
+//    @Provides
+//    @Singleton
+//    fun providePostRepository(postRepository: PostRepositoryImpl): PostRepository = postRepository
 
     @Provides
     @Singleton
-    fun providePostRepository(postRepository: PostRepositoryImpl): PostRepository = postRepository
-
-    @Provides
-    @Singleton
-    fun provideCommunityPostRepository(communityPostRepository: CommunityPostRepositoryImpl): CommunityPostRepository = communityPostRepository
+    fun provideCommunityPostRepository(communityPostRepository: CommunityPostRepositoryImpl): CommunityPostRepository =
+        communityPostRepository
 
 }

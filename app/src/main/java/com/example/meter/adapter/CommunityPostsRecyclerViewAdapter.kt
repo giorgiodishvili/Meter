@@ -77,11 +77,11 @@ class CommunityPostsRecyclerViewAdapter :
             })
 
             binding.leftArrBTN.setOnClickListener {
-                binding.photos.currentItem = binding.photos.currentItem-1
+                binding.photos.currentItem = binding.photos.currentItem - 1
             }
 
             binding.rightArrBTN.setOnClickListener {
-                binding.photos.currentItem = binding.photos.currentItem+1
+                binding.photos.currentItem = binding.photos.currentItem + 1
             }
 
 

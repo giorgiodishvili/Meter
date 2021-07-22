@@ -1,6 +1,9 @@
 package com.example.meter
 
+import android.animation.Animator
 import android.os.Bundle
+import android.util.Log.d
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
@@ -21,12 +24,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         binding.lottieAnimation.playAnimation()
         setUpAnimation()
     }
 
     private fun bottomNavBarSetup() {
+        binding.lottieAnimation.setGone()
 
         navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -42,8 +45,8 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.navigation_home -> {
-                    chipNavigation.setItemSelected(R.id.navigation_home)
+                R.id.navigation_community -> {
+                    chipNavigation.setItemSelected(R.id.navigation_community)
                 }
                 R.id.navigation_favourites -> chipNavigation.setItemSelected(R.id.navigation_favourites)
                 R.id.navigation_profile -> {
@@ -76,7 +79,7 @@ class MainActivity : AppCompatActivity() {
                             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
                         navController.navController.navigate(R.id.action_global_navigation_home)
                     }
-                    R.id.navigation_home -> {
+                    R.id.navigation_community -> {
 
                     }
                 }
@@ -87,19 +90,16 @@ class MainActivity : AppCompatActivity() {
     private fun setUpAnimation() {
         binding.lottieAnimation.addAnimatorListener(object : Animator.AnimatorListener {
             override fun onAnimationStart(animation: Animator?) {
-                bottomNavBarSetup()
             }
 
             override fun onAnimationEnd(animation: Animator?) {
-
+                bottomNavBarSetup()
             }
 
             override fun onAnimationCancel(animation: Animator?) {
-                TODO("Not yet implemented")
             }
 
             override fun onAnimationRepeat(animation: Animator?) {
-                TODO("Not yet implemented")
             }
 
         })

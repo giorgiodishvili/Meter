@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:overScrollMode="never"
     android:background="@color/white"
+    android:overScrollMode="never"
     tools:context=".screens.auth.reset.ResetFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -77,9 +77,9 @@
             android:fontFamily="@font/helvatice_medium"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:textColor="@color/white"
             android:text="@string/reset"
             android:textAllCaps="false"
+            android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

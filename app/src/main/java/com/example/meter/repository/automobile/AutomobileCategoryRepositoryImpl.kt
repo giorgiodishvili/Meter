@@ -6,8 +6,11 @@ import com.example.meter.network.ApiService
 import retrofit2.Response
 import javax.inject.Inject
 
-class AutomobileCategoryRepositoryImpl  @Inject constructor(private val apiService: ApiService) :
+class AutomobileCategoryRepositoryImpl @Inject constructor(private val apiService: ApiService) :
     AutomobileCategoryRepository {
-    override suspend fun getAllManufacturers(): Response<List<AutomobileCategory>> = apiService.getAllCategories()
-    override suspend fun getModelsForMake(make: String): Response<Model> = apiService.getModelsForMake(make)
+    override suspend fun getAllManufacturers(): Response<List<AutomobileCategory>> =
+        apiService.getAllCategories()
+
+    override suspend fun getModelsForMake(make: String): Response<Model> =
+        apiService.getModelsForMake(make)
 }

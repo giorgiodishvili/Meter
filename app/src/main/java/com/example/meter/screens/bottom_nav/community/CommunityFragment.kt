@@ -1,4 +1,4 @@
-package com.example.meter.screens.bottom_nav.search
+package com.example.meter.screens.bottom_nav.community
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,14 +6,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meter.adapter.CommunityPostsRecyclerViewAdapter
 import com.example.meter.base.BaseFragment
-import com.example.meter.databinding.SearchFragmentBinding
+import com.example.meter.databinding.CommunityFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SearchFragment : BaseFragment<SearchFragmentBinding, SearchViewModel>(
-    SearchFragmentBinding::inflate,
-    SearchViewModel::class.java
+class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewModel>(
+    CommunityFragmentBinding::inflate,
+    CommunityViewModel::class.java
 ) {
 
     private lateinit var adapter: CommunityPostsRecyclerViewAdapter

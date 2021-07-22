@@ -43,7 +43,7 @@ fun ImageView.loadImgUri(url: Uri?) {
         .into(this)
 }
 
-fun View.fade(action: NavDirections?=null) {
+fun View.fade(action: NavDirections? = null) {
     alpha = 0f
     animate().setDuration(2250).alpha(1f).withEndAction {
         if (action != null) {

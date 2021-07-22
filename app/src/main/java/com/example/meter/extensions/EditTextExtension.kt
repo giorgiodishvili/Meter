@@ -31,7 +31,12 @@ fun EditText.setReadOnly(value: Boolean, inputType: Int = InputType.TYPE_NULL) {
 }
 
 fun EditText.setDrawableEnd(context: Context, drawable: Int) {
-    setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(context, drawable), null)
+    setCompoundDrawablesWithIntrinsicBounds(
+        null,
+        null,
+        ContextCompat.getDrawable(context, drawable),
+        null
+    )
 
 
 }

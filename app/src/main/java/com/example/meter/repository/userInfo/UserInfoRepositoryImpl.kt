@@ -6,11 +6,25 @@ import com.example.meter.network.Resource
 import com.google.firebase.auth.FirebaseAuth
 import javax.inject.Inject
 
-class UserInfoRepositoryImpl @Inject constructor(private val postService: ApiService, private val firebaseAuth: FirebaseAuth)  : UserInfoRepository {
+class UserInfoRepositoryImpl @Inject constructor(
+    private val postService: ApiService,
+    private val firebaseAuth: FirebaseAuth
+) : UserInfoRepository {
 
-    override suspend fun postUserPersonalInfo(email: String, name: String, number: String, verified: Boolean): Resource<UserDetails> {
-        return  try {
-            val response = postService.postUserPersonalInfo(firebaseAuth.currentUser?.uid!!,email, name, number, verified)
+    override suspend fun postUserPersonalInfo(
+        email: String,
+        name: String,
+        number: String,
+        verified: Boolean
+    ): Resource<UserDetails> {
+        return try {
+            val response = postService.postUserPersonalInfo(
+                firebaseAuth.currentUser?.uid!!,
+                email,
+                name,
+                number,
+                verified
+            )
             if (response.isSuccessful) {
                 Resource.success(response.body()!!)
             } else {

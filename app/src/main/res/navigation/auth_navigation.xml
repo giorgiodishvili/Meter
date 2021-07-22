@@ -9,7 +9,7 @@
         android:id="@+id/loginFragment"
         android:name="com.example.meter.screens.auth.sign_in.LoginFragment"
         android:label="login_fragment"
-        tools:layout="@layout/login_fragment" >
+        tools:layout="@layout/login_fragment">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
@@ -23,7 +23,7 @@
         android:id="@+id/registerFragment"
         android:name="com.example.meter.screens.auth.sign_up.RegisterFragment"
         android:label="register_fragment"
-        tools:layout="@layout/register_fragment" >
+        tools:layout="@layout/register_fragment">
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment"
@@ -34,7 +34,7 @@
         android:id="@+id/resetFragment"
         android:name="com.example.meter.screens.auth.reset.ResetFragment"
         android:label="reset_fragment"
-        tools:layout="@layout/reset_fragment" >
+        tools:layout="@layout/reset_fragment">
         <action
             android:id="@+id/action_resetFragment_to_loginFragment"
             app:destination="@id/loginFragment"

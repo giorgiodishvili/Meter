@@ -10,8 +10,8 @@ interface FirebaseRep {
     fun getUserId(): String?
     fun signOut()
 
-    fun signUpUser(email:String,password:String): Task<AuthResult>
-    fun signInUser(email: String,password: String): Task<AuthResult>
+    fun signUpUser(email: String, password: String): Task<AuthResult>
+    fun signInUser(email: String, password: String): Task<AuthResult>
     fun resetUser(mail: String): Task<Void>
 
     fun signInWithGoogle(credential: AuthCredential): Task<AuthResult>

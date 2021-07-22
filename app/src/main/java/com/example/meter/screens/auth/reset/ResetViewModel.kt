@@ -13,7 +13,8 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class ResetViewModel @Inject constructor(private val firebaseAuthImpl: FirebaseRepositoryImpl) : ViewModel() {
+class ResetViewModel @Inject constructor(private val firebaseAuthImpl: FirebaseRepositoryImpl) :
+    ViewModel() {
 
     private var _resetStatus = MutableLiveData<Boolean>()
     val resetStatus: LiveData<Boolean> = _resetStatus
@@ -28,7 +29,7 @@ class ResetViewModel @Inject constructor(private val firebaseAuthImpl: FirebaseR
                         else
                             _resetStatus.postValue(false)
                     }
-                }catch (e: Exception) {
+                } catch (e: Exception) {
                     d("tagtag", "${e.message}")
                 }
             }

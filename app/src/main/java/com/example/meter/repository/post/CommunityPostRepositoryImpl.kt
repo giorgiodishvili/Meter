@@ -10,7 +10,8 @@ import com.example.meter.network.ApiService
 import com.example.meter.paging.source.CommunityPostPagingSource
 import javax.inject.Inject
 
-class CommunityPostRepositoryImpl  @Inject constructor(private val apiService: ApiService): CommunityPostRepository {
+class CommunityPostRepositoryImpl @Inject constructor(private val apiService: ApiService) :
+    CommunityPostRepository {
 
     companion object {
         private const val NETWORK_PAGE_SIZE = 10

@@ -107,7 +107,7 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
 
     private fun observers() {
         viewModel.readUserInfo.observe(viewLifecycleOwner, { status ->
-            when (status.status){
+            when (status.status) {
                 Resource.Status.SUCCESS -> {
                     status.data?.name?.let {
                         setVerified(it)
@@ -116,7 +116,8 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
                 Resource.Status.ERROR -> {
                     d("errorTAG", "${status.message}")
                 }
-                Resource.Status.LOADING -> {}
+                Resource.Status.LOADING -> {
+                }
             }
         })
 

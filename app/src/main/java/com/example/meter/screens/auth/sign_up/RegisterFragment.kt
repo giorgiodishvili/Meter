@@ -53,7 +53,7 @@ class RegisterFragment : BaseFragment<RegisterFragmentBinding, RegisterViewModel
                 binding.passRegConfInput.error = "passwords does't match"
             if (password.length >= 6 && password == passwordConfirmed && email.isEmail())
                 viewModel.registerStart(email, password)
-                observer()
+            observer()
         }
     }
 

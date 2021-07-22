@@ -9,7 +9,7 @@
 
         android:id="@+id/imgSlider"
         android:layout_width="match_parent"
-        android:scaleType="centerCrop"
         android:layout_height="match_parent"
-        android:foreground="@drawable/circle" />
+        android:foreground="@drawable/circle"
+        android:scaleType="centerCrop" />
 </androidx.cardview.widget.CardView>

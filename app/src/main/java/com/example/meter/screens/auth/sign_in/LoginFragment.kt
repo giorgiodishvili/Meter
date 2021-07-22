@@ -46,7 +46,8 @@ class LoginFragment : BaseFragment<LoginFragmentBinding, LoginViewModel>(
     ): View? {
 
         if (firebaseAuthImpl.getUserId() != null) {
-            val navController = requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+            val navController =
+                requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
             navController.navController.navigate(R.id.action_global_navigation_profile)
         }
         return super.onCreateView(inflater, container, savedInstanceState)
@@ -86,7 +87,7 @@ class LoginFragment : BaseFragment<LoginFragmentBinding, LoginViewModel>(
                 binding.passInput.error = "password must be at least 6 char"
             if (password.length >= 6 && email.isEmail())
                 viewModel.loginStart(email, password)
-                observer()
+            observer()
         }
     }
 
@@ -99,7 +100,8 @@ class LoginFragment : BaseFragment<LoginFragmentBinding, LoginViewModel>(
     private fun observer() {
         viewModel.loginStatus.observe(viewLifecycleOwner, { loginStatus ->
             if (loginStatus) {
-                val navController = requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+                val navController =
+                    requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
                 navController.navController.navigate(R.id.action_global_navigation_profile)
             } else {
                 requireActivity().showToast("Error")
@@ -110,7 +112,8 @@ class LoginFragment : BaseFragment<LoginFragmentBinding, LoginViewModel>(
             d("SignInActivity", "$loginStatus")
 
             if (loginStatus) {
-                val navController = requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+                val navController =
+                    requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
                 navController.navController.navigate(R.id.action_global_navigation_profile)
             } else {
                 requireActivity().showToast("Error")

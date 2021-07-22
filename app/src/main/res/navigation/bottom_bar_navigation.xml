@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/navigation_home">
+    app:startDestination="@id/navigation_community">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.meter.screens.bottom_nav.home.HomeFragment"
-        android:label="home_fragment"
-        tools:layout="@layout/home_fragment" >
+        android:id="@+id/navigation_community"
+        android:name="com.example.meter.screens.bottom_nav.community.CommunityFragment"
+        android:label="community_fragment"
+        tools:layout="@layout/community_fragment">
         <action
             android:id="@+id/action_navigation_home_to_postCarFragment"
             app:destination="@id/navigation_post" />
@@ -18,7 +18,7 @@
         android:id="@+id/navigation_favourites"
         android:name="com.example.meter.screens.bottom_nav.profile.favourites.FavouritesFragment"
         android:label="favourites_fragment"
-        tools:layout="@layout/favourites_fragment" >
+        tools:layout="@layout/favourites_fragment">
         <action
             android:id="@+id/action_navigation_favourites_to_navigation_profile"
             app:destination="@id/navigation_profile"
@@ -29,7 +29,7 @@
         android:id="@+id/main_auth"
         android:name="com.example.meter.screens.auth.MainAuthFragment"
         android:label="main_auth_fragment"
-        tools:layout="@layout/main_auth_fragment" >
+        tools:layout="@layout/main_auth_fragment">
         <action
             android:id="@+id/action_main_auth_to_navigation_profile"
             app:destination="@id/navigation_profile" />
@@ -38,7 +38,7 @@
         android:id="@+id/completeProfileFragment"
         android:name="com.example.meter.screens.bottom_nav.profile.editprofile.ProfileFragment"
         android:label="profile_fragment"
-        tools:layout="@layout/profile_fragment" >
+        tools:layout="@layout/profile_fragment">
         <action
             android:id="@+id/action_navigation_completeProfileInfo_to_navigation_profile"
             app:destination="@id/navigation_profile"
@@ -57,23 +57,23 @@
         app:popUpToInclusive="true" />
     <action
         android:id="@+id/action_global_navigation_home"
-        app:destination="@id/navigation_home"
+        app:destination="@id/navigation_community"
         app:popUpTo="@id/main_navigation"
         app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/navigation_post"
         android:name="com.example.meter.screens.bottom_nav.PostCarFragment"
         android:label="post_car_fragment"
-        tools:layout="@layout/post_car_fragment" >
+        tools:layout="@layout/post_car_fragment">
         <action
             android:id="@+id/action_postCarFragment_to_navigation_home"
-            app:destination="@id/navigation_home" />
+            app:destination="@id/navigation_community" />
     </fragment>
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.meter.screens.bottom_nav.profile.complete.CompleteProfileFragment"
         android:label="complete_profile_fragment"
-        tools:layout="@layout/complete_profile_fragment" >
+        tools:layout="@layout/complete_profile_fragment">
 
         <action
             android:id="@+id/action_navigation_profile_to_navigation_completeProfileInfo"
@@ -89,7 +89,7 @@
             app:destination="@id/main_auth" />
         <action
             android:id="@+id/action_navigation_profile_to_navigation_home"
-            app:destination="@id/navigation_home"
+            app:destination="@id/navigation_community"
             app:popUpTo="@id/main_navigation"
             app:popUpToInclusive="true" />
     </fragment>
@@ -97,7 +97,7 @@
         android:id="@+id/myPostskFragment"
         android:name="com.example.meter.screens.bottom_nav.profile.myposts.MyPostskFragment"
         android:label="my_postsk_fragment"
-        tools:layout="@layout/my_postsk_fragment" >
+        tools:layout="@layout/my_postsk_fragment">
         <action
             android:id="@+id/action_myPostskFragment_to_navigation_profile"
             app:destination="@id/navigation_profile"

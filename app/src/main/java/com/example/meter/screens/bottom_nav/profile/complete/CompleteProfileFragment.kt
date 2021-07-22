@@ -15,10 +15,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CompleteProfileFragment : BaseFragment<CompleteProfileFragmentBinding, CompleteProfileViewModel>(
-    CompleteProfileFragmentBinding::inflate,
-    CompleteProfileViewModel::class.java
-) {
+class CompleteProfileFragment :
+    BaseFragment<CompleteProfileFragmentBinding, CompleteProfileViewModel>(
+        CompleteProfileFragmentBinding::inflate,
+        CompleteProfileViewModel::class.java
+    ) {
 
     @Inject
     lateinit var firebaseAuthImpl: FirebaseRepositoryImpl
@@ -57,7 +58,8 @@ class CompleteProfileFragment : BaseFragment<CompleteProfileFragmentBinding, Com
                 Resource.Status.ERROR -> {
                     requireContext().showToast("error loading user info")
                 }
-                Resource.Status.LOADING -> {}
+                Resource.Status.LOADING -> {
+                }
             }
         })
     }

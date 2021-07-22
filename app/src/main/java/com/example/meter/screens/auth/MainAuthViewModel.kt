@@ -10,5 +10,5 @@ import javax.inject.Inject
 class MainAuthViewModel @Inject constructor(
     private val realtimeDbRepImpl: RealtimeDbRepImpl,
     private val firebaseStorageImpl: StorageRepositoryImpl
-): ViewModel() {
+) : ViewModel() {
 }

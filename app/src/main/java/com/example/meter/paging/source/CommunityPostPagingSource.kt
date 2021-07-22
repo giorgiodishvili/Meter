@@ -1,9 +1,7 @@
 package com.example.meter.paging.source
 
-import android.util.Log.i
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.meter.entity.Pageable
 import com.example.meter.entity.community.post.CommunityPost
 import com.example.meter.entity.community.post.Content
 import com.example.meter.network.ApiService
@@ -14,7 +12,8 @@ import java.io.IOException
 
 private const val STARTING_PAGE_INDEX = 0
 
-class CommunityPostPagingSource(private val apiService: ApiService, private val pageSize: Int) : PagingSource<Int, Content>() {
+class CommunityPostPagingSource(private val apiService: ApiService, private val pageSize: Int) :
+    PagingSource<Int, Content>() {
     override fun getRefreshKey(state: PagingState<Int, Content>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
@@ -25,7 +24,7 @@ class CommunityPostPagingSource(private val apiService: ApiService, private val 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Content> {
         val position = params.key ?: STARTING_PAGE_INDEX
         return try {
-            val response = apiService.getCommunityPosts(position,params.loadSize)
+            val response = apiService.getCommunityPosts(position, params.loadSize)
             val data = response.body()!!
             LoadResult.Page(
                 data = data.content,

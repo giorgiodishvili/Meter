@@ -12,7 +12,8 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class RegisterViewModel @Inject constructor(private val firebaseAuthImpl: FirebaseRepositoryImpl) : ViewModel() {
+class RegisterViewModel @Inject constructor(private val firebaseAuthImpl: FirebaseRepositoryImpl) :
+    ViewModel() {
 
     private var _registerStatus = MutableLiveData<Boolean>()
     val registerStatus: LiveData<Boolean> = _registerStatus

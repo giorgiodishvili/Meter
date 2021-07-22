@@ -38,13 +38,21 @@ class ProfileViewModel @Inject constructor(
     val readImageStatus: LiveData<Uri> = _readImageStatus
 
 
-    fun uploadUserInfo(email: String, name: String, number: String, verified: Boolean, uri: Uri?=null, uploadWithImage: Boolean=true) {
+    fun uploadUserInfo(
+        email: String,
+        name: String,
+        number: String,
+        verified: Boolean,
+        uri: Uri? = null,
+        uploadWithImage: Boolean = true
+    ) {
         if (uploadWithImage) {
             viewModelScope.launch {
                 val infoPost = async {
                     withContext(Dispatchers.Default) {
                         try {
-                            val result = userInfo.postUserPersonalInfo(email, name, number, verified)
+                            val result =
+                                userInfo.postUserPersonalInfo(email, name, number, verified)
                             _postUserInfo.postValue(result)
                         } catch (e: HttpException) {
                             Log.d("tagtag", "${e.message}")
@@ -55,9 +63,10 @@ class ProfileViewModel @Inject constructor(
                     withContext(Dispatchers.Default) {
                         try {
                             uri?.let { uri ->
-                                firebaseStorageImpl.uploadImage(uri).addOnCompleteListener { process ->
-                                    _uploadImageStatus.postValue(process.isSuccessful)
-                                }
+                                firebaseStorageImpl.uploadImage(uri)
+                                    .addOnCompleteListener { process ->
+                                        _uploadImageStatus.postValue(process.isSuccessful)
+                                    }
                             }
                         } catch (e: StorageException) {
                             Log.d("tagtag", "${e.message}")
@@ -69,13 +78,13 @@ class ProfileViewModel @Inject constructor(
             }
         } else {
             viewModelScope.launch {
-                    withContext(Dispatchers.Default) {
-                        try {
-                            val result = userInfo.postUserPersonalInfo(email, name, number, verified)
-                            _postUserInfo.postValue(result)
-                        } catch (e: HttpException) {
-                            Log.d("tagtag", "${e.message}")
-                        }
+                withContext(Dispatchers.Default) {
+                    try {
+                        val result = userInfo.postUserPersonalInfo(email, name, number, verified)
+                        _postUserInfo.postValue(result)
+                    } catch (e: HttpException) {
+                        Log.d("tagtag", "${e.message}")
+                    }
                 }
             }
         }
@@ -88,7 +97,8 @@ class ProfileViewModel @Inject constructor(
                 val getInfo = async {
                     withContext(Dispatchers.Default) {
                         try {
-                            val result = userInfo.getUserPersonalInfo(firebaseAuth.currentUser?.uid!!)
+                            val result =
+                                userInfo.getUserPersonalInfo(firebaseAuth.currentUser?.uid!!)
                             _readUserInfo.postValue(result)
                         } catch (e: DatabaseException) {
                             Log.d("tagtag", "${e.message}")

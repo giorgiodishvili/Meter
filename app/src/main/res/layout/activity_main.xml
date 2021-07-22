@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/Theme.Design.NoActionBar"
     android:background="@color/white"
+    android:theme="@style/Theme.Design.NoActionBar"
     tools:context=".MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
@@ -23,14 +23,13 @@
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/bottom_nav_bar"
         android:layout_width="match_parent"
-        app:cnb_iconSize="30dp"
         android:layout_height="61dp"
         android:layout_gravity="bottom"
-        app:cnb_unselectedColor="@color/gray_blue"
         android:background="@drawable/bottom_navbar_shape"
-        app:cnb_menuResource="@menu/bottom_nav_menu"
-        android:elevation="16dp"
         android:padding="8dp"
+        app:cnb_iconSize="30dp"
+        app:cnb_menuResource="@menu/bottom_nav_menu"
+        app:cnb_unselectedColor="@color/gray_blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -46,10 +45,10 @@
         app:menu="@menu/bottom_nav_menu" />
 
     <com.airbnb.lottie.LottieAnimationView
-        android:background="@color/splash_screen_background"
         android:id="@+id/lottieAnimation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/splash_screen_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
