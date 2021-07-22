@@ -35,7 +35,7 @@ class UserInfoRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getUserPersonalInfo(uid: String): Resource<UserDetails> {
+    override suspend fun getUserPersonalInfo(): Resource<UserDetails> {
         return try {
             val response = postService.getUserPersonalInfo(firebaseAuth.currentUser?.uid!!)
             if (response.isSuccessful) {

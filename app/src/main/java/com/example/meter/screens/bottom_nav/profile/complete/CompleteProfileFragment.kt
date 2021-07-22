@@ -83,6 +83,10 @@ class CompleteProfileFragment :
 
         }
 
+        binding.backButton.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_profile_to_navigation_home)
+        }
+
     }
 
 }
