@@ -5,5 +5,5 @@ import com.example.meter.network.Resource
 
 interface UserInfoRepository {
     suspend fun postUserPersonalInfo(email: String, name: String, number: String, verified: Boolean): Resource<UserDetails>
-    suspend fun getUserPersonalInfo(uid: String): Resource<UserDetails>
+    suspend fun getUserPersonalInfo(): Resource<UserDetails>
 }

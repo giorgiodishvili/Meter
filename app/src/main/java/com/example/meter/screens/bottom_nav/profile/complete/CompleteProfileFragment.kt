@@ -81,6 +81,10 @@ class CompleteProfileFragment : BaseFragment<CompleteProfileFragmentBinding, Com
 
         }
 
+        binding.backButton.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_profile_to_navigation_home)
+        }
+
     }
 
 }

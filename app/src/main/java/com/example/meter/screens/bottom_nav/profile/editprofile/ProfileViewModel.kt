@@ -55,7 +55,7 @@ class ProfileViewModel @Inject constructor(
                     withContext(Dispatchers.Default) {
                         try {
                             uri?.let { uri ->
-                                firebaseStorageImpl.uploadImage(uri).addOnCompleteListener { process ->
+                                firebaseStorageImpl.uploadImage(uri).data?.addOnCompleteListener { process ->
                                     _uploadImageStatus.postValue(process.isSuccessful)
                                 }
                             }
@@ -69,17 +69,16 @@ class ProfileViewModel @Inject constructor(
             }
         } else {
             viewModelScope.launch {
-                    withContext(Dispatchers.Default) {
-                        try {
-                            val result = userInfo.postUserPersonalInfo(email, name, number, verified)
-                            _postUserInfo.postValue(result)
-                        } catch (e: HttpException) {
-                            Log.d("tagtag", "${e.message}")
-                        }
+                withContext(Dispatchers.Default) {
+                    try {
+                        val result = userInfo.postUserPersonalInfo(email, name, number, verified)
+                        _postUserInfo.postValue(result)
+                    } catch (e: HttpException) {
+                        Log.d("tagtag", "${e.message}")
+                    }
                 }
             }
         }
-
     }
 
     fun loadUserInfo(loadWithImage: Boolean = true) {
@@ -88,7 +87,7 @@ class ProfileViewModel @Inject constructor(
                 val getInfo = async {
                     withContext(Dispatchers.Default) {
                         try {
-                            val result = userInfo.getUserPersonalInfo(firebaseAuth.currentUser?.uid!!)
+                            val result = userInfo.getUserPersonalInfo()
                             _readUserInfo.postValue(result)
                         } catch (e: DatabaseException) {
                             Log.d("tagtag", "${e.message}")
@@ -98,7 +97,7 @@ class ProfileViewModel @Inject constructor(
                 val getUserImage = async {
                     withContext(Dispatchers.Default) {
                         try {
-                            firebaseStorageImpl.getImage().addOnCompleteListener { process ->
+                            firebaseStorageImpl.getImage().data?.addOnCompleteListener { process ->
                                 if (process.isSuccessful)
                                     _readImageStatus.postValue(process.result)
                             }
@@ -116,7 +115,7 @@ class ProfileViewModel @Inject constructor(
             viewModelScope.launch {
                 withContext(Dispatchers.Default) {
                     try {
-                        val result = userInfo.getUserPersonalInfo(firebaseAuth.currentUser?.uid!!)
+                        val result = userInfo.getUserPersonalInfo()
                         _readUserInfo.postValue(result)
                     } catch (e: DatabaseException) {
                         Log.d("tagtag", "${e.message}")

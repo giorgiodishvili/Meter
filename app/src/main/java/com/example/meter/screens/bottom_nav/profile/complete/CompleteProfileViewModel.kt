@@ -29,7 +29,7 @@ class CompleteProfileViewModel @Inject constructor(
         viewModelScope.launch {
             withContext(Dispatchers.Default) {
                 try {
-                    val result = userInfo.getUserPersonalInfo(firebaseAuth.currentUser?.uid.toString())
+                    val result = userInfo.getUserPersonalInfo()
                     _readUserInfo.postValue(result)
                 } catch (e: DatabaseException) {
                     Log.d("tagtag", "${e.message}")
