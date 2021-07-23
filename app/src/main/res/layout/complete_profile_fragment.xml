@@ -56,18 +56,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editProfileButton" />
 
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/postsHostFragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/posts_navigation"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bottomBar" />
-
+        app:layout_constraintTop_toBottomOf="@+id/bottomBar"
+        app:layout_constraintVertical_bias="1.0"
+        app:navGraph="@navigation/posts_navigation" />
 
     <View
         android:id="@+id/view"

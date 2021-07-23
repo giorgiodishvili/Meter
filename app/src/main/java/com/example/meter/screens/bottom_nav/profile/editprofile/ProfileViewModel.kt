@@ -9,9 +9,9 @@ import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.load.HttpException
 import com.example.meter.entity.UserDetails
 import com.example.meter.network.Resource
+import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import com.example.meter.repository.firebase.StorageRepositoryImpl
 import com.example.meter.repository.userInfo.UserInfoRepositoryImpl
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseException
 import com.google.firebase.storage.StorageException
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,8 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val firebaseStorageImpl: StorageRepositoryImpl,
+    private val firebaseRepositoryImpl: FirebaseRepositoryImpl,
     private val userInfo: UserInfoRepositoryImpl,
-    private val firebaseAuth: FirebaseAuth
 ) : ViewModel() {
 
     private var _readUserInfo = MutableLiveData<Resource<UserDetails>>()
@@ -38,92 +38,110 @@ class ProfileViewModel @Inject constructor(
     val readImageStatus: LiveData<Uri> = _readImageStatus
 
 
-    fun uploadUserInfo(email: String, name: String, number: String, verified: Boolean, uri: Uri?=null, uploadWithImage: Boolean=true) {
-        if (uploadWithImage) {
-            viewModelScope.launch {
-                val infoPost = async {
-                    withContext(Dispatchers.Default) {
-                        try {
-                            val result = userInfo.postUserPersonalInfo(email, name, number, verified)
-                            _postUserInfo.postValue(result)
-                        } catch (e: HttpException) {
-                            Log.d("tagtag", "${e.message}")
-                        }
-                    }
-                }
-                val imagePost = async {
-                    withContext(Dispatchers.Default) {
-                        try {
-                            uri?.let { uri ->
-                                firebaseStorageImpl.uploadImage(uri).data?.addOnCompleteListener { process ->
-                                    _uploadImageStatus.postValue(process.isSuccessful)
-                                }
-                            }
-                        } catch (e: StorageException) {
-                            Log.d("tagtag", "${e.message}")
-                        }
-                    }
-                }
-                val writeProcess = listOf(infoPost, imagePost)
-                writeProcess.awaitAll()
-            }
-        } else {
-            viewModelScope.launch {
-                withContext(Dispatchers.Default) {
-                    try {
-                        val result = userInfo.postUserPersonalInfo(email, name, number, verified)
-                        _postUserInfo.postValue(result)
-                    } catch (e: HttpException) {
-                        Log.d("tagtag", "${e.message}")
-                    }
+    fun uploadUserInfo(email: String, name: String, number: String, url: String = "", verified: Boolean, uri: Uri?=null, uploadWithImage: Boolean=true) {
+        if (uploadWithImage)
+            uploadSynchronously(email, name, number, verified,url, uri)
+        else {
+            uploadInfoOnly(email, name, number, url,  verified)
+        }
+    }
+
+    fun loadUserInfo(uid: String, loadWithImage: Boolean = true) {
+        if (loadWithImage)
+            getDataSynchronously(uid)
+        else {
+            getDataOnly(uid)
+        }
+    }
+
+    private fun getDataOnly(uid: String) {
+        viewModelScope.launch {
+            withContext(Dispatchers.Default) {
+                try {
+                    val result = userInfo.getUserPersonalInfo(uid)
+                    _readUserInfo.postValue(result)
+                } catch (e: DatabaseException) {
+                    Log.d("tagtag", "${e.message}")
                 }
             }
         }
     }
 
-    fun loadUserInfo(loadWithImage: Boolean = true) {
-        if (loadWithImage) {
-            viewModelScope.launch {
-                val getInfo = async {
-                    withContext(Dispatchers.Default) {
-                        try {
-                            val result = userInfo.getUserPersonalInfo()
-                            _readUserInfo.postValue(result)
-                        } catch (e: DatabaseException) {
-                            Log.d("tagtag", "${e.message}")
-                        }
-                    }
-                }
-                val getUserImage = async {
-                    withContext(Dispatchers.Default) {
-                        try {
-                            firebaseStorageImpl.getImage().data?.addOnCompleteListener { process ->
-                                if (process.isSuccessful)
-                                    _readImageStatus.postValue(process.result)
-                            }
-                        } catch (e: StorageException) {
-                            Log.d("tagtag", "${e.message}")
-                        }
-                    }
-                }
-
-                val readProcess = listOf(getInfo, getUserImage)
-                readProcess.awaitAll()
-            }
-
-        } else {
-            viewModelScope.launch {
+    private fun getDataSynchronously(uid: String) {
+        viewModelScope.launch {
+            val getInfo = async {
                 withContext(Dispatchers.Default) {
                     try {
-                        val result = userInfo.getUserPersonalInfo()
+                        val result = userInfo.getUserPersonalInfo(uid)
                         _readUserInfo.postValue(result)
                     } catch (e: DatabaseException) {
                         Log.d("tagtag", "${e.message}")
                     }
                 }
             }
+            val getUserImage = async {
+                withContext(Dispatchers.Default) {
+                    try {
+                        firebaseRepositoryImpl.getUserId()?.let {
+                            firebaseStorageImpl.getImage(it).addOnCompleteListener { process ->
+                                if (process.isSuccessful)
+                                    _readImageStatus.postValue(process.result)
+                            }
+                        }
+                    } catch (e: StorageException) {
+                        Log.d("tagtag", "${e.message}")
+                    }
+                }
+            }
+
+            val readProcess = listOf(getInfo, getUserImage)
+            readProcess.awaitAll()
         }
 
+    }
+
+
+    private fun uploadSynchronously(email: String, name: String, number: String, verified: Boolean, url: String = "", uri: Uri?) {
+        viewModelScope.launch {
+            val infoPost = async {
+                withContext(Dispatchers.Default) {
+                    try {
+                        val result = userInfo.postUserPersonalInfo(email, name, number, url, verified)
+                        _postUserInfo.postValue(result)
+                    } catch (e: HttpException) {
+                        Log.d("tagtag", "${e.message}")
+                    }
+                }
+            }
+            val imagePost = async {
+                withContext(Dispatchers.Default) {
+                    try {
+                        uri?.let { uri ->
+                            firebaseStorageImpl.uploadImage(uri).addOnCompleteListener { process ->
+                                _uploadImageStatus.postValue(process.isSuccessful)
+                            }
+                        }
+                    } catch (e: StorageException) {
+                        Log.d("tagtag", "${e.message}")
+                    }
+                }
+            }
+            val writeProcess = listOf(infoPost, imagePost)
+            writeProcess.awaitAll()
+        }
+    }
+
+    private fun uploadInfoOnly(email: String, name: String, number: String, url: String, verified: Boolean) {
+        viewModelScope.launch {
+            withContext(Dispatchers.Default) {
+                try {
+                    val result = userInfo.postUserPersonalInfo(email, name, number, url, verified)
+                    _postUserInfo.postValue(result)
+                } catch (e: HttpException) {
+                    Log.d("tagtag", "${e.message}")
+                }
+            }
+        }
     }
 
 }

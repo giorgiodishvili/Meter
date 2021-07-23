@@ -17,7 +17,6 @@ class CommunityPostsViewPagerAdapter(
             binding.imgSlider.loadImg(images[absoluteAdapterPosition])
             binding.imgSlider.clipToOutline = true
 
-
         }
     }
 

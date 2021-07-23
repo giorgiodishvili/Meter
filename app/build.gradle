@@ -4,6 +4,7 @@ plugins {
     id 'com.google.gms.google-services'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
+
 }
 
 android {
@@ -65,6 +66,7 @@ dependencies {
     def nav_version = "2.3.5"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    // safe args
 
     // Firebase Auth
     implementation 'com.google.firebase:firebase-bom:28.2.1'
@@ -102,6 +104,9 @@ dependencies {
 
     //paging
     implementation("androidx.paging:paging-runtime-ktx:3.0.1")
+
+
+
 
 
 }

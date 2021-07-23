@@ -13,17 +13,9 @@
         <action
             android:id="@+id/action_navigation_home_to_postCarFragment"
             app:destination="@id/navigation_post" />
-    </fragment>
-    <fragment
-        android:id="@+id/navigation_favourites"
-        android:name="com.example.meter.screens.bottom_nav.profile.favourites.FavouritesFragment"
-        android:label="favourites_fragment"
-        tools:layout="@layout/favourites_fragment">
         <action
-            android:id="@+id/action_navigation_favourites_to_navigation_profile"
-            app:destination="@id/navigation_profile"
-            app:popUpTo="@id/main_navigation"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_navigation_community_to_navigation_profile"
+            app:destination="@id/navigation_profile" />
     </fragment>
     <fragment
         android:id="@+id/main_auth"
@@ -79,12 +71,6 @@
             android:id="@+id/action_navigation_profile_to_navigation_completeProfileInfo"
             app:destination="@id/completeProfileFragment" />
         <action
-            android:id="@+id/action_navigation_profile_to_navigation_favourites"
-            app:destination="@id/navigation_favourites" />
-        <action
-            android:id="@+id/action_navigation_profile_to_myPostskFragment"
-            app:destination="@id/myPostskFragment" />
-        <action
             android:id="@+id/action_navigation_profile_to_main_auth"
             app:destination="@id/main_auth" />
         <action
@@ -92,17 +78,7 @@
             app:destination="@id/navigation_community"
             app:popUpTo="@id/main_navigation"
             app:popUpToInclusive="true" />
-    </fragment>
-    <fragment
-        android:id="@+id/myPostskFragment"
-        android:name="com.example.meter.screens.bottom_nav.profile.myposts.MyPostskFragment"
-        android:label="my_postsk_fragment"
-        tools:layout="@layout/my_comm_posts_fragment">
-        <action
-            android:id="@+id/action_myPostskFragment_to_navigation_profile"
-            app:destination="@id/navigation_profile"
-            app:popUpTo="@id/main_navigation"
-            app:popUpToInclusive="true" />
+
     </fragment>
 
 </navigation>

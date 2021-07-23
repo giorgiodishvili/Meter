@@ -59,7 +59,6 @@
         android:ellipsize="end"
         android:fontFamily="@font/helvatica_heavy"
         android:gravity="center"
-        android:text="გიორგი ნინიძე"
         android:textColor="@color/dark_blue"
         android:textSize="25sp"
         android:textStyle="bold"

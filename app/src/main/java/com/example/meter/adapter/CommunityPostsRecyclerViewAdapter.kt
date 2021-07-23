@@ -13,9 +13,11 @@ import com.example.meter.entity.community.post.Content
 import com.example.meter.extensions.hide
 import com.example.meter.extensions.show
 
-
+typealias onProfilePicClick = (uid: String) -> Unit
 class CommunityPostsRecyclerViewAdapter :
     PagingDataAdapter<Content, CommunityPostsRecyclerViewAdapter.ItemHolder>(REPO_COMPARATOR) {
+
+    lateinit var onProfilePicClick: onProfilePicClick
 
 
     companion object {
@@ -38,6 +40,7 @@ class CommunityPostsRecyclerViewAdapter :
             binding.lastName.text = item.user.name.split(" ")[1]
             binding.title.text = item.title
             binding.description.text = item.description
+
             i("ITEM", "$item")
             if (item.photoCarUrl.isEmpty()) {
                 binding.rightArrBTN.hide()
@@ -84,6 +87,9 @@ class CommunityPostsRecyclerViewAdapter :
                 binding.photos.currentItem = binding.photos.currentItem + 1
             }
 
+            binding.authorIV.setOnClickListener {
+                onProfilePicClick.invoke(item.user.id)
+            }
 
         }
     }

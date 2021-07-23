@@ -43,9 +43,10 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
 
         if (authorisedWithGoogle) {
             googleUserLogin()
-            viewModel.loadUserInfo(false)
+            d("uriuri", "${firebaseAuthImpl.getUser()?.photoUrl}")
+            firebaseAuthImpl.getUserId()?.let { viewModel.loadUserInfo(it, false) }
         } else {
-            viewModel.loadUserInfo(true)
+            firebaseAuthImpl.getUserId()?.let { viewModel.loadUserInfo(it, true) }
         }
 
 
@@ -94,10 +95,12 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
         if (inputCheck()) {
 
             if (!this::imageUri.isInitialized) {
-                viewModel.uploadUserInfo(emailInfo!!, name, number, true, null, false)
+                val defaultImage = "https://i.ibb.co/0rPxJQ0/profile-pic.png"
+                viewModel.uploadUserInfo(emailInfo!!, name, number, defaultImage, true, null, false)
                 d("tagtag", "hee")
             } else {
-                viewModel.uploadUserInfo(emailInfo!!, name, number, true, imageUri, true)
+                viewModel.uploadUserInfo(emailInfo!!, name, number,
+                    imageUri.toString(), true, imageUri, true)
             }
         } else
             requireActivity().showToast("Fill fields correctly")
@@ -166,7 +169,6 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
         if (requestCode == 100 && resultCode == RESULT_OK)
             if (data != null) {
                 imageUri = data.data!!
-                d("loglog", "$imageUri")
                 binding.userImage.loadImgUri(imageUri)
             }
     }
@@ -221,7 +223,8 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
 
         if (number.isNotBlank()) {
             firebaseAuthImpl.getUserId()?.let { uid ->
-                viewModel.uploadUserInfo(email!!, name!!, number, true)
+                viewModel.uploadUserInfo(email!!, name!!, number,
+                    firebaseAuthImpl.getUser()!!.photoUrl.toString(), true)
             }
         } else
             requireActivity().showToast("Fields are blank")

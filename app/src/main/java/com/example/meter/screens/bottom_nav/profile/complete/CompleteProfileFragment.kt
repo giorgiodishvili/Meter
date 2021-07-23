@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.meter.R
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.CompleteProfileFragmentBinding
+import com.example.meter.extensions.loadImgUri
 import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import com.example.shualeduri.extensions.showToast
@@ -22,6 +23,9 @@ class CompleteProfileFragment :
         CompleteProfileFragmentBinding::inflate,
         CompleteProfileViewModel::class.java
     ) {
+
+    private var authorisedWithGoogle: Boolean = false
+    private lateinit var uid: String
 
     @Inject
     lateinit var firebaseAuthImpl: FirebaseRepositoryImpl
@@ -39,12 +43,26 @@ class CompleteProfileFragment :
     }
 
     override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
+
         navigationBarSetup()
         init()
     }
 
     private fun init() {
-        viewModel.getUserInfo()
+
+
+        val externalUid = arguments?.getString("uid")
+        if (externalUid != null) {
+            uid = externalUid
+        } else {
+            authorisedWithGoogle = firebaseAuthImpl.getUser()?.photoUrl != null
+            if (authorisedWithGoogle)
+                binding.profilePic.loadImgUri(firebaseAuthImpl.getUser()?.photoUrl)
+            uid = firebaseAuthImpl.getUserId().toString()
+        }
+
+
+        uid.let { viewModel.getDataSynchronously(it) }
         listeners()
         observers()
     }
@@ -53,10 +71,15 @@ class CompleteProfileFragment :
         viewModel.readUserInfo.observe(viewLifecycleOwner, {
             when (it.status) {
                 Resource.Status.SUCCESS -> {
+
                     val name = it.data?.name
                     val arr = name?.split(" ".toRegex(), 2)?.toTypedArray()
-                    binding.nameTv.text = arr?.get(0)
-                    binding.surnameTv.text = arr?.get(1)
+                    if (arr != null) {
+                        if (arr.size == 2) {
+                            binding.nameTv.text = arr[0]
+                            binding.surnameTv.text = arr[1]
+                        }
+                    }
                 }
                 Resource.Status.ERROR -> {
                     requireContext().showToast("error loading user info")
@@ -71,14 +94,6 @@ class CompleteProfileFragment :
         binding.editProfileButton.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_profile_to_navigation_completeProfileInfo)
         }
-
-//        binding.savedpostsButton.setOnClickListener {
-//            findNavController().navigate(R.id.action_navigation_profile_to_navigation_favourites)
-//        }
-//
-//        binding.mypostsButton.setOnClickListener {
-//            findNavController().navigate(R.id.action_navigation_profile_to_myPostskFragment)
-//        }
 
         binding.logOutButton.setOnClickListener {
             firebaseAuthImpl.signOut()

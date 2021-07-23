@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log.d
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
@@ -18,28 +19,36 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navHostFragment: NavHostFragment
+    private lateinit var navController: NavController
+    lateinit var chipNavigation: ChipNavigationBar
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         binding.lottieAnimation.playAnimation()
         setUpAnimation()
     }
 
     private fun bottomNavBarSetup() {
+        d("tagtag", "bottomnav")
         binding.lottieAnimation.setGone()
 
         navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
+        navController = navHostFragment.navController
         val navView = binding.navView
-        val chipNavigation: ChipNavigationBar = binding.bottomNavBar
+        chipNavigation = binding.bottomNavBar
+
+        chipNavigation.setItemSelected(R.id.navigation_community)
 
         chipNavigation.setOnItemSelectedListener { itemId ->
             navView.selectedItemId = itemId
         }
+
+        supportFragmentManager.beginTransaction()
 
         NavigationUI.setupWithNavController(navView, navController)
 
@@ -48,12 +57,11 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_community -> {
                     chipNavigation.setItemSelected(R.id.navigation_community)
                 }
-                R.id.navigation_favourites -> chipNavigation.setItemSelected(R.id.navigation_favourites)
                 R.id.navigation_profile -> {
-                    chipNavigation.setItemSelected(R.id.navigation_profile)
                 }
                 R.id.main_auth -> {
                     handleBackPressed(destination)
+
                 }
             }
             hideIfAuth(destination, chipNavigation)
@@ -88,6 +96,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpAnimation() {
+        d("taglag", "animation")
         binding.lottieAnimation.addAnimatorListener(object : Animator.AnimatorListener {
             override fun onAnimationStart(animation: Animator?) {
             }

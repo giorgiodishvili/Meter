@@ -1,7 +1,7 @@
 package com.example.meter.repository.userInfo
 
 import com.example.meter.entity.UserDetails
-import com.example.meter.entity.community.post.CommunityPost
+import com.example.meter.entity.community.post.MyPost
 import com.example.meter.network.ApiService
 import com.example.meter.network.Resource
 import com.google.firebase.auth.FirebaseAuth
@@ -16,7 +16,9 @@ class UserInfoRepositoryImpl @Inject constructor(
         email: String,
         name: String,
         number: String,
+        url: String,
         verified: Boolean
+
     ): Resource<UserDetails> {
         return try {
             val response = postService.postUserPersonalInfo(
@@ -24,6 +26,7 @@ class UserInfoRepositoryImpl @Inject constructor(
                 email,
                 name,
                 number,
+                url,
                 verified
             )
             if (response.isSuccessful) {
@@ -36,9 +39,9 @@ class UserInfoRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getUserPersonalInfo(): Resource<UserDetails> {
+    override suspend fun getUserPersonalInfo(uid: String): Resource<UserDetails> {
         return try {
-            val response = postService.getUserPersonalInfo(firebaseAuth.currentUser?.uid!!)
+            val response = postService.getUserPersonalInfo(uid)
             if (response.isSuccessful) {
                 Resource.success(response.body()!!)
             } else {
@@ -49,9 +52,9 @@ class UserInfoRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getUserPosts(): Resource<CommunityPost> {
+    override suspend fun getUserPosts(uid: String): Resource<List<MyPost>> {
         return try {
-            val response = postService.getUserPosts(firebaseAuth.currentUser?.uid!!)
+            val response = postService.getUserPosts(uid)
             if (response.isSuccessful) {
                 Resource.success(response.body()!!)
             } else {
