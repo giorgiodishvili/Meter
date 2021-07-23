@@ -4,7 +4,7 @@ import com.example.meter.entity.AutomobileCategory
 import com.example.meter.entity.Model
 import com.example.meter.entity.UserDetails
 import com.example.meter.entity.community.post.CommunityPost
-import com.example.meter.entity.community.post.MyPost
+import com.example.meter.entity.community.post.Content
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -24,7 +24,7 @@ interface ApiService {
     suspend fun getUserPersonalInfo(@Path("uid") uid: String): Response<UserDetails>
 
     @GET("/user/post/community/{uid}")
-    suspend fun getUserPosts(@Path("uid") uid: String): Response<List<MyPost>>
+    suspend fun getUserPosts(@Path("uid") uid: String): Response<List<Content>>
 
     @FormUrlEncoded
     @POST("/user/")

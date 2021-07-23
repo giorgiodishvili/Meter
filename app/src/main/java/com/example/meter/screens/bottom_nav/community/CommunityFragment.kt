@@ -3,8 +3,11 @@ package com.example.meter.screens.bottom_nav.community
 import android.util.Log.i
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.meter.R
 import com.example.meter.adapter.CommunityPostsRecyclerViewAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.CommunityFragmentBinding
@@ -55,6 +58,10 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
                 }
             }
         binding.recentPostsRV.adapter = adapter.withLoadStateFooter(LoaderStateAdapter())
+
+        adapter.onProfileClick = { uid ->
+            findNavController().navigate(R.id.action_navigation_community_to_navigation_profile, bundleOf("uid" to uid))
+        }
 
     }
 

@@ -1,7 +1,7 @@
 package com.example.meter.repository.userInfo
 
 import com.example.meter.entity.UserDetails
-import com.example.meter.entity.community.post.MyPost
+import com.example.meter.entity.community.post.Content
 import com.example.meter.network.ApiService
 import com.example.meter.network.Resource
 import com.google.firebase.auth.FirebaseAuth
@@ -52,7 +52,7 @@ class UserInfoRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getUserPosts(uid: String): Resource<List<MyPost>> {
+    override suspend fun getUserPosts(uid: String): Resource<List<Content>> {
         return try {
             val response = postService.getUserPosts(uid)
             if (response.isSuccessful) {

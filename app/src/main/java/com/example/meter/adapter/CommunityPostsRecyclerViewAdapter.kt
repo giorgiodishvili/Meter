@@ -17,7 +17,7 @@ import com.example.meter.extensions.hide
 import com.example.meter.extensions.show
 
 
-
+typealias onProfileClick = (uid: String) -> Unit
 class CommunityPostsRecyclerViewAdapter(
     private val userId: String, private val likeButtonOnClick: (View,Content,Boolean) -> Unit
 ) :
@@ -33,6 +33,7 @@ class CommunityPostsRecyclerViewAdapter(
         }
     }
 
+    lateinit var onProfileClick: onProfileClick
 
     inner class ItemHolder(private val binding: CommunityWallPostItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -41,8 +42,6 @@ class CommunityPostsRecyclerViewAdapter(
             setDataToView()
             manipulateArrows()
             setListeners()
-
-
         }
 
         private fun setDataToView() {
@@ -64,6 +63,11 @@ class CommunityPostsRecyclerViewAdapter(
         }
 
         private fun setListeners() {
+
+            binding.authorIV.setOnClickListener {
+                onProfileClick.invoke(item.user.id)
+            }
+
             binding.leftArrBTN.setOnClickListener {
                 binding.photos.currentItem = binding.photos.currentItem - 1
             }

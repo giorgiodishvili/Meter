@@ -1,5 +1,6 @@
 package com.example.meter.screens.bottom_nav.profile.myposts.commPosts
 
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,6 +26,7 @@ class MyCommPostsFragment : BaseFragment<MyCommPostsFragmentBinding, MyCommPosts
     }
 
     private fun init() {
+        d("checkBundle", "${arguments?.getString("uid")}")
         viewModel.getUserInfo("5")
 
 
@@ -32,7 +34,21 @@ class MyCommPostsFragment : BaseFragment<MyCommPostsFragmentBinding, MyCommPosts
     }
 
     private fun initRecycler() {
-        adapter = MyCommPostsRecyclerAdapter()
+
+        var userId = firebaseAuthImpl.getUserId()
+
+        if (userId.isNullOrEmpty()) {
+            userId = ""
+        }
+
+        adapter =
+            MyCommPostsRecyclerAdapter(userId) { _, content, b ->
+//                if (b) {
+//                    viewModel.createLike(content.id, userId)
+//                } else {
+//                    viewModel.dislikePost(content.id, userId)
+//                }
+            }
         binding.recycler.layoutManager = LinearLayoutManager(
             requireContext(),
             LinearLayoutManager.VERTICAL, false

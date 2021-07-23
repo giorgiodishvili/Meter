@@ -19,6 +19,7 @@ import com.example.shualeduri.extensions.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+
 @AndroidEntryPoint
 class CompleteProfileFragment :
     BaseFragment<CompleteProfileFragmentBinding, CompleteProfileViewModel>(
@@ -87,6 +88,7 @@ class CompleteProfileFragment :
                     requireContext().showToast("error loading user info")
                 }
                 Resource.Status.LOADING -> {
+
                 }
             }
         })
@@ -101,7 +103,6 @@ class CompleteProfileFragment :
         binding.logOutButton.setOnClickListener {
             firebaseAuthImpl.signOut()
             findNavController().navigate(R.id.action_navigation_profile_to_navigation_home)
-
         }
 
         binding.backButton.setOnClickListener {

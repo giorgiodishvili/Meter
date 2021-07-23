@@ -10,6 +10,7 @@ import com.example.meter.extensions.loadImg
 class CommunityPostsViewPagerAdapter(
     private val images: List<String>,
 ) : RecyclerView.Adapter<CommunityPostsViewPagerAdapter.ItemHolder>() {
+
     inner class ItemHolder(private val binding: CommunityPostPhotoItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind() {
