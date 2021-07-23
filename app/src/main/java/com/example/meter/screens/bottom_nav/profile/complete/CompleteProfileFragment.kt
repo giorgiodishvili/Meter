@@ -92,7 +92,7 @@ class CompleteProfileFragment :
                 Resource.Status.SUCCESS -> {
                     d("loglog", "$it")
                     val name = it.data?.name
-                    it.data?.let { it1 -> binding.profilePic.loadImg(it1.url) }
+                    it.data?.let { it1 -> binding.profilePic.loadImg(it1.url, false) }
                     val arr = name?.split(" ".toRegex(), 2)?.toTypedArray()
 
                     if (arr != null) {

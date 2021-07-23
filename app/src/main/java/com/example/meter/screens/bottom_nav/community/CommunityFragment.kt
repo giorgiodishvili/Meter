@@ -1,8 +1,10 @@
 package com.example.meter.screens.bottom_nav.community
 
+import android.util.Log.d
 import android.util.Log.i
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -29,8 +31,14 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
 
     private lateinit var adapter: CommunityPostsRecyclerViewAdapter
 
+    companion object {
+        private const val EXPAND_ID1 = 2131296463
+        private const val EXPAND_ID2 = 2131296464
+    }
+
     override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
         initRecycler()
+        transitionListener()
         makeInitialCalls()
     }
 
@@ -90,6 +98,31 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
                 Resource.Status.LOADING -> i("debugee", "loading")
             }
         })
+    }
+
+    private fun transitionListener() {
+        val transitionListener = object : MotionLayout.TransitionListener {
+            override fun onTransitionStarted(p0: MotionLayout?, startId: Int, endId: Int) {
+                //nothing to do
+            }
+
+            override fun onTransitionChange(p0: MotionLayout?, startId: Int, endId: Int, progress: Float) {
+                //nothing to do
+            }
+
+            override fun onTransitionCompleted(p0: MotionLayout?, currentId: Int) {
+                if (currentId == EXPAND_ID1 || currentId == EXPAND_ID2) {
+                    findNavController().navigate(R.id.action_navigation_community_to_navigation_profile)
+                }
+                d("trackemotion", "$currentId")
+            }
+            override fun onTransitionTrigger(p0: MotionLayout?, triggerId: Int, positive: Boolean, progress: Float) {
+                //not used here
+            }
+
+        }
+
+        binding.motionLayout.setTransitionListener(transitionListener)
     }
 
 }

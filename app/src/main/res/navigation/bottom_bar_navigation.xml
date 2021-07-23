@@ -15,7 +15,11 @@
             app:destination="@id/navigation_post" />
         <action
             android:id="@+id/action_navigation_community_to_navigation_profile"
-            app:destination="@id/navigation_profile" />
+            app:destination="@id/navigation_profile"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/main_auth"
@@ -81,6 +85,11 @@
 
 
     </fragment>
+    <fragment
+        android:id="@+id/navigation_myMarketPosts"
+        android:name="com.example.meter.screens.bottom_nav.profile.myposts.marketPosts.MyMarketPostsFragment"
+        android:label="my_market_posts_fragment"
+        tools:layout="@layout/my_market_posts_fragment" />
 
 
 </navigation>

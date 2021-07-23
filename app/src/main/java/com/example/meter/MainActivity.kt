@@ -33,22 +33,23 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.lottieAnimation.playAnimation()
-        setUpAnimation()
+//        binding.imageView.setGone()
+//        binding.lottieAnimation.playAnimation()
+//        setUpAnimation()
+        bottomNavBarSetup()
     }
 
     private fun bottomNavBarSetup() {
         d("tagtag", "bottomnav")
         binding.lottieAnimation.setGone()
 
-        navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
+
         val navView = binding.navView
         chipNavigation = binding.bottomNavBar
 
         chipNavigation.setItemSelected(R.id.navigation_community)
-
         chipNavigation.setOnItemSelectedListener { itemId ->
             navView.selectedItemId = itemId
         }
@@ -67,7 +68,6 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.main_auth -> {
                     handleBackPressed(destination)
-
                 }
             }
             hideIfAuth(destination, chipNavigation)
@@ -80,8 +80,8 @@ class MainActivity : AppCompatActivity() {
             navBar.setGone()
         else
             navBar.show()
-    }
 
+    }
 
     private fun handleBackPressed(destination: NavDestination) {
         onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
@@ -109,6 +109,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onAnimationEnd(animation: Animator?) {
                 bottomNavBarSetup()
+//                binding.imageView.show()
             }
 
             override fun onAnimationCancel(animation: Animator?) {

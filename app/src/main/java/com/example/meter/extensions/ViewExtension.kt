@@ -7,6 +7,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.MultiTransformation
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.meter.R
@@ -23,14 +24,25 @@ fun View.setGone() {
     visibility = View.GONE
 }
 
-fun ImageView.loadImg(url: String) {
-    Glide.with(this.context)
-        .load(url)
-        .circleCrop()
-        .transform(MultiTransformation(CircleCrop(), RoundedCorners(8)))
-        .placeholder(R.drawable.ic_dot)
-        .error(R.drawable.ic_info_button)
-        .into(this)
+fun ImageView.loadImg(url: String, center: Boolean=true) {
+    if (center) {
+        Glide.with(this.context)
+            .load(url)
+            .circleCrop()
+            .transform(MultiTransformation(CenterCrop(), RoundedCorners(8)))
+            .placeholder(R.drawable.ic_dot)
+            .error(R.drawable.ic_info_button)
+            .into(this)
+    } else {
+        Glide.with(this.context)
+            .load(url)
+            .centerCrop()
+            .transform(MultiTransformation(CircleCrop(), RoundedCorners(8)))
+            .placeholder(R.drawable.ic_dot)
+            .error(R.drawable.ic_info_button)
+            .into(this)
+    }
+
 }
 
 fun ImageView.loadImgUri(url: Uri?) {
