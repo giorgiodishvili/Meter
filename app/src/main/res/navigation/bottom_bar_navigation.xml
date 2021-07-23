@@ -39,7 +39,11 @@
             android:id="@+id/action_navigation_completeProfileInfo_to_navigation_profile"
             app:destination="@id/navigation_profile"
             app:popUpTo="@id/navigation_profile"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/slide_out_bot"
+            app:popEnterAnim="@anim/slide_in_bot"
+            app:popExitAnim="@anim/slide_out_top"/>
         <action
             android:id="@+id/action_completeProfileFragment_to_main_auth"
             app:destination="@id/main_auth"
@@ -71,9 +75,15 @@
         android:label="complete_profile_fragment"
         tools:layout="@layout/complete_profile_fragment">
 
+
+
         <action
             android:id="@+id/action_navigation_profile_to_navigation_completeProfileInfo"
-            app:destination="@id/completeProfileFragment" />
+            app:destination="@id/completeProfileFragment"
+            app:enterAnim="@anim/slide_in_bot"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_bot" />
         <action
             android:id="@+id/action_navigation_profile_to_main_auth"
             app:destination="@id/main_auth" />
