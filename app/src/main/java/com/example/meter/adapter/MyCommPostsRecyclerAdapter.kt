@@ -23,6 +23,8 @@ class MyCommPostsRecyclerAdapter: RecyclerView.Adapter<MyCommPostsRecyclerAdapte
             model = posts[absoluteAdapterPosition]
             binding.postLikeTV.text = model.likeAmount.toString()
             binding.postCommentTV.text = model.commentsAmount.toString()
+            binding.photos.adapter = CommunityPostsViewPagerAdapter(posts.photoCarUrl)
+
 
         }
     }

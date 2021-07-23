@@ -1,6 +1,7 @@
 package com.example.meter.screens.bottom_nav.profile.complete
 
 import android.os.Bundle
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.meter.R
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.CompleteProfileFragmentBinding
+import com.example.meter.extensions.loadImg
 import com.example.meter.extensions.loadImgUri
 import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
@@ -43,13 +45,11 @@ class CompleteProfileFragment :
     }
 
     override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
-
         navigationBarSetup()
         init()
     }
 
     private fun init() {
-
 
         val externalUid = arguments?.getString("uid")
         if (externalUid != null) {
@@ -71,9 +71,11 @@ class CompleteProfileFragment :
         viewModel.readUserInfo.observe(viewLifecycleOwner, {
             when (it.status) {
                 Resource.Status.SUCCESS -> {
-
+                    d("loglog", "$it")
                     val name = it.data?.name
+                    it.data?.let { it1 -> binding.profilePic.loadImg(it1.url) }
                     val arr = name?.split(" ".toRegex(), 2)?.toTypedArray()
+
                     if (arr != null) {
                         if (arr.size == 2) {
                             binding.nameTv.text = arr[0]
@@ -88,6 +90,7 @@ class CompleteProfileFragment :
                 }
             }
         })
+
     }
 
     private fun listeners() {
