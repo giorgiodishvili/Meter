@@ -24,7 +24,7 @@ class CommunityPostPagingSource(private val apiService: ApiService, private val 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Content> {
         val position = params.key ?: STARTING_PAGE_INDEX
         return try {
-            val response = apiService.getCommunityPosts(position, params.loadSize)
+            val response = apiService.getCommunityPosts(position, pageSize)
             val data = response.body()!!
             LoadResult.Page(
                 data = data.content,

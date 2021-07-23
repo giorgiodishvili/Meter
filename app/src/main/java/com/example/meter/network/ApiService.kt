@@ -43,6 +43,24 @@ interface ApiService {
         @Query("size") size: Int
     ): Response<CommunityPost>
 
+    @POST("/user/react/like")
+    suspend fun createLike(
+        @Query("postId") postId: Int,
+        @Query("userId") userId: String
+    ) : Response<Boolean>
+
+    @DELETE("/user/react/like")
+    suspend fun deleteLike(
+        @Query("postId") postId: Int,
+        @Query("userId") userId: String
+    ) : Response<Boolean>
+
+    @GET("/user/likes/{userId}")
+    suspend fun getLikedCommentsIDsForUser(
+        @Path("userId") uid: String
+    ) : Response<List<Long>>
+
+
     //    @PUT("/api/cars/latest")
 //    suspend fun putUserPersonalInfo(@Field("uid") uid: String): Response<UserDetails>
 
