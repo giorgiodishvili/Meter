@@ -1,11 +1,13 @@
 package com.example.meter.screens.bottom_nav.profile.myposts.commPosts
 
-import android.util.Log.d
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meter.adapter.MyCommPostsRecyclerAdapter
 import com.example.meter.base.BaseFragment
+import com.example.meter.base.SharedViewModel
 import com.example.meter.databinding.MyCommPostsFragmentBinding
 import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
@@ -17,32 +19,40 @@ class MyCommPostsFragment : BaseFragment<MyCommPostsFragmentBinding, MyCommPosts
     MyCommPostsFragmentBinding::inflate,
     MyCommPostsViewModel::class.java
 ) {
-    private lateinit var adapter: MyCommPostsRecyclerAdapter
     @Inject
     lateinit var firebaseAuthImpl: FirebaseRepositoryImpl
+
+    private val sharedViewModel: SharedViewModel by activityViewModels()
+    private lateinit var adapter: MyCommPostsRecyclerAdapter
+
 
     override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
         init()
     }
 
     private fun init() {
-        d("checkBundle", "${arguments?.getString("uid")}")
-        viewModel.getUserInfo("5")
+        val currentUid = firebaseAuthImpl.getUserId().toString()
 
+        sharedViewModel.userId.observe(requireActivity(), { uid ->
 
-        observers()
+            Log.d("uiduid", uid)
+            if (uid != "none") {
+                viewModel.getUserInfo(uid)
+                observers(uid)
+            } else {
+                sharedViewModel.saveUserId(currentUid)
+                viewModel.getUserInfo(currentUid)
+                observers(currentUid)
+            }
+        })
+
+//        uid = arguments?.getString("uid2").toString() ?: firebaseAuthImpl.getUserId().toString()
+
     }
 
-    private fun initRecycler() {
-
-        var userId = firebaseAuthImpl.getUserId()
-
-        if (userId.isNullOrEmpty()) {
-            userId = ""
-        }
-
+    private fun initRecycler(uid: String) {
         adapter =
-            MyCommPostsRecyclerAdapter(userId) { _, content, b ->
+            MyCommPostsRecyclerAdapter(uid) { _, content, b ->
 //                if (b) {
 //                    viewModel.createLike(content.id, userId)
 //                } else {
@@ -56,8 +66,9 @@ class MyCommPostsFragment : BaseFragment<MyCommPostsFragmentBinding, MyCommPosts
         binding.recycler.adapter = adapter
 
     }
-    private fun observers() {
-        viewModel.readUserPosts.observe(viewLifecycleOwner, {
+    private fun observers(uid: String) {
+
+        viewModel.readUserPosts.observe(this, {
             when (it.status) {
                 Resource.Status.SUCCESS -> {
                     it.data?.let { posts -> adapter.fetchPosts(posts.toMutableList()) }
@@ -67,11 +78,11 @@ class MyCommPostsFragment : BaseFragment<MyCommPostsFragmentBinding, MyCommPosts
             }
         })
 
-        viewModel.readUserInfo.observe(viewLifecycleOwner, {
+        viewModel.readUserInfo.observe(this, {
             when (it.status) {
                 Resource.Status.SUCCESS -> {
-                    viewModel.getUserPosts("5")
-                    initRecycler()
+                    viewModel.getUserPosts(uid)
+                    initRecycler(uid)
                     adapter.getUserInfo(it.data)
                 }
                 Resource.Status.ERROR -> {}

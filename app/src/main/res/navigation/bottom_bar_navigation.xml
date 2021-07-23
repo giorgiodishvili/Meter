@@ -79,6 +79,8 @@
             app:popUpTo="@id/main_navigation"
             app:popUpToInclusive="true" />
 
+
     </fragment>
+
 
 </navigation>

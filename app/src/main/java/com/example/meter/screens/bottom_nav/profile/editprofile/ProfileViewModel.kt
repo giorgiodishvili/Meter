@@ -93,13 +93,10 @@ class ProfileViewModel @Inject constructor(
                     }
                 }
             }
-
             val readProcess = listOf(getInfo, getUserImage)
             readProcess.awaitAll()
         }
-
     }
-
 
     private fun uploadSynchronously(email: String, name: String, number: String, verified: Boolean, url: String = "", uri: Uri?) {
         viewModelScope.launch {

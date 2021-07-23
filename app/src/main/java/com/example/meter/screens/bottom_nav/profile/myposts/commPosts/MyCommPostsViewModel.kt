@@ -1,15 +1,10 @@
 package com.example.meter.screens.bottom_nav.profile.myposts.commPosts
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.meter.entity.UserDetails
 import com.example.meter.entity.community.post.Content
 import com.example.meter.network.Resource
 import com.example.meter.repository.userInfo.UserInfoRepositoryImpl
-import com.google.firebase.database.DatabaseException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,7 +12,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class MyCommPostsViewModel @Inject constructor(private val userInfo: UserInfoRepositoryImpl) : ViewModel() {
+class MyCommPostsViewModel @Inject constructor(private val userInfo: UserInfoRepositoryImpl, val state: SavedStateHandle) : ViewModel() {
 
 
     private var _readUserPosts = MutableLiveData<Resource<List<Content>>>()
@@ -26,15 +21,20 @@ class MyCommPostsViewModel @Inject constructor(private val userInfo: UserInfoRep
     private var _readUserInfo = MutableLiveData<Resource<UserDetails>>()
     val readUserInfo: LiveData<Resource<UserDetails>> = _readUserInfo
 
+    private var _userId = MutableLiveData("none")
+    val userId: LiveData<String> = _userId
+
+    fun saveUserId(uid: String) {
+        _userId.value = uid
+    }
+
+
+
     fun getUserPosts(uid: String) {
         viewModelScope.launch {
             withContext(Dispatchers.Default) {
-                try {
-                    val result = userInfo.getUserPosts(uid)
-                    _readUserPosts.postValue(result)
-                } catch (e: DatabaseException) {
-                    Log.d("tagtag", "${e.message}")
-                }
+                val result = userInfo.getUserPosts(uid)
+                _readUserPosts.postValue(result)
             }
         }
     }
@@ -42,16 +42,10 @@ class MyCommPostsViewModel @Inject constructor(private val userInfo: UserInfoRep
     fun getUserInfo(uid: String) {
         viewModelScope.launch {
             withContext(Dispatchers.Default) {
-                try {
-                    val result = userInfo.getUserPersonalInfo(uid)
-                    _readUserInfo.postValue(result)
-                } catch (e: DatabaseException) {
-                    Log.d("tagtag", "${e.message}")
-                }
+                val result = userInfo.getUserPersonalInfo(uid)
+                _readUserInfo.postValue(result)
             }
-
         }
     }
-
 
 }

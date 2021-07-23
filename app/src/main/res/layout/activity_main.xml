@@ -23,11 +23,10 @@
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/bottom_nav_bar"
         android:layout_width="match_parent"
-        android:layout_height="61dp"
+        android:layout_height="55dp"
         android:layout_gravity="bottom"
         android:background="@drawable/bottom_navbar_shape"
-        android:padding="8dp"
-        app:cnb_iconSize="30dp"
+        app:cnb_iconSize="24dp"
         app:cnb_menuResource="@menu/bottom_nav_menu"
         app:cnb_unselectedColor="@color/gray_blue"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -54,7 +53,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_fileName="splash_wheel_animation.json"
-        app:lottie_loop="false" />
+        app:lottie_loop="false"
+        tools:visibility="invisible" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

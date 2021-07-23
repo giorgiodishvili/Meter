@@ -4,11 +4,13 @@ import android.animation.Animator
 import android.os.Bundle
 import android.util.Log.d
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import com.example.meter.base.SharedViewModel
 import com.example.meter.databinding.ActivityMainBinding
 import com.example.meter.extensions.setGone
 import com.example.meter.extensions.show
@@ -17,10 +19,13 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var navController: NavController
     lateinit var chipNavigation: ChipNavigationBar
+    private val sharedViewModel: SharedViewModel by viewModels()
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,6 +63,7 @@ class MainActivity : AppCompatActivity() {
                     chipNavigation.setItemSelected(R.id.navigation_community)
                 }
                 R.id.navigation_profile -> {
+                    sharedViewModel.saveUserId("none")
                 }
                 R.id.main_auth -> {
                     handleBackPressed(destination)

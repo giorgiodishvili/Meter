@@ -60,7 +60,9 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
         binding.recentPostsRV.adapter = adapter.withLoadStateFooter(LoaderStateAdapter())
 
         adapter.onProfileClick = { uid ->
-            findNavController().navigate(R.id.action_navigation_community_to_navigation_profile, bundleOf("uid" to uid))
+            val bundle = bundleOf("uid" to uid)
+            findNavController().navigate(R.id.action_navigation_community_to_navigation_profile, bundle)
+
         }
 
     }

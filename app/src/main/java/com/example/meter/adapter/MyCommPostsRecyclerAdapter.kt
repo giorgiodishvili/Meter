@@ -13,6 +13,7 @@ import com.example.meter.databinding.CommunityWallPostItemBinding
 import com.example.meter.entity.UserDetails
 import com.example.meter.entity.community.post.Content
 import com.example.meter.extensions.hide
+import com.example.meter.extensions.setGone
 import com.example.meter.extensions.show
 
 class MyCommPostsRecyclerAdapter(private val userId: String, private val likeButtonOnClick: (View, Content, Boolean) -> Unit): RecyclerView.Adapter<MyCommPostsRecyclerAdapter.ViewHolder>() {
@@ -28,6 +29,11 @@ class MyCommPostsRecyclerAdapter(private val userId: String, private val likeBut
         }
 
         private fun setDataToView() {
+
+            binding.authorIV.setGone()
+            binding.firstName.setGone()
+            binding.lastName.setGone()
+
             item = posts[absoluteAdapterPosition]
             Log.i("ITEM233", "$item")
             binding.firstName.text = item.user.name.split(" ")[0]
