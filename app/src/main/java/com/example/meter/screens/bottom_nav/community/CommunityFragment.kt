@@ -33,8 +33,8 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
     private lateinit var adapter: CommunityPostsRecyclerViewAdapter
 
     companion object {
-        private const val EXPAND_ID1 = 2131296463
-        private const val EXPAND_ID2 = 2131296464
+        private const val EXPAND_ID1 = 2131296461
+        private const val EXPAND_ID2 = 2131296460
     }
 
     override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
@@ -112,6 +112,7 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
             }
 
             override fun onTransitionCompleted(p0: MotionLayout?, currentId: Int) {
+                d("tagtag", "$currentId")
                 if (currentId == EXPAND_ID1 || currentId == EXPAND_ID2) {
                     findNavController().navigate(R.id.action_navigation_community_to_navigation_profile)
                 }

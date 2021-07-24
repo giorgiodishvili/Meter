@@ -39,11 +39,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        binding.imageView.setGone()
-//        binding.lottieAnimation.playAnimation()
-//        setUpAnimation()
-
-        bottomNavBarSetup()
+        binding.lottieAnimation.playAnimation()
+        setUpAnimation()
+//        bottomNavBarSetup()
         listeners()
     }
 
@@ -85,10 +83,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.main_auth -> {
                     handleBackPressed(destination)
                 }
-
             }
             hideIfAuth(destination, chipNavigation)
-
         }
     }
 
