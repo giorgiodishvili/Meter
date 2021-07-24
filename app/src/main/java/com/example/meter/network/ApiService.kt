@@ -70,10 +70,11 @@ interface ApiService {
         @Field("title") title: String
     ): Response<Content>
 
-    @POST("http://localhost:8080/photos/upload")
+    @POST("/photos/upload")
+    @FormUrlEncoded
     suspend fun uploadPostPhoto(
         @Query("postId") postId: Int,
-        @Query("file") file: ByteArray
+        @Field("file") file: ByteArray
     ) : Response<String>
 
 

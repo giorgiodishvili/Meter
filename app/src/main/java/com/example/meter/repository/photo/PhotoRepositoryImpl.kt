@@ -17,10 +17,12 @@ class PhotoRepositoryImpl @Inject constructor(private val apiService: ApiService
             if (response.isSuccessful) {
                 Resource.success(response.body()!!)
             } else {
+                i("respone adasd", "${response.message()}")
+
                 Resource.error(response.message())
             }
-
         } catch (e: Exception) {
+            i("respone sqwer", "${e.message.toString()}")
             Resource.error(e.message.toString())
         }
     }
