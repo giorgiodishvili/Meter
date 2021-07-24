@@ -1,4 +1,4 @@
-package com.example.meter.repository.post
+package com.example.meter.repository.post.community.post
 
 import androidx.lifecycle.LiveData
 import androidx.paging.Pager
@@ -69,6 +69,26 @@ class CommunityPostRepositoryImpl @Inject constructor(private val apiService: Ap
             } else {
 
 
+                Resource.error(response.message())
+            }
+
+        } catch (e: Exception) {
+            Resource.error(e.message.toString())
+        }
+    }
+
+    override suspend fun uploadPost(
+        userId: String,
+        description: String,
+        title: String
+    ): Resource<Content> {
+        return try {
+
+            Resource.loading<Content>()
+            val response = apiService.addCommunityPost(userId,description,title)
+            if (response.isSuccessful) {
+                Resource.success(response.body()!!)
+            } else {
                 Resource.error(response.message())
             }
 

@@ -1,13 +1,20 @@
 package com.example.meter.base
 
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
+
 
 typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
 
@@ -37,4 +44,37 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
         super.onDestroyView()
         _binding = null
     }
+
+    /** Check if this device has a camera */
+    private fun checkCameraHardware(context: Context): Boolean {
+        return context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)
+    }
+
+    fun hasCamera() = ActivityCompat.checkSelfPermission(
+        requireContext(),
+        Manifest.permission.CAMERA
+    ) == PackageManager.PERMISSION_GRANTED
+
+    fun hasRead() = ActivityCompat.checkSelfPermission(
+        requireContext(),
+        Manifest.permission.READ_EXTERNAL_STORAGE
+    ) == PackageManager.PERMISSION_GRANTED
+
+    fun hasWrite() = ActivityCompat.checkSelfPermission(
+        requireContext(),
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    ) == PackageManager.PERMISSION_GRANTED
+
+
+    fun requestPermission(request: ActivityResultLauncher<Array<String>>) {
+        request.launch(
+            arrayOf(
+                Manifest.permission.CAMERA,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+        )
+
+    }
+
 }
