@@ -116,13 +116,18 @@ class UploadCommunityPostFragment() :
 
     private val takePic = registerForActivityResult(ActivityResultContracts.TakePicture()) {
 
-        uri?.let { it1 -> photoUriList.add(it1) };
-        adapter.submitData(photoUriList)
-        val file = uri?.toFile(requireContext())
+        if (it == true) {
+
+            uri?.let { it1 ->
+                photoUriList.add(it1)
+                adapter.submitData(photoUriList)
+            };
+            val file = uri?.toFile(requireContext())
 //
 //        val photoFile = file!!.asRequestBody(file.extension.toMediaTypeOrNull())
 //        val filePart = MultipartBody.Part.createFormData("file", file.name, photoFile)
-        file?.let { it1 -> photoFileList.add(it1.readBytes()) }
+            file?.let { it1 -> photoFileList.add(it1.readBytes()) }
+        }
     }
 
 

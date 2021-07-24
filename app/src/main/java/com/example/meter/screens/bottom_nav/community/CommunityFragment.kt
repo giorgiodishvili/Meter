@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.os.bundleOf
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -15,6 +16,7 @@ import com.example.meter.adapter.CommunityPostsRecyclerViewAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.CommunityFragmentBinding
 import com.example.meter.extensions.setGone
+import com.example.meter.extensions.show
 import com.example.meter.network.Resource
 import com.example.meter.paging.loadstate.LoaderStateAdapter
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
@@ -33,14 +35,15 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
     private lateinit var adapter: CommunityPostsRecyclerViewAdapter
 
     companion object {
-        private const val EXPAND_ID1 = 2131296461
-        private const val EXPAND_ID2 = 2131296460
+        private const val EXPAND_ID1 = R.id.expandFromEnd
+        private const val EXPAND_ID2 = R.id.expand
     }
 
     override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
+        binding.progressCircular.show()
         initRecycler()
-        transitionListener()
         makeInitialCalls()
+        transitionListener()
     }
 
     private fun makeInitialCalls() {
@@ -79,10 +82,11 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
 
     private fun observe() {
         viewModel.getCommunityPosts().observe(viewLifecycleOwner, { resource ->
+            i("HERE", binding.progressCircular.isGone.toString())
+            if (binding.progressCircular.isVisible) {
+                binding.progressCircular.setGone()
+            }
             lifecycleScope.launch {
-                if (binding.progressCircular.isVisible) {
-                    binding.progressCircular.setGone()
-                }
                 adapter.submitData(resource)
             }
         })
@@ -124,7 +128,7 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
                 if (currentId == EXPAND_ID1 || currentId == EXPAND_ID2) {
                     findNavController().navigate(R.id.action_navigation_community_to_navigation_profile)
                 }
-                d("trackemotion", "$currentId")
+                d("trackemotion", "$EXPAND_ID1 $EXPAND_ID2  ")
             }
 
             override fun onTransitionTrigger(
