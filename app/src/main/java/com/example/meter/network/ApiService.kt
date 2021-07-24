@@ -5,7 +5,7 @@ import com.example.meter.entity.Model
 import com.example.meter.entity.UserDetails
 import com.example.meter.entity.community.post.CommunityPost
 import com.example.meter.entity.community.post.Content
-import okhttp3.MultipartBody
+import com.example.meter.entity.community.post.UploadPhotoResponse
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -75,7 +75,7 @@ interface ApiService {
     suspend fun uploadPostPhoto(
         @Query("postId") postId: Int,
         @Field("file") file: ByteArray
-    ) : Response<String>
+    ): Response<UploadPhotoResponse>
 
 
     //    @PUT("/api/cars/latest")

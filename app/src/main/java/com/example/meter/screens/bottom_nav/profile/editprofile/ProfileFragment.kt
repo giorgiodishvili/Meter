@@ -99,8 +99,10 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
                 viewModel.uploadUserInfo(emailInfo!!, name, number, defaultImage, true, null, false)
                 d("tagtag", "hee")
             } else {
-                viewModel.uploadUserInfo(emailInfo!!, name, number,
-                    imageUri.toString(), true, imageUri, true)
+                viewModel.uploadUserInfo(
+                    emailInfo!!, name, number,
+                    imageUri.toString(), true, imageUri, true
+                )
             }
         } else
             requireActivity().showToast("Fill fields correctly")
@@ -223,8 +225,10 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
 
         if (number.isNotBlank()) {
             firebaseAuthImpl.getUserId()?.let { uid ->
-                viewModel.uploadUserInfo(email!!, name!!, number,
-                    firebaseAuthImpl.getUser()!!.photoUrl.toString(), true)
+                viewModel.uploadUserInfo(
+                    email!!, name!!, number,
+                    firebaseAuthImpl.getUser()!!.photoUrl.toString(), true
+                )
             }
         } else
             requireActivity().showToast("Fields are blank")

@@ -18,12 +18,18 @@ import com.example.meter.databinding.ActivityMainBinding
 import com.example.meter.extensions.fade
 import com.example.meter.extensions.setGone
 import com.example.meter.extensions.show
+import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+
+    @Inject
+    lateinit var firebaseAuthImpl: FirebaseRepositoryImpl
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navHostFragment: NavHostFragment
@@ -31,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     private val sharedViewModel: SharedViewModel by viewModels()
 
     companion object {
-        const val ADD_POST = 2131296612
+        const val ADD_POST = R.id.navigation_post
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +56,8 @@ class MainActivity : AppCompatActivity() {
         binding.lottieAnimation.setGone()
 
         val navView = binding.navView
-        navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
         val chipNavigation = binding.bottomNavBar
@@ -59,8 +66,13 @@ class MainActivity : AppCompatActivity() {
         chipNavigation.setOnItemSelectedListener { itemId ->
             d("tagtag", "$itemId")
             navView.selectedItemId = itemId
-            if (itemId == ADD_POST)
-                showButtons()
+            if (itemId == ADD_POST) {
+                if (firebaseAuthImpl.getUserId().isNullOrEmpty()) {
+                    navController.navigate(R.id.navigation_profile)
+                } else {
+                    showButtons()
+                }
+            }
         }
 
         supportFragmentManager.beginTransaction()
@@ -99,7 +111,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun hideIfAuth(destination: NavDestination, navBar: ChipNavigationBar) {
         hideButtons()
-        if (destination.id == R.id.main_auth || destination.id == R.id.navigation_profile || destination.id == R.id.completeProfileFragment )
+        if (destination.id == R.id.main_auth || destination.id == R.id.navigation_profile || destination.id == R.id.completeProfileFragment)
             navBar.fade()
         else {
             navBar.show()

@@ -9,11 +9,11 @@
         android:id="@+id/navigation_commPosts"
         android:name="com.example.meter.screens.bottom_nav.profile.myposts.commPosts.MyCommPostsFragment"
         android:label="my_postsk_fragment"
-        tools:layout="@layout/my_comm_posts_fragment" >
+        tools:layout="@layout/my_comm_posts_fragment">
         <argument
             android:name="uid"
-            app:argType="string"
-            android:defaultValue="none" />
+            android:defaultValue="none"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/navigation_marketPosts"

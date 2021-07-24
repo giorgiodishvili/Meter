@@ -15,7 +15,7 @@ class UploadCommunityPostPhotoRecyclerAdapter :
     inner class ItemHolder(private val binding: UploadCommunityPostPhotoRecyclerItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind() {
-            binding.imgView.loadImgUri(uris[absoluteAdapterPosition])
+            binding.imgView.loadImgUri(uris[absoluteAdapterPosition], true)
         }
     }
 

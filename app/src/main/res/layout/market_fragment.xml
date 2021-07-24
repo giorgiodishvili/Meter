@@ -2,17 +2,17 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".screens.bottom_nav.market.MarketFragment">
 
     <TextView
         android:layout_width="match_parent"
-        android:gravity="center"
-        android:textColor="@color/main_color"
-        android:textSize="50sp"
-        android:fontFamily="@font/proxima_extra_bold"
         android:layout_height="match_parent"
-        android:text="Sell Car" />
+        android:fontFamily="@font/proxima_extra_bold"
+        android:gravity="center"
+        android:text="Sell Car"
+        android:textColor="@color/main_color"
+        android:textSize="50sp" />
 
 </FrameLayout>

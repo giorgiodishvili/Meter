@@ -16,11 +16,15 @@ import com.example.meter.extensions.hide
 import com.example.meter.extensions.setGone
 import com.example.meter.extensions.show
 
-class MyCommPostsRecyclerAdapter(private val userId: String, private val likeButtonOnClick: (View, Content, Boolean) -> Unit): RecyclerView.Adapter<MyCommPostsRecyclerAdapter.ViewHolder>() {
+class MyCommPostsRecyclerAdapter(
+    private val userId: String,
+    private val likeButtonOnClick: (View, Content, Boolean) -> Unit
+) : RecyclerView.Adapter<MyCommPostsRecyclerAdapter.ViewHolder>() {
     private val posts: MutableList<Content> = mutableListOf()
     private lateinit var userInfo: UserDetails
 
-    inner class ViewHolder(private val binding: CommunityWallPostItemBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: CommunityWallPostItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         private lateinit var item: Content
         fun bind() {
             setDataToView()
@@ -144,6 +148,7 @@ class MyCommPostsRecyclerAdapter(private val userId: String, private val likeBut
         this.posts.addAll(posts)
         notifyDataSetChanged()
     }
+
     fun getUserInfo(userInfo: UserDetails?) {
         if (userInfo != null) {
             this.userInfo = userInfo

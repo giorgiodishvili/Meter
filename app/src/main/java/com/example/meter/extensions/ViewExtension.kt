@@ -25,7 +25,7 @@ fun View.setGone() {
     visibility = View.GONE
 }
 
-fun ImageView.loadImg(url: String, center: Boolean=true) {
+fun ImageView.loadImg(url: String, center: Boolean = true) {
     if (center) {
         Glide.with(this.context)
             .load(url)
@@ -46,13 +46,26 @@ fun ImageView.loadImg(url: String, center: Boolean=true) {
 
 }
 
-fun ImageView.loadImgUri(url: Uri?) {
-    Glide.with(this.context)
-        .load(url)
-        .circleCrop()
-        .placeholder(R.drawable.ic_dot)
-        .error(R.drawable.ic_info_button)
-        .into(this)
+fun ImageView.loadImgUri(url: Uri?, center: Boolean = false) {
+
+    if (center) {
+
+        Glide.with(this.context)
+            .load(url)
+            .centerCrop()
+            .placeholder(R.drawable.ic_dot)
+            .error(R.drawable.ic_info_button)
+            .into(this)
+    } else {
+
+        Glide.with(this.context)
+            .load(url)
+            .circleCrop()
+            .placeholder(R.drawable.ic_dot)
+            .error(R.drawable.ic_info_button)
+            .into(this)
+    }
+
 }
 
 fun View.fade(action: NavDirections? = null) {

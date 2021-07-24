@@ -25,7 +25,7 @@ class CommunityViewModel @Inject constructor(private val communityPostRepository
     val createLikeResponse: LiveData<Resource<Boolean>>
         get() = _createLikeResponse
 
-    private val _dislikeResponse =  MutableLiveData<Resource<Boolean>>()
+    private val _dislikeResponse = MutableLiveData<Resource<Boolean>>()
 
     val dislikeResponse: LiveData<Resource<Boolean>>
         get() = _dislikeResponse
@@ -36,16 +36,16 @@ class CommunityViewModel @Inject constructor(private val communityPostRepository
 
     fun createLike(postId: Int, userId: String) {
         viewModelScope.launch {
-            withContext(Dispatchers.IO){
-                _createLikeResponse.postValue(communityPostRepository.createLike(postId,userId))
+            withContext(Dispatchers.IO) {
+                _createLikeResponse.postValue(communityPostRepository.createLike(postId, userId))
             }
         }
     }
 
     fun dislikePost(postId: Int, userId: String) {
         viewModelScope.launch {
-            withContext(Dispatchers.IO){
-                _dislikeResponse.postValue(communityPostRepository.deleteLike(postId,userId))
+            withContext(Dispatchers.IO) {
+                _dislikeResponse.postValue(communityPostRepository.deleteLike(postId, userId))
             }
         }
     }

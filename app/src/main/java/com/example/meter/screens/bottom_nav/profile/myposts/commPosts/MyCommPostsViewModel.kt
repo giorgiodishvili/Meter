@@ -12,7 +12,10 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class MyCommPostsViewModel @Inject constructor(private val userInfo: UserInfoRepositoryImpl, val state: SavedStateHandle) : ViewModel() {
+class MyCommPostsViewModel @Inject constructor(
+    private val userInfo: UserInfoRepositoryImpl,
+    val state: SavedStateHandle
+) : ViewModel() {
 
 
     private var _readUserPosts = MutableLiveData<Resource<List<Content>>>()
@@ -27,7 +30,6 @@ class MyCommPostsViewModel @Inject constructor(private val userInfo: UserInfoRep
     fun saveUserId(uid: String) {
         _userId.value = uid
     }
-
 
 
     fun getUserPosts(uid: String) {

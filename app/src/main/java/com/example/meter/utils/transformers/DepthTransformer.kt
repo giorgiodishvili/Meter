@@ -5,7 +5,7 @@ import androidx.viewpager2.widget.ViewPager2
 import kotlin.math.abs
 
 class DepthTransformer {
-    companion object : ViewPager2.PageTransformer  {
+    companion object : ViewPager2.PageTransformer {
         private const val MIN_SCALE = 0.75f
         override fun transformPage(page: View, position: Float) {
             page.apply {

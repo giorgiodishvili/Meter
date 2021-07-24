@@ -130,7 +130,8 @@ class CompleteProfileFragment :
     }
 
     private fun navigationBarSetup() {
-        val navController = (childFragmentManager.findFragmentById(R.id.postsHostFragment) as NavHostFragment).navController
+        val navController =
+            (childFragmentManager.findFragmentById(R.id.postsHostFragment) as NavHostFragment).navController
 
         val popupMenu = PopupMenu(requireActivity(), null)
         popupMenu.inflate(R.menu.post_menu)

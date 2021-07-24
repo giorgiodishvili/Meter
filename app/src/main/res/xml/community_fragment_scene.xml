@@ -54,10 +54,10 @@
         <Constraint
             android:id="@+id/dragableimage"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
             motion:layout_constraintTop_toBottomOf="@+id/my_toolbar"
             motion:layout_constraintVertical_bias="0.7" />
 
@@ -68,17 +68,17 @@
             android:id="@+id/dragableimage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
             motion:layout_constraintTop_toBottomOf="@+id/my_toolbar"
             motion:layout_constraintVertical_bias="0.317" />
     </ConstraintSet>
 
     <Transition
-        motion:constraintSetStart="@+id/end"
         motion:constraintSetEnd="@+id/expandFromEnd"
+        motion:constraintSetStart="@+id/end"
         motion:duration="1000">
         <KeyFrameSet />
         <OnSwipe

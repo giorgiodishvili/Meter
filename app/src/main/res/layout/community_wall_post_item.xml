@@ -66,9 +66,9 @@
         android:id="@+id/photos"
         android:layout_width="0dp"
         android:layout_height="160dp"
+        android:layout_marginTop="4dp"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/rightArrBTN"
         app:layout_constraintStart_toEndOf="@+id/leftArrBTN"
@@ -82,11 +82,11 @@
         android:layout_marginTop="7dp"
         android:elevation="7dp"
         android:fontFamily="@font/helvetica_medium"
-        tools:text="17"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@id/photos"
-        app:layout_constraintTop_toBottomOf="@id/photos" />
+        app:layout_constraintTop_toBottomOf="@id/photos"
+        tools:text="17" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/postLikeBTN"
@@ -106,12 +106,12 @@
         android:layout_marginStart="25dp"
         android:elevation="7dp"
         android:fontFamily="@font/helvetica_medium"
-        tools:text="17"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/postLikeBTN"
         app:layout_constraintStart_toEndOf="@id/postLikeBTN"
-        app:layout_constraintTop_toTopOf="@id/postLikeBTN" />
+        app:layout_constraintTop_toTopOf="@id/postLikeBTN"
+        tools:text="17" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/postCommentBTN"
@@ -133,12 +133,12 @@
         android:layout_marginEnd="10dp"
         android:elevation="7dp"
         android:fontFamily="@font/helvetica_medium"
-        tools:text="180"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/postViewBTN"
         app:layout_constraintEnd_toStartOf="@id/postViewBTN"
-        app:layout_constraintTop_toTopOf="@id/postViewBTN" />
+        app:layout_constraintTop_toTopOf="@id/postViewBTN"
+        tools:text="180" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/postViewBTN"
