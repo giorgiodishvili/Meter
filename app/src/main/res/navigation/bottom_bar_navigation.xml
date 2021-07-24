@@ -66,12 +66,18 @@
         app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/navigation_post"
-        android:name="com.example.meter.screens.bottom_nav.PostCarFragment"
+        android:name="com.example.meter.screens.bottom_nav.addpost.PostCarFragment"
         android:label="post_car_fragment"
         tools:layout="@layout/post_car_fragment">
         <action
             android:id="@+id/action_postCarFragment_to_navigation_home"
             app:destination="@id/navigation_community" />
+        <action
+            android:id="@+id/action_navigation_post_to_uploadCommunityPostFragment"
+            app:destination="@id/uploadCommunityPostFragment" />
+        <action
+            android:id="@+id/action_navigation_post_to_uploadCarSellPostFragment"
+            app:destination="@id/uploadCarSellPostFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_profile"
@@ -112,6 +118,16 @@
         android:name="com.example.meter.screens.bottom_nav.profile.myposts.marketPosts.MyMarketPostsFragment"
         android:label="my_market_posts_fragment"
         tools:layout="@layout/my_market_posts_fragment" />
+    <fragment
+        android:id="@+id/uploadCommunityPostFragment"
+        android:name="com.example.meter.screens.bottom_nav.addpost.upload.communitypost.UploadCommunityPostFragment"
+        android:label="upload_community_post_fragment"
+        tools:layout="@layout/upload_community_post_fragment" />
+    <fragment
+        android:id="@+id/uploadCarSellPostFragment"
+        android:name="com.example.meter.screens.bottom_nav.addpost.upload.carpost.UploadCarSellPostFragment"
+        android:label="upload_car_sell_post_fragment"
+        tools:layout="@layout/upload_car_sell_post_fragment" />
 
 
 </navigation>

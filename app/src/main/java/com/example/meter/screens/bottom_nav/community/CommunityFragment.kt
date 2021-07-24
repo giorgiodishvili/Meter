@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -76,7 +77,9 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
     private fun observe() {
         viewModel.getCommunityPosts().observe(viewLifecycleOwner, { resource ->
             lifecycleScope.launch {
-                binding.progressCircular.setGone()
+                if(binding.progressCircular.isVisible){
+                    binding.progressCircular.setGone()
+                }
                 adapter.submitData(resource)
             }
         })

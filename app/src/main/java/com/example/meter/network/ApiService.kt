@@ -5,6 +5,7 @@ import com.example.meter.entity.Model
 import com.example.meter.entity.UserDetails
 import com.example.meter.entity.community.post.CommunityPost
 import com.example.meter.entity.community.post.Content
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -47,18 +48,34 @@ interface ApiService {
     suspend fun createLike(
         @Query("postId") postId: Int,
         @Query("userId") userId: String
-    ) : Response<Boolean>
+    ): Response<Boolean>
 
     @DELETE("/user/react/like")
     suspend fun deleteLike(
         @Query("postId") postId: Int,
         @Query("userId") userId: String
-    ) : Response<Boolean>
+    ): Response<Boolean>
 
     @GET("/user/likes/{userId}")
     suspend fun getLikedCommentsIDsForUser(
         @Path("userId") uid: String
-    ) : Response<List<Long>>
+    ): Response<List<Long>>
+
+
+    @POST("/community/post/")
+    @FormUrlEncoded
+    suspend fun addCommunityPost(
+        @Field("userId") userId: String,
+        @Field("description") description: String,
+        @Field("title") title: String
+    ): Response<Content>
+
+    @POST("/photos/upload")
+    @FormUrlEncoded
+    suspend fun uploadPostPhoto(
+        @Query("postId") postId: Int,
+        @Field("file") file: ByteArray
+    ) : Response<String>
 
 
     //    @PUT("/api/cars/latest")

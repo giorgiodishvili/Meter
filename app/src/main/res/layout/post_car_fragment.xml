@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".screens.bottom_nav.PostCarFragment">
+    tools:context=".screens.bottom_nav.addpost.PostCarFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:textColor="@color/main_color"
-        android:textSize="50sp"
-        android:layout_height="match_parent"
-        android:text="CREATE POSTS FRAGMENT" />
+    <Button
+        android:id="@+id/communityPost"
+        style="@style/ShapeAppearance.App.SmallComponent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Community Post"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:icon="@drawable/ic_plus" />
 
-</FrameLayout>
+
+
+    <Button
+        android:id="@+id/marketPost"
+        style="@style/ShapeAppearance.App.SmallComponent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Market Post"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:icon="@drawable/ic_plus" />
+</LinearLayout>

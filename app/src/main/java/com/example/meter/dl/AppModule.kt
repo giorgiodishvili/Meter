@@ -4,8 +4,9 @@ import androidx.viewbinding.BuildConfig
 import com.example.meter.network.ApiService
 import com.example.meter.repository.automobile.AutomobileCategoryRepository
 import com.example.meter.repository.automobile.AutomobileCategoryRepositoryImpl
-import com.example.meter.repository.post.CommunityPostRepository
-import com.example.meter.repository.post.CommunityPostRepositoryImpl
+import com.example.meter.repository.photo.PhotoRepository
+import com.example.meter.repository.post.community.post.CommunityPostRepository
+import com.example.meter.repository.post.community.post.CommunityPostRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -64,5 +65,10 @@ object AppModule {
     @Singleton
     fun provideCommunityPostRepository(communityPostRepository: CommunityPostRepositoryImpl): CommunityPostRepository =
         communityPostRepository
+
+    @Provides
+    @Singleton
+    fun providesPhotoRepository(photoRepository: PhotoRepository): PhotoRepository =
+        photoRepository
 
 }

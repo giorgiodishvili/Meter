@@ -9,7 +9,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.meter.entity.community.post.Content
 import com.example.meter.network.Resource
-import com.example.meter.repository.post.CommunityPostRepository
+import com.example.meter.repository.post.community.post.CommunityPostRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
