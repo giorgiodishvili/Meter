@@ -11,9 +11,6 @@
         android:label="community_fragment"
         tools:layout="@layout/community_fragment">
         <action
-            android:id="@+id/action_navigation_home_to_postCarFragment"
-            app:destination="@id/navigation_post" />
-        <action
             android:id="@+id/action_navigation_community_to_navigation_profile"
             app:destination="@id/navigation_profile"
             app:enterAnim="@anim/slide_in_left"
@@ -65,21 +62,6 @@
         app:popUpTo="@id/main_navigation"
         app:popUpToInclusive="true" />
     <fragment
-        android:id="@+id/navigation_post"
-        android:name="com.example.meter.screens.bottom_nav.addpost.PostCarFragment"
-        android:label="post_car_fragment"
-        tools:layout="@layout/post_car_fragment">
-        <action
-            android:id="@+id/action_postCarFragment_to_navigation_home"
-            app:destination="@id/navigation_community" />
-        <action
-            android:id="@+id/action_navigation_post_to_uploadCommunityPostFragment"
-            app:destination="@id/uploadCommunityPostFragment" />
-        <action
-            android:id="@+id/action_navigation_post_to_uploadCarSellPostFragment"
-            app:destination="@id/uploadCarSellPostFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.meter.screens.bottom_nav.profile.complete.CompleteProfileFragment"
         android:label="complete_profile_fragment"
@@ -114,11 +96,6 @@
 
     </fragment>
     <fragment
-        android:id="@+id/navigation_myMarketPosts"
-        android:name="com.example.meter.screens.bottom_nav.profile.myposts.marketPosts.MyMarketPostsFragment"
-        android:label="my_market_posts_fragment"
-        tools:layout="@layout/my_market_posts_fragment" />
-    <fragment
         android:id="@+id/uploadCommunityPostFragment"
         android:name="com.example.meter.screens.bottom_nav.addpost.upload.communitypost.UploadCommunityPostFragment"
         android:label="upload_community_post_fragment"
@@ -128,6 +105,11 @@
         android:name="com.example.meter.screens.bottom_nav.addpost.upload.carpost.UploadCarSellPostFragment"
         android:label="upload_car_sell_post_fragment"
         tools:layout="@layout/upload_car_sell_post_fragment" />
+    <fragment
+        android:id="@+id/navigation_marketPosts"
+        android:name="com.example.meter.screens.bottom_nav.market.MarketFragment"
+        android:label="market_fragment"
+        tools:layout="@layout/market_fragment" />
 
 
 </navigation>

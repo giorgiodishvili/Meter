@@ -28,7 +28,6 @@ class UploadCommunityPostFragment() :
         UploadCommunityPostViewModel::class.java
     ) {
 
-
     private var uri: Uri? = null
 
     private val photoUriList: MutableList<Uri> = mutableListOf()
@@ -43,7 +42,7 @@ class UploadCommunityPostFragment() :
         binding.recyclerPhotos.layoutManager =
             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
 
-        binding.addImage.setOnClickListener {
+        binding.uploadImage.setOnClickListener {
 
             if (hasCamera() && hasRead()) {
                 openCamera()
@@ -89,7 +88,7 @@ class UploadCommunityPostFragment() :
 
     private val takePic = registerForActivityResult(ActivityResultContracts.TakePicture()) {
 
-        binding.userImage.loadImgUri(uri)
+        binding.uploadImage.loadImgUri(uri)
         uri?.let { it1 -> photoUriList.add(it1) };
         adapter.submitData(photoUriList)
         val file = uri?.toFile(requireContext())

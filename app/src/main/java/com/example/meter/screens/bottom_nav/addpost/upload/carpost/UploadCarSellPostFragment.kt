@@ -10,7 +10,6 @@ class UploadCarSellPostFragment : BaseFragment<UploadCarSellPostFragmentBinding,
     UploadCarSellPostViewModel::class.java
 ) {
     override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
-        TODO("Not yet implemented")
     }
 
 }

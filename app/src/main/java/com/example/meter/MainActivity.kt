@@ -30,7 +30,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private val sharedViewModel: SharedViewModel by viewModels()
 
-
+    companion object {
+        const val ADD_POST = 2131296612
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,11 +42,13 @@ class MainActivity : AppCompatActivity() {
 //        binding.imageView.setGone()
 //        binding.lottieAnimation.playAnimation()
 //        setUpAnimation()
+
         bottomNavBarSetup()
+        listeners()
     }
 
     private fun bottomNavBarSetup() {
-        d("tagtag", "bottomnav")
+
         binding.lottieAnimation.setGone()
 
         val navView = binding.navView
@@ -55,7 +59,10 @@ class MainActivity : AppCompatActivity() {
         chipNavigation.setItemSelected(R.id.navigation_community)
 
         chipNavigation.setOnItemSelectedListener { itemId ->
+            d("tagtag", "$itemId")
             navView.selectedItemId = itemId
+            if (itemId == ADD_POST)
+                showButtons()
         }
 
         supportFragmentManager.beginTransaction()
@@ -69,24 +76,38 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_community -> {
                     chipNavigation.setItemSelected(R.id.navigation_community)
                 }
+                R.id.navigation_marketPosts -> {
+                    chipNavigation.setItemSelected(R.id.navigation_marketPosts)
+                }
                 R.id.navigation_profile -> {
                     sharedViewModel.saveUserId("none")
                 }
                 R.id.main_auth -> {
                     handleBackPressed(destination)
                 }
+
             }
             hideIfAuth(destination, chipNavigation)
 
         }
     }
 
-    private fun hideIfAuth(destination: NavDestination, navBar: ChipNavigationBar) {
+    private fun listeners() {
+        binding.sellButton.setOnClickListener {
+            navController.navigate(R.id.uploadCarSellPostFragment)
+        }
+        binding.postButton.setOnClickListener {
+            navController.navigate(R.id.uploadCommunityPostFragment)
+        }
+    }
 
+    private fun hideIfAuth(destination: NavDestination, navBar: ChipNavigationBar) {
+        hideButtons()
         if (destination.id == R.id.main_auth || destination.id == R.id.navigation_profile || destination.id == R.id.completeProfileFragment )
             navBar.fade()
-        else
+        else {
             navBar.show()
+        }
     }
 
     private fun handleBackPressed(destination: NavDestination) {
@@ -105,6 +126,16 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    private fun showButtons() {
+        binding.postButton.show()
+        binding.sellButton.show()
+    }
+
+    private fun hideButtons() {
+        binding.sellButton.setGone()
+        binding.postButton.setGone()
     }
 
     private fun setUpAnimation() {

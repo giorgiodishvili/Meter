@@ -65,5 +65,33 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="180dp" />
 
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/sell_button"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:background="@drawable/card_button_shape"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="22dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_dollar_currency_symbol"
+        app:layout_constraintBottom_toBottomOf="@+id/nav_host_fragment"
+        app:layout_constraintEnd_toStartOf="@+id/post_button"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/post_button"
+        android:layout_width="55dp"
+        android:background="@drawable/card_button_shape"
+        android:layout_height="55dp"
+        android:src="@drawable/ic_question_mark"
+        android:layout_marginBottom="22dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/nav_host_fragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/sell_button" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

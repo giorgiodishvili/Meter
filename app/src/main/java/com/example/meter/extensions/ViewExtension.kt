@@ -75,7 +75,7 @@ fun View.slideDown(duration: Int = 400) {
 }
 
 
-fun View.slideUp(duration: Int = 400) {
+fun View.slideUp(duration: Int = 650) {
     show()
     val animate = TranslateAnimation(0f, 0f, this.height.toFloat(), 0f)
     animate.duration = duration.toLong()

@@ -3,45 +3,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".screens.bottom_nav.addpost.upload.communitypost.UploadCommunityPostFragment">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/userImage"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginBottom="20dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/tvUserName"
+        android:id="@+id/uploadImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:src="@mipmap/upload_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:srcCompat="@drawable/ic_profile_user" />
-
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/addImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/custom_button"
-        android:padding="8dp"
-        android:src="@drawable/ic_photo_camera"
-        app:layout_constraintEnd_toEndOf="@+id/userImage"
-        app:layout_constraintTop_toTopOf="@+id/userImage" />
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerPhotos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/userImage"
-        />
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toBottomOf="@+id/uploadImage" />
 
     <Button
         android:id="@+id/save"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerPhotos"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="36dp"
+        android:fontFamily="@font/helvatice_medium"
+        android:background="@drawable/custom_button"
+        android:text="@string/upload"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="SAVE"/>
+        app:layout_constraintTop_toBottomOf="@+id/recyclerPhotos" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

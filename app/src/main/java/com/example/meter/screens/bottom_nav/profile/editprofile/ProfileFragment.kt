@@ -152,7 +152,7 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
         })
 
         viewModel.readImageStatus.observe(viewLifecycleOwner, { image ->
-            binding.userImage.loadImgUri(image)
+            binding.uploadImage.loadImgUri(image)
             imageUri = image
         })
     }
@@ -169,7 +169,7 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
         if (requestCode == 100 && resultCode == RESULT_OK)
             if (data != null) {
                 imageUri = data.data!!
-                binding.userImage.loadImgUri(imageUri)
+                binding.uploadImage.loadImgUri(imageUri)
             }
     }
 
@@ -210,7 +210,7 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
         binding.nameInput.setReadOnly(true)
         binding.nameInput.setDrawableEnd(requireContext(), R.drawable.ic_checked)
 
-        binding.userImage.loadImgUri(firebaseAuthImpl.getUser()!!.photoUrl)
+        binding.uploadImage.loadImgUri(firebaseAuthImpl.getUser()!!.photoUrl)
         binding.tvUserName.text = firebaseAuthImpl.getUser()!!.displayName
         binding.tvInfoTitle.text = getString(R.string.add_phone)
 

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:background="@color/white"
     android:layout_height="match_parent"
-    tools:context=".screens.bottom_nav.addpost.upload.carpost.UploadCarSellPostFragment">
+    tools:context=".screens.bottom_nav.market.MarketFragment">
 
     <TextView
         android:layout_width="match_parent"
@@ -13,6 +13,6 @@
         android:textSize="50sp"
         android:fontFamily="@font/proxima_extra_bold"
         android:layout_height="match_parent"
-        android:text="Create Sell Car post" />
+        android:text="Sell Car" />
 
 </FrameLayout>
