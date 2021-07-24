@@ -60,9 +60,6 @@ class CompleteProfileFragment :
 
         val externalUid = arguments?.getString("uid")
 
-//        val navController = (childFragmentManager.findFragmentById(R.id.postsHostFragment) as NavHostFragment?)?.navController
-//        navController?.navigate(R.id.action_global_navigation_commPosts, bundleOf("uid2" to externalUid.toString()))
-
         if (externalUid != null) {
             sharedViewModel.saveUserId(externalUid)
             uid = externalUid

@@ -70,9 +70,7 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
         adapter.onProfileClick = { uid ->
             val bundle = bundleOf("uid" to uid)
             findNavController().navigate(R.id.action_navigation_community_to_navigation_profile, bundle)
-
         }
-
     }
 
     private fun observe() {

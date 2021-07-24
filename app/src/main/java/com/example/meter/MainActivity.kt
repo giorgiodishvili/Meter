@@ -2,7 +2,10 @@ package com.example.meter
 
 import android.animation.Animator
 import android.os.Bundle
+import android.transition.Slide
+import android.transition.Transition
 import android.util.Log.d
+import android.view.Gravity
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -12,10 +15,12 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.meter.base.SharedViewModel
 import com.example.meter.databinding.ActivityMainBinding
+import com.example.meter.extensions.fade
 import com.example.meter.extensions.setGone
 import com.example.meter.extensions.show
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -23,7 +28,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var navController: NavController
-    lateinit var chipNavigation: ChipNavigationBar
     private val sharedViewModel: SharedViewModel by viewModels()
 
 
@@ -43,20 +47,22 @@ class MainActivity : AppCompatActivity() {
         d("tagtag", "bottomnav")
         binding.lottieAnimation.setGone()
 
+        val navView = binding.navView
         navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
-        val navView = binding.navView
-        chipNavigation = binding.bottomNavBar
-
+        val chipNavigation = binding.bottomNavBar
         chipNavigation.setItemSelected(R.id.navigation_community)
+
         chipNavigation.setOnItemSelectedListener { itemId ->
             navView.selectedItemId = itemId
         }
 
         supportFragmentManager.beginTransaction()
-
         NavigationUI.setupWithNavController(navView, navController)
+        val slide: Transition = Slide(Gravity.END)
+        slide.excludeTarget(navView, true)
+        window.enterTransition = slide
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
@@ -76,11 +82,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun hideIfAuth(destination: NavDestination, navBar: ChipNavigationBar) {
+
         if (destination.id == R.id.main_auth || destination.id == R.id.navigation_profile || destination.id == R.id.completeProfileFragment )
-            navBar.setGone()
+            navBar.fade()
         else
             navBar.show()
-
     }
 
     private fun handleBackPressed(destination: NavDestination) {
@@ -109,7 +115,6 @@ class MainActivity : AppCompatActivity() {
 
             override fun onAnimationEnd(animation: Animator?) {
                 bottomNavBarSetup()
-//                binding.imageView.show()
             }
 
             override fun onAnimationCancel(animation: Animator?) {

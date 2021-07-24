@@ -15,6 +15,7 @@ import com.example.meter.databinding.CommunityWallPostItemBinding
 import com.example.meter.entity.community.post.Content
 import com.example.meter.extensions.hide
 import com.example.meter.extensions.show
+import com.example.meter.utils.transformers.DepthTransformer
 
 
 typealias onProfileClick = (uid: String) -> Unit
@@ -61,6 +62,7 @@ class CommunityPostsRecyclerViewAdapter(
                 binding.postLikeBTN.show()
             }
         }
+
 
         private fun setListeners() {
 
@@ -111,6 +113,8 @@ class CommunityPostsRecyclerViewAdapter(
                     binding.photos.show()
                 }
                 binding.photos.adapter = CommunityPostsViewPagerAdapter(item.photoCarUrl)
+                binding.photos.setPageTransformer(DepthTransformer)
+
             }
 
 

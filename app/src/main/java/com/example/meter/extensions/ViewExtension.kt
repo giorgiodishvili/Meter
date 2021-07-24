@@ -2,6 +2,7 @@ package com.example.meter.extensions
 
 import android.net.Uri
 import android.view.View
+import android.view.animation.TranslateAnimation
 import android.widget.ImageView
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
@@ -55,10 +56,30 @@ fun ImageView.loadImgUri(url: Uri?) {
 }
 
 fun View.fade(action: NavDirections? = null) {
-    alpha = 0f
-    animate().setDuration(2250).alpha(1f).withEndAction {
+    animate().alpha(0f).withEndAction {
+        setGone()
+        alpha = 1f
         if (action != null) {
             findNavController().navigate(action)
         }
     }
 }
+
+fun View.slideDown(duration: Int = 400) {
+    show()
+    val animate = TranslateAnimation(0f, 0f, 0f, this.height.toFloat())
+    animate.duration = duration.toLong()
+    animate.fillAfter = true
+    startAnimation(animate)
+    setGone()
+}
+
+
+fun View.slideUp(duration: Int = 400) {
+    show()
+    val animate = TranslateAnimation(0f, 0f, this.height.toFloat(), 0f)
+    animate.duration = duration.toLong()
+    animate.fillAfter = true
+    startAnimation(animate)
+}
+

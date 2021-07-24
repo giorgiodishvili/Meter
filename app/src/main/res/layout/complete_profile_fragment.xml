@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    app:layoutDescription="@xml/complete_profile_fragment_scene"
     tools:context=".screens.bottom_nav.profile.complete.CompleteProfileFragment">
 
 
@@ -26,6 +27,7 @@
         android:fontFamily="@font/helvatica_heavy"
         android:textColor="@color/gray"
         android:textSize="27sp"
+        android:text="Giorgi"
         app:layout_constraintBottom_toTopOf="@+id/surnameTv"
         app:layout_constraintStart_toEndOf="@+id/profilePic" />
 
@@ -34,6 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/helvatice_thin"
+        android:text="ninidze"
         android:textColor="@color/gray_blue"
         android:textSize="26sp"
         app:layout_constraintBottom_toBottomOf="@+id/profilePic"
@@ -44,17 +47,17 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
-        app:menu="@menu/post_menu"
         app:backgroundColor="@color/white"
+        app:iconSize="25dp"
         app:iconTint="@color/main_color"
-        app:indicatorRadius="0dp"
-        app:sideMargins="0dp"
-        app:textSize="0sp"
-        app:iconSize="28dp"
         app:indicatorColor="@color/button_color"
+        app:indicatorRadius="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editProfileButton" />
+        app:layout_constraintTop_toBottomOf="@+id/editProfileButton"
+        app:menu="@menu/post_menu"
+        app:sideMargins="0dp"
+        app:textSize="0sp" />
 
 
     <androidx.fragment.app.FragmentContainerView
@@ -121,10 +124,10 @@
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
         android:background="@android:color/transparent"
         android:src="@drawable/ic_back_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>

@@ -28,7 +28,11 @@
         tools:layout="@layout/main_auth_fragment">
         <action
             android:id="@+id/action_main_auth_to_navigation_profile"
-            app:destination="@id/navigation_profile" />
+            app:destination="@id/navigation_profile"
+            app:enterAnim="@anim/slide_in_bot"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_bot"/>
     </fragment>
     <fragment
         android:id="@+id/completeProfileFragment"
@@ -86,12 +90,20 @@
             app:popExitAnim="@anim/slide_out_bot" />
         <action
             android:id="@+id/action_navigation_profile_to_main_auth"
-            app:destination="@id/main_auth" />
+            app:destination="@id/main_auth"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/slide_out_bot"
+            app:popEnterAnim="@anim/slide_in_bot"
+            app:popExitAnim="@anim/slide_out_top"/>
         <action
             android:id="@+id/action_navigation_profile_to_navigation_home"
             app:destination="@id/navigation_community"
             app:popUpTo="@id/main_navigation"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
 
 
     </fragment>
