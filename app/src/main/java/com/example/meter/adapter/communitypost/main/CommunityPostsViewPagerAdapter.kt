@@ -22,8 +22,12 @@ class CommunityPostsViewPagerAdapter(
             if (images.size == 1) {
                 binding.positionHolder.setGone()
                 binding.imagePosition.setGone()
-            }else {
-                binding.imagePosition.text = binding.root.context.getString(R.string.position_image, absoluteAdapterPosition+1, images.size)
+            } else {
+                binding.imagePosition.text = binding.root.context.getString(
+                    R.string.position_image,
+                    absoluteAdapterPosition + 1,
+                    images.size
+                )
             }
 
             binding.imgSlider.loadImg(images[absoluteAdapterPosition])

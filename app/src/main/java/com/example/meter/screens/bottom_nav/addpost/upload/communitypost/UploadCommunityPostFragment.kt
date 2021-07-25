@@ -17,7 +17,7 @@ import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.meter.R
-import com.example.meter.adapter.UploadCommunityPostPhotoRecyclerAdapter
+import com.example.meter.adapter.communitypost.upload.UploadCommunityPostPhotoRecyclerAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.UploadCommunityPostFragmentBinding
 import com.example.meter.extensions.toFile
@@ -192,7 +192,11 @@ class UploadCommunityPostFragment() :
             }
             builder.show()
         } else {
-            popDialog(R.layout.dialog_item_error, R.id.errorMsg, "მაქსიმუმ შესაძლებელია 5 ფოტოს ატვირთვა")
+            popDialog(
+                R.layout.dialog_item_error,
+                R.id.errorMsg,
+                "მაქსიმუმ შესაძლებელია 5 ფოტოს ატვირთვა"
+            )
         }
     }
 
