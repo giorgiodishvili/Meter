@@ -16,4 +16,5 @@ interface CommunityPostRepository {
         title: String
     ): Resource<Content>
 
+    suspend fun getSinglePost(postId: Long): Resource<Content>
 }

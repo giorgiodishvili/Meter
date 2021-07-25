@@ -1,32 +1,107 @@
 package com.example.meter.screens.bottom_nav.community.singlepost
 
-import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.example.meter.R
+import com.example.meter.base.BaseFragment
+import com.example.meter.databinding.SingleCommunityPostFragmentBinding
+import com.example.meter.entity.community.post.Content
+import com.example.meter.extensions.loadImg
+import com.example.meter.network.Resource
+import com.example.meter.repository.firebase.FirebaseRepositoryImpl
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class SingleCommunityPostFragment : Fragment() {
+@AndroidEntryPoint
+class SingleCommunityPostFragment :
+    BaseFragment<SingleCommunityPostFragmentBinding, SingleCommunityPostViewModel>(
+        SingleCommunityPostFragmentBinding::inflate,
+        SingleCommunityPostViewModel::class.java
+    ) {
 
-    companion object {
-        fun newInstance() = SingleCommunityPostFragment()
+    @Inject
+    lateinit var firebaseAuthImpl: FirebaseRepositoryImpl
+
+    private var userId: String = ""
+
+    private var postId: Long = -1
+    override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
+        getDataFromBundle()
+        makeInitialCalls()
+        setListeners()
+        observe()
     }
 
-    private lateinit var viewModel: SingleCommunityPostViewModel
+    private fun observe() {
+        viewModel.post.observe(viewLifecycleOwner, {
+            when (it.status) {
+                Resource.Status.ERROR -> Log.i("debugee", "ERROR")
+                Resource.Status.SUCCESS -> it!!.data?.let { it1 -> setUpPost(it1) }
+                Resource.Status.LOADING -> Log.i("debugee", "loading")
+            }
+        })
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.single_community_post_fragment, container, false)
+        viewModel.comments.observe(viewLifecycleOwner, {
+            when (it.status) {
+                Resource.Status.ERROR -> Log.i("debugee", "$it")
+                Resource.Status.SUCCESS -> Log.i("debugee", it.data.toString())
+                Resource.Status.LOADING -> Log.i("debugee", "loading")
+            }
+        })
+
+        viewModel.createComment.observe(viewLifecycleOwner, {
+            when (it.status) {
+                Resource.Status.ERROR -> Log.i("debugee", "$it")
+                Resource.Status.SUCCESS -> Log.i("debugee", it.data.toString())
+                Resource.Status.LOADING -> Log.i("debugee", "loading")
+            }
+        })
+
+        viewModel.deleteComment.observe(viewLifecycleOwner, {
+            when (it.status) {
+                Resource.Status.ERROR -> Log.i("debugee", "$it")
+                Resource.Status.SUCCESS -> Log.i("debugee", it.data.toString())
+                Resource.Status.LOADING -> Log.i("debugee", "loading")
+            }
+        })
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SingleCommunityPostViewModel::class.java)
-        // TODO: Use the ViewModel
+    private fun getDataFromBundle() {
+        postId = arguments?.getLong("postId", -1L)!!
     }
 
+    private fun makeInitialCalls() {
+        viewModel.getPost(postId)
+        viewModel.getComments(postId)
+        firebaseAuthImpl.getUserId()?.let {
+
+        }
+    }
+
+    private fun setListeners() {
+        binding.commentBTN.setOnClickListener {
+
+            val commentText = binding.commentET.text
+            if (commentText.isNotEmpty()) {
+                if (firebaseAuthImpl.getUserId() != null) {
+                    userId = firebaseAuthImpl.getUserId()!!
+                    viewModel.createComment(
+                        postId,
+                        userId, commentText.toString()
+                    )
+                    commentText.clear()
+                } else {
+                    binding.root.findNavController().navigate(R.id.action_global_navigation_profile)
+                }
+            }
+        }
+    }
+
+    private fun setUpPost(data: Content) {
+        binding.authorIV.loadImg(data.user.url)
+        binding.name.text = data.user.name
+        binding.descriptionTB.text = data.description
+    }
 }

@@ -76,7 +76,7 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
             )
         }
 
-        adapter.onRootClick = { postId ->
+        adapter.onCardViewClick = { postId ->
             val bundle = bundleOf("postId" to postId)
             findNavController().navigate(
                 R.id.action_navigation_community_to_singleCommunityPostFragment,
@@ -97,17 +97,17 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
 
         viewModel.createLikeResponse.observe(viewLifecycleOwner, {
             when (it.status) {
-                Resource.Status.ERROR -> i("debugee", "ERROR")
-                Resource.Status.SUCCESS -> i("debugee", "sucess")
-                Resource.Status.LOADING -> i("debugee", "loading")
+                Resource.Status.ERROR -> i("Like", "$it")
+                Resource.Status.SUCCESS -> i("Like", "sucess")
+                Resource.Status.LOADING -> i("Like", "loading")
             }
         })
 
         viewModel.dislikeResponse.observe(viewLifecycleOwner, {
             when (it.status) {
-                Resource.Status.ERROR -> i("debugee", "ERROR")
-                Resource.Status.SUCCESS -> i("debugee", "sucess")
-                Resource.Status.LOADING -> i("debugee", "loading")
+                Resource.Status.ERROR -> i("dislike", "$it")
+                Resource.Status.SUCCESS -> i("dislike", "sucess")
+                Resource.Status.LOADING -> i("dislike", "loading")
             }
         })
     }

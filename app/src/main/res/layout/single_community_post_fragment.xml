@@ -26,15 +26,15 @@
         android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
         android:layout_marginStart="10dp"
-        tools:text="giorgi odishvili"
         android:fontFamily="@font/helvetica_heavy"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/authorIV"
 
-        app:layout_constraintStart_toEndOf="@+id/authorIV"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintStart_toEndOf="@+id/authorIV"
+        app:layout_constraintTop_toTopOf="@+id/authorIV"
+        tools:text="giorgi odishvili" />
 
     <TextView
         android:id="@+id/descriptionTB"
@@ -50,4 +50,23 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         />
+
+    <EditText
+        android:id="@+id/commentET"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="comment.."
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/commentBTN"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/commentBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Comment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

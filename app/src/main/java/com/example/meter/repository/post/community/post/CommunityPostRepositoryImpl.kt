@@ -94,4 +94,20 @@ class CommunityPostRepositoryImpl @Inject constructor(private val apiService: Ap
             Resource.error(e.message.toString())
         }
     }
+
+    override suspend fun getSinglePost(postId: Long): Resource<Content> {
+        return try {
+
+            Resource.loading<Content>()
+            val response = apiService.getSingleCommunityPost(postId)
+            if (response.isSuccessful) {
+                Resource.success(response.body()!!)
+            } else {
+                Resource.error(response.message())
+            }
+
+        } catch (e: Exception) {
+            Resource.error(e.message.toString())
+        }
+    }
 }

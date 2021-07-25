@@ -11,13 +11,17 @@ class CommunityPostsViewPagerAdapter(
     private val images: List<String>,
 ) : RecyclerView.Adapter<CommunityPostsViewPagerAdapter.ItemHolder>() {
 
+
+    lateinit var onCardViewClick: onCardViewClick
+
     inner class ItemHolder(private val binding: CommunityPostPhotoItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind() {
-
             binding.imgSlider.loadImg(images[absoluteAdapterPosition])
             binding.imgSlider.clipToOutline = true
-
+            binding.cardView.setOnClickListener {
+                onCardViewClick.invoke(absoluteAdapterPosition.toLong())
+            }
         }
     }
 
