@@ -6,8 +6,10 @@ import com.example.meter.entity.UserDetails
 import com.example.meter.entity.community.post.CommunityPost
 import com.example.meter.entity.community.post.Content
 import com.example.meter.entity.community.post.UploadPhotoResponse
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
+
 
 interface ApiService {
     @GET("/category")
@@ -70,11 +72,37 @@ interface ApiService {
         @Field("title") title: String
     ): Response<Content>
 
+//    @POST("/photos/upload")
+//    @FormUrlEncoded
+//    suspend fun uploadPostPhoto(
+//        @Query("postId") postId: Int,
+//        @Field("file") file: ByteArray
+//    ): Response<UploadPhotoResponse>
+
     @POST("/photos/upload")
-    @FormUrlEncoded
+    @Multipart
     suspend fun uploadPostPhoto(
-        @Query("postId") postId: Int,
-        @Field("file") file: ByteArray
+        @Part("postId") postId: Int,
+        @Part file: List<MultipartBody.Part>
+    ): Response<Boolean>
+
+    @DELETE("community/post")
+    @FormUrlEncoded
+    suspend fun deleteCommunityPostById(
+        @Path("postId") postId: Long,
+    ): Response<Content>
+
+    @PUT("community/post")
+    @FormUrlEncoded
+    suspend fun updateCommunityPostById(
+        @Path("postId") postId: Long,
+    ): Response<Content>
+
+
+    @DELETE("photos/{photoId}")
+    @FormUrlEncoded
+    suspend fun deletePhotoById(
+        @Path("photoId") photoId: Long,
     ): Response<UploadPhotoResponse>
 
 

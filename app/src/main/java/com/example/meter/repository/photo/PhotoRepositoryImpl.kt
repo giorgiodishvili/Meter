@@ -4,11 +4,12 @@ import android.util.Log.i
 import com.example.meter.entity.community.post.UploadPhotoResponse
 import com.example.meter.network.ApiService
 import com.example.meter.network.Resource
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class PhotoRepositoryImpl @Inject constructor(private val apiService: ApiService) :
     PhotoRepository {
-    override suspend fun uploadPhoto(postId: Int, file: ByteArray): Resource<UploadPhotoResponse> {
+    override suspend fun uploadPhoto(postId: Int, file: List<MultipartBody.Part>): Resource<Boolean> {
         return try {
 
             Resource.loading<UploadPhotoResponse>()
