@@ -1,21 +1,20 @@
 package com.example.meter.screens.bottom_nav.addpost.upload.communitypost
 
 import android.Manifest
+import android.content.ContentValues
 import android.net.Uri
-import android.os.Environment
+import android.os.Build
+import android.provider.MediaStore
 import android.util.Log.i
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.FileProvider
 import androidx.core.os.bundleOf
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.meter.BuildConfig
 import com.example.meter.R
 import com.example.meter.adapter.UploadCommunityPostPhotoRecyclerAdapter
 import com.example.meter.base.BaseFragment
@@ -27,7 +26,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import java.io.File
 import javax.inject.Inject
 
 
@@ -106,28 +104,47 @@ class UploadCommunityPostFragment() :
             }
         }
 
-    private fun getTmpFileUri(): Uri {
-        val tmpFile = File.createTempFile(
-            "tmp_image_file",
-            ".png",
-            requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        ).apply {
-            createNewFile()
-            deleteOnExit()
-        }
 
-        return FileProvider.getUriForFile(
-            requireContext(),
-            "${BuildConfig.APPLICATION_ID}.provider",
-            tmpFile
-        )
-    }
+//    private fun getTmpFileUri(): Uri {
+//        val tmpFile = File.createTempFile(
+//            "tmp_image_file",
+//            ".png",
+//            requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+//        ).apply {
+//            createNewFile()
+//            deleteOnExit()
+//        }
+//
+//        return FileProvider.getUriForFile(
+//            requireContext(),
+//            "${BuildConfig.APPLICATION_ID}.provider",
+//            tmpFile
+//        )
+//    }
+//    private fun openCamera() {
+//        lifecycleScope.launchWhenStarted {
+//            getTmpFileUri().let { uri ->
+//                latestTmpUri = uri
+//                takePic.launch(uri)
+//            }
+//        }
+//    }
 
     private fun openCamera() {
-        lifecycleScope.launchWhenStarted {
-            getTmpFileUri().let { uri ->
-                latestTmpUri = uri
-                takePic.launch(uri)
+        val filename = "photo.jpg"
+        val imageUri =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
+            } else {
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            }
+        val imagesDetails = ContentValues().apply {
+            put(MediaStore.Audio.Media.DISPLAY_NAME, filename)
+        }
+        requireContext().contentResolver.insert(imageUri, imagesDetails).let {
+            if (it != null) {
+                latestTmpUri = it
+                takePic.launch(latestTmpUri)
             }
         }
     }
@@ -160,7 +177,6 @@ class UploadCommunityPostFragment() :
             }
         }
     }
-
 
     // Pick Images Contract - Normally this is for all kind of files.
     private val pickImages =
@@ -247,8 +263,6 @@ class UploadCommunityPostFragment() :
                                 R.id.action_uploadCommunityPostFragment_to_singleCommunityPostFragment,
                                 bundleOf("postId" to postId)
                             )
-
-
                     }
                 }
                 Resource.Status.LOADING -> i("debugee", "LOADING")
