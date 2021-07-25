@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meter.R
-import com.example.meter.adapter.CommunityPostsRecyclerViewAdapter
+import com.example.meter.adapter.communitypost.main.CommunityPostsRecyclerViewAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.CommunityFragmentBinding
 import com.example.meter.extensions.setGone

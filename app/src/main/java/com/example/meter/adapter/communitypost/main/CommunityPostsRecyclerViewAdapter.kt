@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.meter.R
 import com.example.meter.databinding.CommunityWallPostItemBinding
+import com.example.meter.databinding.CommunityWallWithoutPhotoPostItemBinding
 import com.example.meter.entity.community.post.Content
 import com.example.meter.extensions.hide
 import com.example.meter.extensions.loadImg
@@ -25,11 +26,14 @@ typealias onCardViewClick = (postId: Long) -> Unit
 class CommunityPostsRecyclerViewAdapter(
     private val userId: String, private val likeButtonOnClick: (View, Content, Boolean) -> Unit
 ) :
-    PagingDataAdapter<Content, CommunityPostsRecyclerViewAdapter.ItemHolder>(REPO_COMPARATOR) {
+    PagingDataAdapter<Content, RecyclerView.ViewHolder>(REPO_COMPARATOR) {
 
     private lateinit var communityPostsViewPagerAdapter: CommunityPostsViewPagerAdapter
 
     companion object {
+        private const val DEFAULT_ITEM = 0
+        private const val NO_PHOTO_ITEM = 1
+
         private val REPO_COMPARATOR = object : DiffUtil.ItemCallback<Content>() {
             override fun areItemsTheSame(oldItem: Content, newItem: Content): Boolean =
                 oldItem == newItem
@@ -41,6 +45,75 @@ class CommunityPostsRecyclerViewAdapter(
 
     lateinit var onProfileClick: onProfileClick
     lateinit var onCardViewClick: onCardViewClick
+
+    inner class NoPhotoHolder (private val binding: CommunityWallWithoutPhotoPostItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        private lateinit var item: Content
+        fun bind() {
+            setDataToView()
+            setListeners()
+        }
+        private fun setDataToView() {
+            item = getItem(absoluteAdapterPosition)!!
+            i("ITEM", "$item")
+            binding.firstName.text = item.user.name.split(" ")[0]
+            binding.lastName.text = item.user.name.split(" ")[1]
+            binding.title.text = item.title
+            binding.authorIV.loadImg(item.user.url)
+            binding.descriptionCenter.text = item.description
+            binding.postCommentTV.text = item.commentsAmount.toString()
+            binding.postLikeTV.text = item.likedUserIds.size.toString()
+            binding.postViewTV.text = item.views.toString()
+
+            if (item.likedUserIds.contains(userId)) {
+                binding.postLikeBTN.setImageResource(R.drawable.ic_like)
+            } else {
+                binding.postLikeBTN.setImageResource(R.drawable.ic_like_unpressed)
+            }
+        }
+        private fun setListeners() {
+
+            binding.authorIV.setOnClickListener {
+                onProfileClick.invoke(item.user.id)
+            }
+
+            if (item.photoCarUrl.isNotEmpty()) {
+                communityPostsViewPagerAdapter.onCardViewClick = {
+                    onCardViewClick.invoke(item.id)
+                }
+            }
+
+            binding.postCommentBTN.setOnClickListener {
+                onCardViewClick.invoke(item.id)
+
+            }
+
+            binding.postLikeBTN.setOnClickListener {
+                when {
+                    item.likedUserIds.contains(userId) -> {
+                        //                    binding.postLikeTV.text =
+                        //                        (binding.postLikeTV.text.toString().toLong() - 1).toString()
+                        likeButtonOnClick.invoke(it, item, false)
+                        item.likedUserIds.remove(userId)
+                        binding.postLikeTV.text = (item.likedUserIds.size).toString()
+                        binding.postLikeBTN.setImageResource(R.drawable.ic_like_unpressed)
+
+                    }
+                    userId.isNotEmpty() -> {
+                        //                    binding.postLikeTV.text =
+                        //                        (binding.postLikeTV.text.toString().toLong() + 1).toString()
+                        likeButtonOnClick.invoke(it, item, true)
+                        item.likedUserIds.add(userId)
+                        binding.postLikeTV.text = (item.likedUserIds.size).toString()
+                        binding.postLikeBTN.setImageResource(R.drawable.ic_like)
+                    }
+                    else -> {
+                        it.findNavController().navigate(R.id.action_global_navigation_profile)
+                    }
+                }
+            }
+        }
+    }
 
     inner class ItemHolder(private val binding: CommunityWallPostItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -69,7 +142,6 @@ class CommunityPostsRecyclerViewAdapter(
                 binding.postLikeBTN.setImageResource(R.drawable.ic_like_unpressed)
             }
         }
-
 
         private fun setListeners() {
 
@@ -168,17 +240,39 @@ class CommunityPostsRecyclerViewAdapter(
         }
     }
 
-    override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        holder.bind()
+    override fun getItemViewType(position: Int): Int {
+        val item = getItem(position)!!
+        return if (item.photoCarUrl.isEmpty()) {
+                NO_PHOTO_ITEM
+            } else {
+                DEFAULT_ITEM
+            }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
-        return ItemHolder(
-            CommunityWallPostItemBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is ItemHolder -> holder.bind()
+            is NoPhotoHolder -> holder.bind()
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == DEFAULT_ITEM) {
+            ItemHolder(
+                CommunityWallPostItemBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
             )
-        )
+        } else {
+            NoPhotoHolder(
+                CommunityWallWithoutPhotoPostItemBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+        }
     }
 }

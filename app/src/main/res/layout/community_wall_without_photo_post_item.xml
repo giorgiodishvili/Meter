@@ -22,8 +22,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/photos"
         app:layout_constraintEnd_toEndOf="@+id/photos"
-        app:layout_constraintStart_toStartOf="@+id/photos"
-        tools:text="Toyouta Prius gayidva" />
+        app:layout_constraintStart_toStartOf="@+id/photos" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/authorIV"
@@ -62,17 +61,19 @@
         app:layout_constraintStart_toEndOf="@+id/first_name"
         tools:text="Odishvili" />
 
-    <androidx.viewpager2.widget.ViewPager2
+    <ImageView
         android:id="@+id/photos"
         android:layout_width="0dp"
         android:layout_height="175dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="34dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="34dp"
         android:clipChildren="false"
+        android:src="@drawable/ic_no_image_post_background"
+        android:scaleType="fitXY"
         android:clipToPadding="false"
-        app:layout_constraintEnd_toStartOf="@+id/rightArrBTN"
-        app:layout_constraintStart_toEndOf="@+id/leftArrBTN"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -80,7 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="7dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="7dp"
         android:elevation="7dp"
         android:fontFamily="@font/helvetica_medium"
         android:textColor="@color/black"
@@ -130,7 +131,8 @@
         android:id="@+id/postViewTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="10dp"
         android:elevation="7dp"
         android:fontFamily="@font/helvetica_medium"
         android:textColor="@color/black"
@@ -144,66 +146,13 @@
         android:id="@+id/postViewBTN"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="5dp"
         android:background="@android:color/transparent"
         android:src="@drawable/ic_seen"
         app:layout_constraintEnd_toEndOf="@id/photos"
         app:layout_constraintTop_toBottomOf="@id/photos" />
 
-
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/rightArrBTN"
-        android:layout_width="12dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="12dp"
-        android:background="@drawable/ic_left_arrow"
-        app:layout_constraintBottom_toBottomOf="@id/photos"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/photos" />
-
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/leftArrBTN"
-        android:layout_width="12dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="12dp"
-        android:background="@drawable/ic_right_arrow"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@id/photos"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/photos" />
-
-
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="10dp"
-        android:elevation="7dp"
-        android:fontFamily="@font/helvetica_medium"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/photos"
-        app:layout_constraintStart_toStartOf="@+id/photos"
-        app:layout_constraintTop_toBottomOf="@+id/postLikeTV"
-        tools:text="loremipsum sloressad loarasdarsad asda" />
-
-
-    <TextView
-        android:id="@+id/seeMore"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="7dp"
-        android:fontFamily="@font/helvetica_medium"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:text="@string/see_more" />
 
     <View
         android:id="@+id/separator"
@@ -213,6 +162,24 @@
         android:background="#5A4949"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description" />
+        app:layout_constraintTop_toBottomOf="@+id/postCommentBTN" />
+
+    <TextView
+        android:id="@+id/descriptionCenter"
+        android:layout_width="0dp"
+        android:ellipsize="end"
+        android:textColor="@color/button_color"
+        android:gravity="center"
+        android:fontFamily="@font/helvatica_heavy"
+        android:layout_height="0dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="40dp"
+        android:textSize="16sp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="@+id/photos"
+        app:layout_constraintStart_toStartOf="@+id/photos"
+        app:layout_constraintTop_toBottomOf="@+id/last_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
