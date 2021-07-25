@@ -28,7 +28,7 @@ class CommunityPostRepositoryImpl @Inject constructor(private val apiService: Ap
         ).liveData
     }
 
-    override suspend fun createLike(postId: Int, userId: String): Resource<Boolean> {
+    override suspend fun createLike(postId: Long, userId: String): Resource<Boolean> {
         return try {
 
             val response = apiService.createLike(postId, userId)
@@ -44,7 +44,7 @@ class CommunityPostRepositoryImpl @Inject constructor(private val apiService: Ap
 
     }
 
-    override suspend fun deleteLike(postId: Int, userId: String): Resource<Boolean> {
+    override suspend fun deleteLike(postId: Long, userId: String): Resource<Boolean> {
         return try {
 
             val response = apiService.deleteLike(postId, userId)

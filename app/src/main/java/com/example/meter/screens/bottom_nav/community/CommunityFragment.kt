@@ -75,6 +75,14 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
                 bundle
             )
         }
+
+        adapter.onRootClick = { postId ->
+            val bundle = bundleOf("postId" to postId)
+            findNavController().navigate(
+                R.id.action_navigation_community_to_singleCommunityPostFragment,
+                bundle
+            )
+        }
     }
 
     private fun observe() {

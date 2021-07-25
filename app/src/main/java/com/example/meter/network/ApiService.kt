@@ -48,13 +48,13 @@ interface ApiService {
 
     @POST("/user/react/like")
     suspend fun createLike(
-        @Query("postId") postId: Int,
+        @Query("postId") postId: Long,
         @Query("userId") userId: String
     ): Response<Boolean>
 
     @DELETE("/user/react/like")
     suspend fun deleteLike(
-        @Query("postId") postId: Int,
+        @Query("postId") postId: Long,
         @Query("userId") userId: String
     ): Response<Boolean>
 
@@ -82,7 +82,7 @@ interface ApiService {
     @POST("/photos/upload")
     @Multipart
     suspend fun uploadPostPhoto(
-        @Part("postId") postId: Int,
+        @Part("postId") postId: Long,
         @Part file: List<MultipartBody.Part>
     ): Response<Boolean>
 

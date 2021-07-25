@@ -5,7 +5,7 @@ import okhttp3.MultipartBody
 
 interface PhotoRepository {
     suspend fun uploadPhoto(
-        postId: Int,
+        postId: Long,
         file: List<MultipartBody.Part>
     ): Resource<Boolean>
 }

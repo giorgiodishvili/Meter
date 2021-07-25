@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
+import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -45,6 +46,7 @@ class UploadCommunityPostFragment() :
     private val photoUriList: MutableList<Uri> = mutableListOf()
     private val photoFileList: MutableList<MultipartBody.Part> = mutableListOf()
     private lateinit var adapter: UploadCommunityPostPhotoRecyclerAdapter
+    private var postId: Long = -1L
 
 
     override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
@@ -205,9 +207,13 @@ class UploadCommunityPostFragment() :
                 }
 
                 Resource.Status.SUCCESS -> {
+                    postId = it.data?.id!!
                     if (photoFileList.isEmpty()) {
                         binding.root.findNavController()
-                            .navigate(R.id.action_uploadCommunityPostFragment_to_singleCommunityPostFragment)
+                            .navigate(
+                                R.id.action_uploadCommunityPostFragment_to_singleCommunityPostFragment,
+                                bundleOf("postId" to postId)
+                            )
                     } else {
                         it.data?.id?.let { it1 ->
                             viewModel.uploadPhoto(
@@ -236,7 +242,10 @@ class UploadCommunityPostFragment() :
                     binding.save.isEnabled = true
                     if (it.data!!) {
                         binding.root.findNavController()
-                            .navigate(R.id.action_uploadCommunityPostFragment_to_singleCommunityPostFragment)
+                            .navigate(
+                                R.id.action_uploadCommunityPostFragment_to_singleCommunityPostFragment,
+                                bundleOf("postId" to postId)
+                            )
                     }
                 }
                 Resource.Status.LOADING -> i("debugee", "LOADING")

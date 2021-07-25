@@ -34,7 +34,7 @@ class CommunityViewModel @Inject constructor(private val communityPostRepository
         return communityPostRepository.getCommunityPost().cachedIn(viewModelScope)
     }
 
-    fun createLike(postId: Int, userId: String) {
+    fun createLike(postId: Long, userId: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 _createLikeResponse.postValue(communityPostRepository.createLike(postId, userId))
@@ -42,7 +42,7 @@ class CommunityViewModel @Inject constructor(private val communityPostRepository
         }
     }
 
-    fun dislikePost(postId: Int, userId: String) {
+    fun dislikePost(postId: Long, userId: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 _dislikeResponse.postValue(communityPostRepository.deleteLike(postId, userId))

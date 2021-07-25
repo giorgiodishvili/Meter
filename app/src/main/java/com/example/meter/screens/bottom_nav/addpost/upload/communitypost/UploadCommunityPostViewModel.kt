@@ -52,7 +52,7 @@ class UploadCommunityPostViewModel @Inject constructor(
 
     }
 
-    fun uploadPhoto(postId: Int, file: List<MultipartBody.Part>) {
+    fun uploadPhoto(postId: Long, file: List<MultipartBody.Part>) {
         i("File List ", "$file")
 
         viewModelScope.launch {
