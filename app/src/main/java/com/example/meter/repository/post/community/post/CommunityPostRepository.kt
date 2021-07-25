@@ -7,8 +7,8 @@ import com.example.meter.network.Resource
 
 interface CommunityPostRepository {
     fun getCommunityPost(): LiveData<PagingData<Content>>
-    suspend fun createLike(postId: Int, userId: String): Resource<Boolean>
-    suspend fun deleteLike(postId: Int, userId: String): Resource<Boolean>
+    suspend fun createLike(postId: Long, userId: String): Resource<Boolean>
+    suspend fun deleteLike(postId: Long, userId: String): Resource<Boolean>
     suspend fun getLikedCommentsIDsForUser(userId: String): Resource<List<Long>>
     suspend fun uploadPost(
         postId: String,

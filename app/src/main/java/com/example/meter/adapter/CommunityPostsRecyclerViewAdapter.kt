@@ -20,6 +20,7 @@ import com.example.meter.utils.transformers.DepthTransformer
 
 
 typealias onProfileClick = (uid: String) -> Unit
+typealias onRootClick = (postId: Long) -> Unit
 
 class CommunityPostsRecyclerViewAdapter(
     private val userId: String, private val likeButtonOnClick: (View, Content, Boolean) -> Unit
@@ -37,6 +38,7 @@ class CommunityPostsRecyclerViewAdapter(
     }
 
     lateinit var onProfileClick: onProfileClick
+    lateinit var onRootClick: onRootClick
 
     inner class ItemHolder(private val binding: CommunityWallPostItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -71,6 +73,10 @@ class CommunityPostsRecyclerViewAdapter(
 
             binding.authorIV.setOnClickListener {
                 onProfileClick.invoke(item.user.id)
+            }
+
+            binding.root.setOnClickListener {
+                onRootClick.invoke(item.id)
             }
 
             binding.leftArrBTN.setOnClickListener {

@@ -17,6 +17,11 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_navigation_community_to_singleCommunityPostFragment"
+            app:destination="@id/singleCommunityPostFragment" />
+
+
     </fragment>
     <fragment
         android:id="@+id/main_auth"
@@ -98,7 +103,13 @@
         android:id="@+id/uploadCommunityPostFragment"
         android:name="com.example.meter.screens.bottom_nav.addpost.upload.communitypost.UploadCommunityPostFragment"
         android:label="upload_community_post_fragment"
-        tools:layout="@layout/upload_community_post_fragment" />
+        tools:layout="@layout/upload_community_post_fragment">
+        <action
+            android:id="@+id/action_uploadCommunityPostFragment_to_singleCommunityPostFragment"
+            app:destination="@id/singleCommunityPostFragment"
+            app:popUpTo="@id/main_navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/uploadCarSellPostFragment"
         android:name="com.example.meter.screens.bottom_nav.addpost.upload.carpost.UploadCarSellPostFragment"
@@ -109,6 +120,11 @@
         android:name="com.example.meter.screens.bottom_nav.market.MarketFragment"
         android:label="market_fragment"
         tools:layout="@layout/market_fragment" />
+    <fragment
+        android:id="@+id/singleCommunityPostFragment"
+        android:name="com.example.meter.screens.bottom_nav.community.singlepost.SingleCommunityPostFragment"
+        android:label="single_community_post_fragment"
+        tools:layout="@layout/single_community_post_fragment" />
 
 
 </navigation>
