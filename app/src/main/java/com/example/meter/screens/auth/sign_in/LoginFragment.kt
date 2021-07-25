@@ -13,8 +13,8 @@ import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.LoginFragmentBinding
 import com.example.meter.extensions.isEmail
 import com.example.meter.extensions.isNotEmail
-import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import com.example.meter.extensions.showToast
+import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions

@@ -40,10 +40,14 @@ class ResetFragment : BaseFragment<ResetFragmentBinding, ResetViewModel>(
     private fun observer() {
         viewModel.resetStatus.observe(viewLifecycleOwner, { resetStatus ->
             if (resetStatus) {
-                popDialog(R.layout.dialog_item_sent, R.id.errorMsg, "წერილი გაიგზავნა თქვენს ელ-ფოსტაზე", true)
+                popDialog(
+                    R.layout.dialog_item_sent,
+                    R.id.errorMsg,
+                    "წერილი გაიგზავნა თქვენს ელ-ფოსტაზე",
+                    true
+                )
                 findNavController().navigate(R.id.action_resetFragment_to_loginFragment)
-            }
-            else
+            } else
                 popDialog(R.layout.dialog_item_error, R.id.errorMsg, "მოხვდა რაღაც შეცდომა")
         })
     }

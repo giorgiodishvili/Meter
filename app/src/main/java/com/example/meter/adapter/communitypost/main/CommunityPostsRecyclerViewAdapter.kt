@@ -1,4 +1,4 @@
-package com.example.meter.adapter
+package com.example.meter.adapter.communitypost.main
 
 import android.util.Log.i
 import android.view.LayoutInflater
@@ -77,8 +77,10 @@ class CommunityPostsRecyclerViewAdapter(
                 onProfileClick.invoke(item.user.id)
             }
 
-            communityPostsViewPagerAdapter.onCardViewClick = {
-                onCardViewClick.invoke(item.id)
+            if (item.photoCarUrl.isNotEmpty()) {
+                communityPostsViewPagerAdapter.onCardViewClick = {
+                    onCardViewClick.invoke(item.id)
+                }
             }
 
 

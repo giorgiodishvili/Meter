@@ -9,6 +9,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.meter.R
+import com.example.meter.adapter.communitypost.main.CommunityPostsViewPagerAdapter
 import com.example.meter.databinding.CommunityWallPostItemBinding
 import com.example.meter.entity.UserDetails
 import com.example.meter.entity.community.post.Content

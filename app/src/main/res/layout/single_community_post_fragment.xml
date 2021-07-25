@@ -2,12 +2,32 @@
 <androidx.constraintlayout.widget.ConstraintLayout
 
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".screens.bottom_nav.community.singlepost.SingleCommunityPostFragment">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerPhotos"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/commentET"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="comment.."
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/commentBTN"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -18,7 +38,7 @@
         android:background="@color/white"
         android:elevation="7dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerPhotos"
         app:shapeAppearanceOverlay="@style/circleImageView"
         tools:src="@mipmap/ic_launcher_round" />
 
@@ -40,27 +60,43 @@
         android:id="@+id/descriptionTB"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        tools:text="giorgi odishvili"
-        android:fontFamily="@font/helvetica_medium"
-        app:layout_constraintStart_toEndOf="@+id/authorIV"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/authorIV"
-        android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        />
-
-    <EditText
-        android:id="@+id/commentET"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="comment.."
+        android:fontFamily="@font/helvetica_medium"
         android:textColor="@color/black"
-        android:textColorHint="@color/gray_blue"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/commentBTN"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/authorIV"
+        app:layout_constraintTop_toBottomOf="@+id/authorIV"
+        tools:text="giorgi odishvili" />
+
+    <ImageButton
+        android:id="@+id/likeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:src="@drawable/ic_like"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionTB" />
+
+    <ImageButton
+        android:id="@+id/commentBTNLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:src="@drawable/ic_comment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionTB" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/commentRV"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/commentET"
+        app:layout_constraintTop_toBottomOf="@+id/commentBTNLogo" />
 
     <Button
         android:id="@+id/commentBTN"

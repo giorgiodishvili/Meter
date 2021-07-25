@@ -12,7 +12,7 @@ class CommentRepositoryImpl @Inject constructor(private val apiService: ApiServi
         return try {
 
             val response = apiService.getComments(postId)
-            i("getComments","$response")
+            i("getComments", "$response")
             if (response.isSuccessful) {
                 Resource.success(response.body()!!)
             } else {

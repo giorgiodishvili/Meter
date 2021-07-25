@@ -77,7 +77,7 @@ class SingleCommunityPostViewModel @Inject constructor(
 
     fun deleteComment(
         commentId: Long
-    ){
+    ) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 _deleteComment.postValue(

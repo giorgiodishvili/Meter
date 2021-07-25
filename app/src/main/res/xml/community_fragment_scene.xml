@@ -36,15 +36,15 @@
             motion:layout_constraintTop_toBottomOf="@+id/my_toolbar"
             motion:layout_constraintVertical_bias="0.7" />
         <Constraint
-            motion:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/recentPostsRV"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            motion:layout_constraintBottom_toBottomOf="parent"
-            motion:layout_constraintTop_toBottomOf="@+id/search_bar"
-            motion:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="15dp"
-            android:id="@+id/recentPostsRV"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/search_bar" />
     </ConstraintSet>
 
 

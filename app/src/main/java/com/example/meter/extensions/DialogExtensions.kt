@@ -4,7 +4,7 @@ import android.app.Dialog
 import android.view.Window
 import android.view.WindowManager
 
-fun Dialog.showDialog(dialogView: Int){
+fun Dialog.showDialog(dialogView: Int) {
     window!!.setBackgroundDrawableResource(android.R.color.transparent)
     window!!.requestFeature(Window.FEATURE_NO_TITLE)
     setContentView(dialogView)

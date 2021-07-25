@@ -1,4 +1,4 @@
-package com.example.meter.adapter
+package com.example.meter.adapter.communitypost.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

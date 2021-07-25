@@ -1,4 +1,4 @@
-package com.example.meter.adapter
+package com.example.meter.adapter.communitypost.upload
 
 import android.net.Uri
 import android.view.LayoutInflater
@@ -9,7 +9,8 @@ import com.example.meter.databinding.UploadCommunityPostPhotoRecyclerItemBinding
 import com.example.meter.extensions.loadImgUri
 
 typealias uploadButton = (position: Int) -> Unit
-class UploadCommunityPostPhotoRecyclerAdapter() :
+
+class UploadCommunityPostPhotoRecyclerAdapter :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     lateinit var uploadButton: uploadButton
@@ -31,11 +32,11 @@ class UploadCommunityPostPhotoRecyclerAdapter() :
     inner class ButtonHolder(private val binding: UploadCommunityPostButtonItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind() {
-                binding.uploadButton.setOnClickListener {
-                    uploadButton.invoke(0)
-                }
+            binding.uploadButton.setOnClickListener {
+                uploadButton.invoke(0)
             }
         }
+    }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -58,7 +59,7 @@ class UploadCommunityPostPhotoRecyclerAdapter() :
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int ) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is UploadCommunityPostPhotoRecyclerAdapter.ItemHolder -> holder.onBind()
             is UploadCommunityPostPhotoRecyclerAdapter.ButtonHolder -> holder.onBind()

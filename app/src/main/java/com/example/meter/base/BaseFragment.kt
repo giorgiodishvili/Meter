@@ -52,7 +52,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
         _binding = null
     }
 
-    fun popDialog(layout: Int, tv: Int?=null, text:String="", autoClose: Boolean?=false) {
+    fun popDialog(layout: Int, tv: Int? = null, text: String = "", autoClose: Boolean? = false) {
         dialogItem = Dialog(requireActivity())
         dialogItem.showDialog(layout)
         if (autoClose == true) {

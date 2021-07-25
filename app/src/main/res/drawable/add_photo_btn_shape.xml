@@ -3,10 +3,9 @@
     android:shape="rectangle">
 
     <stroke
+        android:width="2dp"
         android:color="@color/button_color"
         android:dashWidth="10px"
-        android:dashGap="10px"
-        android:width="2dp"/>
-    <corners
-        android:radius="20dp"/>
+        android:dashGap="10px" />
+    <corners android:radius="20dp" />
 </shape>
