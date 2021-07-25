@@ -1,6 +1,7 @@
 package com.example.meter.network
 
 import com.example.meter.entity.AutomobileCategory
+import com.example.meter.entity.Comment
 import com.example.meter.entity.Model
 import com.example.meter.entity.UserDetails
 import com.example.meter.entity.community.post.CommunityPost
@@ -52,7 +53,7 @@ interface ApiService {
         @Query("userId") userId: String
     ): Response<Boolean>
 
-    @DELETE("/user/react/like")
+    @DELETE("/user/react/dislike")
     suspend fun deleteLike(
         @Query("postId") postId: Long,
         @Query("userId") userId: String
@@ -104,6 +105,25 @@ interface ApiService {
     suspend fun deletePhotoById(
         @Path("photoId") photoId: Long,
     ): Response<UploadPhotoResponse>
+
+    @GET("community/post/{postId}")
+    suspend fun getSingleCommunityPost(@Path("postId") postId: Long): Response<Content>
+
+    @GET("community/post/comments/{postId}")
+    suspend fun getComments(@Path("postId") postId: Long): Response<List<Comment>>
+
+    @POST("community/post/comments")
+    @FormUrlEncoded
+    suspend fun createComment(
+        @Query("postId") postId: Long,
+        @Query("userId") userId: String,
+        @Field("description") description: String
+    ): Response<Comment>
+
+    @DELETE("community/post/comments")
+    suspend fun deleteComment(
+        @Query("postId") postId: Long,
+    ): Response<Comment>
 
 
     //    @PUT("/api/cars/latest")

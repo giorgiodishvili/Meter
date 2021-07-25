@@ -20,12 +20,14 @@ import com.example.meter.utils.transformers.DepthTransformer
 
 
 typealias onProfileClick = (uid: String) -> Unit
-typealias onRootClick = (postId: Long) -> Unit
+typealias onCardViewClick = (postId: Long) -> Unit
 
 class CommunityPostsRecyclerViewAdapter(
     private val userId: String, private val likeButtonOnClick: (View, Content, Boolean) -> Unit
 ) :
     PagingDataAdapter<Content, CommunityPostsRecyclerViewAdapter.ItemHolder>(REPO_COMPARATOR) {
+
+    private lateinit var communityPostsViewPagerAdapter: CommunityPostsViewPagerAdapter
 
     companion object {
         private val REPO_COMPARATOR = object : DiffUtil.ItemCallback<Content>() {
@@ -38,7 +40,7 @@ class CommunityPostsRecyclerViewAdapter(
     }
 
     lateinit var onProfileClick: onProfileClick
-    lateinit var onRootClick: onRootClick
+    lateinit var onCardViewClick: onCardViewClick
 
     inner class ItemHolder(private val binding: CommunityWallPostItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -62,9 +64,9 @@ class CommunityPostsRecyclerViewAdapter(
             binding.postViewTV.text = item.views.toString()
 
             if (item.likedUserIds.contains(userId)) {
-                binding.postLikeBTN.hide()
+                binding.postLikeBTN.setImageResource(R.drawable.ic_like)
             } else {
-                binding.postLikeBTN.show()
+                binding.postLikeBTN.setImageResource(R.drawable.ic_like_unpressed)
             }
         }
 
@@ -75,9 +77,10 @@ class CommunityPostsRecyclerViewAdapter(
                 onProfileClick.invoke(item.user.id)
             }
 
-            binding.root.setOnClickListener {
-                onRootClick.invoke(item.id)
+            communityPostsViewPagerAdapter.onCardViewClick = {
+                onCardViewClick.invoke(item.id)
             }
+
 
             binding.leftArrBTN.setOnClickListener {
                 binding.photos.currentItem = binding.photos.currentItem - 1
@@ -86,6 +89,12 @@ class CommunityPostsRecyclerViewAdapter(
             binding.rightArrBTN.setOnClickListener {
                 binding.photos.currentItem = binding.photos.currentItem + 1
             }
+
+            binding.postCommentBTN.setOnClickListener {
+                onCardViewClick.invoke(item.id)
+
+            }
+
             binding.postLikeBTN.setOnClickListener {
                 when {
                     item.likedUserIds.contains(userId) -> {
@@ -94,6 +103,8 @@ class CommunityPostsRecyclerViewAdapter(
                         likeButtonOnClick.invoke(it, item, false)
                         item.likedUserIds.remove(userId)
                         binding.postLikeTV.text = (item.likedUserIds.size).toString()
+                        binding.postLikeBTN.setImageResource(R.drawable.ic_like_unpressed)
+
                     }
                     userId.isNotEmpty() -> {
                         //                    binding.postLikeTV.text =
@@ -101,6 +112,7 @@ class CommunityPostsRecyclerViewAdapter(
                         likeButtonOnClick.invoke(it, item, true)
                         item.likedUserIds.add(userId)
                         binding.postLikeTV.text = (item.likedUserIds.size).toString()
+                        binding.postLikeBTN.setImageResource(R.drawable.ic_like)
                     }
                     else -> {
                         it.findNavController().navigate(R.id.action_global_navigation_profile)
@@ -121,7 +133,9 @@ class CommunityPostsRecyclerViewAdapter(
                 if (!binding.photos.isVisible) {
                     binding.photos.show()
                 }
-                binding.photos.adapter = CommunityPostsViewPagerAdapter(item.photoCarUrl)
+                communityPostsViewPagerAdapter =
+                    CommunityPostsViewPagerAdapter(item.photoCarUrl)
+                binding.photos.adapter = communityPostsViewPagerAdapter
                 binding.photos.setPageTransformer(DepthTransformer)
 
             }
