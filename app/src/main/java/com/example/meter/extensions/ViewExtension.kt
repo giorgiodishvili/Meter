@@ -31,16 +31,16 @@ fun ImageView.loadImg(url: String, center: Boolean = true) {
             .load(url)
             .circleCrop()
             .transform(MultiTransformation(CenterCrop(), RoundedCorners(8)))
-            .placeholder(R.drawable.ic_info_button)
-            .error(R.drawable.ic_info_button)
+            .placeholder(R.drawable.ic_placeholder)
+            .error(R.drawable.ic_placeholder)
             .into(this)
     } else {
         Glide.with(this.context)
             .load(url)
             .centerCrop()
             .transform(MultiTransformation(CircleCrop(), RoundedCorners(8)))
-            .placeholder(R.drawable.ic_info_button)
-            .error(R.drawable.ic_info_button)
+            .placeholder(R.drawable.ic_placeholder)
+            .error(R.drawable.ic_placeholder)
             .into(this)
     }
 
@@ -49,20 +49,19 @@ fun ImageView.loadImg(url: String, center: Boolean = true) {
 fun ImageView.loadImgUri(url: Uri?, center: Boolean = false) {
 
     if (center) {
-
         Glide.with(this.context)
             .load(url)
             .centerCrop()
-            .placeholder(R.drawable.ic_dot)
-            .error(R.drawable.ic_info_button)
+            .placeholder(R.drawable.ic_placeholder)
+            .error(R.drawable.ic_placeholder)
             .into(this)
     } else {
 
         Glide.with(this.context)
             .load(url)
             .circleCrop()
-            .placeholder(R.drawable.ic_dot)
-            .error(R.drawable.ic_info_button)
+            .placeholder(R.drawable.ic_placeholder)
+            .error(R.drawable.ic_placeholder)
             .into(this)
     }
 

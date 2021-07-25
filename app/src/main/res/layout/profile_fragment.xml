@@ -71,7 +71,7 @@
         android:id="@+id/separator"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="30dp"
         android:background="@color/gray_blue"
         app:layout_constraintBottom_toTopOf="@+id/tvInfoTitle"
         app:layout_constraintEnd_toEndOf="parent"

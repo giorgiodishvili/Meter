@@ -16,7 +16,6 @@ import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
-
 @HiltViewModel
 class UploadCommunityPostViewModel @Inject constructor(
     private val photoRepository: PhotoRepositoryImpl,

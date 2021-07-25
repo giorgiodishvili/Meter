@@ -7,7 +7,7 @@ import com.example.meter.R
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.ResetFragmentBinding
 import com.example.meter.extensions.isEmail
-import com.example.shualeduri.extensions.showToast
+import com.example.meter.extensions.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

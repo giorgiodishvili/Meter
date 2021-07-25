@@ -1,7 +1,9 @@
 package com.example.meter.screens.bottom_nav.addpost.upload.communitypost
 
 import android.Manifest
+import android.content.ContentResolver
 import android.content.ContentValues
+import android.content.res.Resources
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
@@ -13,8 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.meter.R
 import com.example.meter.adapter.UploadCommunityPostPhotoRecyclerAdapter
 import com.example.meter.base.BaseFragment
@@ -38,11 +39,12 @@ class UploadCommunityPostFragment() :
 
     private var latestTmpUri: Uri? = null
 
-
     @Inject
     lateinit var firebaseAuthImpl: FirebaseRepositoryImpl
+
     private val photoUriList: MutableList<Uri> = mutableListOf()
     private val photoFileList: MutableList<MultipartBody.Part> = mutableListOf()
+
     private lateinit var adapter: UploadCommunityPostPhotoRecyclerAdapter
     private var postId: Long = -1L
 
@@ -53,20 +55,22 @@ class UploadCommunityPostFragment() :
     }
 
     private fun initRecycler() {
+
         adapter = UploadCommunityPostPhotoRecyclerAdapter()
-        binding.recyclerPhotos.adapter = adapter
         binding.recyclerPhotos.layoutManager =
-            LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+            GridLayoutManager(requireContext(), 3)
+        binding.recyclerPhotos.adapter = adapter
+        preloadedButton()
     }
 
     private fun setListeners() {
-        binding.uploadImage.setOnClickListener {
-
+        adapter.uploadButton = {
             if (hasCamera() && hasRead()) {
                 showDialog()
             } else {
                 requestPermission(requestPermissionResult)
             }
+
         }
 
         binding.save.setOnClickListener {
@@ -152,7 +156,6 @@ class UploadCommunityPostFragment() :
         }
     }
 
-    // Pick Images Contract - Normally this is for all kind of files.
     private val pickImages =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             uri?.let { it ->
@@ -170,23 +173,27 @@ class UploadCommunityPostFragment() :
 
 
     private fun showDialog() {
-        val options = arrayOf<CharSequence>("Take Photo", "Choose From Gallery", "Cancel")
-        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Select Option")
-        builder.setItems(options) { dialog, item ->
-            when {
-                options[item] == "Take Photo" -> {
-                    openCamera()
-                }
-                options[item] == "Choose From Gallery" -> {
-                    pickImages.launch("image/*")     // We want images, so we set the mimeType as "image/*"
-                }
-                options[item] == "Cancel" -> {
-                    dialog.dismiss()
+        if (photoUriList.size < 5) {
+            val options = arrayOf<CharSequence>("Take Photo", "Choose From Gallery", "Cancel")
+            val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Select Option")
+            builder.setItems(options) { dialog, item ->
+                when {
+                    options[item] == "Take Photo" -> {
+                        openCamera()
+                    }
+                    options[item] == "Choose From Gallery" -> {
+                        pickImages.launch("image/*")     // We want images, so we set the mimeType as "image/*"
+                    }
+                    options[item] == "Cancel" -> {
+                        dialog.dismiss()
+                    }
                 }
             }
+            builder.show()
+        } else {
+            popDialog(R.layout.dialog_item_error, R.id.errorMsg, "მაქსიმუმ შესაძლებელია 6 ფოტოს ატვირთვა")
         }
-        builder.show()
     }
 
 
@@ -223,15 +230,12 @@ class UploadCommunityPostFragment() :
             when (it.status) {
                 Resource.Status.ERROR -> {
                     binding.save.isEnabled = true
-                    if (it.data == false) {
-                        dialogItem.cancel()
-                    }
                 }
 
                 Resource.Status.SUCCESS -> {
                     binding.save.isEnabled = true
                     if (it.data!!) {
-                        dialogItem.cancel() // <<<<--------- es loadingshia gadasatani
+
                         binding.root.findNavController()
                             .navigate(
                                 R.id.action_uploadCommunityPostFragment_to_singleCommunityPostFragment,
@@ -239,8 +243,29 @@ class UploadCommunityPostFragment() :
                             )
                     }
                 }
-                Resource.Status.LOADING -> i("debugee", "LOADING")
+                Resource.Status.LOADING -> {
+                    if (it.data == false) {
+                        dialogItem.cancel()
+                    }
+                    i("debugee", "LOADING")
+                }
             }
         })
     }
+
+    private fun preloadedButton() {
+        val resources: Resources = requireContext().resources
+
+        val uri = Uri.Builder()
+            .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+            .authority(resources.getResourcePackageName(R.drawable.ic_upload_icon))
+            .appendPath(resources.getResourceTypeName(R.drawable.ic_upload_icon))
+            .appendPath(resources.getResourceEntryName(R.drawable.ic_upload_icon))
+            .build()
+
+        photoUriList.add(uri)
+        adapter.submitData(photoUriList)
+        adapter.notifyDataSetChanged()
+    }
+
 }
