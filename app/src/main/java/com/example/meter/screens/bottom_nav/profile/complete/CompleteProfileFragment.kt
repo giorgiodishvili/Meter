@@ -19,7 +19,7 @@ import com.example.meter.extensions.setGone
 import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import com.example.meter.screens.bottom_nav.profile.myposts.commPosts.MyCommPostsViewModel
-import com.example.shualeduri.extensions.showToast
+import com.example.meter.extensions.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

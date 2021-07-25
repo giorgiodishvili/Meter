@@ -68,7 +68,6 @@
         app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bottomBar"
         app:navGraph="@navigation/posts_navigation" />
@@ -76,7 +75,7 @@
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="2.5dp"
         android:background="@drawable/card_button_shape"
         app:layout_constraintBottom_toBottomOf="@+id/bottomBar"
         app:layout_constraintEnd_toEndOf="parent"

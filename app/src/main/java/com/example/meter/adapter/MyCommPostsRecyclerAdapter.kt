@@ -15,6 +15,7 @@ import com.example.meter.entity.community.post.Content
 import com.example.meter.extensions.hide
 import com.example.meter.extensions.setGone
 import com.example.meter.extensions.show
+import com.example.meter.utils.transformers.DepthTransformer
 
 class MyCommPostsRecyclerAdapter(
     private val userId: String,
@@ -99,6 +100,7 @@ class MyCommPostsRecyclerAdapter(
                     binding.photos.show()
                 }
                 binding.photos.adapter = CommunityPostsViewPagerAdapter(item.photoCarUrl)
+                binding.photos.setPageTransformer(DepthTransformer)
             }
 
 
