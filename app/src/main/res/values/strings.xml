@@ -51,4 +51,7 @@
     <string name="community_posts">Community Posts</string>
     <string name="scanning">დაგველოდეთ მოწმდება გამოსახულების ვალიდურობა</string>
     <string name="upload">ატვირთვა</string>
+    <string name="title">სათაური</string>
+    <string name="description">აღწერა</string>
+    <string name="position_image">%1$d\/%2$d</string>
 </resources>

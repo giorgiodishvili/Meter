@@ -173,7 +173,7 @@ class UploadCommunityPostFragment() :
 
 
     private fun showDialog() {
-        if (photoUriList.size < 5) {
+        if (photoUriList.size < 6) {
             val options = arrayOf<CharSequence>("Take Photo", "Choose From Gallery", "Cancel")
             val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
             builder.setTitle("Select Option")
@@ -192,7 +192,7 @@ class UploadCommunityPostFragment() :
             }
             builder.show()
         } else {
-            popDialog(R.layout.dialog_item_error, R.id.errorMsg, "მაქსიმუმ შესაძლებელია 6 ფოტოს ატვირთვა")
+            popDialog(R.layout.dialog_item_error, R.id.errorMsg, "მაქსიმუმ შესაძლებელია 5 ფოტოს ატვირთვა")
         }
     }
 
@@ -212,6 +212,7 @@ class UploadCommunityPostFragment() :
                                 R.id.action_uploadCommunityPostFragment_to_singleCommunityPostFragment,
                                 bundleOf("postId" to postId)
                             )
+                        dialogItem.cancel()
                     } else {
                         viewModel.uploadPhoto(
                             postId,

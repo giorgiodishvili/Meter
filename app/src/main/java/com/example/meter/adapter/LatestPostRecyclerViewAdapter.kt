@@ -26,8 +26,8 @@ class LatestPostRecyclerViewAdapter(private val latestSellCarPosts: List<SellCar
         fun bind() {
             i("HERE", latestSellCarPosts[0].toString())
             var url = ""
-            if (latestSellCarPosts[adapterPosition].photoUrl.isNotEmpty()) {
-                url = latestSellCarPosts[adapterPosition].photoUrl[0]
+            if (latestSellCarPosts[absoluteAdapterPosition].photoUrl.isNotEmpty()) {
+                url = latestSellCarPosts[absoluteAdapterPosition].photoUrl[0]
             }
             Glide
                 .with(binding.root.context)
