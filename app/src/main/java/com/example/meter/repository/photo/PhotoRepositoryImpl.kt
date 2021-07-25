@@ -9,7 +9,10 @@ import javax.inject.Inject
 
 class PhotoRepositoryImpl @Inject constructor(private val apiService: ApiService) :
     PhotoRepository {
-    override suspend fun uploadPhoto(postId: Int, file: List<MultipartBody.Part>): Resource<Boolean> {
+    override suspend fun uploadPhoto(
+        postId: Int,
+        file: List<MultipartBody.Part>
+    ): Resource<Boolean> {
         return try {
 
             Resource.loading<UploadPhotoResponse>()

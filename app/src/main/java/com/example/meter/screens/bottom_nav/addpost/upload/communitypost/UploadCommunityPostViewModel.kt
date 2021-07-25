@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.meter.entity.community.post.Content
-import com.example.meter.entity.community.post.UploadPhotoResponse
 import com.example.meter.network.Resource
 import com.example.meter.repository.photo.PhotoRepositoryImpl
 import com.example.meter.repository.post.community.post.CommunityPostRepositoryImpl

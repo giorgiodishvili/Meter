@@ -16,11 +16,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:background="@color/cardview_light_background"
+            android:src="@drawable/ic_upload"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            android:src="@drawable/ic_upload" />
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerPhotos"
@@ -35,8 +35,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:hint="Title.."
-            android:textColor="@color/black"
             android:padding="10dp"
+            android:textColor="@color/black"
             android:textColorHint="@color/gray_blue"
             app:layout_constraintTop_toBottomOf="@id/recyclerPhotos" />
 

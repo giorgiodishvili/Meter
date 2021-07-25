@@ -70,14 +70,17 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
 
         adapter.onProfileClick = { uid ->
             val bundle = bundleOf("uid" to uid)
-            findNavController().navigate(R.id.action_navigation_community_to_navigation_profile, bundle)
+            findNavController().navigate(
+                R.id.action_navigation_community_to_navigation_profile,
+                bundle
+            )
         }
     }
 
     private fun observe() {
         viewModel.getCommunityPosts().observe(viewLifecycleOwner, { resource ->
             lifecycleScope.launch {
-                if(binding.progressCircular.isVisible){
+                if (binding.progressCircular.isVisible) {
                     binding.progressCircular.setGone()
                 }
                 adapter.submitData(resource)
@@ -107,18 +110,32 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
                 //nothing to do
             }
 
-            override fun onTransitionChange(p0: MotionLayout?, startId: Int, endId: Int, progress: Float) {
+            override fun onTransitionChange(
+                p0: MotionLayout?,
+                startId: Int,
+                endId: Int,
+                progress: Float
+            ) {
                 //nothing to do
             }
 
             override fun onTransitionCompleted(p0: MotionLayout?, currentId: Int) {
-                d("tagtag", "$currentId qurrent |${R.id.expandFromEnd} expand end |${R.id.expand} end")
+                d(
+                    "tagtag",
+                    "$currentId qurrent |${R.id.expandFromEnd} expand end |${R.id.expand} end"
+                )
                 if (currentId == EXPAND_BOTTOM || currentId == EXPAND_TOP) {
                     findNavController().navigate(R.id.action_navigation_community_to_navigation_profile)
                 }
                 d("trackemotion", "$currentId")
             }
-            override fun onTransitionTrigger(p0: MotionLayout?, triggerId: Int, positive: Boolean, progress: Float) {
+
+            override fun onTransitionTrigger(
+                p0: MotionLayout?,
+                triggerId: Int,
+                positive: Boolean,
+                progress: Float
+            ) {
                 //not used here
             }
 

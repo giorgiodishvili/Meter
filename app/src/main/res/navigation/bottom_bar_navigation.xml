@@ -98,7 +98,7 @@
         android:id="@+id/uploadCommunityPostFragment"
         android:name="com.example.meter.screens.bottom_nav.addpost.upload.communitypost.UploadCommunityPostFragment"
         android:label="upload_community_post_fragment"
-        tools:layout="@layout/upload_community_post_fragment" >
+        tools:layout="@layout/upload_community_post_fragment">
         <action
             android:id="@+id/action_uploadCommunityPostFragment_to_singleCommunityPostFragment"
             app:destination="@id/singleCommunityPostFragment"
