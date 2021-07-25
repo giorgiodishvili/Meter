@@ -3,18 +3,21 @@ package com.example.meter.screens.bottom_nav.addpost.upload.communitypost
 import android.Manifest
 import android.net.Uri
 import android.os.Environment
+import android.util.Log
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.FileProvider
+import androidx.core.net.toFile
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.meter.adapter.UploadCommunityPostPhotoRecyclerAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.UploadCommunityPostFragmentBinding
-import com.example.meter.extensions.toFile
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
@@ -44,6 +47,7 @@ class UploadCommunityPostFragment() :
 
         initRecycler()
         setListeners()
+        observers()
 
     }
 
@@ -75,7 +79,7 @@ class UploadCommunityPostFragment() :
                         photoFileList
                     )
                 }
-                binding.save.isEnabled = false
+//                binding.save.isEnabled = false
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -110,23 +114,13 @@ class UploadCommunityPostFragment() :
             "${requireContext().packageName}.provider",
             photoFile
         )
-
         takePic.launch(uri)
     }
 
     private val takePic = registerForActivityResult(ActivityResultContracts.TakePicture()) {
-
         if (it == true) {
+            popDialog()
 
-            uri?.let { it1 ->
-                photoUriList.add(it1)
-                adapter.submitData(photoUriList)
-            };
-            val file = uri?.toFile(requireContext())
-//
-//        val photoFile = file!!.asRequestBody(file.extension.toMediaTypeOrNull())
-//        val filePart = MultipartBody.Part.createFormData("file", file.name, photoFile)
-            file?.let { it1 -> photoFileList.add(it1.readBytes()) }
         }
     }
 
@@ -135,13 +129,16 @@ class UploadCommunityPostFragment() :
     private val pickImages =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             uri?.let { uri ->
-                photoUriList.add(uri);
+                this.uri = uri
+                d("tatata", "$uri")
+
+                uri.let { photoUriList.add(it) }
                 adapter.submitData(photoUriList)
+
                 val file = uri.toFile(requireContext())
-//
-//        val photoFile = file!!.asRequestBody(file.extension.toMediaTypeOrNull())
-//        val filePart = MultipartBody.Part.createFormData("file", file.name, photoFile)
                 file?.let { photoFileList.add(it.readBytes()) }
+                }
+                popDialog()
             }
         }
 
@@ -156,7 +153,7 @@ class UploadCommunityPostFragment() :
                     openCamera()
                 }
                 options[item] == "Choose From Gallery" -> {
-                    pickImages.launch("image/*")     // We want images, so we set the mimeType as "image/*"
+                    pickImages.launch("image/*")
                 }
                 options[item] == "Cancel" -> {
                     dialog.dismiss()
@@ -165,4 +162,14 @@ class UploadCommunityPostFragment() :
         }
         builder.show()
     }
+
+    private fun observers() {
+        viewModel.loading.observe(viewLifecycleOwner, {
+            if (!it) {
+                dialogItem.cancel()
+            }
+        })
+
+    }
 }
+

@@ -22,10 +22,14 @@ class UploadCommunityPostViewModel @Inject constructor(
     private val photoRepository: PhotoRepositoryImpl,
     private val communityPostRepository: CommunityPostRepositoryImpl
 ) : ViewModel() {
-    private val _postUploaded = MutableLiveData<Resource<String>>()
 
+    private val _postUploaded = MutableLiveData<Resource<String>>()
     val postUploaded: LiveData<Resource<String>>
         get() = _postUploaded
+
+    private var _loading = MutableLiveData<Boolean>().apply { true }
+    var loading: LiveData<Boolean> = _loading
+
 
 
     fun uploadPost(
@@ -51,6 +55,7 @@ class UploadCommunityPostViewModel @Inject constructor(
                 }
             }
         }
-
     }
+
 }
+

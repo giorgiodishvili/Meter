@@ -1,6 +1,7 @@
 package com.example.meter.base
 
 import android.Manifest
+import android.app.Dialog
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -13,6 +14,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
+import com.example.meter.R
+import com.example.meter.extensions.showDialog
 
 
 typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
@@ -24,6 +27,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
 
     private var _binding: VB? = null
     protected val binding get() = _binding!!
+    protected lateinit var dialogItem: Dialog
     protected val viewModel: VM by lazy {
         ViewModelProvider(this).get(baseViewModel)
     }
@@ -44,7 +48,17 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
         _binding = null
     }
 
-    /** Check if this device has a camera */
+    fun popDialog(show: Boolean=true) {
+        dialogItem = Dialog(requireActivity())
+        if (show) {
+            dialogItem.showDialog(R.layout.dialog_item_loading)
+            dialogItem.show()
+        } else {
+            dialogItem.cancel()
+        }
+
+    }
+
     private fun checkCameraHardware(context: Context): Boolean {
         return context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)
     }

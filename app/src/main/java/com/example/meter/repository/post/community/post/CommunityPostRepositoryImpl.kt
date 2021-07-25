@@ -67,8 +67,6 @@ class CommunityPostRepositoryImpl @Inject constructor(private val apiService: Ap
             if (response.isSuccessful) {
                 Resource.success(response.body()!!)
             } else {
-
-
                 Resource.error(response.message())
             }
 
