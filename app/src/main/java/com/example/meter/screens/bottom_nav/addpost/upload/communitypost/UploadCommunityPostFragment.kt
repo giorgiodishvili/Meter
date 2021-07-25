@@ -104,32 +104,6 @@ class UploadCommunityPostFragment() :
             }
         }
 
-
-//    private fun getTmpFileUri(): Uri {
-//        val tmpFile = File.createTempFile(
-//            "tmp_image_file",
-//            ".png",
-//            requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-//        ).apply {
-//            createNewFile()
-//            deleteOnExit()
-//        }
-//
-//        return FileProvider.getUriForFile(
-//            requireContext(),
-//            "${BuildConfig.APPLICATION_ID}.provider",
-//            tmpFile
-//        )
-//    }
-//    private fun openCamera() {
-//        lifecycleScope.launchWhenStarted {
-//            getTmpFileUri().let { uri ->
-//                latestTmpUri = uri
-//                takePic.launch(uri)
-//            }
-//        }
-//    }
-
     private fun openCamera() {
         val filename = "photo.jpg"
         val imageUri =

@@ -10,7 +10,6 @@
     tools:context=".screens.bottom_nav.community.singlepost.SingleCommunityPostFragment">
 
 
-
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/authorIV"
         android:layout_width="30dp"

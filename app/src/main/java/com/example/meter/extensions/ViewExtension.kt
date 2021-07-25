@@ -31,7 +31,7 @@ fun ImageView.loadImg(url: String, center: Boolean = true) {
             .load(url)
             .circleCrop()
             .transform(MultiTransformation(CenterCrop(), RoundedCorners(8)))
-            .placeholder(R.drawable.ic_dot)
+            .placeholder(R.drawable.ic_info_button)
             .error(R.drawable.ic_info_button)
             .into(this)
     } else {
@@ -39,7 +39,7 @@ fun ImageView.loadImg(url: String, center: Boolean = true) {
             .load(url)
             .centerCrop()
             .transform(MultiTransformation(CircleCrop(), RoundedCorners(8)))
-            .placeholder(R.drawable.ic_dot)
+            .placeholder(R.drawable.ic_info_button)
             .error(R.drawable.ic_info_button)
             .into(this)
     }
