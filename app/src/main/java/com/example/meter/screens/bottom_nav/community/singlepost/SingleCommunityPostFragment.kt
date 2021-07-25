@@ -60,8 +60,8 @@ class SingleCommunityPostFragment :
 
                         communityPostCommentRecyclerAdapter =
                             CommunityPostCommentRecyclerAdapter(it.data as MutableList<Comment>)
-                        binding.singlePostRecyclerPhoto.adapter = communityPostCommentRecyclerAdapter
-                        binding.singlePostRecyclerPhoto.layoutManager =
+                        binding.commentRV.adapter = communityPostCommentRecyclerAdapter
+                        binding.commentRV.layoutManager =
                             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
                     }
                 }
