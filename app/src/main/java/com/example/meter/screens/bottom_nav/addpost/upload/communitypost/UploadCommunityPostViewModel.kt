@@ -45,10 +45,8 @@ class UploadCommunityPostViewModel @Inject constructor(
                         title
                     )
                 )
-
             }
         }
-
     }
 
     fun uploadPhoto(postId: Long, file: List<MultipartBody.Part>) {
