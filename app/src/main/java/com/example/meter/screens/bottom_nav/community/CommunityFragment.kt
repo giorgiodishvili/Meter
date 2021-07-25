@@ -115,7 +115,14 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
     private fun transitionListener() {
         val transitionListener = object : MotionLayout.TransitionListener {
             override fun onTransitionStarted(p0: MotionLayout?, startId: Int, endId: Int) {
-                //nothing to do
+                d(
+                    "tagtag",
+                    "$endId qurrent |${R.id.expandFromEnd} expand end |${R.id.expand} end"
+                )
+                if (endId == EXPAND_BOTTOM || endId == EXPAND_TOP) {
+                    findNavController().navigate(R.id.action_navigation_community_to_navigation_profile)
+                }
+                d("trackemotion", "$endId")
             }
 
             override fun onTransitionChange(
@@ -128,14 +135,7 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
             }
 
             override fun onTransitionCompleted(p0: MotionLayout?, currentId: Int) {
-                d(
-                    "tagtag",
-                    "$currentId qurrent |${R.id.expandFromEnd} expand end |${R.id.expand} end"
-                )
-                if (currentId == EXPAND_BOTTOM || currentId == EXPAND_TOP) {
-                    findNavController().navigate(R.id.action_navigation_community_to_navigation_profile)
-                }
-                d("trackemotion", "$currentId")
+
             }
 
             override fun onTransitionTrigger(
