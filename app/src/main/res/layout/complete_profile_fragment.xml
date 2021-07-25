@@ -25,9 +25,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:fontFamily="@font/helvatica_heavy"
+        android:text="Giorgi"
         android:textColor="@color/gray"
         android:textSize="27sp"
-        android:text="Giorgi"
         app:layout_constraintBottom_toTopOf="@+id/surnameTv"
         app:layout_constraintStart_toEndOf="@+id/profilePic" />
 

@@ -5,5 +5,6 @@ data class User(
     val id: String,
     val name: String,
     val number: String,
-    val verified: Boolean
+    val verified: Boolean,
+    val url: String
 )

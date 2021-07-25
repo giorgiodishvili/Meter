@@ -14,13 +14,15 @@ import com.example.meter.R
 import com.example.meter.databinding.CommunityWallPostItemBinding
 import com.example.meter.entity.community.post.Content
 import com.example.meter.extensions.hide
+import com.example.meter.extensions.loadImg
 import com.example.meter.extensions.show
 import com.example.meter.utils.transformers.DepthTransformer
 
 
 typealias onProfileClick = (uid: String) -> Unit
+
 class CommunityPostsRecyclerViewAdapter(
-    private val userId: String, private val likeButtonOnClick: (View,Content,Boolean) -> Unit
+    private val userId: String, private val likeButtonOnClick: (View, Content, Boolean) -> Unit
 ) :
     PagingDataAdapter<Content, CommunityPostsRecyclerViewAdapter.ItemHolder>(REPO_COMPARATOR) {
 
@@ -51,6 +53,7 @@ class CommunityPostsRecyclerViewAdapter(
             binding.firstName.text = item.user.name.split(" ")[0]
             binding.lastName.text = item.user.name.split(" ")[1]
             binding.title.text = item.title
+            binding.authorIV.loadImg(item.user.url)
             binding.description.text = item.description
             binding.postCommentTV.text = item.commentsAmount.toString()
             binding.postLikeTV.text = item.likedUserIds.size.toString()

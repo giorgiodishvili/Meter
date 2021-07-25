@@ -38,11 +38,19 @@ class ProfileViewModel @Inject constructor(
     val readImageStatus: LiveData<Uri> = _readImageStatus
 
 
-    fun uploadUserInfo(email: String, name: String, number: String, url: String = "", verified: Boolean, uri: Uri?=null, uploadWithImage: Boolean=true) {
+    fun uploadUserInfo(
+        email: String,
+        name: String,
+        number: String,
+        url: String = "",
+        verified: Boolean,
+        uri: Uri? = null,
+        uploadWithImage: Boolean = true
+    ) {
         if (uploadWithImage)
-            uploadSynchronously(email, name, number, verified,url, uri)
+            uploadSynchronously(email, name, number, verified, url, uri)
         else {
-            uploadInfoOnly(email, name, number, url,  verified)
+            uploadInfoOnly(email, name, number, url, verified)
         }
     }
 
@@ -98,12 +106,20 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    private fun uploadSynchronously(email: String, name: String, number: String, verified: Boolean, url: String = "", uri: Uri?) {
+    private fun uploadSynchronously(
+        email: String,
+        name: String,
+        number: String,
+        verified: Boolean,
+        url: String = "",
+        uri: Uri?
+    ) {
         viewModelScope.launch {
             val infoPost = async {
                 withContext(Dispatchers.Default) {
                     try {
-                        val result = userInfo.postUserPersonalInfo(email, name, number, url, verified)
+                        val result =
+                            userInfo.postUserPersonalInfo(email, name, number, url, verified)
                         _postUserInfo.postValue(result)
                     } catch (e: HttpException) {
                         Log.d("tagtag", "${e.message}")
@@ -128,7 +144,13 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    private fun uploadInfoOnly(email: String, name: String, number: String, url: String, verified: Boolean) {
+    private fun uploadInfoOnly(
+        email: String,
+        name: String,
+        number: String,
+        url: String,
+        verified: Boolean
+    ) {
         viewModelScope.launch {
             withContext(Dispatchers.Default) {
                 try {

@@ -85,7 +85,7 @@ class CommunityPostRepositoryImpl @Inject constructor(private val apiService: Ap
         return try {
 
             Resource.loading<Content>()
-            val response = apiService.addCommunityPost(userId,description,title)
+            val response = apiService.addCommunityPost(userId, description, title)
             if (response.isSuccessful) {
                 Resource.success(response.body()!!)
             } else {

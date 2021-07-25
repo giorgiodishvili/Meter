@@ -66,6 +66,7 @@ class MyCommPostsFragment : BaseFragment<MyCommPostsFragmentBinding, MyCommPosts
         binding.recycler.adapter = adapter
 
     }
+
     private fun observers(uid: String) {
 
         viewModel.readUserPosts.observe(this, {
@@ -73,8 +74,10 @@ class MyCommPostsFragment : BaseFragment<MyCommPostsFragmentBinding, MyCommPosts
                 Resource.Status.SUCCESS -> {
                     it.data?.let { posts -> adapter.fetchPosts(posts.toMutableList()) }
                 }
-                Resource.Status.ERROR -> {}
-                Resource.Status.LOADING -> {}
+                Resource.Status.ERROR -> {
+                }
+                Resource.Status.LOADING -> {
+                }
             }
         })
 
@@ -85,8 +88,10 @@ class MyCommPostsFragment : BaseFragment<MyCommPostsFragmentBinding, MyCommPosts
                     initRecycler(uid)
                     adapter.getUserInfo(it.data)
                 }
-                Resource.Status.ERROR -> {}
-                Resource.Status.LOADING -> {}
+                Resource.Status.ERROR -> {
+                }
+                Resource.Status.LOADING -> {
+                }
             }
         })
     }
