@@ -8,14 +8,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
-import com.example.meter.R
 import com.example.meter.extensions.showDialog
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
@@ -48,16 +52,21 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
         _binding = null
     }
 
-    fun popDialog(show: Boolean=true) {
+    fun popDialog(layout: Int, tv: Int?=null, text:String="", autoClose: Boolean?=false) {
         dialogItem = Dialog(requireActivity())
-        if (show) {
-            dialogItem.showDialog(R.layout.dialog_item_loading)
-            dialogItem.show()
-        } else {
-            dialogItem.cancel()
+        dialogItem.showDialog(layout)
+        if (autoClose == true) {
+            CoroutineScope(Dispatchers.Main).launch {
+                delay(4200)
+                dialogItem.cancel()
+            }
         }
-
+        if (tv != null) {
+            dialogItem.findViewById<TextView>(tv).text = text
+        }
+        dialogItem.show()
     }
+
 
     private fun checkCameraHardware(context: Context): Boolean {
         return context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)

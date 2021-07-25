@@ -104,7 +104,7 @@ class LoginFragment : BaseFragment<LoginFragmentBinding, LoginViewModel>(
                     requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
                 navController.navController.navigate(R.id.action_global_navigation_profile)
             } else {
-                requireActivity().showToast("Error")
+                popDialog(R.layout.dialog_item_error, R.id.errorMsg, "მონაცემები არასწორია")
             }
         })
 
@@ -116,7 +116,7 @@ class LoginFragment : BaseFragment<LoginFragmentBinding, LoginViewModel>(
                     requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
                 navController.navController.navigate(R.id.action_global_navigation_profile)
             } else {
-                requireActivity().showToast("Error")
+                popDialog(R.layout.dialog_item_error, R.id.errorMsg, "მოხვდა რაღაც შეცდომა")
             }
         })
     }

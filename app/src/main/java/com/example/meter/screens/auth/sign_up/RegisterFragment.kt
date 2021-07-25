@@ -46,11 +46,11 @@ class RegisterFragment : BaseFragment<RegisterFragmentBinding, RegisterViewModel
             requireActivity().showToast("fill the fields")
         } else {
             if (email.isNotEmail())
-                binding.emailRegInput.error = "enter valid email"
+                binding.emailRegInput.error = "შეიყვანე სწორი ელ-ფოსტა"
             if (password.length < 6)
-                binding.passRegInput.error = "password must be at least 6 char"
+                binding.passRegInput.error = "პაროლი უნდა შეიცავდეს მინიმუმ 6 სიმბოლოს"
             if (password != passwordConfirmed)
-                binding.passRegConfInput.error = "passwords does't match"
+                binding.passRegConfInput.error = "პაროლები არ ემთხვევა"
             if (password.length >= 6 && password == passwordConfirmed && email.isEmail())
                 viewModel.registerStart(email, password)
             observer()
@@ -62,7 +62,7 @@ class RegisterFragment : BaseFragment<RegisterFragmentBinding, RegisterViewModel
             if (regStatus)
                 findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
             else
-                requireActivity().showToast("Error")
+                popDialog(R.layout.dialog_item_error, R.id.errorMsg, "მოხვდა რაღაც შეცდომა")
         })
     }
 }

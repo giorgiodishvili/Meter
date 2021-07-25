@@ -87,6 +87,7 @@ class UploadCommunityPostFragment() :
                     binding.descriptionET.text.toString(),
                     binding.titleET.text.toString()
                 )
+                popDialog(R.layout.dialog_item_uploading)
             }
         } else {
             binding.save.isEnabled = true
@@ -98,12 +99,10 @@ class UploadCommunityPostFragment() :
         }
     }
 
-
     val requestPermissionResult =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
             if (it[Manifest.permission.CAMERA] == true && it[Manifest.permission.READ_EXTERNAL_STORAGE] == true) {
                 showDialog()
-
             }
         }
 
@@ -143,7 +142,7 @@ class UploadCommunityPostFragment() :
 
                 val file = it1.toFile(requireContext())
                 i("latestempURI", it1.toString())
-                i("file", file.toString())
+                i("filefile", file.toString())
 
 
                 if (file != null) {
@@ -156,7 +155,6 @@ class UploadCommunityPostFragment() :
                                 it2
                             )
                         }
-
                     photoFileList.add(filePart)
                 }
             }
@@ -171,6 +169,9 @@ class UploadCommunityPostFragment() :
                 photoUriList.add(it)
                 adapter.submitData(photoUriList)
                 val file = it.toFile(requireContext())
+                i("latestempURI", it.toString())
+                i("filefile", "$file")
+
                 val photoFile = file!!.asRequestBody(file.extension.toMediaTypeOrNull())
                 val filePart = MultipartBody.Part.createFormData("file", file.name, photoFile)
                 photoFileList.add(filePart)
@@ -221,7 +222,6 @@ class UploadCommunityPostFragment() :
                         )
                     }
                 }
-
                 Resource.Status.LOADING -> {
                     binding.save.isEnabled = false
                     i("debugee", "LOADING")
@@ -233,17 +233,22 @@ class UploadCommunityPostFragment() :
             when (it.status) {
                 Resource.Status.ERROR -> {
                     binding.save.isEnabled = true
-                    //TODO rollback savedPost on error
+                    if (it.data == false) {
+                        dialogItem.cancel()
+                    }
                 }
 
                 Resource.Status.SUCCESS -> {
                     binding.save.isEnabled = true
                     if (it.data!!) {
+                        dialogItem.cancel() // <<<<--------- es loadingshia gadasatani
                         binding.root.findNavController()
                             .navigate(
                                 R.id.action_uploadCommunityPostFragment_to_singleCommunityPostFragment,
                                 bundleOf("postId" to postId)
                             )
+
+
                     }
                 }
                 Resource.Status.LOADING -> i("debugee", "LOADING")
