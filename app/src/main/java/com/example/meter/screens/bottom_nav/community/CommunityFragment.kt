@@ -33,8 +33,8 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
     private lateinit var adapter: CommunityPostsRecyclerViewAdapter
 
     companion object {
-        private const val EXPAND_ID1 = 2131296461
-        private const val EXPAND_ID2 = 2131296460
+        private const val EXPAND_TOP = R.id.expandFromEnd
+        private const val EXPAND_BOTTOM = R.id.expand
     }
 
     override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
@@ -112,8 +112,8 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
             }
 
             override fun onTransitionCompleted(p0: MotionLayout?, currentId: Int) {
-                d("tagtag", "$currentId")
-                if (currentId == EXPAND_ID1 || currentId == EXPAND_ID2) {
+                d("tagtag", "$currentId qurrent |${R.id.expandFromEnd} expand end |${R.id.expand} end")
+                if (currentId == EXPAND_BOTTOM || currentId == EXPAND_TOP) {
                     findNavController().navigate(R.id.action_navigation_community_to_navigation_profile)
                 }
                 d("trackemotion", "$currentId")
