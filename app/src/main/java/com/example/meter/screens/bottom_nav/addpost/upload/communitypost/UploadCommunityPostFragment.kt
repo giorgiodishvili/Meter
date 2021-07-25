@@ -215,12 +215,10 @@ class UploadCommunityPostFragment() :
                                 bundleOf("postId" to postId)
                             )
                     } else {
-                        it.data?.id?.let { it1 ->
-                            viewModel.uploadPhoto(
-                                it1,
-                                photoFileList
-                            )
-                        }
+                        viewModel.uploadPhoto(
+                            postId,
+                            photoFileList
+                        )
                     }
                 }
 
