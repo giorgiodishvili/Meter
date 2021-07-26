@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.meter.adapter.MyCommPostsRecyclerAdapter
+import com.example.meter.adapter.MyMarketPostsRecyclerAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.base.SharedViewModel
 import com.example.meter.databinding.MyMarketPostsFragmentBinding
@@ -24,7 +24,7 @@ class MyMarketPostsFragment : BaseFragment<MyMarketPostsFragmentBinding, MyMarke
     lateinit var firebaseAuthImpl: FirebaseRepositoryImpl
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
-    private lateinit var adapter: MyCommPostsRecyclerAdapter
+    private lateinit var adapter: MyMarketPostsRecyclerAdapter
 
 
     override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
@@ -51,21 +51,15 @@ class MyMarketPostsFragment : BaseFragment<MyMarketPostsFragmentBinding, MyMarke
 
     }
 
-    private fun initRecycler(uid: String) {
+    private fun initRecycler() {
         adapter =
-            MyCommPostsRecyclerAdapter(uid) { _, content, b ->
-//                if (b) {
-//                    viewModel.createLike(content.id, userId)
-//                } else {
-//                    viewModel.dislikePost(content.id, userId)
-//                }
-            }
+            MyMarketPostsRecyclerAdapter()
         binding.recycler.layoutManager = LinearLayoutManager(
             requireContext(),
             LinearLayoutManager.VERTICAL, false
         )
         binding.recycler.adapter = adapter
-        adapter.onCardViewClick = {postId ->
+        adapter.onCardViewClick = { postId ->
             val bundle = bundleOf("postId" to postId)
 //            binding.root.findNavController().navigate(
 //                R.id.action_navigation_community_to_singleCommunityPostFragment,
@@ -93,7 +87,7 @@ class MyMarketPostsFragment : BaseFragment<MyMarketPostsFragmentBinding, MyMarke
             when (it.status) {
                 Resource.Status.SUCCESS -> {
                     viewModel.getUserPosts(uid)
-                    initRecycler(uid)
+                    initRecycler()
                     adapter.getUserInfo(it.data)
                 }
                 Resource.Status.ERROR -> {

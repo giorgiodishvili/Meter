@@ -55,4 +55,6 @@
     <string name="description">აღწერა</string>
     <string name="position_image">%1$d\/%2$d</string>
     <string name="comments">კომენტარები</string>
+    <string name="price">ფასი %2$s</string>
+
 </resources>
