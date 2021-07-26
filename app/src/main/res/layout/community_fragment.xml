@@ -28,7 +28,7 @@
                 android:id="@+id/logo"
                 android:layout_width="90dp"
                 android:layout_height="50dp"
-                android:layout_marginStart="13dp"
+                android:layout_marginStart="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -94,18 +94,23 @@
         app:layout_constraintStart_toStartOf="@+id/recentPostsRV"
         app:layout_constraintTop_toBottomOf="@+id/search_bar" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recentPostsRV"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
+        android:id="@+id/swipe"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
-        android:background="@color/white"
-        android:clipToPadding="true"
-        android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_bar" />
+        app:layout_constraintTop_toBottomOf="@+id/search_bar" >
+        <androidx.recyclerview.widget.RecyclerView
+            android:background="@color/white"
+            android:id="@+id/recentPostsRV"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="true"
+            android:overScrollMode="never"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/dragableimage"
