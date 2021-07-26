@@ -47,6 +47,7 @@ class CommunityPostsRecyclerViewAdapter(
         }
     }
 
+
     lateinit var onProfileClick: onProfileClick
     lateinit var onCardViewClick: onCardViewClick
     lateinit var onDeletePostClick: onDeletePostClick
@@ -357,6 +358,7 @@ class CommunityPostsRecyclerViewAdapter(
         }
     }
 
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is ItemHolder -> holder.bind()
@@ -383,4 +385,7 @@ class CommunityPostsRecyclerViewAdapter(
             )
         }
     }
+
+
+
 }
