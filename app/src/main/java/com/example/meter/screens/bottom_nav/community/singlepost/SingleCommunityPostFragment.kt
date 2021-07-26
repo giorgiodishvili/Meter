@@ -5,6 +5,7 @@ import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.meter.R
@@ -131,6 +132,10 @@ class SingleCommunityPostFragment :
                     binding.root.findNavController().navigate(R.id.action_global_navigation_profile)
                 }
             }
+        }
+
+        binding.backButton.setOnClickListener {
+            findNavController().navigate(R.id.action_singleCommunityPostFragment_to_navigation_community)
         }
     }
 

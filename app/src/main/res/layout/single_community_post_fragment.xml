@@ -15,6 +15,17 @@
         tools:context=".screens.bottom_nav.community.singlepost.SingleCommunityPostFragment">
 
 
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="25dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_back_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/singlePostRecyclerPhoto"
             android:layout_width="match_parent"
@@ -24,7 +35,8 @@
             android:layout_marginEnd="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/authorIV" />
+            app:layout_constraintTop_toBottomOf="@+id/authorIV" >
+        </androidx.recyclerview.widget.RecyclerView>
 
 
         <EditText
@@ -50,6 +62,20 @@
             app:layout_constraintStart_toEndOf="@+id/selfProfilePhoto"
             app:layout_constraintTop_toBottomOf="@+id/commentRV" />
 
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/commentBTN"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/custom_button"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="2dp"
+            android:src="@drawable/ic_up_arrow"
+            android:text="@string/comments"
+            app:layout_constraintEnd_toEndOf="@+id/commentRV"
+            app:layout_constraintTop_toTopOf="@+id/commentET" />
+
+
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/authorIV"
@@ -69,8 +95,6 @@
             android:layout_marginStart="10dp"
             android:fontFamily="@font/helvetica_heavy"
             android:textColor="@color/black"
-
-            app:layout_constraintBottom_toBottomOf="@+id/authorIV"
             app:layout_constraintStart_toEndOf="@+id/authorIV"
             app:layout_constraintTop_toTopOf="@+id/authorIV"
             tools:text="giorgi odishvili" />
@@ -136,18 +160,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view2" />
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/commentBTN"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:background="@drawable/custom_button"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:paddingBottom="2dp"
-            android:src="@drawable/ic_up_arrow"
-            android:text="@string/comments"
-            app:layout_constraintEnd_toEndOf="@+id/commentRV"
-            app:layout_constraintTop_toTopOf="@+id/commentET" />
 
         <View
             android:id="@+id/view2"

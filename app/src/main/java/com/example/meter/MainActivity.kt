@@ -102,10 +102,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun listeners() {
         binding.sellButton.setOnClickListener {
-            navController.navigate(R.id.uploadCarSellPostFragment)
+            navController.navigate(R.id.action_global_uploadCarSellPostFragment)
         }
         binding.postButton.setOnClickListener {
-            navController.navigate(R.id.uploadCommunityPostFragment)
+            navController.navigate(R.id.action_global_uploadCommunityPostFragment)
         }
     }
 

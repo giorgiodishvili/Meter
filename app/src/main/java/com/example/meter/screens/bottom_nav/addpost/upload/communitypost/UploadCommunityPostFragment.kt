@@ -241,12 +241,11 @@ class UploadCommunityPostFragment() :
                                 R.id.action_uploadCommunityPostFragment_to_singleCommunityPostFragment,
                                 bundleOf("postId" to postId)
                             )
+                        dialogItem.cancel()
+
                     }
                 }
                 Resource.Status.LOADING -> {
-                    if (it.data == false) {
-                        dialogItem.cancel()
-                    }
                     i("debugee", "LOADING")
                 }
             }
