@@ -16,5 +16,4 @@ class MarketViewModel @Inject constructor(private val carPostRepository: CarPost
     fun getCommunityPosts(): LiveData<PagingData<SellCarPostForMainPage>> {
         return carPostRepository.getSellPostsForMainPage().cachedIn(viewModelScope)
     }
-
 }

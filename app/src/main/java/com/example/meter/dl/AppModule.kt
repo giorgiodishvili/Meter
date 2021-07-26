@@ -39,8 +39,10 @@ object AppModule {
             .addInterceptor(loggingInterceptor)
             .build()
     } else {
-        OkHttpClient
-            .Builder()
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
             .build()
     }
 

@@ -19,7 +19,7 @@ data class SellCarPost(
     val disks: Boolean,
     val door_amount: String,
     val el_window: Boolean,
-    val engine: Int,
+    val engine: Double,
     val fuel_type: String,
     val id: Int,
     val interior_color: String,
@@ -38,7 +38,7 @@ data class SellCarPost(
     val start_stop: Boolean,
     val tire_amount: String,
     val transmission_type: String,
-    val user: User,
+    val user: User?,
     val vin: String,
     val wheel_side: String,
     @SerializedName("კრუიზ_კონტროლი")
