@@ -135,7 +135,7 @@ class CommunityPostsRecyclerViewAdapter(
                 onProfileClick.invoke(item.user.id)
             }
 
-            communityPostsViewPagerAdapter.onCardViewClick = {
+            binding.photos.setOnClickListener {
                 onCardViewClick.invoke(item.id)
             }
 

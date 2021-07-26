@@ -13,6 +13,11 @@ import com.example.meter.entity.sell.SellCarPostForMainPage
 import com.example.meter.extensions.hide
 import com.example.meter.extensions.show
 import com.example.meter.utils.transformers.DepthTransformer
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZoneOffset
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 class CarPostRecyclerAdapter(userId: String?) :
     PagingDataAdapter<SellCarPostForMainPage, CarPostRecyclerAdapter.ItemHolder>(REPO_COMPARATOR) {
@@ -26,6 +31,7 @@ class CarPostRecyclerAdapter(userId: String?) :
             binding.priceTV.text = "ფასი: " + item.price.toString() + "$"
             binding.title.text = item.articleHeader
             binding.postDateTV.text = item.createdData
+
             manipulateArrows()
         }
 
@@ -52,11 +58,11 @@ class CarPostRecyclerAdapter(userId: String?) :
             binding.photos.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     when {
-                        1 == item.photoUrl!!.size -> {
+                        1 == item.photoUrl.size -> {
                             binding.rightArrBTN.hide()
                             binding.leftArrBTN.hide()
                         }
-                        position == item.photoUrl!!.size - 1 -> {
+                        position == item.photoUrl.size - 1 -> {
                             binding.rightArrBTN.hide()
                             binding.leftArrBTN.show()
                         }

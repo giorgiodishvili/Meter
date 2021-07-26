@@ -69,10 +69,10 @@ class MyCommPostsFragment : BaseFragment<MyCommPostsFragmentBinding, MyCommPosts
         binding.recycler.adapter = adapter
         adapter.onCardViewClick = {postId ->
             val bundle = bundleOf("postId" to postId)
-            binding.root.findNavController().navigate(
-                R.id.action_navigation_community_to_singleCommunityPostFragment,
-                bundle
-            )
+//            binding.root.findNavController().navigate(
+//                R.id.action_navigation_community_to_singleCommunityPostFragment,
+//                bundle
+//            )
         }
 
     }
