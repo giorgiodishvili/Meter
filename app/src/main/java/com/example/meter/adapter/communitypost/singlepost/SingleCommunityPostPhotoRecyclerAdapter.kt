@@ -13,7 +13,7 @@ class SingleCommunityPostPhotoRecyclerAdapter(
     inner class ItemHolder(private val binding: SinglePostPhotoItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind() {
-            binding.photo.loadImg(photoUrlList[absoluteAdapterPosition])
+            binding.imgSlider.loadImg(photoUrlList[absoluteAdapterPosition])
         }
     }
 

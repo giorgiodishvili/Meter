@@ -8,7 +8,6 @@
     app:layoutDescription="@xml/complete_profile_fragment_scene"
     tools:context=".screens.bottom_nav.profile.complete.CompleteProfileFragment">
 
-
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/profilePic"
         android:layout_width="75dp"

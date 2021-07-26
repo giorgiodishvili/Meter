@@ -2,9 +2,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/scrollView"
     android:background="@color/white"
     tools:context=".screens.bottom_nav.community.singlepost.SingleCommunityPostFragment">
 
@@ -30,8 +30,24 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/singlePostRecyclerPhoto"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="260dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="15dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/singleTitle" />
+
+        <ImageView
+            android:id="@+id/postWithoutImg"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/ic_no_image_post_background"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/singleTitle" />
@@ -72,7 +88,6 @@
             android:text="@string/comments"
             app:layout_constraintEnd_toEndOf="@+id/commentRV"
             app:layout_constraintTop_toTopOf="@+id/commentET" />
-
 
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -121,6 +136,25 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/commentBTNLogo"
+            tools:text="giorgi odishvili" />
+
+        <TextView
+            android:id="@+id/textWhenNoImg"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="40dp"
+            android:fontFamily="@font/helvatica_heavy"
+            android:gravity="center"
+            android:textColor="@color/button_color"
+            android:textSize="18sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/singlePostRecyclerPhoto"
+            app:layout_constraintEnd_toEndOf="@+id/singlePostRecyclerPhoto"
+            app:layout_constraintStart_toStartOf="@+id/singlePostRecyclerPhoto"
+            app:layout_constraintTop_toTopOf="@+id/singlePostRecyclerPhoto"
             tools:text="giorgi odishvili" />
 
         <ImageButton
@@ -208,11 +242,11 @@
             android:drawablePadding="8dp"
             android:fontFamily="@font/helvatice_medium"
             android:paddingStart="12dp"
-            android:textColor="@color/white"
             android:paddingTop="6dp"
             android:paddingEnd="12dp"
             android:paddingBottom="6dp"
             android:text="@string/comments"
+            android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/view2"
             app:layout_constraintStart_toStartOf="@+id/commentRV"
@@ -222,10 +256,10 @@
             android:id="@+id/singleTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/dark_gray"
             android:layout_marginTop="10dp"
-            android:text="title"
             android:fontFamily="@font/helvatice_medium"
+            android:text="title"
+            android:textColor="@color/dark_gray"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="@+id/authorIV"
             app:layout_constraintTop_toBottomOf="@+id/authorIV" />

@@ -72,9 +72,7 @@ class CompleteProfileFragment :
 
             if (authorisedWithGoogle)
                 binding.profilePic.loadImgUri(firebaseAuthImpl.getUser()?.photoUrl)
-
         }
-
 
         uid.let { viewModel.getUserInfo(it) }
         listeners()

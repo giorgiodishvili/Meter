@@ -18,6 +18,8 @@ import com.example.meter.databinding.SingleCommunityPostFragmentBinding
 import com.example.meter.entity.Comment
 import com.example.meter.entity.community.post.Content
 import com.example.meter.extensions.loadProfileImg
+import com.example.meter.extensions.setGone
+import com.example.meter.extensions.show
 import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import com.example.meter.utils.transformers.ZoomPageTransformer
@@ -223,10 +225,16 @@ class SingleCommunityPostFragment :
         binding.name.text = data.user.name
         binding.singleTitle.text = data.title
         binding.descriptionTB.text = data.description
-        binding.singlePostRecyclerPhoto.adapter =
-            SingleCommunityPostPhotoRecyclerAdapter(data.photoCarUrl)
-        binding.singlePostRecyclerPhoto.setPageTransformer(ZoomPageTransformer)
-
+        if (data.photoCarUrl.isEmpty()) {
+            binding.descriptionTB.setGone()
+            binding.postWithoutImg.show()
+            binding.textWhenNoImg.show()
+            binding.textWhenNoImg.text = data.description
+        } else {
+            binding.singlePostRecyclerPhoto.adapter =
+                SingleCommunityPostPhotoRecyclerAdapter(data.photoCarUrl)
+            binding.singlePostRecyclerPhoto.setPageTransformer(ZoomPageTransformer)
+        }
     }
 
     private fun setUpViewElements() {
