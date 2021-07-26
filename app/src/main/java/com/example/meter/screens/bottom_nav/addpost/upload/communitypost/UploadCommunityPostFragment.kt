@@ -114,7 +114,7 @@ class UploadCommunityPostFragment() :
         val imagesDetails = ContentValues().apply {
             put(MediaStore.Audio.Media.DISPLAY_NAME, filename)
         }
-        requireContext().contentResolver.insert(imageUri, imagesDetails).let {
+        requireActivity().contentResolver.insert(imageUri, imagesDetails).let {
             if (it != null) {
                 latestTmpUri = it
                 takePic.launch(latestTmpUri)
@@ -178,7 +178,7 @@ class UploadCommunityPostFragment() :
                         openCamera()
                     }
                     options[item] == "Choose From Gallery" -> {
-                        pickImages.launch("image/*")     // We want images, so we set the mimeType as "image/*"
+                        pickImages.launch("image/*")
                     }
                     options[item] == "Cancel" -> {
                         dialog.dismiss()

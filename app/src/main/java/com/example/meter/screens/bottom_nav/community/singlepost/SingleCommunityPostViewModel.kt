@@ -5,10 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.meter.entity.Comment
+import com.example.meter.entity.UserDetails
 import com.example.meter.entity.community.post.Content
 import com.example.meter.network.Resource
 import com.example.meter.repository.comment.CommentRepository
 import com.example.meter.repository.post.community.post.CommunityPostRepository
+import com.example.meter.repository.userInfo.UserInfoRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,7 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SingleCommunityPostViewModel @Inject constructor(
     private val communityPostRepository: CommunityPostRepository,
-    private val commentRepository: CommentRepository
+    private val commentRepository: CommentRepository,
+    private val userInfo: UserInfoRepositoryImpl
 ) : ViewModel() {
 
     private val _post = MutableLiveData<Resource<Content>>()
@@ -41,10 +44,22 @@ class SingleCommunityPostViewModel @Inject constructor(
     val deleteComment: LiveData<Resource<Comment>>
         get() = _deleteComment
 
+    private var _readUserInfo = MutableLiveData<Resource<UserDetails>>()
+    val readUserInfo: LiveData<Resource<UserDetails>> = _readUserInfo
+
     fun getPost(postId: Long) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 _post.postValue(communityPostRepository.getSinglePost(postId))
+            }
+        }
+    }
+
+    fun getUserInfo(uid: String) {
+        viewModelScope.launch {
+            withContext(Dispatchers.Default) {
+                val result = userInfo.getUserPersonalInfo(uid)
+                _readUserInfo.postValue(result)
             }
         }
     }

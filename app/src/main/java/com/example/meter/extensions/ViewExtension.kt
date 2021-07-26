@@ -25,6 +25,15 @@ fun View.setGone() {
     visibility = View.GONE
 }
 
+fun ImageView.loadProfileImg(url: String) {
+    Glide.with(this.context)
+        .load(url)
+        .circleCrop()
+        .placeholder(R.drawable.ic_placeholder)
+        .error(R.drawable.ic_placeholder)
+        .into(this)
+}
+
 fun ImageView.loadImg(url: String, center: Boolean = true) {
     if (center) {
         Glide.with(this.context)

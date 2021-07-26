@@ -1,6 +1,7 @@
 package com.example.meter.screens.bottom_nav.community.singlepost
 
 import android.util.Log
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
@@ -13,7 +14,7 @@ import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.SingleCommunityPostFragmentBinding
 import com.example.meter.entity.Comment
 import com.example.meter.entity.community.post.Content
-import com.example.meter.extensions.loadImg
+import com.example.meter.extensions.loadProfileImg
 import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,6 +42,18 @@ class SingleCommunityPostFragment :
     }
 
     private fun observe() {
+        viewModel.readUserInfo.observe(viewLifecycleOwner, {
+            when (it.status) {
+
+                Resource.Status.SUCCESS -> {
+                    d("tagtag", it.data!!.url)
+                    it.data.let { it1 -> binding.selfProfilePhoto.loadProfileImg(it1.url) }
+                }
+                Resource.Status.ERROR -> Log.i("debugee", "ERROR")
+                Resource.Status.LOADING -> Log.i("debugee", "loading")
+            }
+        })
+
         viewModel.post.observe(viewLifecycleOwner, {
             when (it.status) {
                 Resource.Status.ERROR -> Log.i("debugee", "ERROR")
@@ -94,6 +107,7 @@ class SingleCommunityPostFragment :
     }
 
     private fun makeInitialCalls() {
+        firebaseAuthImpl.getUserId()?.let { viewModel.getUserInfo(it) }
         viewModel.getPost(postId)
         viewModel.getComments(postId)
         firebaseAuthImpl.getUserId()?.let {
@@ -121,7 +135,11 @@ class SingleCommunityPostFragment :
     }
 
     private fun setUpPost(data: Content) {
-        binding.authorIV.loadImg(data.user.url)
+
+        binding.authorIV.loadProfileImg(data.user.url)
+        binding.likesAmount.text = data.likeAmount.toString()
+        binding.commentsAmount.text = data.commentsAmount.toString()
+
         binding.name.text = data.user.name
         binding.descriptionTB.text = data.description
         binding.singlePostRecyclerPhoto.adapter = SingleCommunityPostPhotoRecyclerAdapter(data.photoCarUrl)

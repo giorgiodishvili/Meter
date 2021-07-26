@@ -13,4 +13,4 @@
     android:paddingEnd="3dp"
     android:paddingBottom="5dp"
     android:src="@drawable/ic_upload_icon"
-    tools:ignore="RtlSymmetry"></androidx.appcompat.widget.AppCompatImageButton>
+    tools:ignore="RtlSymmetry" />
