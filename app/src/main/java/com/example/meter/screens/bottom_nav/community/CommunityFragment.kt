@@ -8,13 +8,16 @@ import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.meter.MainViewModel
 import com.example.meter.R
 import com.example.meter.adapter.communitypost.main.CommunityPostsRecyclerViewAdapter
 import com.example.meter.base.BaseFragment
+import com.example.meter.base.SharedViewModel
 import com.example.meter.databinding.CommunityFragmentBinding
 import com.example.meter.extensions.setGone
 import com.example.meter.network.Resource
@@ -31,6 +34,8 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
 ) {
     @Inject
     lateinit var firebaseAuthImpl: FirebaseRepositoryImpl
+
+    private val sharedViewModel: MainViewModel by activityViewModels()
 
     private lateinit var adapter: CommunityPostsRecyclerViewAdapter
 
@@ -117,7 +122,7 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
     }
 
     private fun observe() {
-        viewModel.getCommunityPosts().observe(viewLifecycleOwner, { resource ->
+        sharedViewModel.getCommunityPosts().observe(viewLifecycleOwner, { resource ->
             lifecycleScope.launch {
                 if (binding.progressCircular.isVisible) {
                     binding.progressCircular.setGone()

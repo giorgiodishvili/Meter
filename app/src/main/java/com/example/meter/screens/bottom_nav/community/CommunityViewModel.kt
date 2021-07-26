@@ -38,7 +38,6 @@ class CommunityViewModel @Inject constructor(private val communityPostRepository
 
     fun getCommunityPosts(): LiveData<PagingData<Content>> {
         return communityPostRepository.getCommunityPost().cachedIn(viewModelScope)
-
     }
 
     fun createLike(postId: Long, userId: String) {
