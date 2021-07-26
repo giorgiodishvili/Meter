@@ -27,17 +27,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/singlePostRecyclerPhoto"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:layout_marginStart="12dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/authorIV" >
-        </androidx.recyclerview.widget.RecyclerView>
+            app:layout_constraintTop_toBottomOf="@+id/singleTitle" />
 
 
         <EditText
@@ -116,13 +113,12 @@
             android:id="@+id/descriptionTB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
+            android:layout_marginEnd="125dp"
             android:fontFamily="@font/helvetica_medium"
             android:textColor="@color/dark_gray"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/commentBTNLogo"
             tools:text="giorgi odishvili" />
@@ -187,7 +183,7 @@
             android:id="@+id/likesAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="10dp"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/likeButton"
             app:layout_constraintStart_toStartOf="@+id/singlePostRecyclerPhoto"
@@ -221,6 +217,29 @@
             app:layout_constraintBottom_toBottomOf="@+id/view2"
             app:layout_constraintStart_toStartOf="@+id/commentRV"
             app:layout_constraintTop_toTopOf="@+id/view2" />
+
+        <TextView
+            android:id="@+id/singleTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dark_gray"
+            android:layout_marginTop="10dp"
+            android:text="title"
+            android:fontFamily="@font/helvatice_medium"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@+id/authorIV"
+            app:layout_constraintTop_toBottomOf="@+id/authorIV" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="4სთ"
+            android:textColor="@color/main_color"
+            app:layout_constraintBottom_toBottomOf="@+id/authorIV"
+            app:layout_constraintStart_toStartOf="@+id/name"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
