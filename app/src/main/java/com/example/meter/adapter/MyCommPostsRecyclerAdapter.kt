@@ -11,10 +11,12 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.meter.R
 import com.example.meter.adapter.communitypost.main.CommunityPostsViewPagerAdapter
 import com.example.meter.adapter.communitypost.main.onCardViewClick
+import com.example.meter.databinding.CarSellPostItemBinding
 import com.example.meter.databinding.CommunityWallPostItemBinding
 import com.example.meter.databinding.CommunityWallWithoutPhotoPostItemBinding
 import com.example.meter.entity.UserDetails
 import com.example.meter.entity.community.post.Content
+import com.example.meter.entity.sell.SellCarPostForMainPage
 import com.example.meter.extensions.hide
 import com.example.meter.extensions.setGone
 import com.example.meter.extensions.show
@@ -24,7 +26,7 @@ class MyCommPostsRecyclerAdapter(
     private val userId: String,
     private val likeButtonOnClick: (View, Content, Boolean) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val posts: MutableList<Content> = mutableListOf()
+    private val posts: MutableList<SellCarPostForMainPage> = mutableListOf()
     private lateinit var userInfo: UserDetails
 
     companion object {
@@ -36,9 +38,9 @@ class MyCommPostsRecyclerAdapter(
     private lateinit var communityPostsViewPagerAdapter: CommunityPostsViewPagerAdapter
 
 
-    inner class ViewHolder(private val binding: CommunityWallPostItemBinding) :
+    inner class ViewHolder(private val binding: CarSellPostItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private lateinit var item: Content
+        private lateinit var item: SellCarPostForMainPage
         fun bind() {
             setDataToView()
             manipulateArrows()
@@ -211,8 +213,6 @@ class MyCommPostsRecyclerAdapter(
                 )
             )
         }
-
-
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -233,7 +233,7 @@ class MyCommPostsRecyclerAdapter(
 
     override fun getItemCount(): Int = posts.size
 
-    fun fetchPosts(posts: MutableList<Content>) {
+    fun fetchPosts(posts: MutableList<SellCarPostForMainPage>) {
         this.posts.clear()
         this.posts.addAll(posts)
         notifyDataSetChanged()

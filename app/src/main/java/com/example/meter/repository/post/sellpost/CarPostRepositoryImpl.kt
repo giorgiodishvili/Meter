@@ -123,6 +123,19 @@ class CarPostRepositoryImpl @Inject constructor(private val apiService: ApiServi
             Resource.error(e.message.toString())
         }
     }
+
+    override suspend fun getCarsForMainPageByUserId(uid: String): Resource<List<SellCarPostForMainPage>> {
+        return try {
+            val response = apiService.getCarsForMainPageByUserId(uid)
+            if (response.isSuccessful) {
+                Resource.success(response.body()!!)
+            } else {
+                Resource.error(response.message())
+            }
+        } catch (e: Exception) {
+            Resource.error(e.message.toString())
+        }
+    }
 //    override suspend fun searchPosts(query: String): Response<List<SellCarPost>> = apiService.getModelsForMake(query)
 //    override suspend fun getLatestPosts(): Response<List<SellCarPost>> =apiService.getAllCategories()
 }

@@ -16,4 +16,5 @@ interface CarPostRepository {
     suspend fun createSellPost(userId: String?, sellCarPost: SellCarPostRequest): Resource<SellCarPost>
     suspend fun deleteSellPost(id: Long): Resource<SellCarPost>
     suspend fun getSellPostById(id: Long): Resource<SellCarPost>
+    suspend fun getCarsForMainPageByUserId(uid: String): Resource<List<SellCarPostForMainPage>>
 }
