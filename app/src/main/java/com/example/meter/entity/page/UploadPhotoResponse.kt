@@ -1,4 +1,4 @@
-package com.example.meter.entity.community.post
+package com.example.meter.entity.page
 
 data class UploadPhotoResponse(
     val id: Int,

@@ -1,12 +1,12 @@
 package com.example.meter.network
 
-import com.example.meter.entity.AutomobileCategory
-import com.example.meter.entity.Comment
-import com.example.meter.entity.Model
-import com.example.meter.entity.UserDetails
-import com.example.meter.entity.community.post.CommunityPost
+import com.example.meter.entity.*
+import com.example.meter.entity.community.post.PagedPostResponse
 import com.example.meter.entity.community.post.Content
-import com.example.meter.entity.community.post.UploadPhotoResponse
+import com.example.meter.entity.page.UploadPhotoResponse
+import com.example.meter.entity.page.Model
+import com.example.meter.entity.sell.SellCarPost
+import com.example.meter.entity.sell.SellCarPostForMainPage
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -24,7 +24,7 @@ interface ApiService {
         @Query("title") query: String,
         @Query("page") page: Int,
         @Query("size") size: Int
-    ): Response<CommunityPost>
+    ): Response<PagedPostResponse<Content>>
 
     @GET("/api/cars/latest")
     suspend fun getLatestPosts(): Response<List<Content>>
@@ -50,7 +50,7 @@ interface ApiService {
     suspend fun getCommunityPosts(
         @Query("page") page: Int,
         @Query("size") size: Int
-    ): Response<CommunityPost>
+    ): Response<PagedPostResponse<Content>>
 
     @POST("/user/react/like")
     suspend fun createLike(
@@ -130,6 +130,30 @@ interface ApiService {
         @Query("postId") postId: Long,
     ): Response<Comment>
 
+
+    @GET("api/cars/")
+    suspend fun getAllSellPostForMainPage(
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+    ): Response<PagedPostResponse<SellCarPostForMainPage>>
+
+    @DELETE("api/cars/{carId}")
+    suspend fun deleteSellCarPost(
+        @Path("carId") carId: Long,
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+    ): Response<SellCarPost>
+
+    @GET("api/cars/{carId}")
+    suspend fun getSellCarPost(
+        @Path("carId") carId: Long,
+    ): Response<SellCarPost>
+
+
+    @POST("api/cars/")
+    suspend fun createSellCarPost(
+        @Body sellCarPost: SellCarPost,
+    ): Response<SellCarPost>
 
     //    @PUT("/api/cars/latest")
 //    suspend fun putUserPersonalInfo(@Field("uid") uid: String): Response<UserDetails>

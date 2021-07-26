@@ -1,7 +1,7 @@
 package com.example.meter.repository.automobile
 
 import com.example.meter.entity.AutomobileCategory
-import com.example.meter.entity.Model
+import com.example.meter.entity.page.Model
 import com.example.meter.network.ApiService
 import retrofit2.Response
 import javax.inject.Inject

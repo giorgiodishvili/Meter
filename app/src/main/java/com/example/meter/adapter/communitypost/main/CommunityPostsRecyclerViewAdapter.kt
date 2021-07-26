@@ -82,6 +82,7 @@ class CommunityPostsRecyclerViewAdapter(
 
 
         private fun authUserCheck() {
+            i("isSame","${userId == item.user.id}")
             if (userId == item.user.id) {
                 binding.seeMore.show()
 
@@ -203,6 +204,8 @@ class CommunityPostsRecyclerViewAdapter(
         }
 
         private fun authUserCheck() {
+            i("isSame","${userId == item.user.id}")
+
             if (userId == item.user.id) {
                 binding.seeMore.show()
 

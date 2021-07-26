@@ -3,7 +3,7 @@ package com.example.meter.paging.source
 import android.util.Log.d
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.meter.entity.community.post.CommunityPost
+import com.example.meter.entity.community.post.PagedPostResponse
 import com.example.meter.entity.community.post.Content
 import com.example.meter.network.ApiService
 import com.example.meter.network.Resource
@@ -40,7 +40,7 @@ class CommunityPostPagingSourceForSearch(
         } catch (exception: IOException) {
             return LoadResult.Error(exception)
         } catch (exception: HttpException) {
-            Resource.error<CommunityPost>("Error")
+            Resource.error<PagedPostResponse<Content>>("Error")
             return LoadResult.Error(exception)
         }
     }

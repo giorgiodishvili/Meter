@@ -1,6 +1,6 @@
 //package com.example.meter.repository.post
 //
-//import com.example.meter.entity.SellCarPost
+//import com.example.meter.entity.sell.SellCarPost
 //import com.example.meter.network.ApiService
 //import retrofit2.Response
 //import javax.inject.Inject

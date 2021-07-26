@@ -1,4 +1,4 @@
-package com.example.meter.entity
+package com.example.meter.entity.page
 
 data class Model(
     val Count: Int,
