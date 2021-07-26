@@ -140,8 +140,6 @@ interface ApiService {
     @DELETE("api/cars/{carId}")
     suspend fun deleteSellCarPost(
         @Path("carId") carId: Long,
-        @Query("page") page: Int,
-        @Query("size") size: Int,
     ): Response<SellCarPost>
 
     @GET("api/cars/{carId}")

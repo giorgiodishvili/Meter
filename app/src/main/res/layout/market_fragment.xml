@@ -15,4 +15,9 @@
         android:textColor="@color/main_color"
         android:textSize="50sp" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerMarketPosts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </FrameLayout>

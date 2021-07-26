@@ -10,6 +10,8 @@ import com.example.meter.repository.photo.PhotoRepository
 import com.example.meter.repository.photo.PhotoRepositoryImpl
 import com.example.meter.repository.post.community.post.CommunityPostRepository
 import com.example.meter.repository.post.community.post.CommunityPostRepositoryImpl
+import com.example.meter.repository.post.sellpost.CarPostRepository
+import com.example.meter.repository.post.sellpost.CarPostRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -60,9 +62,9 @@ object AppModule {
         automobileCategoryRepo
 
 //
-//    @Provides
-//    @Singleton
-//    fun providePostRepository(postRepository: PostRepositoryImpl): PostRepository = postRepository
+    @Provides
+    @Singleton
+    fun provideCarPostRepository(carPostRepositoryRepo: CarPostRepositoryImpl): CarPostRepository = carPostRepositoryRepo
 
     @Provides
     @Singleton
