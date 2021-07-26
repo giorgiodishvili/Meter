@@ -18,7 +18,7 @@ import com.example.meter.databinding.SingleCommunityPostFragmentBinding
 import com.example.meter.entity.Comment
 import com.example.meter.entity.community.post.Content
 import com.example.meter.extensions.loadProfileImg
-import com.example.meter.extensions.toFormattedDate
+import com.example.meter.extensions.setGone
 import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import com.example.meter.utils.transformers.ZoomPageTransformer
@@ -219,15 +219,20 @@ class SingleCommunityPostFragment :
             binding.likeButton.setImageResource(R.drawable.ic_like)
         } else {
             binding.likeButton.setImageResource(R.drawable.ic_like_unpressed)
+
         }
-        binding.textView4.text = data.createdData.toFormattedDate()
         binding.name.text = data.user.name
         binding.singleTitle.text = data.title
-        binding.descriptionTB.text = data.description
-        binding.singlePostRecyclerPhoto.adapter =
-            SingleCommunityPostPhotoRecyclerAdapter(data.photoCarUrl)
-        binding.singlePostRecyclerPhoto.setPageTransformer(ZoomPageTransformer)
-
+        binding.descriptionTB.text = data.description     if (data.photoCarUrl.isEmpty()) {
+            binding.descriptionTB.setGone()
+            binding.postWithoutImg.show()
+            binding.textWhenNoImg.show()
+            binding.textWhenNoImg.text = data.description
+        } else {
+            binding.singlePostRecyclerPhoto.adapter =
+                SingleCommunityPostPhotoRecyclerAdapter(data.photoCarUrl)
+            binding.singlePostRecyclerPhoto.setPageTransformer(ZoomPageTransformer)
+        }
     }
 
     private fun setUpViewElements() {
