@@ -1,6 +1,9 @@
 package com.example.meter.screens.bottom_nav.profile.myposts.commPosts
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.meter.entity.UserDetails
 import com.example.meter.entity.community.post.Content
 import com.example.meter.network.Resource
@@ -14,7 +17,6 @@ import javax.inject.Inject
 @HiltViewModel
 class MyCommPostsViewModel @Inject constructor(
     private val userInfo: UserInfoRepositoryImpl,
-    val state: SavedStateHandle
 ) : ViewModel() {
 
 

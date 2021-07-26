@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.meter.databinding.CommentItemLayoutBinding
 import com.example.meter.entity.Comment
-import com.example.meter.extensions.loadImg
+import com.example.meter.extensions.loadProfileImg
 
 class CommunityPostCommentRecyclerAdapter(
     private val commentList: MutableList<Comment>
@@ -15,8 +15,10 @@ class CommunityPostCommentRecyclerAdapter(
         RecyclerView.ViewHolder(binding.root) {
         private lateinit var comment: Comment
         fun onBind() {
+
             comment = commentList[absoluteAdapterPosition]
-            binding.authorIV.loadImg(comment.user.url)
+
+            binding.authorIV.loadProfileImg(comment.user.url)
             binding.name.text = comment.user.name
             binding.descriptionTV.text = comment.description
         }
