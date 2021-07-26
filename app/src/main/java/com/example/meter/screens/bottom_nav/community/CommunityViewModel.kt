@@ -25,6 +25,12 @@ class CommunityViewModel @Inject constructor(private val communityPostRepository
     val createLikeResponse: LiveData<Resource<Boolean>>
         get() = _createLikeResponse
 
+    private var _loading = MutableLiveData<Boolean>().apply {
+        true
+    }
+    var loading: LiveData<Boolean> = _loading
+
+
     private val _dislikeResponse = MutableLiveData<Resource<Boolean>>()
 
     val dislikeResponse: LiveData<Resource<Boolean>>
