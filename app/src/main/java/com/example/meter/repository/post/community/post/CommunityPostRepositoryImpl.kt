@@ -9,13 +9,14 @@ import com.example.meter.entity.community.post.Content
 import com.example.meter.network.ApiService
 import com.example.meter.network.Resource
 import com.example.meter.paging.source.CommunityPostPagingSource
+import com.example.meter.paging.source.CommunityPostPagingSourceForSearch
 import javax.inject.Inject
 
 class CommunityPostRepositoryImpl @Inject constructor(private val apiService: ApiService) :
     CommunityPostRepository {
 
     companion object {
-        private const val NETWORK_PAGE_SIZE = 20
+        private const val NETWORK_PAGE_SIZE = 10
     }
 
     override fun getCommunityPost(): LiveData<PagingData<Content>> {
@@ -76,14 +77,14 @@ class CommunityPostRepositoryImpl @Inject constructor(private val apiService: Ap
     }
 
     override suspend fun uploadPost(
-        userId: String,
+        postId: String,
         description: String,
         title: String
     ): Resource<Content> {
         return try {
 
             Resource.loading<Content>()
-            val response = apiService.addCommunityPost(userId, description, title)
+            val response = apiService.addCommunityPost(postId, description, title)
             if (response.isSuccessful) {
                 Resource.success(response.body()!!)
             } else {
@@ -109,5 +110,15 @@ class CommunityPostRepositoryImpl @Inject constructor(private val apiService: Ap
         } catch (e: Exception) {
             Resource.error(e.message.toString())
         }
+    }
+
+    override fun searchPost(keyword: String): LiveData<PagingData<Content>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = NETWORK_PAGE_SIZE,
+                enablePlaceholders = true
+            ),
+            pagingSourceFactory = { CommunityPostPagingSourceForSearch(keyword, apiService, NETWORK_PAGE_SIZE) }
+        ).liveData
     }
 }

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,6 +42,7 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
         initRecycler()
         transitionListener()
         makeInitialCalls()
+        listeners()
     }
 
     private fun makeInitialCalls() {
@@ -48,7 +50,29 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
         viewModel.getCommunityPosts()
     }
 
+    private fun listeners() {
+        binding.searchBar.doOnTextChanged { text, start, before, count ->
+            if (text!!.length >= 2) {
+                d("piifi", "$text $count")
+                viewModel.searchPost(text.toString()).observe(viewLifecycleOwner, {
+                    d("tagtag123", "${it}")
+                    lifecycleScope.launch {
+                        if (binding.progressCircular.isVisible) {
+                            binding.progressCircular.setGone()
+                        }
+                        adapter.submitData(it)
+                        adapter.notifyDataSetChanged()
+                    }
+                })
+            } else if (text.isEmpty()) {
+                viewModel.getCommunityPosts()
+                observe()
+            }
+        }
+    }
+
     private fun initRecycler() {
+
         binding.recentPostsRV.layoutManager = LinearLayoutManager(
             requireContext(),
             LinearLayoutManager.VERTICAL, false
@@ -58,6 +82,7 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
         if (userId.isNullOrEmpty()) {
             userId = ""
         }
+
         adapter =
             CommunityPostsRecyclerViewAdapter(userId) { _, content, b ->
                 if (b) {
@@ -110,6 +135,8 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
                 Resource.Status.LOADING -> i("dislike", "loading")
             }
         })
+
+
     }
 
     private fun transitionListener() {
