@@ -1,4 +1,4 @@
-package com.example.meter.entity.community.post
+package com.example.meter.entity.user
 
 data class User(
     val email: String,

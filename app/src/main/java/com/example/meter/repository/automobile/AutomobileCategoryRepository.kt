@@ -1,7 +1,7 @@
 package com.example.meter.repository.automobile
 
 import com.example.meter.entity.AutomobileCategory
-import com.example.meter.entity.Model
+import com.example.meter.entity.page.Model
 import retrofit2.Response
 
 interface AutomobileCategoryRepository {

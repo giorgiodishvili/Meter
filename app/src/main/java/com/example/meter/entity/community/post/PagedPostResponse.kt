@@ -1,10 +1,10 @@
 package com.example.meter.entity.community.post
 
-import com.example.meter.entity.Pageable
-import com.example.meter.entity.Sort
+import com.example.meter.entity.page.Pageable
+import com.example.meter.entity.page.Sort
 
-data class CommunityPost(
-    val content: List<Content>,
+data class PagedPostResponse<T>(
+    val content: List<T>,
     val empty: Boolean,
     val first: Boolean,
     val last: Boolean,

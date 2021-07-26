@@ -1,7 +1,7 @@
 package com.example.meter.repository.photo
 
 import android.util.Log.i
-import com.example.meter.entity.community.post.UploadPhotoResponse
+import com.example.meter.entity.page.UploadPhotoResponse
 import com.example.meter.network.ApiService
 import com.example.meter.network.Resource
 import okhttp3.MultipartBody

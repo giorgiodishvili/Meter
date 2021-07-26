@@ -1,5 +1,7 @@
 package com.example.meter.entity.community.post
 
+import com.example.meter.entity.user.User
+
 data class Content(
     val description: String,
     val id: Long,
