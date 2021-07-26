@@ -1,15 +1,15 @@
 package com.example.meter.network
 
-import com.example.meter.entity.*
-import com.example.meter.entity.community.post.PagedPostResponse
+import com.example.meter.entity.AutomobileCategory
+import com.example.meter.entity.Comment
+import com.example.meter.entity.UserDetails
 import com.example.meter.entity.community.post.Content
-import com.example.meter.entity.page.UploadPhotoResponse
+import com.example.meter.entity.community.post.PagedPostResponse
 import com.example.meter.entity.page.Model
+import com.example.meter.entity.page.UploadPhotoResponse
 import com.example.meter.entity.sell.SellCarPost
 import com.example.meter.entity.sell.SellCarPostForMainPage
-import com.example.meter.entity.sell.SellCarPostRequest
 import com.example.meter.entity.user.User
-import com.google.gson.annotations.SerializedName
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -37,6 +37,9 @@ interface ApiService {
 
     @GET("/user/post/community/{uid}")
     suspend fun getUserPosts(@Path("uid") uid: String): Response<List<Content>>
+
+//    @GET("/user/post/car/{uid}")
+//    suspend fun getUserMarketPosts(@Path("uid") uid: String): Response<List<SellCarPost>>
 
     @FormUrlEncoded
     @POST("/user/")

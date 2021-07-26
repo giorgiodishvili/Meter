@@ -23,7 +23,7 @@
             app:enterAnim="@anim/slide_in_top"
             app:exitAnim="@anim/slide_out_bot"
             app:popEnterAnim="@anim/slide_in_bot"
-            app:popExitAnim="@anim/slide_out_top"/>
+            app:popExitAnim="@anim/slide_out_top" />
 
 
     </fragment>
@@ -64,12 +64,20 @@
         android:id="@+id/action_global_navigation_profile"
         app:destination="@id/navigation_profile"
         app:popUpTo="@id/main_navigation"
-        app:popUpToInclusive="true" />
+        app:popUpToInclusive="true"
+        app:enterAnim="@anim/slide_in_bot"
+        app:exitAnim="@anim/slide_out_top"
+        app:popEnterAnim="@anim/slide_in_top"
+        app:popExitAnim="@anim/slide_out_bot"/>
     <action
         android:id="@+id/action_global_navigation_home"
         app:destination="@id/navigation_community"
         app:popUpTo="@id/main_navigation"
-        app:popUpToInclusive="true" />
+        app:popUpToInclusive="true"
+        app:enterAnim="@anim/slide_in_top"
+        app:exitAnim="@anim/slide_out_bot"
+        app:popEnterAnim="@anim/slide_in_bot"
+        app:popExitAnim="@anim/slide_out_top" />
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.meter.screens.bottom_nav.profile.complete.CompleteProfileFragment"
@@ -100,8 +108,6 @@
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/main_navigation"
             app:popUpToInclusive="true" />
-
-
     </fragment>
     <fragment
         android:id="@+id/uploadCommunityPostFragment"
@@ -111,12 +117,26 @@
         <action
             android:id="@+id/action_uploadCommunityPostFragment_to_singleCommunityPostFragment"
             app:destination="@id/singleCommunityPostFragment"
-            app:popUpTo="@id/main_navigation"
             app:enterAnim="@anim/slide_in_top"
             app:exitAnim="@anim/slide_out_bot"
             app:popEnterAnim="@anim/slide_in_bot"
             app:popExitAnim="@anim/slide_out_top"
+            app:popUpTo="@id/main_navigation"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_uploadCommunityPostFragment_to_navigation_community"
+            app:destination="@id/navigation_community"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/slide_out_bot"
+            app:popEnterAnim="@anim/slide_in_bot"
+            app:popExitAnim="@anim/slide_out_top"/>
+        <action
+            android:id="@+id/action_uploadCommunityPostFragment_to_completeProfileFragment"
+            app:destination="@id/completeProfileFragment"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/slide_out_bot"
+            app:popEnterAnim="@anim/slide_in_bot"
+            app:popExitAnim="@anim/slide_out_top" />
     </fragment>
     <fragment
         android:id="@+id/uploadCarSellPostFragment"
@@ -139,11 +159,9 @@
             app:enterAnim="@anim/slide_in_bot"
             app:exitAnim="@anim/slide_out_top"
             app:popEnterAnim="@anim/slide_in_top"
-            app:popExitAnim="@anim/slide_out_bot"
-            app:popUpTo="@id/main_navigation"
-            app:popUpToInclusive="true" />
+            app:popExitAnim="@anim/slide_out_bot" />
         <action
-            android:id="@+id/action_singleCommunityPostFragment_to_navigation_profile2"
+            android:id="@+id/action_singleCommunityPostFragment_to_navigation_profile"
             app:destination="@id/navigation_profile" />
     </fragment>
     <action
@@ -159,9 +177,14 @@
         app:enterAnim="@anim/slide_in_bot"
         app:exitAnim="@anim/slide_out_top"
         app:popEnterAnim="@anim/slide_in_top"
-        app:popExitAnim="@anim/slide_out_bot"/>
+        app:popExitAnim="@anim/slide_out_bot" />
     <action
-        android:id="@+id/action_singleCommunityPostFragment_to_navigation_profile"
-        app:destination="@id/navigation_profile" />
+        android:id="@+id/action_global_singleCommunityPostFragment"
+        app:destination="@id/singleCommunityPostFragment"
+        app:enterAnim="@anim/slide_in_top"
+        app:exitAnim="@anim/slide_out_bot"
+        app:popEnterAnim="@anim/slide_in_bot"
+        app:popExitAnim="@anim/slide_out_top" />
+
 
 </navigation>

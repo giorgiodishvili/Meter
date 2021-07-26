@@ -7,6 +7,7 @@ import android.content.res.Resources
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
+import android.util.Log.d
 import android.util.Log.i
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.meter.R
 import com.example.meter.adapter.communitypost.upload.UploadCommunityPostPhotoRecyclerAdapter
@@ -47,10 +49,11 @@ class UploadCommunityPostFragment :
     private lateinit var adapter: UploadCommunityPostPhotoRecyclerAdapter
     private var postId: Long = -1L
 
-
     override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
+        firebaseAuthImpl.getUserId()?.let { viewModel.getUserInfo(it) }
         initRecycler()
         setListeners()
+        observe()
     }
 
     private fun initRecycler() {
@@ -68,6 +71,11 @@ class UploadCommunityPostFragment :
     }
 
     private fun setListeners() {
+        binding.backButtonUpload.setOnClickListener {
+            findNavController().navigate(R.id.action_uploadCommunityPostFragment_to_navigation_community)
+
+        }
+
         adapter.uploadButton = {
             if (hasCamera() && hasRead()) {
                 showDialog()
@@ -254,6 +262,22 @@ class UploadCommunityPostFragment :
                 }
             }
         })
+
+        viewModel.readUserInfo.observe(viewLifecycleOwner, {
+            when (it.status) {
+                Resource.Status.SUCCESS -> {
+                    d("tagtag", "$it")
+                    if (it.data?.verified != true) {
+                        findNavController().navigate(R.id.action_singleCommunityPostFragment_to_navigation_community)
+                    }
+                }
+                Resource.Status.ERROR -> {d("tagtag", "${it.message}") }
+
+                Resource.Status.LOADING -> {d("tagtag", "${it.message}") }
+
+            }
+        })
+
     }
 
     private fun preloadedButton() {

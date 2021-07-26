@@ -22,48 +22,50 @@
         app:layout_constraintStart_toStartOf="@+id/photos"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Toyouta Prius gayidva" />
+
     <TextView
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginBottom="18dp"
+        android:layout_marginTop="5dp"
         android:elevation="7dp"
         android:fontFamily="@font/helvetica_heavy"
         android:textColor="@color/black"
         android:textSize="18sp"
-        android:textStyle="bold"
 
-        app:layout_constraintTop_toBottomOf="@+id/photos"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/photos"
+        app:layout_constraintTop_toBottomOf="@+id/photos"
         tools:text="Toyouta Prius gayidva" />
 
     <TextView
         android:id="@+id/yearTV"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="18dp"
+        android:layout_marginBottom="15dp"
         android:elevation="7dp"
         android:fontFamily="@font/helvetica_thin"
         android:textColor="@color/black"
-        android:textSize="16sp"
 
-        app:layout_constraintTop_toBottomOf="@+id/title"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/separator"
         app:layout_constraintStart_toStartOf="@+id/title"
+        app:layout_constraintTop_toBottomOf="@+id/title"
         tools:text="2021 weli" />
 
     <TextView
         android:id="@+id/priceTV"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="18dp"
+        android:layout_marginTop="5dp"
         android:elevation="7dp"
         android:fontFamily="@font/helvetica_thin"
         android:textColor="@color/black"
-        android:textSize="16sp"
 
-        app:layout_constraintTop_toBottomOf="@+id/photos"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@id/photos"
+        app:layout_constraintTop_toBottomOf="@+id/photos"
         tools:text="price: 35000$" />
 
     <androidx.viewpager2.widget.ViewPager2
@@ -78,9 +80,6 @@
         app:layout_constraintEnd_toStartOf="@+id/rightArrBTN"
         app:layout_constraintStart_toEndOf="@+id/leftArrBTN"
         app:layout_constraintTop_toBottomOf="@+id/postDateTV" />
-
-
-
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/rightArrBTN"
@@ -105,16 +104,14 @@
         app:layout_constraintTop_toTopOf="@id/photos" />
 
 
-
     <View
         android:id="@+id/separator"
         android:layout_width="80dp"
         android:layout_height="2dp"
-        android:elevation="7dp"
-        android:layout_marginTop="15dp"
         android:background="#5A4949"
+        android:elevation="7dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

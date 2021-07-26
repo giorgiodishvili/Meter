@@ -27,12 +27,14 @@ class CarPostRecyclerAdapter(userId: String?) :
         private lateinit var communityPostsViewPagerAdapter: CommunityPostsViewPagerAdapter
 
         fun onBind() {
+
             item = getItem(absoluteAdapterPosition)!!
             binding.priceTV.text = "ფასი: " + item.price.toString() + "$"
             binding.title.text = item.articleHeader
             binding.postDateTV.text = item.createdData
 
             manipulateArrows()
+
         }
 
 
@@ -48,12 +50,10 @@ class CarPostRecyclerAdapter(userId: String?) :
                     binding.photos.show()
                 }
                 communityPostsViewPagerAdapter =
-                    CommunityPostsViewPagerAdapter(item.photoUrl!!)
+                    CommunityPostsViewPagerAdapter(item.photoUrl)
                 binding.photos.adapter = communityPostsViewPagerAdapter
                 binding.photos.setPageTransformer(DepthTransformer)
-
             }
-
 
             binding.photos.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
@@ -78,9 +78,6 @@ class CarPostRecyclerAdapter(userId: String?) :
                 }
             })
         }
-
-
-
     }
 
     companion object {

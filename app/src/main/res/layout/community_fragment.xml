@@ -103,6 +103,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_bar" >
+
         <androidx.recyclerview.widget.RecyclerView
             android:background="@color/white"
             android:id="@+id/recentPostsRV"
@@ -110,6 +111,7 @@
             android:layout_height="0dp"
             android:clipToPadding="true"
             android:overScrollMode="never"/>
+
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <androidx.appcompat.widget.AppCompatImageView

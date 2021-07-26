@@ -113,6 +113,9 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
         viewModel.readUserInfo.observe(viewLifecycleOwner, { status ->
             when (status.status) {
                 Resource.Status.SUCCESS -> {
+                    if (status.data?.verified != null) {
+                        popDialog(R.layout.dialog_item_error, R.id.errorMsg, "პოსტის დასადებად აუცილებელია შეავსოთ ყველა მონაცემი")
+                    }
                     status.data?.name?.let {
                         setVerified(it)
                     }

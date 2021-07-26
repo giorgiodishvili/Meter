@@ -157,7 +157,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view2" />
 
-
         <View
             android:id="@+id/view2"
             android:layout_width="match_parent"
@@ -234,9 +233,8 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:text="4სთ"
-            android:textColor="@color/main_color"
+            android:textColor="#A84371E9"
             app:layout_constraintBottom_toBottomOf="@+id/authorIV"
             app:layout_constraintStart_toStartOf="@+id/name"
             app:layout_constraintTop_toBottomOf="@+id/name" />

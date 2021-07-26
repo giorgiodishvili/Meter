@@ -57,8 +57,8 @@ class CommunityPostsRecyclerViewAdapter(
         RecyclerView.ViewHolder(binding.root) {
         private lateinit var item: Content
         fun bind() {
-            setDataToView()
             setListeners()
+            setDataToView()
         }
 
         private fun setDataToView() {
@@ -95,36 +95,29 @@ class CommunityPostsRecyclerViewAdapter(
                 )
                 binding.seeMore.adapter = adapter
 
-                binding.seeMore.onItemSelectedListener =
-                    object : AdapterView.OnItemSelectedListener {
-
-                        override fun onItemSelected(
-                            parent: AdapterView<*>?,
-                            view: View?,
-                            position: Int,
-                            id: Long
-                        ) {
-                            when (position) {
-                                0 -> {
+                binding.seeMore.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+                        when (position) {
+                            0 -> {
 //                                        onEditPostClick.invoke(item.id)
-                                    i("onEditPost", "$position")
-                                }
-                                1 -> {
+                                i("onEditPost", "$position")
+                            }
+                            1 -> {
 //                                        onDeletePostClick.invoke(item.id)
-                                    i("onDeletePostClick", "$position")
+                                i("onDeletePostClick", "$position")
 
-                                }
                             }
                         }
-
-                        override fun onNothingSelected(parent: AdapterView<*>?) {
-                            TODO("Not yet implemented")
-                        }
-
-
                     }
-
-
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+                        TODO("Not yet implemented")
+                    }
+                }
             }
         }
 
@@ -257,10 +250,9 @@ class CommunityPostsRecyclerViewAdapter(
                 onProfileClick.invoke(item.user.id)
             }
 
-
-            communityPostsViewPagerAdapter.onCardViewClick = {
-                onCardViewClick.invoke(item.id)
-            }
+//            communityPostsViewPagerAdapter.onCardViewClick = {
+//                onCardViewClick.invoke(item.id)
+//            }
 
 
 

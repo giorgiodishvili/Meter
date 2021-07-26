@@ -6,12 +6,10 @@
     android:background="@color/white"
     tools:context=".screens.bottom_nav.profile.myposts.marketPosts.MyMarketPostsFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="MY MARKET POSTS FRAGMENT"
-        android:textColor="@color/main_color"
-        android:textSize="50sp" />
+        android:overScrollMode="never" />
 
 </FrameLayout>
