@@ -29,6 +29,16 @@ class SingleCommunityPostViewModel @Inject constructor(
     val post: LiveData<Resource<Content>>
         get() = _post
 
+    private val _createLike = MutableLiveData<Resource<Boolean>>()
+
+    val createLike: LiveData<Resource<Boolean>>
+        get() = _createLike
+
+    private val _dislike = MutableLiveData<Resource<Boolean>>()
+
+    val dislike: LiveData<Resource<Boolean>>
+        get() = _dislike
+
     private val _comments = MutableLiveData<Resource<List<Comment>>>()
 
     val comments: LiveData<Resource<List<Comment>>>
@@ -103,5 +113,30 @@ class SingleCommunityPostViewModel @Inject constructor(
             }
         }
     }
+
+    fun createLike(userId: String,postId: Long){
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                _createLike.postValue(
+                    communityPostRepository.createLike(
+                        postId,userId
+                    )
+                )
+            }
+        }
+    }
+
+    fun deleteLike(userId: String,postId: Long){
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                _dislike.postValue(
+                    communityPostRepository.deleteLike(
+                        postId,userId
+                    )
+                )
+            }
+        }
+    }
+
 
 }

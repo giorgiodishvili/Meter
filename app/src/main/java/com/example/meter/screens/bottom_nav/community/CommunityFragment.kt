@@ -9,6 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meter.R
@@ -95,7 +96,7 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
 
         adapter.onProfileClick = { uid ->
             val bundle = bundleOf("uid" to uid)
-            findNavController().navigate(
+            binding.root.findNavController().navigate(
                 R.id.action_navigation_community_to_navigation_profile,
                 bundle
             )
@@ -103,10 +104,15 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
 
         adapter.onCardViewClick = { postId ->
             val bundle = bundleOf("postId" to postId)
-            findNavController().navigate(
+            binding.root.findNavController().navigate(
                 R.id.action_navigation_community_to_singleCommunityPostFragment,
                 bundle
             )
+        }
+
+        binding.swipe.setOnRefreshListener {
+            viewModel.getCommunityPosts()
+            observe()
         }
     }
 
@@ -116,6 +122,7 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
                 if (binding.progressCircular.isVisible) {
                     binding.progressCircular.setGone()
                 }
+                binding.swipe.isRefreshing = false
                 adapter.submitData(resource)
             }
         })
