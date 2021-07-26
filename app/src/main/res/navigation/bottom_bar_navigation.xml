@@ -124,11 +124,7 @@
         android:id="@+id/singleCommunityPostFragment"
         android:name="com.example.meter.screens.bottom_nav.community.singlepost.SingleCommunityPostFragment"
         android:label="single_community_post_fragment"
-        tools:layout="@layout/single_community_post_fragment" >
-        <action
-            android:id="@+id/action_singleCommunityPostFragment_to_navigation_profile"
-            app:destination="@id/navigation_profile" />
-    </fragment>
+        tools:layout="@layout/single_community_post_fragment" />
 
 
 </navigation>
