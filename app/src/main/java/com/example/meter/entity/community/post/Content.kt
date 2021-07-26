@@ -11,5 +11,6 @@ data class Content(
     val views: Int,
     val likeAmount: Int,
     val commentsAmount: Int,
-    val likedUserIds: MutableList<String>
+    val likedUserIds: MutableList<String>,
+    val createdData: String
 )

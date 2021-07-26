@@ -108,6 +108,7 @@
             android:layout_marginStart="10dp"
             android:fontFamily="@font/helvetica_heavy"
             android:textColor="@color/black"
+            android:textSize="15sp"
             app:layout_constraintStart_toEndOf="@+id/authorIV"
             app:layout_constraintTop_toTopOf="@+id/authorIV"
             tools:text="giorgi odishvili" />
@@ -116,13 +117,13 @@
             android:id="@+id/addedPostText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="3dp"
             android:fontFamily="@font/helvatice_thin"
             android:textColor="@color/gray_blue"
             app:layout_constraintBottom_toBottomOf="@+id/name"
             app:layout_constraintStart_toEndOf="@+id/name"
             app:layout_constraintTop_toTopOf="@+id/name"
-            tools:text="-მა დაამატა პოსტი" />
+            android:text="-მა დაამატა პოსტი" />
 
         <TextView
             android:id="@+id/descriptionTB"
@@ -269,7 +270,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="4სთ"
             android:textColor="@color/main_color"
             app:layout_constraintBottom_toBottomOf="@+id/authorIV"
             app:layout_constraintStart_toStartOf="@+id/name"
