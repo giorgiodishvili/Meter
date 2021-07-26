@@ -4,6 +4,8 @@ import android.util.Log.i
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
@@ -22,9 +24,11 @@ import com.example.meter.utils.transformers.DepthTransformer
 
 typealias onProfileClick = (uid: String) -> Unit
 typealias onCardViewClick = (postId: Long) -> Unit
+typealias onEditPostClick = (postId: Long) -> Unit
+typealias onDeletePostClick = (postId: Long) -> Unit
 
 class CommunityPostsRecyclerViewAdapter(
-    private val userId: String, private val likeButtonOnClick: (View, Content, Boolean) -> Unit
+    private val userId: String, private val likeButtonOnClick: (View, Content, Boolean) -> Unit,
 ) :
     PagingDataAdapter<Content, RecyclerView.ViewHolder>(REPO_COMPARATOR) {
 
@@ -45,14 +49,17 @@ class CommunityPostsRecyclerViewAdapter(
 
     lateinit var onProfileClick: onProfileClick
     lateinit var onCardViewClick: onCardViewClick
+    lateinit var onDeletePostClick: onDeletePostClick
+    lateinit var onEditPostClick: onEditPostClick
 
-    inner class NoPhotoHolder (private val binding: CommunityWallWithoutPhotoPostItemBinding) :
+    inner class NoPhotoHolder(private val binding: CommunityWallWithoutPhotoPostItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private lateinit var item: Content
         fun bind() {
             setDataToView()
             setListeners()
         }
+
         private fun setDataToView() {
             item = getItem(absoluteAdapterPosition)!!
             i("ITEM", "$item")
@@ -70,7 +77,51 @@ class CommunityPostsRecyclerViewAdapter(
             } else {
                 binding.postLikeBTN.setImageResource(R.drawable.ic_like_unpressed)
             }
+            authUserCheck()
         }
+
+
+        private fun authUserCheck() {
+            if (userId == item.user.id) {
+                binding.seeMore.show()
+                binding.seeMore.setOnClickListener {
+                    val items = arrayOf("ედიტირება", "წაშლა")
+                    val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
+                        binding.root.context,
+                        android.R.layout.simple_spinner_dropdown_item,
+                        items
+                    )
+                    binding.seeMore.adapter = adapter
+                    binding.seeMore.onItemSelectedListener =
+                        object : AdapterView.OnItemSelectedListener {
+
+                            override fun onItemSelected(
+                                parent: AdapterView<*>?,
+                                view: View?,
+                                position: Int,
+                                id: Long
+                            ) {
+                                when (position) {
+                                    0 -> {
+                                        onEditPostClick.invoke(item.id)
+                                    }
+                                    1 -> {
+                                        onDeletePostClick.invoke(item.id)
+                                    }
+                                }
+                            }
+
+                            override fun onNothingSelected(parent: AdapterView<*>?) {
+                                TODO("Not yet implemented")
+                            }
+
+
+                        }
+
+                }
+            }
+        }
+
         private fun setListeners() {
 
             binding.authorIV.setOnClickListener {
@@ -141,6 +192,54 @@ class CommunityPostsRecyclerViewAdapter(
             } else {
                 binding.postLikeBTN.setImageResource(R.drawable.ic_like_unpressed)
             }
+
+            authUserCheck()
+
+        }
+
+        private fun authUserCheck() {
+            if (userId == item.user.id) {
+                binding.seeMore.show()
+
+                val items = arrayOf("ედიტირება", "წაშლა")
+                val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
+                    binding.root.context,
+                    android.R.layout.simple_spinner_dropdown_item,
+                    items
+                )
+                binding.seeMore.adapter = adapter
+
+                    binding.seeMore.onItemSelectedListener =
+                        object : AdapterView.OnItemSelectedListener {
+
+                            override fun onItemSelected(
+                                parent: AdapterView<*>?,
+                                view: View?,
+                                position: Int,
+                                id: Long
+                            ) {
+                                when (position) {
+                                    0 -> {
+//                                        onEditPostClick.invoke(item.id)
+                                        i("onEditPost","$position")
+                                    }
+                                    1 -> {
+//                                        onDeletePostClick.invoke(item.id)
+                                        i("onDeletePostClick","$position")
+
+                                    }
+                                }
+                            }
+
+                            override fun onNothingSelected(parent: AdapterView<*>?) {
+                                TODO("Not yet implemented")
+                            }
+
+
+                        }
+
+
+            }
         }
 
         private fun setListeners() {
@@ -148,6 +247,7 @@ class CommunityPostsRecyclerViewAdapter(
             binding.authorIV.setOnClickListener {
                 onProfileClick.invoke(item.user.id)
             }
+
 
             if (item.photoCarUrl.isNotEmpty()) {
                 communityPostsViewPagerAdapter.onCardViewClick = {
@@ -238,15 +338,17 @@ class CommunityPostsRecyclerViewAdapter(
                 }
             })
         }
+
+
     }
 
     override fun getItemViewType(position: Int): Int {
         val item = getItem(position)!!
         return if (item.photoCarUrl.isEmpty()) {
-                NO_PHOTO_ITEM
-            } else {
-                DEFAULT_ITEM
-            }
+            NO_PHOTO_ITEM
+        } else {
+            DEFAULT_ITEM
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

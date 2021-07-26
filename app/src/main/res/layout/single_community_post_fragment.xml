@@ -11,10 +11,11 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerPhotos"
+        android:id="@+id/singlePostRecyclerPhoto"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/authorIV"
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -38,7 +39,7 @@
         android:background="@color/white"
         android:elevation="7dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerPhotos"
+        app:layout_constraintTop_toBottomOf="@+id/singlePostRecyclerPhoto"
         app:shapeAppearanceOverlay="@style/circleImageView"
         tools:src="@mipmap/ic_launcher_round" />
 
@@ -93,7 +94,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/commentRV"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         app:layout_constraintBottom_toTopOf="@+id/commentET"
         app:layout_constraintTop_toBottomOf="@+id/commentBTNLogo" />

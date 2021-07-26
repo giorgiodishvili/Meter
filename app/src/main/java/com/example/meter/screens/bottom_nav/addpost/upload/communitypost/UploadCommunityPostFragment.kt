@@ -187,7 +187,11 @@ class UploadCommunityPostFragment() :
             }
             builder.show()
         } else {
-            popDialog(R.layout.dialog_item_error, R.id.errorMsg, "მაქსიმუმ შესაძლებელია 5 ფოტოს ატვირთვა")
+            popDialog(
+                R.layout.dialog_item_error,
+                R.id.errorMsg,
+                "მაქსიმუმ შესაძლებელია 5 ფოტოს ატვირთვა"
+            )
         }
     }
 

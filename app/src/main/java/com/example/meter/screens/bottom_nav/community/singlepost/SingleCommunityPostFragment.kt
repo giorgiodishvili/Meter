@@ -4,9 +4,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.meter.R
+import com.example.meter.adapter.communitypost.singlepost.CommunityPostCommentRecyclerAdapter
+import com.example.meter.adapter.communitypost.singlepost.SingleCommunityPostPhotoRecyclerAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.SingleCommunityPostFragmentBinding
+import com.example.meter.entity.Comment
 import com.example.meter.entity.community.post.Content
 import com.example.meter.extensions.loadImg
 import com.example.meter.network.Resource
@@ -20,6 +25,7 @@ class SingleCommunityPostFragment :
         SingleCommunityPostFragmentBinding::inflate,
         SingleCommunityPostViewModel::class.java
     ) {
+    private lateinit var communityPostCommentRecyclerAdapter: CommunityPostCommentRecyclerAdapter
 
     @Inject
     lateinit var firebaseAuthImpl: FirebaseRepositoryImpl
@@ -38,7 +44,9 @@ class SingleCommunityPostFragment :
         viewModel.post.observe(viewLifecycleOwner, {
             when (it.status) {
                 Resource.Status.ERROR -> Log.i("debugee", "ERROR")
-                Resource.Status.SUCCESS -> it!!.data?.let { it1 -> setUpPost(it1) }
+                Resource.Status.SUCCESS -> {
+                    it!!.data?.let { it1 -> setUpPost(it1) }
+                }
                 Resource.Status.LOADING -> Log.i("debugee", "loading")
             }
         })
@@ -46,7 +54,17 @@ class SingleCommunityPostFragment :
         viewModel.comments.observe(viewLifecycleOwner, {
             when (it.status) {
                 Resource.Status.ERROR -> Log.i("debugee", "$it")
-                Resource.Status.SUCCESS -> Log.i("debugee", it.data.toString())
+                Resource.Status.SUCCESS -> {
+                    Log.i("debugee", it.data.toString())
+                    if (it.data!!.isNotEmpty()) {
+
+                        communityPostCommentRecyclerAdapter =
+                            CommunityPostCommentRecyclerAdapter(it.data as MutableList<Comment>)
+                        binding.commentRV.adapter = communityPostCommentRecyclerAdapter
+                        binding.commentRV.layoutManager =
+                            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+                    }
+                }
                 Resource.Status.LOADING -> Log.i("debugee", "loading")
             }
         })
@@ -54,7 +72,10 @@ class SingleCommunityPostFragment :
         viewModel.createComment.observe(viewLifecycleOwner, {
             when (it.status) {
                 Resource.Status.ERROR -> Log.i("debugee", "$it")
-                Resource.Status.SUCCESS -> Log.i("debugee", it.data.toString())
+                Resource.Status.SUCCESS -> {
+                    Log.i("debugee", it.data.toString())
+                    communityPostCommentRecyclerAdapter.addComment(it.data!!)
+                }
                 Resource.Status.LOADING -> Log.i("debugee", "loading")
             }
         })
@@ -103,5 +124,8 @@ class SingleCommunityPostFragment :
         binding.authorIV.loadImg(data.user.url)
         binding.name.text = data.user.name
         binding.descriptionTB.text = data.description
+        binding.singlePostRecyclerPhoto.adapter = SingleCommunityPostPhotoRecyclerAdapter(data.photoCarUrl)
+        binding.singlePostRecyclerPhoto.layoutManager =
+            LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
     }
 }

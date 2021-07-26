@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.AppCompatImageButton xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/uploadButton"
     android:layout_width="102dp"
     android:layout_height="102dp"
-    android:id="@+id/uploadButton"
     android:layout_marginStart="6dp"
-    android:paddingEnd="3dp"
+    android:layout_marginTop="6dp"
 
-    android:background="@drawable/button_shape"
-    android:src="@drawable/ic_upload_icon"
-    android:paddingBottom="5dp"
     android:layout_marginEnd="6dp"
     android:layout_marginBottom="6dp"
-    android:layout_marginTop="6dp"
-    tools:ignore="RtlSymmetry">
-</androidx.appcompat.widget.AppCompatImageButton>
+    android:background="@drawable/button_shape"
+    android:paddingEnd="3dp"
+    android:paddingBottom="5dp"
+    android:src="@drawable/ic_upload_icon"
+    tools:ignore="RtlSymmetry"></androidx.appcompat.widget.AppCompatImageButton>
