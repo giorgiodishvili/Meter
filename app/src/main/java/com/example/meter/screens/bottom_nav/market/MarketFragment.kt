@@ -25,7 +25,7 @@ class MarketFragment : BaseFragment<MarketFragmentBinding, MarketViewModel>(
     lateinit var firebaseAuthImpl: FirebaseRepositoryImpl
 
     fun observe() {
-        viewModel.getCommunityPosts().observe(viewLifecycleOwner, { resource ->
+        viewModel.getMarketPosts().observe(viewLifecycleOwner, { resource ->
             lifecycleScope.launch {
                 adapter.submitData(resource)
             }

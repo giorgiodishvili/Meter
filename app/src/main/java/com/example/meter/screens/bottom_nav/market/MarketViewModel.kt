@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MarketViewModel @Inject constructor(private val carPostRepository: CarPostRepository) : ViewModel() {
 
-    fun getCommunityPosts(): LiveData<PagingData<SellCarPostForMainPage>> {
+    fun getMarketPosts(): LiveData<PagingData<SellCarPostForMainPage>> {
         return carPostRepository.getSellPostsForMainPage().cachedIn(viewModelScope)
     }
 }

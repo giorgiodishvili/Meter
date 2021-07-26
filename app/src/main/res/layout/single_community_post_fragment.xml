@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/scrollView"
     android:background="@color/white"
     tools:context=".screens.bottom_nav.community.singlepost.SingleCommunityPostFragment">
 
@@ -109,7 +110,7 @@
             android:layout_marginStart="6dp"
             android:layout_marginTop="10dp"
             android:background="@color/white"
-            android:src="@drawable/ic_like"
+            android:src="@drawable/ic_like_unpressed"
             app:layout_constraintStart_toEndOf="@+id/likesAmount"
             app:layout_constraintTop_toBottomOf="@+id/singlePostRecyclerPhoto" />
 

@@ -3,6 +3,7 @@ package com.example.meter.adapter.communitypost.singlepost
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.meter.adapter.communitypost.main.onProfileClick
 import com.example.meter.databinding.CommentItemLayoutBinding
 import com.example.meter.entity.Comment
 import com.example.meter.extensions.loadProfileImg
@@ -10,6 +11,8 @@ import com.example.meter.extensions.loadProfileImg
 class CommunityPostCommentRecyclerAdapter(
     private val commentList: MutableList<Comment>
 ) : RecyclerView.Adapter<CommunityPostCommentRecyclerAdapter.ItemHolder>() {
+
+    lateinit var onProfileClick: onProfileClick
 
     inner class ItemHolder(private val binding: CommentItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -21,6 +24,15 @@ class CommunityPostCommentRecyclerAdapter(
             binding.authorIV.loadProfileImg(comment.user.url)
             binding.name.text = comment.user.name
             binding.descriptionTV.text = comment.description
+        }
+
+        fun setListeners(){
+            binding.authorIV.setOnClickListener{
+                onProfileClick.invoke(comment.user.id)
+            }
+            binding.name.setOnClickListener {
+                onProfileClick.invoke(comment.user.id)
+            }
         }
     }
 
@@ -36,12 +48,13 @@ class CommunityPostCommentRecyclerAdapter(
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         holder.onBind()
+        holder.setListeners()
     }
 
     override fun getItemCount(): Int = commentList.size
 
-    fun addComment(comment: Comment){
+    fun addComment(comment: Comment) {
         commentList.add(comment)
-        notifyItemInserted(commentList.size-1)
+        notifyItemInserted(commentList.size - 1)
     }
 }

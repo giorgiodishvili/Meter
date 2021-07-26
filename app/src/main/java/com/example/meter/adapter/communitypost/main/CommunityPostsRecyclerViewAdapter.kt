@@ -143,7 +143,10 @@ class CommunityPostsRecyclerViewAdapter(
 
             binding.postCommentBTN.setOnClickListener {
                 onCardViewClick.invoke(item.id)
+            }
 
+            binding.descriptionCenter.setOnClickListener {
+                onCardViewClick.invoke(item.id)
             }
 
             binding.postLikeBTN.setOnClickListener {
@@ -276,6 +279,9 @@ class CommunityPostsRecyclerViewAdapter(
 
             }
 
+            binding.description.setOnClickListener {
+                onCardViewClick.invoke(item.id)
+            }
             binding.postLikeBTN.setOnClickListener {
                 when {
                     item.likedUserIds.contains(userId) -> {
