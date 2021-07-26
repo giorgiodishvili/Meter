@@ -14,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.meter.R
 import com.example.meter.adapter.communitypost.upload.UploadCommunityPostPhotoRecyclerAdapter
@@ -68,6 +69,11 @@ class UploadCommunityPostFragment :
     }
 
     private fun setListeners() {
+
+        binding.backButtonComm.setOnClickListener {
+            findNavController().navigate(R.id.action_uploadCommunityPostFragment_to_navigation_profile)
+        }
+
         adapter.uploadButton = {
             if (hasCamera() && hasRead()) {
                 showDialog()

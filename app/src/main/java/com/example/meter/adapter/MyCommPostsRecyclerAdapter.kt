@@ -5,10 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.example.meter.R
 import com.example.meter.adapter.communitypost.main.CommunityPostsViewPagerAdapter
 import com.example.meter.adapter.communitypost.main.onCardViewClick
 import com.example.meter.databinding.CommunityWallPostItemBinding
@@ -186,7 +184,7 @@ class MyCommPostsRecyclerAdapter(
                 }
             }
 
-            communityPostsViewPagerAdapter.onCardViewClick = {
+            binding.descriptionCenter.setOnClickListener {
                 onCardViewClick.invoke(item.id)
             }
 
