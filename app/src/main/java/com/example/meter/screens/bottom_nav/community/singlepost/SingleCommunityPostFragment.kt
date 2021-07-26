@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.meter.R
@@ -78,9 +79,8 @@ class SingleCommunityPostFragment :
                 Resource.Status.ERROR -> i("debugee", "$it")
                 Resource.Status.SUCCESS -> {
                     i("debugee", it.data.toString())
-                    if (it.data!!.isNotEmpty()) {
                         initCommentRecycler(it)
-                    }
+                    
                 }
                 Resource.Status.LOADING -> i("debugee", "loading")
             }
@@ -120,6 +120,10 @@ class SingleCommunityPostFragment :
                 Resource.Status.LOADING -> i("dislike", "loading")
             }
         })
+
+        binding.backButton.setOnClickListener {
+            findNavController().navigate(R.id.action_singleCommunityPostFragment_to_navigation_community)
+        }
     }
 
     private fun initCommentRecycler(it: Resource<List<Comment>>) {

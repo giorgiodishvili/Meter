@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.meter.R
 import com.example.meter.adapter.communitypost.main.CommunityPostsViewPagerAdapter
+import com.example.meter.adapter.communitypost.main.onCardViewClick
 import com.example.meter.databinding.CommunityWallPostItemBinding
 import com.example.meter.databinding.CommunityWallWithoutPhotoPostItemBinding
 import com.example.meter.entity.UserDetails
@@ -31,6 +32,10 @@ class MyCommPostsRecyclerAdapter(
         private const val NO_PHOTO_ITEM = 1
     }
 
+    lateinit var onCardViewClick: onCardViewClick
+    private lateinit var communityPostsViewPagerAdapter: CommunityPostsViewPagerAdapter
+
+
     inner class ViewHolder(private val binding: CommunityWallPostItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private lateinit var item: Content
@@ -50,18 +55,11 @@ class MyCommPostsRecyclerAdapter(
             Log.i("ITEM233", "$item")
             binding.firstName.text = item.user.name.split(" ")[0]
             binding.lastName.text = item.user.name.split(" ")[1]
+            binding.postLikeTV.text = item.likedUserIds.size.toString()
             binding.title.text = item.title
             binding.description.text = item.description
             binding.postCommentTV.text = item.commentsAmount.toString()
-            binding.postLikeTV.text = item.likedUserIds.size.toString()
             binding.postViewTV.text = item.views.toString()
-
-            if (item.likedUserIds.contains(userId)) {
-                binding.postLikeBTN.hide()
-            } else {
-                binding.postLikeBTN.show()
-            }
-
         }
 
         private fun setListeners() {
@@ -88,10 +86,12 @@ class MyCommPostsRecyclerAdapter(
                         item.likedUserIds.add(userId)
                         binding.postLikeTV.text = (item.likedUserIds.size).toString()
                     }
-                    else -> {
-                        it.findNavController().navigate(R.id.action_global_navigation_profile)
-                    }
                 }
+            }
+
+
+            communityPostsViewPagerAdapter.onCardViewClick = {
+                onCardViewClick.invoke(item.id)
             }
         }
 
@@ -106,7 +106,8 @@ class MyCommPostsRecyclerAdapter(
                 if (!binding.photos.isVisible) {
                     binding.photos.show()
                 }
-                binding.photos.adapter = CommunityPostsViewPagerAdapter(item.photoCarUrl)
+                communityPostsViewPagerAdapter = CommunityPostsViewPagerAdapter(item.photoCarUrl)
+                binding.photos.adapter = communityPostsViewPagerAdapter
                 binding.photos.setPageTransformer(DepthTransformer)
             }
 
@@ -143,6 +144,7 @@ class MyCommPostsRecyclerAdapter(
             setDataToView()
             setListeners()
         }
+
         private fun setDataToView() {
 
             binding.authorIV.setGone()
@@ -158,12 +160,6 @@ class MyCommPostsRecyclerAdapter(
             binding.postCommentTV.text = item.commentsAmount.toString()
             binding.postLikeTV.text = item.likedUserIds.size.toString()
             binding.postViewTV.text = item.views.toString()
-
-            if (item.likedUserIds.contains(userId)) {
-                binding.postLikeBTN.hide()
-            } else {
-                binding.postLikeBTN.show()
-            }
 
         }
 
@@ -185,11 +181,13 @@ class MyCommPostsRecyclerAdapter(
                         item.likedUserIds.add(userId)
                         binding.postLikeTV.text = (item.likedUserIds.size).toString()
                     }
-                    else -> {
-                        it.findNavController().navigate(R.id.action_global_navigation_profile)
-                    }
                 }
             }
+
+            communityPostsViewPagerAdapter.onCardViewClick = {
+                onCardViewClick.invoke(item.id)
+            }
+
         }
     }
 
@@ -211,6 +209,8 @@ class MyCommPostsRecyclerAdapter(
                 )
             )
         }
+
+
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

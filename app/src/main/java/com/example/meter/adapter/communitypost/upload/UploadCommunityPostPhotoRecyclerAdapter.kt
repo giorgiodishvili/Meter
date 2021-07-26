@@ -9,29 +9,42 @@ import com.example.meter.databinding.UploadCommunityPostPhotoRecyclerItemBinding
 import com.example.meter.extensions.loadImgUri
 
 typealias uploadButton = (position: Int) -> Unit
+typealias closeButton = (position: Int) -> Unit
 
 class UploadCommunityPostPhotoRecyclerAdapter :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     lateinit var uploadButton: uploadButton
+    lateinit var closeButton: closeButton
 
     companion object {
         private const val DEFAULT_UPLOAD_BUTTON = 1
         private const val NORMAL_ITEM = 0
     }
 
-    private var uris: List<Uri> = mutableListOf()
+    private var uris: MutableList<Uri> = mutableListOf()
 
     inner class ItemHolder(private val binding: UploadCommunityPostPhotoRecyclerItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind() {
+            setListeners()
+        }
+
+        private fun setListeners() {
             binding.imgView.loadImgUri(uris[absoluteAdapterPosition], true)
+            binding.removeBTN.setOnClickListener {
+                closeButton.invoke(absoluteAdapterPosition)
+            }
         }
     }
 
     inner class ButtonHolder(private val binding: UploadCommunityPostButtonItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind() {
+            setListeners()
+        }
+
+        private fun setListeners() {
             binding.uploadButton.setOnClickListener {
                 uploadButton.invoke(0)
             }
@@ -76,7 +89,7 @@ class UploadCommunityPostPhotoRecyclerAdapter :
             NORMAL_ITEM
     }
 
-    fun submitData(uris: List<Uri>) {
+    fun submitData(uris: MutableList<Uri>) {
         this.uris = uris
         notifyDataSetChanged()
     }
