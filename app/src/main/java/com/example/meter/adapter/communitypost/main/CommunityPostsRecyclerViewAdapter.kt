@@ -84,43 +84,48 @@ class CommunityPostsRecyclerViewAdapter(
         private fun authUserCheck() {
             if (userId == item.user.id) {
                 binding.seeMore.show()
-                binding.seeMore.setOnClickListener {
-                    val items = arrayOf("ედიტირება", "წაშლა")
-                    val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
-                        binding.root.context,
-                        android.R.layout.simple_spinner_dropdown_item,
-                        items
-                    )
-                    binding.seeMore.adapter = adapter
-                    binding.seeMore.onItemSelectedListener =
-                        object : AdapterView.OnItemSelectedListener {
 
-                            override fun onItemSelected(
-                                parent: AdapterView<*>?,
-                                view: View?,
-                                position: Int,
-                                id: Long
-                            ) {
-                                when (position) {
-                                    0 -> {
-                                        onEditPostClick.invoke(item.id)
-                                    }
-                                    1 -> {
-                                        onDeletePostClick.invoke(item.id)
-                                    }
+                val items = arrayOf("ედიტირება", "წაშლა")
+                val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
+                    binding.root.context,
+                    android.R.layout.simple_spinner_dropdown_item,
+                    items
+                )
+                binding.seeMore.adapter = adapter
+
+                binding.seeMore.onItemSelectedListener =
+                    object : AdapterView.OnItemSelectedListener {
+
+                        override fun onItemSelected(
+                            parent: AdapterView<*>?,
+                            view: View?,
+                            position: Int,
+                            id: Long
+                        ) {
+                            when (position) {
+                                0 -> {
+//                                        onEditPostClick.invoke(item.id)
+                                    i("onEditPost","$position")
+                                }
+                                1 -> {
+//                                        onDeletePostClick.invoke(item.id)
+                                    i("onDeletePostClick","$position")
+
                                 }
                             }
-
-                            override fun onNothingSelected(parent: AdapterView<*>?) {
-                                TODO("Not yet implemented")
-                            }
-
-
                         }
 
-                }
+                        override fun onNothingSelected(parent: AdapterView<*>?) {
+                            TODO("Not yet implemented")
+                        }
+
+
+                    }
+
+
             }
         }
+
 
         private fun setListeners() {
 
