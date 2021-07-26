@@ -173,4 +173,8 @@
         android:id="@+id/action_singleCommunityPostFragment_to_navigation_profile"
         app:destination="@id/navigation_profile" />
 
+
+    <action
+        android:id="@+id/action_global_singleCommunityPostFragment"
+        app:destination="@id/singleCommunityPostFragment" />
 </navigation>
