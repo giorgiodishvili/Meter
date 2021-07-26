@@ -14,7 +14,6 @@
         android:background="@color/white"
         tools:context=".screens.bottom_nav.community.singlepost.SingleCommunityPostFragment">
 
-
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/backButton"
             android:layout_width="wrap_content"
@@ -37,45 +36,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/authorIV" >
         </androidx.recyclerview.widget.RecyclerView>
-
-
-        <EditText
-            android:id="@+id/commentET"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/costum_input"
-            android:fontFamily="@font/helvatice_medium"
-            android:hint="დაწერეთ კომენტარი..."
-            android:paddingStart="24dp"
-            android:paddingTop="12dp"
-            android:paddingEnd="36dp"
-            android:paddingBottom="13dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/gray_blue"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/commentBTN"
-            app:layout_constraintStart_toEndOf="@+id/selfProfilePhoto"
-            app:layout_constraintTop_toBottomOf="@+id/commentRV" />
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/commentBTN"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:background="@drawable/custom_button"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:paddingBottom="2dp"
-            android:src="@drawable/ic_up_arrow"
-            android:text="@string/comments"
-            app:layout_constraintEnd_toEndOf="@+id/commentRV"
-            app:layout_constraintTop_toTopOf="@+id/commentET" />
-
-
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/authorIV"
@@ -126,7 +86,7 @@
             app:layout_constraintTop_toBottomOf="@+id/commentBTNLogo"
             tools:text="giorgi odishvili" />
 
-        <ImageButton
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/likeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -137,7 +97,7 @@
             app:layout_constraintStart_toEndOf="@+id/likesAmount"
             app:layout_constraintTop_toBottomOf="@+id/singlePostRecyclerPhoto" />
 
-        <ImageButton
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/commentBTNLogo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -155,6 +115,8 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="25dp"
             android:layout_marginEnd="12dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -172,21 +134,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/descriptionTB" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/selfProfilePhoto"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="10dp"
-            android:src="@mipmap/profile_pic"
-            app:layout_constraintBottom_toBottomOf="@+id/commentET"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/commentET" />
 
         <TextView
             android:id="@+id/likesAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/likeButton"
             app:layout_constraintStart_toStartOf="@+id/singlePostRecyclerPhoto"

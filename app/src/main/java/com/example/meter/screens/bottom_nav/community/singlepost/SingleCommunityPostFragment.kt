@@ -4,7 +4,6 @@ import android.util.Log
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -48,7 +47,7 @@ class SingleCommunityPostFragment :
 
                 Resource.Status.SUCCESS -> {
                     d("tagtag", it.data!!.url)
-                    it.data.let { it1 -> binding.selfProfilePhoto.loadProfileImg(it1.url) }
+//                    it.data.let { it1 -> binding.selfProfilePhoto.loadProfileImg(it1.url) }
                 }
                 Resource.Status.ERROR -> Log.i("debugee", "ERROR")
                 Resource.Status.LOADING -> Log.i("debugee", "loading")
@@ -117,22 +116,22 @@ class SingleCommunityPostFragment :
     }
 
     private fun setListeners() {
-        binding.commentBTN.setOnClickListener {
-
-            val commentText = binding.commentET.text
-            if (commentText.isNotEmpty()) {
-                if (firebaseAuthImpl.getUserId() != null) {
-                    userId = firebaseAuthImpl.getUserId()!!
-                    viewModel.createComment(
-                        postId,
-                        userId, commentText.toString()
-                    )
-                    commentText.clear()
-                } else {
-                    binding.root.findNavController().navigate(R.id.action_global_navigation_profile)
-                }
-            }
-        }
+//        binding.commentBTN.setOnClickListener {
+//
+//            val commentText = binding.commentET.text
+//            if (commentText.isNotEmpty()) {
+//                if (firebaseAuthImpl.getUserId() != null) {
+//                    userId = firebaseAuthImpl.getUserId()!!
+//                    viewModel.createComment(
+//                        postId,
+//                        userId, commentText.toString()
+//                    )
+//                    commentText.clear()
+//                } else {
+//                    binding.root.findNavController().navigate(R.id.action_global_navigation_profile)
+//                }
+//            }
+//        }
 
         binding.backButton.setOnClickListener {
             findNavController().navigate(R.id.action_singleCommunityPostFragment_to_navigation_community)
