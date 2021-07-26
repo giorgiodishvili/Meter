@@ -19,10 +19,15 @@ interface ApiService {
     @GET("https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformake/{make}?format=json")
     suspend fun getModelsForMake(@Path("make") make: String): Response<Model>
 
-//    suspend fun searchPosts(query: String): Response<List<PostItem>>
-//
-//    @GET("/api/cars/latest")
-//    suspend fun getLatestPosts(): Response<List<PostItem>>
+    @GET("/community/post/search")
+    suspend fun searchPosts(
+        @Query("title") query: String,
+        @Query("page") page: Int,
+        @Query("size") size: Int
+    ): Response<CommunityPost>
+
+    @GET("/api/cars/latest")
+    suspend fun getLatestPosts(): Response<List<Content>>
 
     @GET("/user/{uid}")
     suspend fun getUserPersonalInfo(@Path("uid") uid: String): Response<UserDetails>

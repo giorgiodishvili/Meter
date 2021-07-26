@@ -39,22 +39,22 @@
             android:id="@+id/recentPostsRV"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="0dp"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toBottomOf="@+id/search_bar" />
         <Constraint
-            motion:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/search_bar"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginEnd="30dp"
-            motion:layout_constraintTop_toBottomOf="@+id/my_toolbar"
             android:layout_marginStart="30dp"
-            motion:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="10dp"
-            android:id="@+id/search_bar" />
+            android:layout_marginEnd="30dp"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/my_toolbar" />
     </ConstraintSet>
 
 
@@ -67,6 +67,25 @@
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toBottomOf="@+id/my_toolbar"
             motion:layout_constraintVertical_bias="0.317" />
+        <Constraint
+            android:id="@+id/recentPostsRV"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/search_bar" />
+        <Constraint
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="30dp"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/my_toolbar" />
 
     </ConstraintSet>
 
@@ -80,6 +99,25 @@
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toBottomOf="@+id/my_toolbar"
             motion:layout_constraintVertical_bias="0.7" />
+        <Constraint
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="30dp"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/my_toolbar" />
+        <Constraint
+            android:id="@+id/recentPostsRV"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/search_bar" />
 
     </ConstraintSet>
 
@@ -94,6 +132,25 @@
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toBottomOf="@+id/my_toolbar"
             motion:layout_constraintVertical_bias="0.317" />
+        <Constraint
+            android:id="@+id/recentPostsRV"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/search_bar" />
+        <Constraint
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="30dp"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/my_toolbar" />
     </ConstraintSet>
 
     <Transition

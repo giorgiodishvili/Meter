@@ -50,6 +50,10 @@ class CommunityViewModel @Inject constructor(private val communityPostRepository
         }
     }
 
+    fun searchPost(keyWord: String): LiveData<PagingData<Content>> {
+        return communityPostRepository.searchPost(keyWord).cachedIn(viewModelScope)
+    }
+
 
     fun searchCarsForSale(query: String?) {
         Log.i("SearchWord", query!!)

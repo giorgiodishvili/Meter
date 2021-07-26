@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.meter.entity.community.post.Content
 import com.example.meter.network.Resource
 import com.example.meter.repository.photo.PhotoRepositoryImpl
-import com.example.meter.repository.post.community.post.CommunityPostRepositoryImpl
+import com.example.meter.repository.post.community.post.CommunityPostRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class UploadCommunityPostViewModel @Inject constructor(
     private val photoRepository: PhotoRepositoryImpl,
-    private val communityPostRepository: CommunityPostRepositoryImpl
+    private val communityPostRepository: CommunityPostRepository
 ) : ViewModel() {
     private val _postUploaded = MutableLiveData<Resource<Content>>()
 
