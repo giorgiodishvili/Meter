@@ -12,8 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginBottom="5dp"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
         android:elevation="7dp"
         android:fontFamily="@font/helvetica_thin"
         android:textColor="@color/black"
@@ -22,6 +22,7 @@
         app:layout_constraintStart_toStartOf="@+id/photos"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Toyouta Prius gayidva" />
+
     <TextView
         android:id="@+id/title"
         android:layout_width="0dp"
@@ -34,8 +35,8 @@
         android:textSize="18sp"
         android:textStyle="bold"
 
-        app:layout_constraintTop_toBottomOf="@+id/photos"
         app:layout_constraintStart_toStartOf="@+id/photos"
+        app:layout_constraintTop_toBottomOf="@+id/photos"
         tools:text="Toyouta Prius gayidva" />
 
     <TextView
@@ -48,8 +49,9 @@
         android:textColor="@color/black"
         android:textSize="16sp"
 
-        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/title"
+        app:layout_constraintTop_toBottomOf="@+id/title"
         tools:text="2021 weli" />
 
     <TextView
@@ -58,12 +60,11 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="18dp"
         android:elevation="7dp"
-        android:fontFamily="@font/helvetica_thin"
-        android:textColor="@color/black"
+        android:fontFamily="@font/helvetica_heavy"
+        android:textColor="#F40000"
         android:textSize="16sp"
-
-        app:layout_constraintTop_toBottomOf="@+id/photos"
         app:layout_constraintEnd_toEndOf="@id/photos"
+        app:layout_constraintTop_toBottomOf="@+id/photos"
         tools:text="price: 35000$" />
 
     <androidx.viewpager2.widget.ViewPager2
@@ -78,8 +79,6 @@
         app:layout_constraintEnd_toStartOf="@+id/rightArrBTN"
         app:layout_constraintStart_toEndOf="@+id/leftArrBTN"
         app:layout_constraintTop_toBottomOf="@+id/postDateTV" />
-
-
 
 
     <androidx.appcompat.widget.AppCompatImageButton
@@ -105,16 +104,15 @@
         app:layout_constraintTop_toTopOf="@id/photos" />
 
 
-
     <View
         android:id="@+id/separator"
         android:layout_width="80dp"
         android:layout_height="2dp"
-        android:elevation="7dp"
         android:layout_marginTop="15dp"
         android:background="#5A4949"
+        android:elevation="7dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
