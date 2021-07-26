@@ -6,14 +6,6 @@
     android:background="@color/white"
     tools:context=".screens.bottom_nav.market.MarketFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fontFamily="@font/proxima_extra_bold"
-        android:gravity="center"
-        android:text="Sell Car"
-        android:textColor="@color/main_color"
-        android:textSize="50sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerMarketPosts"

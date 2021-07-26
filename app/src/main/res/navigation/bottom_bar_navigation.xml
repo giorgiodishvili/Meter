@@ -142,6 +142,9 @@
             app:popExitAnim="@anim/slide_out_bot"
             app:popUpTo="@id/main_navigation"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_singleCommunityPostFragment_to_navigation_profile2"
+            app:destination="@id/navigation_profile" />
     </fragment>
     <action
         android:id="@+id/action_global_uploadCommunityPostFragment"
