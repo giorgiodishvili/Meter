@@ -1,0 +1,52 @@
+package com.example.meter.entity.sell
+
+import com.example.meter.entity.user.User
+import com.google.gson.annotations.SerializedName
+
+class SellCarPostRequest(
+    val AUX: Boolean,
+    val address: String,
+    val airConditioner: Boolean,
+    val airBag: Int,
+    val backupTire: Boolean,
+    val bluetooth: Boolean,
+    val boardComputer: Boolean,
+    val color: String,
+    val centralLock: Boolean,
+    val climateControl: Boolean,
+    val cylinder: Int,
+    val description: String,
+    val disks: Boolean,
+    val doors: String,
+    val elWindow: Boolean,
+    val engine: Double,
+    val fuelType: String,
+    val id: Int,
+    val interiorColor: String,
+    val interiorMake: String,
+    val seatHead: Boolean,
+    val manufacturer: String,
+    val mileage: Int,
+    val model: String,
+    val multiWheel: Boolean,
+    val navigation: Boolean,
+    val photoUrl: List<String>,
+    val price: Int,
+    val rearViewCamera: Boolean,
+    val releaseYear: String,
+    val signalization: Boolean,
+    val startStopSystem: Boolean,
+    val tires: String,
+    val gadacemataKolofi: String,
+    val user: User?,
+    val VIN: String,
+    @SerializedName("wheel")
+    val wheelSide: String,
+    val cruiseControl: Boolean,
+    val luqi: Boolean,
+    val antiSlide: Boolean,
+    val seatMemory: Boolean,
+    val sanisleparebi: Boolean,
+    val techOverview: Boolean,
+    val hydravlick: Boolean
+)

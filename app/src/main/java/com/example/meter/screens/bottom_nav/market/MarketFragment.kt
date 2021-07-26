@@ -1,32 +1,58 @@
 package com.example.meter.screens.bottom_nav.market
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.example.meter.R
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.meter.adapter.carpost.CarPostRecyclerAdapter
+import com.example.meter.base.BaseFragment
+import com.example.meter.databinding.MarketFragmentBinding
+import com.example.meter.paging.loadstate.LoaderStateAdapter
+import com.example.meter.repository.firebase.FirebaseRepositoryImpl
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MarketFragment : Fragment() {
+@AndroidEntryPoint
+class MarketFragment : BaseFragment<MarketFragmentBinding, MarketViewModel>(
+    MarketFragmentBinding::inflate,
+    MarketViewModel::class.java
+) {
 
-    companion object {
-        fun newInstance() = MarketFragment()
+    private lateinit var adapter: CarPostRecyclerAdapter
+
+    @Inject
+    lateinit var firebaseAuthImpl: FirebaseRepositoryImpl
+
+    fun observe() {
+        viewModel.getCommunityPosts().observe(viewLifecycleOwner, { resource ->
+            lifecycleScope.launch {
+                adapter.submitData(resource)
+            }
+        })
     }
 
-    private lateinit var viewModel: MarketViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.market_fragment, container, false)
+    override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
+        initRecycler()
+        observe()
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MarketViewModel::class.java)
-        // TODO: Use the ViewModel
+    private fun initRecycler() {
+
+        binding.recyclerMarketPosts.layoutManager = LinearLayoutManager(
+            requireContext(),
+            LinearLayoutManager.VERTICAL, false
+        )
+        var userId = firebaseAuthImpl.getUserId()
+
+        if (userId.isNullOrEmpty()) {
+            userId = ""
+        }
+
+        adapter =
+            CarPostRecyclerAdapter(userId)
+        binding.recyclerMarketPosts.adapter = adapter.withLoadStateFooter(LoaderStateAdapter())
     }
+
 
 }

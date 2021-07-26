@@ -1,7 +1,6 @@
 package com.example.meter.entity.sell
 
 import com.google.gson.annotations.SerializedName
-import java.time.LocalDateTime
 
 data class SellCarPostForMainPage(
     val articleHeader: String,
@@ -13,5 +12,5 @@ data class SellCarPostForMainPage(
 
     val price: Int,
     val user: Int,
-    val createdData: LocalDateTime
+    val createdData: String
 )

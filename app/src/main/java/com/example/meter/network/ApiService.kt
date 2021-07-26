@@ -7,6 +7,9 @@ import com.example.meter.entity.page.UploadPhotoResponse
 import com.example.meter.entity.page.Model
 import com.example.meter.entity.sell.SellCarPost
 import com.example.meter.entity.sell.SellCarPostForMainPage
+import com.example.meter.entity.sell.SellCarPostRequest
+import com.example.meter.entity.user.User
+import com.google.gson.annotations.SerializedName
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -140,8 +143,6 @@ interface ApiService {
     @DELETE("api/cars/{carId}")
     suspend fun deleteSellCarPost(
         @Path("carId") carId: Long,
-        @Query("page") page: Int,
-        @Query("size") size: Int,
     ): Response<SellCarPost>
 
     @GET("api/cars/{carId}")
@@ -151,8 +152,53 @@ interface ApiService {
 
 
     @POST("api/cars/")
+    @FormUrlEncoded
     suspend fun createSellCarPost(
-        @Body sellCarPost: SellCarPost,
+        @Query("userId") userId: String?,
+        @Field("AUX") AUX: Boolean,
+        @Field("address") address: String,
+        @Field("airConditioner") airConditioner: Boolean,
+        @Field("airBag") airBag: Int,
+        @Field("backupTire") backupTire: Boolean,
+        @Field("bluetooth") bluetooth: Boolean,
+        @Field("boardComputer") boardComputer: Boolean,
+        @Field("color") color: String,
+        @Field("centralLock") centralLock: Boolean,
+        @Field("climateControl") climateControl: Boolean,
+        @Field("cylinder") cylinder: Int,
+        @Field("description") description: String,
+        @Field("disks") disks: Boolean,
+        @Field("doors") doors: String,
+        @Field("elWindow") elWindow: Boolean,
+        @Field("engine") engine: Double,
+        @Field("fuelType") fuelType: String,
+        @Field("id") id: Int,
+        @Field("interiorColor") interiorColor: String,
+        @Field("interiorMake") interiorMake: String,
+        @Field("seatHead") seatHead: Boolean,
+        @Field("manufacturer") manufacturer: String,
+        @Field("mileage") mileage: Int,
+        @Field("model") model: String,
+        @Field("multiWheel") multiWheel: Boolean,
+        @Field("navigation") navigation: Boolean,
+        @Field("photoUrl") photoUrl: List<String>,
+        @Field("price") price: Int,
+        @Field("rearViewCamera") rearViewCamera: Boolean,
+        @Field("releaseYear") releaseYear: String,
+        @Field("signalization") signalization: Boolean,
+        @Field("startStopSystem") startStopSystem: Boolean,
+        @Field("tires") tires: String,
+        @Field("gadacemataKolofi") gadacemataKolofi: String,
+        @Field("user:") user: User?,
+        @Field("VIN") VIN: String,
+        @Field("wheel") wheel: String,
+        @Field("cruiseControl") cruiseControl: Boolean,
+        @Field("luqi") luqi: Boolean,
+        @Field("antiSlide") antiSlide: Boolean,
+        @Field("seatMemory") seatMemory: Boolean,
+        @Field("sanisleparebi") sanisleparebi: Boolean,
+        @Field("techOverview") techOverview: Boolean,
+        @Field("hydravlick") hydravlick: Boolean
     ): Response<SellCarPost>
 
     //    @PUT("/api/cars/latest")
