@@ -30,7 +30,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class UploadCommunityPostFragment() :
+class UploadCommunityPostFragment :
     BaseFragment<UploadCommunityPostFragmentBinding, UploadCommunityPostViewModel>(
         UploadCommunityPostFragmentBinding::inflate,
         UploadCommunityPostViewModel::class.java
@@ -60,6 +60,11 @@ class UploadCommunityPostFragment() :
             GridLayoutManager(requireContext(), 3)
         binding.recyclerPhotos.adapter = adapter
         preloadedButton()
+        adapter.closeButton = {
+            photoFileList.removeAt(it-1)
+            photoUriList.removeAt(it-1)
+            adapter.notifyItemRemoved(it)
+        }
     }
 
     private fun setListeners() {
@@ -75,7 +80,6 @@ class UploadCommunityPostFragment() :
         binding.save.setOnClickListener {
             binding.save.isEnabled = false
             postFieldCheck()
-
         }
     }
 

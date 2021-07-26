@@ -4,7 +4,6 @@ import android.util.Log.d
 import android.util.Log.i
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ScrollView
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -20,10 +19,8 @@ import com.example.meter.entity.community.post.Content
 import com.example.meter.extensions.loadProfileImg
 import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
-import com.example.meter.utils.transformers.ZoomPageTransformer
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-
 
 @AndroidEntryPoint
 class SingleCommunityPostFragment :
@@ -82,9 +79,8 @@ class SingleCommunityPostFragment :
                 Resource.Status.ERROR -> i("debugee", "$it")
                 Resource.Status.SUCCESS -> {
                     i("debugee", it.data.toString())
-                    if (it.data!!.isNotEmpty()) {
                         initCommentRecycler(it)
-                    }
+                    
                 }
                 Resource.Status.LOADING -> i("debugee", "loading")
             }
@@ -124,6 +120,10 @@ class SingleCommunityPostFragment :
                 Resource.Status.LOADING -> i("dislike", "loading")
             }
         })
+
+        binding.backButton.setOnClickListener {
+            findNavController().navigate(R.id.action_singleCommunityPostFragment_to_navigation_community)
+        }
     }
 
     private fun initCommentRecycler(it: Resource<List<Comment>>) {
@@ -155,7 +155,6 @@ class SingleCommunityPostFragment :
     }
 
     private fun setListeners() {
-
         binding.commentBTN.setOnClickListener {
 
             val commentText = binding.commentET.text
@@ -173,17 +172,10 @@ class SingleCommunityPostFragment :
             }
         }
 
-        binding.backButton.setOnClickListener {
-            findNavController().navigate(R.id.action_singleCommunityPostFragment_to_navigation_community)
-        }
-
         binding.commentBTNLogo.setOnClickListener {
-            binding.scrollView.post {
-                binding.scrollView.fullScroll(ScrollView.FOCUS_DOWN)
-            }
-//            binding.commentET.requestFocus()
-//            binding.commentET.isFocusableInTouchMode = true
-//            binding.commentET.showSoftInputOnFocus = true
+            binding.commentET.requestFocus()
+            binding.commentET.isFocusableInTouchMode = true
+            binding.commentET.showSoftInputOnFocus = true
 
         }
 
@@ -225,12 +217,11 @@ class SingleCommunityPostFragment :
 
         }
         binding.name.text = data.user.name
-        binding.singleTitle.text = data.title
         binding.descriptionTB.text = data.description
         binding.singlePostRecyclerPhoto.adapter =
             SingleCommunityPostPhotoRecyclerAdapter(data.photoCarUrl)
-        binding.singlePostRecyclerPhoto.setPageTransformer(ZoomPageTransformer)
-
+        binding.singlePostRecyclerPhoto.layoutManager =
+            LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
     }
 
     private fun setUpViewElements() {

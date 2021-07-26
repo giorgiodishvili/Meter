@@ -17,6 +17,13 @@
         android:layout_height="match_parent"
         android:background="@drawable/edit_profile_shape"
         android:scaleType="centerCrop">
-
     </ImageView>
+
+    <ImageButton
+        android:id="@+id/removeBTN"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="top|right"
+        android:layout_margin="5dp"
+        android:src="@drawable/ic_cancel"/>
 </androidx.cardview.widget.CardView>

@@ -52,11 +52,11 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
     }
 
     private fun listeners() {
-        binding.searchBar.doOnTextChanged { text, start, before, count ->
+        binding.searchBar.doOnTextChanged { text, _, _, count ->
             if (text!!.length >= 2) {
                 d("piifi", "$text $count")
                 viewModel.searchPost(text.toString()).observe(viewLifecycleOwner, {
-                    d("tagtag123", "${it}")
+                    d("tagtag123", "$it")
                     lifecycleScope.launch {
                         if (binding.progressCircular.isVisible) {
                             binding.progressCircular.setGone()

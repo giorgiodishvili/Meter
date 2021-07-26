@@ -3,8 +3,11 @@ package com.example.meter.screens.bottom_nav.profile.myposts.commPosts
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.meter.R
 import com.example.meter.adapter.MyCommPostsRecyclerAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.base.SharedViewModel
@@ -64,6 +67,13 @@ class MyCommPostsFragment : BaseFragment<MyCommPostsFragmentBinding, MyCommPosts
             LinearLayoutManager.VERTICAL, false
         )
         binding.recycler.adapter = adapter
+        adapter.onCardViewClick = {postId ->
+            val bundle = bundleOf("postId" to postId)
+            binding.root.findNavController().navigate(
+                R.id.action_navigation_community_to_singleCommunityPostFragment,
+                bundle
+            )
+        }
 
     }
 

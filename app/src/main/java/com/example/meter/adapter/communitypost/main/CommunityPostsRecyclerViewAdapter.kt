@@ -83,7 +83,7 @@ class CommunityPostsRecyclerViewAdapter(
 
 
         private fun authUserCheck() {
-            i("isSame","${userId == item.user.id}")
+            i("isSame", "${userId == item.user.id}")
             if (userId == item.user.id) {
                 binding.seeMore.show()
 
@@ -107,11 +107,11 @@ class CommunityPostsRecyclerViewAdapter(
                             when (position) {
                                 0 -> {
 //                                        onEditPostClick.invoke(item.id)
-                                    i("onEditPost","$position")
+                                    i("onEditPost", "$position")
                                 }
                                 1 -> {
 //                                        onDeletePostClick.invoke(item.id)
-                                    i("onDeletePostClick","$position")
+                                    i("onDeletePostClick", "$position")
 
                                 }
                             }
@@ -135,11 +135,10 @@ class CommunityPostsRecyclerViewAdapter(
                 onProfileClick.invoke(item.user.id)
             }
 
-            if (item.photoCarUrl.isNotEmpty()) {
-                communityPostsViewPagerAdapter.onCardViewClick = {
-                    onCardViewClick.invoke(item.id)
-                }
+            communityPostsViewPagerAdapter.onCardViewClick = {
+                onCardViewClick.invoke(item.id)
             }
+
 
             binding.postCommentBTN.setOnClickListener {
                 onCardViewClick.invoke(item.id)
@@ -208,7 +207,7 @@ class CommunityPostsRecyclerViewAdapter(
         }
 
         private fun authUserCheck() {
-            i("isSame","${userId == item.user.id}")
+            i("isSame", "${userId == item.user.id}")
 
             if (userId == item.user.id) {
                 binding.seeMore.show()
@@ -221,32 +220,32 @@ class CommunityPostsRecyclerViewAdapter(
                 )
                 binding.seeMore.adapter = adapter
 
-                    binding.seeMore.onItemSelectedListener =
-                        object : AdapterView.OnItemSelectedListener {
+                binding.seeMore.onItemSelectedListener =
+                    object : AdapterView.OnItemSelectedListener {
 
-                            override fun onItemSelected(
-                                parent: AdapterView<*>?,
-                                view: View?,
-                                position: Int,
-                                id: Long
-                            ) {
-                                when (position) {
-                                    0 -> {
+                        override fun onItemSelected(
+                            parent: AdapterView<*>?,
+                            view: View?,
+                            position: Int,
+                            id: Long
+                        ) {
+                            when (position) {
+                                0 -> {
 //                                        onEditPostClick.invoke(item.id)
-                                        i("onEditPost","$position")
-                                    }
-                                    1 -> {
+                                    i("onEditPost", "$position")
+                                }
+                                1 -> {
 //                                        onDeletePostClick.invoke(item.id)
-                                        i("onDeletePostClick","$position")
+                                    i("onDeletePostClick", "$position")
 
-                                    }
                                 }
                             }
-
-                            override fun onNothingSelected(parent: AdapterView<*>?) {
-                                TODO("Not yet implemented")
-                            }
                         }
+
+                        override fun onNothingSelected(parent: AdapterView<*>?) {
+                            TODO("Not yet implemented")
+                        }
+                    }
 
 
             }
@@ -259,11 +258,10 @@ class CommunityPostsRecyclerViewAdapter(
             }
 
 
-            if (item.photoCarUrl.isNotEmpty()) {
-                communityPostsViewPagerAdapter.onCardViewClick = {
-                    onCardViewClick.invoke(item.id)
-                }
+            communityPostsViewPagerAdapter.onCardViewClick = {
+                onCardViewClick.invoke(item.id)
             }
+
 
 
             binding.leftArrBTN.setOnClickListener {
@@ -391,7 +389,6 @@ class CommunityPostsRecyclerViewAdapter(
             )
         }
     }
-
 
 
 }
