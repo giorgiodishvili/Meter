@@ -70,6 +70,8 @@ class MyCommPostsRecyclerAdapter(
             binding.rightArrBTN.setOnClickListener {
                 binding.photos.currentItem = binding.photos.currentItem + 1
             }
+
+
             binding.postLikeBTN.setOnClickListener {
                 when {
                     item.likedUserIds.contains(userId) -> {

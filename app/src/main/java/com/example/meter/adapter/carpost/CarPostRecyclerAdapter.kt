@@ -31,13 +31,26 @@ class CarPostRecyclerAdapter(userId: String?) :
             binding.priceTV.text = "ფასი: " + item.price.toString() + "$"
             binding.title.text = item.articleHeader
             binding.postDateTV.text = item.createdData
-
             manipulateArrows()
+            setListeners()
+        }
+
+        private fun setListeners() {
+
+            binding.leftArrBTN.setOnClickListener {
+                binding.photos.currentItem = binding.photos.currentItem - 1
+            }
+
+            binding.rightArrBTN.setOnClickListener {
+                binding.photos.currentItem = binding.photos.currentItem + 1
+            }
+
+
         }
 
 
         private fun manipulateArrows() {
-            if (!item.photoUrl.isNullOrEmpty()) {
+            if (item.photoUrl.isEmpty()) {
                 binding.rightArrBTN.hide()
                 binding.leftArrBTN.hide()
                 if (binding.photos.isVisible) {
@@ -51,7 +64,6 @@ class CarPostRecyclerAdapter(userId: String?) :
                     CommunityPostsViewPagerAdapter(item.photoUrl!!)
                 binding.photos.adapter = communityPostsViewPagerAdapter
                 binding.photos.setPageTransformer(DepthTransformer)
-
             }
 
 

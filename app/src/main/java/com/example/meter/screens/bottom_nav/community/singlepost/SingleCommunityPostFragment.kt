@@ -181,10 +181,6 @@ class SingleCommunityPostFragment :
             binding.scrollView.post {
                 binding.scrollView.fullScroll(ScrollView.FOCUS_DOWN)
             }
-//            binding.commentET.requestFocus()
-//            binding.commentET.isFocusableInTouchMode = true
-//            binding.commentET.showSoftInputOnFocus = true
-
         }
 
         binding.likeButton.setOnClickListener {
@@ -207,7 +203,7 @@ class SingleCommunityPostFragment :
             }
         }
 
-        binding.selfProfilePhoto.setOnClickListener {
+        binding.authorIV.setOnClickListener {
             binding.root.findNavController()
                 .navigate(R.id.action_singleCommunityPostFragment_to_navigation_profile, bundleOf("uid" to userId))
         }
