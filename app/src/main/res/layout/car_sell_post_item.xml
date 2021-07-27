@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="14dp"
     android:background="@color/white">
 
     <TextView
@@ -110,6 +109,7 @@
         android:layout_marginTop="15dp"
         android:background="#5A4949"
         android:elevation="7dp"
+        android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

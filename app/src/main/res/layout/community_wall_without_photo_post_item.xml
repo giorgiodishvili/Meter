@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -69,9 +68,9 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="34dp"
         android:clipChildren="false"
-        android:src="@drawable/ic_no_image_post_background"
-        android:scaleType="fitXY"
         android:clipToPadding="false"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_no_image_post_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -161,11 +160,11 @@
         android:layout_height="6dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
+        android:spinnerMode="dropdown"
         android:src="@drawable/ic_more_text"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/photos"
-        app:layout_constraintTop_toTopOf="@+id/photos"
-        android:spinnerMode="dropdown"/>
+        app:layout_constraintTop_toTopOf="@+id/photos" />
 
 
     <View
@@ -181,16 +180,16 @@
     <TextView
         android:id="@+id/descriptionCenter"
         android:layout_width="0dp"
-        android:ellipsize="end"
-        android:textColor="@color/button_color"
-        android:gravity="center"
-        android:fontFamily="@font/helvatica_heavy"
         android:layout_height="0dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="40dp"
-        android:textSize="16sp"
         android:layout_marginBottom="10dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/helvatica_heavy"
+        android:gravity="center"
+        android:textColor="@color/button_color"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/title"
         app:layout_constraintEnd_toEndOf="@+id/photos"
         app:layout_constraintStart_toStartOf="@+id/photos"

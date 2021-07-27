@@ -26,8 +26,8 @@ class CommunityPostCommentRecyclerAdapter(
             binding.descriptionTV.text = comment.description
         }
 
-        fun setListeners(){
-            binding.authorIV.setOnClickListener{
+        fun setListeners() {
+            binding.authorIV.setOnClickListener {
                 onProfileClick.invoke(comment.user.id)
             }
             binding.name.setOnClickListener {

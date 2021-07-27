@@ -11,7 +11,7 @@ data class SellCarPostForMainPage(
     val photoUrl: List<String>,
 
     val price: Int,
-    val user: String
-    ,
-    val createdData: String
+    val user: String,
+    val createdData: String,
+    val releaseYear: String
 )

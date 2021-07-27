@@ -13,7 +13,11 @@ interface CarPostRepository {
 //    suspend fun getLatestPosts(): Response<List<SellCarPostForMainPage>>
 
     fun getSellPostsForMainPage(): LiveData<PagingData<SellCarPostForMainPage>>
-    suspend fun createSellPost(userId: String?, sellCarPost: SellCarPostRequest): Resource<SellCarPost>
+    suspend fun createSellPost(
+        userId: String?,
+        sellCarPost: SellCarPostRequest
+    ): Resource<SellCarPost>
+
     suspend fun deleteSellPost(id: Long): Resource<SellCarPost>
     suspend fun getSellPostById(id: Long): Resource<SellCarPost>
     suspend fun getCarsForMainPageByUserId(uid: String): Resource<List<SellCarPostForMainPage>>

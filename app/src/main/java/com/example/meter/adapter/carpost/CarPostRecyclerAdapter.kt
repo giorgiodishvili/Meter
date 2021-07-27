@@ -1,6 +1,5 @@
 package com.example.meter.adapter.carpost
 
-import android.util.Log.i
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -15,9 +14,6 @@ import com.example.meter.extensions.hide
 import com.example.meter.extensions.show
 import com.example.meter.extensions.toFormattedDate
 import com.example.meter.utils.transformers.DepthTransformer
-import java.text.DateFormatSymbols
-import java.text.SimpleDateFormat
-import java.util.*
 
 class CarPostRecyclerAdapter(userId: String?) :
     PagingDataAdapter<SellCarPostForMainPage, CarPostRecyclerAdapter.ItemHolder>(REPO_COMPARATOR) {
@@ -31,6 +27,7 @@ class CarPostRecyclerAdapter(userId: String?) :
             binding.priceTV.text = "ფასი: " + item.price.toString() + "$"
             binding.title.text = item.articleHeader
             binding.postDateTV.text = item.createdData.toFormattedDate()
+            binding.yearTV.text = item.releaseYear + " წელი"
             manipulateArrows()
             setListeners()
         }
@@ -90,7 +87,6 @@ class CarPostRecyclerAdapter(userId: String?) :
                 }
             })
         }
-
 
 
     }

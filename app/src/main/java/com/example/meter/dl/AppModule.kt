@@ -63,10 +63,11 @@ object AppModule {
     fun automobileCategoryRepository(automobileCategoryRepo: AutomobileCategoryRepositoryImpl): AutomobileCategoryRepository =
         automobileCategoryRepo
 
-//
+    //
     @Provides
     @Singleton
-    fun provideCarPostRepository(carPostRepositoryRepo: CarPostRepositoryImpl): CarPostRepository = carPostRepositoryRepo
+    fun provideCarPostRepository(carPostRepositoryRepo: CarPostRepositoryImpl): CarPostRepository =
+        carPostRepositoryRepo
 
     @Provides
     @Singleton

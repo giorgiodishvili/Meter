@@ -5,6 +5,7 @@ import android.util.Log.i
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ScrollView
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -17,15 +18,13 @@ import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.SingleCommunityPostFragmentBinding
 import com.example.meter.entity.Comment
 import com.example.meter.entity.community.post.Content
-import com.example.meter.extensions.loadProfileImg
-import com.example.meter.extensions.setGone
-import com.example.meter.extensions.show
-import com.example.meter.extensions.toFormattedDate
+import com.example.meter.extensions.*
 import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import com.example.meter.utils.transformers.ZoomPageTransformer
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 
 
 @AndroidEntryPoint
@@ -45,13 +44,14 @@ class SingleCommunityPostFragment :
 
     private lateinit var content: Content
 
+
+
     override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
 
         getDataFromBundle()
         makeInitialCalls()
         setListeners()
         observe()
-        setUpViewElements()
     }
 
     private fun observe() {
@@ -125,6 +125,22 @@ class SingleCommunityPostFragment :
                 Resource.Status.ERROR -> i("dislike", "$it")
                 Resource.Status.SUCCESS -> i("dislike", it.data.toString())
                 Resource.Status.LOADING -> i("dislike", "loading")
+            }
+        })
+
+        viewModel.deletePost.observe(viewLifecycleOwner, {
+            when (it.status) {
+                Resource.Status.ERROR -> {
+                    i("deletePost", "$it")
+                    binding.deletebutton.show()
+                }
+                Resource.Status.SUCCESS -> {
+                    binding.deletebutton.show()
+                    i("deletePost", it.data.toString())
+                    Toast.makeText(requireContext(),"POST DELETED",Toast.LENGTH_SHORT).show()
+                    binding.root.findNavController().navigate(R.id.action_singleCommunityPostFragment_to_navigation_community)
+                }
+                Resource.Status.LOADING -> i("deletePost", "loading")
             }
         })
     }
@@ -207,8 +223,12 @@ class SingleCommunityPostFragment :
         }
 
         binding.authorIV.setOnClickListener {
+
             binding.root.findNavController()
-                .navigate(R.id.action_singleCommunityPostFragment_to_navigation_profile, bundleOf("uid" to userId))
+                .navigate(
+                    R.id.action_singleCommunityPostFragment_to_navigation_profile,
+                    bundleOf("uid" to userId)
+                )
         }
     }
 
@@ -237,14 +257,21 @@ class SingleCommunityPostFragment :
                 SingleCommunityPostPhotoRecyclerAdapter(data.photoCarUrl)
             binding.singlePostRecyclerPhoto.setPageTransformer(ZoomPageTransformer)
         }
+
+        if(userId == data.user.id){
+            binding.editbutton.show()
+            binding.deletebutton.show()
+
+            binding.editbutton.setOnClickListener {
+                binding.root.findNavController().navigate(R.id.action_singleCommunityPostFragment_to_uploadCommunityPostFragment)
+            }
+
+            binding.deletebutton.setOnClickListener {
+                binding.deletebutton.hide()
+                viewModel.deletePost(data.id)
+            }
+        }
+
     }
 
-    private fun setUpViewElements() {
-//        binding.scrollView.post {
-//            binding.scrollView.scrollTo(
-//                binding.likeButton.scrollX,
-//                binding.likeButton.scrollY
-//            )
-//        }
-    }
 }

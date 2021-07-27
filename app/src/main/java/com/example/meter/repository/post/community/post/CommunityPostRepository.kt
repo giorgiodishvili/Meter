@@ -17,5 +17,6 @@ interface CommunityPostRepository {
     ): Resource<Content>
 
     suspend fun getSinglePost(postId: Long): Resource<Content>
+    suspend fun deletePost(postId: Long): Resource<Content>
     fun searchPost(keyword: String): LiveData<PagingData<Content>>
 }

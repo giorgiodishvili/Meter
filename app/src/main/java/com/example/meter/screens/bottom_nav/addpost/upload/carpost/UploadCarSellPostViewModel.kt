@@ -15,18 +15,19 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class UploadCarSellPostViewModel @Inject constructor(private val carPostRepository: CarPostRepository) : ViewModel() {
+class UploadCarSellPostViewModel @Inject constructor(private val carPostRepository: CarPostRepository) :
+    ViewModel() {
 
     private val _sellPost = MutableLiveData<Resource<SellCarPost>>()
 
     val sellPost: LiveData<Resource<SellCarPost>>
         get() = _sellPost
 
-    fun createSellPost(userId: String?, sellCarPost: SellCarPostRequest){
+    fun createSellPost(userId: String?, sellCarPost: SellCarPostRequest) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 _sellPost.postValue(
-                    carPostRepository.createSellPost(userId,sellCarPost)
+                    carPostRepository.createSellPost(userId, sellCarPost)
                 )
             }
         }

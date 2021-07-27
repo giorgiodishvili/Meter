@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meter.R
@@ -68,10 +67,14 @@ class MyCommPostsFragment : BaseFragment<MyCommPostsFragmentBinding, MyCommPosts
             LinearLayoutManager.VERTICAL, false
         )
         binding.recycler.adapter = adapter
-        adapter.onCardViewClick = {postId ->
+        adapter.onCardViewClick = { postId ->
             val bundle = bundleOf("postId" to postId)
-            val navController = requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-            navController.navController.navigate(R.id.action_global_singleCommunityPostFragment,bundle)
+            val navController =
+                requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+            navController.navController.navigate(
+                R.id.action_global_singleCommunityPostFragment,
+                bundle
+            )
         }
 
     }

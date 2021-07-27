@@ -112,13 +112,35 @@ class CommunityPostRepositoryImpl @Inject constructor(private val apiService: Ap
         }
     }
 
+    override suspend fun deletePost(postId: Long): Resource<Content> {
+        return try {
+
+            Resource.loading<Content>()
+            val response = apiService.deleteCommunityPost(postId)
+            if (response.isSuccessful) {
+                Resource.success(response.body()!!)
+            } else {
+                Resource.error(response.message())
+            }
+
+        } catch (e: Exception) {
+            Resource.error(e.message.toString())
+        }
+    }
+
     override fun searchPost(keyword: String): LiveData<PagingData<Content>> {
         return Pager(
             config = PagingConfig(
                 pageSize = NETWORK_PAGE_SIZE,
                 enablePlaceholders = true
             ),
-            pagingSourceFactory = { CommunityPostPagingSourceForSearch(keyword, apiService, NETWORK_PAGE_SIZE) }
+            pagingSourceFactory = {
+                CommunityPostPagingSourceForSearch(
+                    keyword,
+                    apiService,
+                    NETWORK_PAGE_SIZE
+                )
+            }
         ).liveData
     }
 }

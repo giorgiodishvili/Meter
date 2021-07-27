@@ -23,7 +23,7 @@
             app:enterAnim="@anim/slide_in_top"
             app:exitAnim="@anim/slide_out_bot"
             app:popEnterAnim="@anim/slide_in_bot"
-            app:popExitAnim="@anim/slide_out_top"/>
+            app:popExitAnim="@anim/slide_out_top" />
 
 
     </fragment>
@@ -111,11 +111,11 @@
         <action
             android:id="@+id/action_uploadCommunityPostFragment_to_singleCommunityPostFragment"
             app:destination="@id/singleCommunityPostFragment"
-            app:popUpTo="@id/main_navigation"
             app:enterAnim="@anim/slide_in_top"
             app:exitAnim="@anim/slide_out_bot"
             app:popEnterAnim="@anim/slide_in_bot"
             app:popExitAnim="@anim/slide_out_top"
+            app:popUpTo="@id/main_navigation"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_uploadCommunityPostFragment_to_navigation_profile"
@@ -154,6 +154,9 @@
             app:destination="@id/navigation_profile"
             app:popUpTo="@id/main_navigation"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_singleCommunityPostFragment_to_uploadCommunityPostFragment"
+            app:destination="@id/uploadCommunityPostFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_uploadCommunityPostFragment"
@@ -168,7 +171,7 @@
         app:enterAnim="@anim/slide_in_bot"
         app:exitAnim="@anim/slide_out_top"
         app:popEnterAnim="@anim/slide_in_top"
-        app:popExitAnim="@anim/slide_out_bot"/>
+        app:popExitAnim="@anim/slide_out_bot" />
     <action
         android:id="@+id/action_singleCommunityPostFragment_to_navigation_profile"
         app:destination="@id/navigation_profile" />

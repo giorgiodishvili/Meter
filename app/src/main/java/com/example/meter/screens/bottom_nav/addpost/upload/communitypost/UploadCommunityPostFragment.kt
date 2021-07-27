@@ -62,8 +62,8 @@ class UploadCommunityPostFragment :
         binding.recyclerPhotos.adapter = adapter
         preloadedButton()
         adapter.closeButton = {
-            photoFileList.removeAt(it-1)
-            photoUriList.removeAt(it-1)
+            photoFileList.removeAt(it - 1)
+            photoUriList.removeAt(it - 1)
             adapter.notifyItemRemoved(it)
         }
     }
@@ -71,7 +71,7 @@ class UploadCommunityPostFragment :
     private fun setListeners() {
 
         binding.backButtonComm.setOnClickListener {
-            findNavController().navigate(R.id.action_uploadCommunityPostFragment_to_navigation_profile)
+            findNavController().navigate(R.id.action_singleCommunityPostFragment_to_navigation_community)
         }
 
         adapter.uploadButton = {
@@ -80,7 +80,6 @@ class UploadCommunityPostFragment :
             } else {
                 requestPermission(requestPermissionResult)
             }
-
         }
 
         binding.save.setOnClickListener {

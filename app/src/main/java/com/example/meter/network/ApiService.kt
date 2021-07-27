@@ -148,6 +148,11 @@ interface ApiService {
         @Path("carId") carId: Long,
     ): Response<SellCarPost>
 
+    @DELETE("community/post/{postId}")
+    suspend fun deleteCommunityPost(
+        @Path("postId") postId: Long,
+    ): Response<Content>
+
     @GET("api/cars/{carId}")
     suspend fun getSellCarPost(
         @Path("carId") carId: Long,

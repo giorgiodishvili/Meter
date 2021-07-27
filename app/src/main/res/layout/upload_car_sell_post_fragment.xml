@@ -18,11 +18,11 @@
 
     <Button
         android:id="@+id/save"
-        android:background="@color/gray_blue"
-        android:textColor="@color/black"
-        android:text="ატვირთვა"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"/>
+        android:layout_gravity="bottom"
+        android:background="@color/gray_blue"
+        android:text="ატვირთვა"
+        android:textColor="@color/black" />
 
 </FrameLayout>
