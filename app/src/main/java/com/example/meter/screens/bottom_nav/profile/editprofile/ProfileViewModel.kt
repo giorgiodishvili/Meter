@@ -45,7 +45,8 @@ class ProfileViewModel @Inject constructor(
         url: String = "",
         verified: Boolean,
         uri: Uri? = null,
-        uploadWithImage: Boolean = true
+        uploadWithImage: Boolean = true,
+        result: String?
     ) {
         if (uploadWithImage)
             uploadSynchronously(email, name, number, verified, url, uri)
@@ -112,7 +113,7 @@ class ProfileViewModel @Inject constructor(
         number: String,
         verified: Boolean,
         url: String = "",
-        uri: Uri?
+        uri: Uri?,
     ) {
         viewModelScope.launch {
             val infoPost = async {

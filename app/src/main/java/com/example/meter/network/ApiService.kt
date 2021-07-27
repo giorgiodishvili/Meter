@@ -7,6 +7,8 @@ import com.example.meter.entity.community.post.Content
 import com.example.meter.entity.community.post.PagedPostResponse
 import com.example.meter.entity.page.Model
 import com.example.meter.entity.page.UploadPhotoResponse
+import com.example.meter.entity.push_notification.PushNotificationRequest
+import com.example.meter.entity.push_notification.PushNotificationResponse
 import com.example.meter.entity.sell.SellCarPost
 import com.example.meter.entity.sell.SellCarPostForMainPage
 import com.example.meter.entity.user.User
@@ -50,6 +52,7 @@ interface ApiService {
         @Field("number") number: String,
         @Field("url") url: String,
         @Field("verified") verified: Boolean,
+        @Query("token") token: String = ""
     ): Response<UserDetails>
 
     @GET("/community/post/")
@@ -157,6 +160,24 @@ interface ApiService {
     suspend fun getSellCarPost(
         @Path("carId") carId: Long,
     ): Response<SellCarPost>
+
+    @POST("notification/token")
+    suspend fun sendPushNotification(
+        @Query("userId") userId: String,
+        @Body pushNotificationRequest: PushNotificationRequest
+    ): Response<PushNotificationResponse>
+
+    @POST("/token/save/{userId}")
+    suspend fun saveToken(
+        @Path("userId") userId: String,
+        @Body token: String
+    ): Response<Boolean>
+
+
+    @POST("/token/delete/{userId}")
+    suspend fun deleteToken(
+        @Body token: String
+    ): Response<Boolean>
 
 
     @POST("api/cars/")

@@ -11,12 +11,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         COMMENT,
         LIKE
     }
+
     override fun onNewToken(p0: String) {
         super.onNewToken(p0)
     }
 
     override fun onMessageReceived(p0: RemoteMessage) {
         super.onMessageReceived(p0)
-        d("messageRecived","${p0.data["ABC"]}")
+        d("messageRecived","${p0.data}")
     }
 }

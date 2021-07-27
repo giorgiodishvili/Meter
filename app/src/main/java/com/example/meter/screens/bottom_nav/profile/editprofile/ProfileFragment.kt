@@ -14,6 +14,7 @@ import com.example.meter.databinding.ProfileFragmentBinding
 import com.example.meter.extensions.*
 import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -95,12 +96,21 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
 
             if (!this::imageUri.isInitialized) {
                 val defaultImage = "https://i.ibb.co/0rPxJQ0/profile-pic.png"
-                viewModel.uploadUserInfo(emailInfo!!, name, number, defaultImage, true, null, false)
+                viewModel.uploadUserInfo(
+                    emailInfo!!,
+                    name,
+                    number,
+                    defaultImage,
+                    true,
+                    null,
+                    false,
+                    FirebaseMessaging.getInstance().token.result
+                )
                 d("tagtag", "hee")
             } else {
                 viewModel.uploadUserInfo(
                     emailInfo!!, name, number,
-                    imageUri.toString(), true, imageUri, true
+                    imageUri.toString(), true, imageUri, true, FirebaseMessaging.getInstance().token.result
                 )
             }
         } else
@@ -226,7 +236,7 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
             firebaseAuthImpl.getUserId()?.let { uid ->
                 viewModel.uploadUserInfo(
                     email!!, name!!, number,
-                    firebaseAuthImpl.getUser()!!.photoUrl.toString(), true
+                    firebaseAuthImpl.getUser()!!.photoUrl.toString(), true, result = FirebaseMessaging.getInstance().token.result
                 )
             }
         } else
