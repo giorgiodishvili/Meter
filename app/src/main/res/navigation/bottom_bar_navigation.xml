@@ -124,6 +124,9 @@
             app:exitAnim="@anim/slide_out_bot"
             app:popEnterAnim="@anim/slide_in_bot"
             app:popExitAnim="@anim/slide_out_top" />
+        <action
+            android:id="@+id/action_uploadCommunityPostFragment_to_navigation_community"
+            app:destination="@id/navigation_community" />
     </fragment>
     <fragment
         android:id="@+id/uploadCarSellPostFragment"
@@ -134,7 +137,11 @@
         android:id="@+id/navigation_marketPosts"
         android:name="com.example.meter.screens.bottom_nav.market.MarketFragment"
         android:label="market_fragment"
-        tools:layout="@layout/market_fragment" />
+        tools:layout="@layout/market_fragment" >
+        <action
+            android:id="@+id/action_navigation_marketPosts_to_singleCarSellPostFragment"
+            app:destination="@id/singleCarSellPostFragment" />
+    </fragment>
     <fragment
         android:id="@+id/singleCommunityPostFragment"
         android:name="com.example.meter.screens.bottom_nav.community.singlepost.SingleCommunityPostFragment"
@@ -180,4 +187,13 @@
     <action
         android:id="@+id/action_global_singleCommunityPostFragment"
         app:destination="@id/singleCommunityPostFragment" />
+
+    <action
+        android:id="@+id/action_global_singleCarSellPostFragment"
+        app:destination="@id/singleCarSellPostFragment" />
+    <fragment
+        android:id="@+id/singleCarSellPostFragment"
+        android:name="com.example.meter.screens.bottom_nav.market.singlepost.SingleCarSellPostFragment"
+        android:label="single_car_sell_post_fragment"
+        tools:layout="@layout/single_car_sell_post_fragment" />
 </navigation>

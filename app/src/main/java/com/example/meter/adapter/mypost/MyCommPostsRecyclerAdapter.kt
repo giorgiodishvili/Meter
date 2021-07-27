@@ -1,4 +1,4 @@
-package com.example.meter.adapter
+package com.example.meter.adapter.mypost
 
 import android.util.Log
 import android.view.LayoutInflater

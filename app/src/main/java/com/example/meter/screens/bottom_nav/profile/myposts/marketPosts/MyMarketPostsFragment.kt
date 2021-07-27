@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.meter.adapter.MyMarketPostsRecyclerAdapter
+import com.example.meter.R
+import com.example.meter.adapter.mypost.MyMarketPostsRecyclerAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.base.SharedViewModel
 import com.example.meter.databinding.MyMarketPostsFragmentBinding
@@ -61,12 +63,13 @@ class MyMarketPostsFragment : BaseFragment<MyMarketPostsFragmentBinding, MyMarke
         binding.recycler.adapter = adapter
         adapter.onCardViewClick = { postId ->
             val bundle = bundleOf("postId" to postId)
-//            binding.root.findNavController().navigate(
-//                R.id.action_navigation_community_to_singleCommunityPostFragment,
-//                bundle
-//            )
+            val navController =
+                requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+            navController.navController.navigate(
+                R.id.action_global_singleCarSellPostFragment,
+                bundle
+            )
         }
-
     }
 
     private fun observers(uid: String) {

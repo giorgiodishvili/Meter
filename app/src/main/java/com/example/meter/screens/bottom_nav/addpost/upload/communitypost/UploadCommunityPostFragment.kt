@@ -71,7 +71,7 @@ class UploadCommunityPostFragment :
     private fun setListeners() {
 
         binding.backButtonComm.setOnClickListener {
-            findNavController().navigate(R.id.action_singleCommunityPostFragment_to_navigation_community)
+            findNavController().navigate(R.id.action_uploadCommunityPostFragment_to_navigation_community)
         }
 
         adapter.uploadButton = {

@@ -8,7 +8,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meter.R
-import com.example.meter.adapter.MyCommPostsRecyclerAdapter
+import com.example.meter.adapter.mypost.MyCommPostsRecyclerAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.base.SharedViewModel
 import com.example.meter.databinding.MyCommPostsFragmentBinding

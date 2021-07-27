@@ -1,4 +1,4 @@
-package com.example.meter.adapter
+package com.example.meter.adapter.mypost
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -48,6 +48,10 @@ class MyMarketPostsRecyclerAdapter(
 
             binding.rightArrBTN.setOnClickListener {
                 binding.photos.currentItem = binding.photos.currentItem + 1
+            }
+
+            binding.root.setOnClickListener {
+                onCardViewClick.invoke(item.id.toLong())
             }
         }
 

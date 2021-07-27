@@ -50,7 +50,7 @@ class MarketFragment : BaseFragment<MarketFragmentBinding, MarketViewModel>(
         }
 
         adapter =
-            CarPostRecyclerAdapter(userId)
+            CarPostRecyclerAdapter()
         binding.recyclerMarketPosts.adapter = adapter.withLoadStateFooter(LoaderStateAdapter())
     }
 

@@ -2,11 +2,14 @@ package com.example.meter.adapter.carpost
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.example.meter.R
 import com.example.meter.adapter.communitypost.main.CommunityPostsViewPagerAdapter
 import com.example.meter.databinding.CarSellPostItemBinding
 import com.example.meter.entity.sell.SellCarPostForMainPage
@@ -15,7 +18,7 @@ import com.example.meter.extensions.show
 import com.example.meter.extensions.toFormattedDate
 import com.example.meter.utils.transformers.DepthTransformer
 
-class CarPostRecyclerAdapter(userId: String?) :
+class CarPostRecyclerAdapter :
     PagingDataAdapter<SellCarPostForMainPage, CarPostRecyclerAdapter.ItemHolder>(REPO_COMPARATOR) {
     inner class ItemHolder(private val binding: CarSellPostItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -42,6 +45,12 @@ class CarPostRecyclerAdapter(userId: String?) :
                 binding.photos.currentItem = binding.photos.currentItem + 1
             }
 
+            binding.root.setOnClickListener {
+                binding.root.findNavController().navigate(
+                    R.id.action_navigation_marketPosts_to_singleCarSellPostFragment,
+                    bundleOf("postId" to item.id)
+                )
+            }
 
         }
 
