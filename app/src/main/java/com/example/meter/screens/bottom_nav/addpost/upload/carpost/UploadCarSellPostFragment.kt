@@ -30,7 +30,6 @@ class UploadCarSellPostFragment :
         binding.nextbutton.setOnClickListener {
             val sellCarPost = SellCarPostRequest(
                 null,
-                binding.location.text.toString(),
                 null,
                 null,
                 null,

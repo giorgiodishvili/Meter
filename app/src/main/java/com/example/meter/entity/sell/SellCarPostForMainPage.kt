@@ -6,12 +6,9 @@ data class SellCarPostForMainPage(
     val articleHeader: String,
     val id: Int,
     val model: String,
-
     @SerializedName("photoUrl")
     val photoUrl: List<String>,
-
     val price: Int,
-    val user: String
-    ,
+    val user: String,
     val createdData: String
 )
