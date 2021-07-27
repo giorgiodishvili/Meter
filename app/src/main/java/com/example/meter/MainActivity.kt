@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.transition.Slide
 import android.transition.Transition
 import android.util.Log.d
+import android.util.Log.i
 import android.view.Gravity
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
@@ -73,6 +74,11 @@ class MainActivity : AppCompatActivity() {
                     showButtons()
                 }
             }
+        }
+
+        chipNavigation.setOnClickListener {
+            i("setOnItemSelectedListener","${it.id}")
+
         }
 
         supportFragmentManager.beginTransaction()

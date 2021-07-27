@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.meter.entity.community.post.Content
 import com.example.meter.entity.sell.SellCarPost
 import com.example.meter.network.Resource
 import com.example.meter.repository.post.sellpost.CarPostRepository
@@ -17,7 +18,11 @@ import javax.inject.Inject
 class SingleCarSellPostViewModel @Inject constructor(
     private val carPostRepository: CarPostRepository
 ) : ViewModel() {
-    // TODO: Implement the ViewModel
+
+    private val _deletePost = MutableLiveData<Resource<SellCarPost>>()
+
+    val deletePost: LiveData<Resource<SellCarPost>>
+        get() = _deletePost
 
     private val _post = MutableLiveData<Resource<SellCarPost>>()
 
@@ -32,4 +37,17 @@ class SingleCarSellPostViewModel @Inject constructor(
             }
         }
     }
+
+    fun deletePost(postId: Long) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                _deletePost.postValue(
+                    carPostRepository.deleteSellPost(
+                        postId.toLong()
+                    )
+                )
+            }
+        }
+    }
+
 }
