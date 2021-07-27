@@ -36,58 +36,61 @@ class CarPostRepositoryImpl @Inject constructor(private val apiService: ApiServi
     ): Resource<SellCarPost> {
         return try {
 
-            val response = apiService.createSellCarPost(
-                userId,
-                sellCarPost.AUX,
-                sellCarPost.address,
-                sellCarPost.airConditioner,
-                sellCarPost.airBag,
-                sellCarPost.backupTire,
-                sellCarPost.bluetooth,
-                sellCarPost.boardComputer,
-                sellCarPost.color,
-                sellCarPost.centralLock,
-                sellCarPost.climateControl,
-                sellCarPost.cylinder,
-                sellCarPost.description,
-                sellCarPost.disks,
-                sellCarPost.doors,
-                sellCarPost.elWindow,
-                sellCarPost.engine,
-                sellCarPost.fuelType,
-                sellCarPost.id,
-                sellCarPost.interiorColor,
-                sellCarPost.interiorMake,
-                sellCarPost.seatHead,
-                sellCarPost.manufacturer,
-                sellCarPost.mileage,
-                sellCarPost.model,
-                sellCarPost.multiWheel,
-                sellCarPost.navigation,
-                mutableListOf(),
-                sellCarPost.price,
-                sellCarPost.rearViewCamera,
-                sellCarPost.releaseYear,
-                sellCarPost.signalization,
-                sellCarPost.startStopSystem,
-                sellCarPost.tires,
-                sellCarPost.gadacemataKolofi,
-                null,
-                sellCarPost.VIN,
-                sellCarPost.wheelSide,
-                sellCarPost.cruiseControl,
-                sellCarPost.luqi,
-                sellCarPost.antiSlide,
-                sellCarPost.seatMemory,
-                sellCarPost.sanisleparebi,
-                sellCarPost.techOverview,
-                sellCarPost.hydravlick
-            )
-            if (response.isSuccessful) {
-                Resource.success(response.body()!!)
-            } else {
-                Resource.error(response.message())
-            }
+//            val response = apiService.createSellCarPost(
+//                userId,
+//                sellCarPost.AUX,
+//                sellCarPost.address,
+//                sellCarPost.airConditioner,
+//                sellCarPost.airBag,
+//                sellCarPost.backupTire,
+//                sellCarPost.bluetooth,
+//                sellCarPost.boardComputer,
+//                sellCarPost.color,
+//                sellCarPost.centralLock,
+//                sellCarPost.climateControl,
+//                sellCarPost.cylinder,
+//                sellCarPost.description,
+//                sellCarPost.disks,
+//                sellCarPost.doors,
+//                sellCarPost.elWindow,
+//                sellCarPost.engine,
+//                sellCarPost.fuelType,
+//                sellCarPost.id,
+//                sellCarPost.interiorColor,
+//                sellCarPost.interiorMake,
+//                sellCarPost.seatHead,
+//                sellCarPost.manufacturer,
+//                sellCarPost.mileage,
+//                sellCarPost.model,
+//                sellCarPost.multiWheel,
+//                sellCarPost.navigation,
+//                mutableListOf(),
+//                sellCarPost.price,
+//                sellCarPost.rearViewCamera,
+//                sellCarPost.releaseYear,
+//                sellCarPost.signalization,
+//                sellCarPost.startStopSystem,
+//                sellCarPost.tires,
+//                sellCarPost.gadacemataKolofi,
+//                null,
+//                sellCarPost.VIN,
+//                sellCarPost.wheelSide,
+//                sellCarPost.cruiseControl,
+//                sellCarPost.luqi,
+//                sellCarPost.antiSlide,
+//                sellCarPost.seatMemory,
+//                sellCarPost.sanisleparebi,
+//                sellCarPost.techOverview,
+//                sellCarPost.hydravlick
+//            )
+//            if (response.isSuccessful) {
+//                Resource.success(response.body()!!)
+//            } else {
+            //                Resource.error(response.message())
+
+//            }
+
+            Resource.error("ASDASD")
 
         } catch (e: Exception) {
             Resource.error(e.message.toString())

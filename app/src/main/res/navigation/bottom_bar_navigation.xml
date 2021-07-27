@@ -137,7 +137,7 @@
         android:id="@+id/navigation_marketPosts"
         android:name="com.example.meter.screens.bottom_nav.market.MarketFragment"
         android:label="market_fragment"
-        tools:layout="@layout/market_fragment" >
+        tools:layout="@layout/market_fragment">
         <action
             android:id="@+id/action_navigation_marketPosts_to_singleCarSellPostFragment"
             app:destination="@id/singleCarSellPostFragment" />

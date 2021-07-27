@@ -26,7 +26,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
-
 @AndroidEntryPoint
 class SingleCommunityPostFragment :
     BaseFragment<SingleCommunityPostFragmentBinding, SingleCommunityPostViewModel>(
@@ -43,7 +42,6 @@ class SingleCommunityPostFragment :
     private var postId: Long = -1
 
     private lateinit var content: Content
-
 
 
     override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
@@ -137,8 +135,9 @@ class SingleCommunityPostFragment :
                 Resource.Status.SUCCESS -> {
                     binding.deletebutton.show()
                     i("deletePost", it.data.toString())
-                    Toast.makeText(requireContext(),"POST DELETED",Toast.LENGTH_SHORT).show()
-                    binding.root.findNavController().navigate(R.id.action_singleCommunityPostFragment_to_navigation_community)
+                    Toast.makeText(requireContext(), "POST DELETED", Toast.LENGTH_SHORT).show()
+                    binding.root.findNavController()
+                        .navigate(R.id.action_singleCommunityPostFragment_to_navigation_community)
                 }
                 Resource.Status.LOADING -> i("deletePost", "loading")
             }
@@ -258,12 +257,13 @@ class SingleCommunityPostFragment :
             binding.singlePostRecyclerPhoto.setPageTransformer(ZoomPageTransformer)
         }
 
-        if(userId == data.user.id){
+        if (userId == data.user.id) {
             binding.editbutton.show()
             binding.deletebutton.show()
 
             binding.editbutton.setOnClickListener {
-                binding.root.findNavController().navigate(R.id.action_singleCommunityPostFragment_to_uploadCommunityPostFragment)
+                binding.root.findNavController()
+                    .navigate(R.id.action_singleCommunityPostFragment_to_uploadCommunityPostFragment)
             }
 
             binding.deletebutton.setOnClickListener {

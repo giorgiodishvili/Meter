@@ -52,6 +52,12 @@ class MarketFragment : BaseFragment<MarketFragmentBinding, MarketViewModel>(
         adapter =
             CarPostRecyclerAdapter()
         binding.recyclerMarketPosts.adapter = adapter.withLoadStateFooter(LoaderStateAdapter())
+//        adapter.onC = {
+//            findNavController().navigate(
+//                R.id.action_navigation_marketPosts_to_singleCarSellPostFragment,
+//                bundleOf("postId" to item.id)
+//            )
+//        }
     }
 
 

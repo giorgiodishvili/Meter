@@ -2,15 +2,13 @@ package com.example.meter.adapter.carpost
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.example.meter.R
 import com.example.meter.adapter.communitypost.main.CommunityPostsViewPagerAdapter
+import com.example.meter.adapter.communitypost.main.onCardViewClick
 import com.example.meter.databinding.CarSellPostItemBinding
 import com.example.meter.entity.sell.SellCarPostForMainPage
 import com.example.meter.extensions.hide
@@ -24,6 +22,7 @@ class CarPostRecyclerAdapter :
         RecyclerView.ViewHolder(binding.root) {
         private lateinit var item: SellCarPostForMainPage
         private lateinit var communityPostsViewPagerAdapter: CommunityPostsViewPagerAdapter
+        public lateinit var onCardViewClick: onCardViewClick
 
         fun onBind() {
             item = getItem(absoluteAdapterPosition)!!
@@ -46,10 +45,7 @@ class CarPostRecyclerAdapter :
             }
 
             binding.root.setOnClickListener {
-                binding.root.findNavController().navigate(
-                    R.id.action_navigation_marketPosts_to_singleCarSellPostFragment,
-                    bundleOf("postId" to item.id)
-                )
+                onCardViewClick.invoke(item.id.toLong())
             }
 
         }

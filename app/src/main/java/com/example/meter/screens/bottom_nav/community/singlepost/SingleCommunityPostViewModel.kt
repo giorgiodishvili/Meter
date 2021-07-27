@@ -144,7 +144,7 @@ class SingleCommunityPostViewModel @Inject constructor(
         }
     }
 
-    fun deletePost(postId: Long){
+    fun deletePost(postId: Long) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 _deletePost.postValue(

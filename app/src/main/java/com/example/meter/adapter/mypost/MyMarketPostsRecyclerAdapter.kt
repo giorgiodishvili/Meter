@@ -99,7 +99,13 @@ class MyMarketPostsRecyclerAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return ViewHolder(CarSellPostItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(
+            CarSellPostItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
