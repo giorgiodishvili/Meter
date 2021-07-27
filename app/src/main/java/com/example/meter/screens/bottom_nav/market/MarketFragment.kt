@@ -10,6 +10,7 @@ import com.example.meter.R
 import com.example.meter.adapter.carpost.CarPostRecyclerAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.MarketFragmentBinding
+import com.example.meter.extensions.makePhoneCall
 import com.example.meter.paging.loadstate.LoaderStateAdapter
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,11 +34,22 @@ class MarketFragment : BaseFragment<MarketFragmentBinding, MarketViewModel>(
                 adapter.submitData(resource)
             }
         })
+
+        viewModel.readUserInfo.observe(viewLifecycleOwner, { data ->
+            data.data?.number?.let { requireActivity().makePhoneCall(it) }
+        })
     }
 
     override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
         initRecycler()
+        listeners()
         observe()
+    }
+
+    private fun listeners() {
+        adapter.onCallClick = { uid ->
+            viewModel.getUserInfo(uid)
+        }
     }
 
     private fun initRecycler() {
@@ -62,6 +74,5 @@ class MarketFragment : BaseFragment<MarketFragmentBinding, MarketViewModel>(
         binding.recyclerMarketPosts.adapter = adapter.withLoadStateFooter(LoaderStateAdapter())
 
     }
-
 
 }

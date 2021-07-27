@@ -28,16 +28,19 @@ class MyMarketPostsRecyclerAdapter(
         RecyclerView.ViewHolder(binding.root) {
         private lateinit var item: SellCarPostForMainPage
         fun bind() {
+            item = posts[absoluteAdapterPosition]
+
             loadData()
             manipulateArrows()
             setListeners()
         }
 
         private fun loadData() {
-            item = posts[absoluteAdapterPosition]
+
             binding.priceTV.text = "ფასი: " + item.price.toString() + "$"
             binding.title.text = item.articleHeader
             binding.postDateTV.text = item.createdData.toFormattedDate()
+
         }
 
         private fun setListeners() {

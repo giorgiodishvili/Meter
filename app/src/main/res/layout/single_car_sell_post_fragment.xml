@@ -12,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        tools:context=".screens.bottom_nav.community.singlepost.SingleCommunityPostFragment">
-
+        tools:context=".screens.bottom_nav.market.singlepost.SingleCarSellPostFragment">
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/backButton"
@@ -31,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="260dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -85,21 +84,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/deletebutton"
             tools:text="giorgi odishvili" />
-
-        <TextView
-            android:id="@+id/phoneNumber"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="12dp"
-
-            android:fontFamily="@font/helvetica_medium"
-            android:textColor="#D61F1F"
-            android:text="@string/phone_single_post"
-            app:layout_constraintEnd_toStartOf="@+id/deletebutton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/singlePostRecyclerPhoto"
-            tools:text="574 174 383" />
 
 
         <TextView
@@ -162,12 +146,12 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/helvetica_thin"
             android:padding="5dp"
-            tools:text="@string/manufacturer_single_post"
             android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mainParametersTV" />
+            app:layout_constraintTop_toBottomOf="@+id/mainParametersTV"
+            tools:text="@string/manufacturer_single_post" />
 
         <TextView
             android:id="@+id/modelTV"
@@ -177,12 +161,12 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/helvetica_thin"
             android:padding="5dp"
-            tools:text="@string/model_single_post"
             android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/manufacturerTV" />
+            app:layout_constraintTop_toBottomOf="@+id/manufacturerTV"
+            tools:text="@string/model_single_post" />
 
         <TextView
             android:id="@+id/yearTV"
@@ -192,12 +176,12 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/helvetica_thin"
             android:padding="5dp"
-            tools:text="@string/year_single_post"
             android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/modelTV" />
+            app:layout_constraintTop_toBottomOf="@+id/modelTV"
+            tools:text="@string/year_single_post" />
 
         <TextView
             android:id="@+id/fuelTypeTV"
@@ -207,12 +191,12 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/helvetica_thin"
             android:padding="5dp"
-            tools:text="@string/fuel_type_single_post"
             android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/yearTV" />
+            app:layout_constraintTop_toBottomOf="@+id/yearTV"
+            tools:text="@string/fuel_type_single_post" />
 
         <TextView
             android:id="@+id/mileageTV"
@@ -222,12 +206,12 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/helvetica_thin"
             android:padding="5dp"
-            tools:text="@string/mileage_single_post"
             android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fuelTypeTV" />
+            app:layout_constraintTop_toBottomOf="@+id/fuelTypeTV"
+            tools:text="@string/mileage_single_post" />
 
         <TextView
             android:id="@+id/vinTV"
@@ -237,12 +221,12 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/helvetica_thin"
             android:padding="5dp"
-            tools:text="@string/vin_single_post"
             android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mileageTV" />
+            app:layout_constraintTop_toBottomOf="@+id/mileageTV"
+            tools:text="@string/vin_single_post" />
 
         <TextView
             android:id="@+id/transmissionTypeTV"
@@ -252,12 +236,12 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/helvetica_thin"
             android:padding="5dp"
-            tools:text="@string/transmission_type_single_post"
             android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/vinTV" />
+            app:layout_constraintTop_toBottomOf="@+id/vinTV"
+            tools:text="@string/transmission_type_single_post" />
 
         <TextView
             android:id="@+id/wheelSideTV"
@@ -267,12 +251,12 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/helvetica_thin"
             android:padding="5dp"
-            tools:text="@string/wheel_side_single_post"
             android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/transmissionTypeTV" />
+            app:layout_constraintTop_toBottomOf="@+id/transmissionTypeTV"
+            tools:text="@string/wheel_side_single_post" />
 
         <TextView
             android:id="@+id/cylindersTV"
@@ -282,12 +266,12 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/helvetica_thin"
             android:padding="5dp"
-            tools:text="@string/cylinder_single_post"
             android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wheelSideTV" />
+            app:layout_constraintTop_toBottomOf="@+id/wheelSideTV"
+            tools:text="@string/cylinder_single_post" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

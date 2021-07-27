@@ -1,7 +1,6 @@
 package com.example.meter.adapter.carpost
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
@@ -9,20 +8,19 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.meter.adapter.communitypost.main.CommunityPostsViewPagerAdapter
-import com.example.meter.adapter.communitypost.main.onCardViewClick
 import com.example.meter.databinding.CarSellPostItemBinding
-import com.example.meter.entity.community.post.Content
 import com.example.meter.entity.sell.SellCarPostForMainPage
 import com.example.meter.extensions.hide
 import com.example.meter.extensions.show
 import com.example.meter.extensions.toFormattedDate
 import com.example.meter.utils.transformers.DepthTransformer
 
+typealias onCallClick = (uid: String) -> Unit
 class CarPostRecyclerAdapter(
-    private val postClick: (postId: Long) -> Unit,
-
-    ) :
+    private val postClick: (postId: Long) -> Unit) :
     PagingDataAdapter<SellCarPostForMainPage, CarPostRecyclerAdapter.ItemHolder>(REPO_COMPARATOR) {
+
+    lateinit var onCallClick: onCallClick
 
     inner class ItemHolder(private val binding: CarSellPostItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -32,15 +30,20 @@ class CarPostRecyclerAdapter(
 
         fun onBind() {
             item = getItem(absoluteAdapterPosition)!!
-            binding.priceTV.text = "ფასი: " + item.price.toString() + "$"
+            binding.priceTV.text = "$${item.price}"
             binding.title.text = item.articleHeader
             binding.postDateTV.text = item.createdData.toFormattedDate()
             binding.yearTV.text = item.releaseYear + " წელი"
             manipulateArrows()
-            setListeners()
+            setListeners(item)
         }
 
-        private fun setListeners() {
+        private fun setListeners(data: SellCarPostForMainPage) {
+
+            binding.callButton.setOnClickListener {
+                onCallClick.invoke(data.user)
+            }
+
 
             binding.leftArrBTN.setOnClickListener {
                 binding.photos.currentItem = binding.photos.currentItem - 1

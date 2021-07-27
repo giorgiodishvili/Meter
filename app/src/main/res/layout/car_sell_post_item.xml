@@ -6,6 +6,113 @@
     android:layout_height="wrap_content"
     android:background="@color/white">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="15dp"
+        android:background="@color/white"
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rightArrBTN"
+        app:layout_constraintStart_toEndOf="@id/leftArrBTN"
+        app:layout_constraintTop_toBottomOf="@+id/postDateTV">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="40dp"
+                android:elevation="7dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/helvetica_heavy"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/yearTV"
+                app:layout_constraintTop_toBottomOf="@+id/yearTV"
+                tools:text="Toyouta Prius gayidva" />
+
+            <TextView
+                android:id="@+id/yearTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:elevation="7dp"
+                android:fontFamily="@font/helvetica_thin"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/photos"
+                app:layout_constraintTop_toBottomOf="@+id/photos"
+                tools:text="2021 weli" />
+
+            <TextView
+                android:id="@+id/priceTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="7dp"
+                android:fontFamily="@font/helvatice_thin"
+                android:textColor="@color/exit_btn_color"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintEnd_toEndOf="@+id/call_button"
+                app:layout_constraintStart_toStartOf="@+id/call_button"
+                app:layout_constraintTop_toTopOf="@+id/title"
+                tools:text="$350000" />
+
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/photos"
+                android:layout_width="0dp"
+                android:layout_height="190dp"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/call_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="50dp"
+                android:background="@drawable/call_button_shape"
+                android:padding="12dp"
+                android:src="@drawable/ic_call"
+                app:layout_constraintBottom_toBottomOf="@+id/photos"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/photos"
+                app:layout_constraintVertical_bias="0.562" />
+
+            <View
+                android:id="@+id/separator"
+                android:layout_width="80dp"
+                android:layout_height="2dp"
+                android:layout_marginBottom="8dp"
+                android:background="#5A4949"
+                android:elevation="7dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
     <TextView
         android:id="@+id/postDateTV"
         android:layout_width="wrap_content"
@@ -17,66 +124,10 @@
         android:fontFamily="@font/helvetica_thin"
         android:textColor="@color/black"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/photos"
-        app:layout_constraintStart_toStartOf="@+id/photos"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintStart_toStartOf="@+id/cardView"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Toyouta Prius gayidva" />
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:elevation="7dp"
-        android:fontFamily="@font/helvetica_heavy"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/photos"
-        app:layout_constraintTop_toBottomOf="@+id/photos"
-        tools:text="Toyouta Prius gayidva" />
-
-    <TextView
-        android:id="@+id/yearTV"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="18dp"
-        android:elevation="7dp"
-        android:fontFamily="@font/helvetica_thin"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/title"
-        app:layout_constraintTop_toBottomOf="@+id/title"
-        tools:text="2021 weli" />
-
-    <TextView
-        android:id="@+id/priceTV"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:elevation="7dp"
-        android:fontFamily="@font/helvetica_heavy"
-        android:textColor="@color/exit_btn_color"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@id/photos"
-        app:layout_constraintTop_toBottomOf="@+id/photos"
-        tools:text="price: 35000$" />
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/photos"
-        android:layout_width="0dp"
-        android:layout_height="175dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="10dp"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        app:layout_constraintEnd_toStartOf="@+id/rightArrBTN"
-        app:layout_constraintStart_toEndOf="@+id/leftArrBTN"
-        app:layout_constraintTop_toBottomOf="@+id/postDateTV" />
 
 
     <androidx.appcompat.widget.AppCompatImageButton
@@ -86,9 +137,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="12dp"
         android:background="@drawable/ic_left_arrow"
-        app:layout_constraintBottom_toBottomOf="@id/photos"
+        app:layout_constraintBottom_toBottomOf="@id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/photos" />
+        app:layout_constraintTop_toTopOf="@id/cardView" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/leftArrBTN"
@@ -97,21 +148,9 @@
         android:layout_marginStart="12dp"
         android:background="@drawable/ic_right_arrow"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@id/photos"
+        app:layout_constraintBottom_toBottomOf="@id/cardView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/photos" />
+        app:layout_constraintTop_toTopOf="@id/cardView" />
 
-
-    <View
-        android:id="@+id/separator"
-        android:layout_width="80dp"
-        android:layout_height="2dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="5dp"
-        android:background="#5A4949"
-        android:elevation="7dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

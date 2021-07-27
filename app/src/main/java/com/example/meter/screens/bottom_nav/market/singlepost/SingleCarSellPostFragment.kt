@@ -9,7 +9,7 @@ import com.example.meter.adapter.communitypost.singlepost.SingleCommunityPostPho
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.SingleCarSellPostFragmentBinding
 import com.example.meter.entity.sell.SellCarPost
-import com.example.meter.extensions.loadImg
+import com.example.meter.extensions.loadProfileImg
 import com.example.meter.extensions.toFormattedDate
 import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
@@ -67,10 +67,11 @@ class SingleCarSellPostFragment :
     }
 
     private fun setUpPost(data: SellCarPost) {
-        data.user?.url?.let { binding.authorIV.loadImg(it) }
+        data.user?.url?.let { binding.authorIV.loadProfileImg(it) }
         binding.descriptionTB.text = data.description
         binding.name.text = data.user!!.name
-        binding.phoneNumber.text = getString(R.string.phone_single_post, data.user.number)
+//        binding.phoneNumber.text = getString(R.string.phone_single_post, data.user.number)
+        val number = data.user.number
         binding.textView4.text = data.createdData.toFormattedDate()
         binding.singleTitle.text = data.articleHeader
         binding.manufacturerTV.text =
