@@ -51,19 +51,19 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.1.0'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.2.0'
     implementation 'com.google.firebase:firebase-analytics-ktx:19.0.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-    // neumorphism
-    implementation 'com.github.fornewid:neumorphism:0.3.0'
-
     // custom bottom nav bar
     implementation 'com.github.ismaeldivita:chip-navigation-bar:1.3.4'
     implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.8'
+
+    // dots
+    implementation 'com.github.zhpanvip:viewpagerindicator:1.2.1'
 
     // Nav Components
     def nav_version = "2.3.5"

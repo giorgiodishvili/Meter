@@ -4,7 +4,6 @@ import android.util.Log.d
 import android.util.Log.i
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
@@ -16,11 +15,15 @@ import com.example.meter.R
 import com.example.meter.adapter.communitypost.main.CommunityPostsRecyclerViewAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.CommunityFragmentBinding
+import com.example.meter.extensions.loadProfileImg
 import com.example.meter.extensions.setGone
 import com.example.meter.network.Resource
 import com.example.meter.paging.loadstate.LoaderStateAdapter
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,20 +37,15 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
 
     private lateinit var adapter: CommunityPostsRecyclerViewAdapter
 
-    companion object {
-        private const val EXPAND_TOP = R.id.expandFromEnd
-        private const val EXPAND_BOTTOM = R.id.expand
-    }
-
     override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
         initRecycler()
-        transitionListener()
         makeInitialCalls()
         listeners()
     }
 
     private fun makeInitialCalls() {
         observe()
+        firebaseAuthImpl.getUserId()?.let { viewModel.getUserInfo(it) }
         viewModel.getCommunityPosts()
     }
 
@@ -55,20 +53,15 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
         binding.searchBar.doOnTextChanged { text, _, _, count ->
             if (text!!.length >= 2) {
                 d("piifi", "$text $count")
-                viewModel.searchPost(text.toString()).observe(viewLifecycleOwner, {
-                    d("tagtag123", "$it")
-                    lifecycleScope.launch {
-                        if (binding.progressCircular.isVisible) {
-                            binding.progressCircular.setGone()
-                        }
-                        adapter.submitData(it)
-                        adapter.notifyDataSetChanged()
-                    }
-                })
+                getSeachResultWithDelay(text.toString())
             } else if (text.isEmpty()) {
                 viewModel.getCommunityPosts()
                 observe()
             }
+        }
+
+        binding.userProfile.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_community_to_navigation_profile)
         }
     }
 
@@ -117,6 +110,16 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
     }
 
     private fun observe() {
+        viewModel.readUserInfo.observe(viewLifecycleOwner, { data ->
+            when (data.status) {
+                Resource.Status.SUCCESS -> {
+                    data.data?.let { binding.userProfile.loadProfileImg(it.url) }
+                }
+                Resource.Status.ERROR -> i("Like", "$data")
+                Resource.Status.LOADING -> i("Like", "loading")
+            }
+        })
+
         viewModel.getCommunityPosts().observe(viewLifecycleOwner, { resource ->
             lifecycleScope.launch {
                 if (binding.progressCircular.isVisible) {
@@ -146,44 +149,20 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
 
     }
 
-    private fun transitionListener() {
-        val transitionListener = object : MotionLayout.TransitionListener {
-            override fun onTransitionStarted(p0: MotionLayout?, startId: Int, endId: Int) {
-                d(
-                    "tagtag",
-                    "$endId qurrent |${R.id.expandFromEnd} expand end |${R.id.expand} end"
-                )
-                if (endId == EXPAND_BOTTOM || endId == EXPAND_TOP) {
-                    findNavController().navigate(R.id.action_navigation_community_to_navigation_profile)
+    private fun getSeachResultWithDelay(text: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(500)
+            viewModel.searchPost(text).observe(viewLifecycleOwner, {
+                d("tagtag123", "$it")
+                lifecycleScope.launch {
+                    if (binding.progressCircular.isVisible) {
+                        binding.progressCircular.setGone()
+                    }
+                    adapter.submitData(it)
+                    adapter.notifyDataSetChanged()
                 }
-                d("trackemotion", "$endId")
-            }
-
-            override fun onTransitionChange(
-                p0: MotionLayout?,
-                startId: Int,
-                endId: Int,
-                progress: Float
-            ) {
-                //nothing to do
-            }
-
-            override fun onTransitionCompleted(p0: MotionLayout?, currentId: Int) {
-
-            }
-
-            override fun onTransitionTrigger(
-                p0: MotionLayout?,
-                triggerId: Int,
-                positive: Boolean,
-                progress: Float
-            ) {
-                //not used here
-            }
-
+            })
         }
-
-        binding.motionLayout.setTransitionListener(transitionListener)
     }
 
 }

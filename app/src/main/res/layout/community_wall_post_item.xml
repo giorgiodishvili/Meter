@@ -76,10 +76,10 @@
         android:id="@+id/postLikeTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="12dp"
         android:elevation="7dp"
-        android:fontFamily="@font/helvetica_medium"
+        android:fontFamily="@font/helvatice_thin"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@id/photos"
@@ -101,9 +101,9 @@
         android:id="@+id/postCommentTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
+        android:layout_marginStart="20dp"
         android:elevation="7dp"
-        android:fontFamily="@font/helvetica_medium"
+        android:fontFamily="@font/helvatice_thin"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/postLikeBTN"
@@ -129,7 +129,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"
         android:elevation="7dp"
-        android:fontFamily="@font/helvetica_medium"
+        android:fontFamily="@font/helvatice_thin"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/postViewBTN"
@@ -141,12 +141,11 @@
         android:id="@+id/postViewBTN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="10dp"
         android:background="@android:color/transparent"
         android:src="@drawable/ic_seen"
         app:layout_constraintEnd_toEndOf="@id/photos"
-        app:layout_constraintTop_toBottomOf="@id/photos" />
+        app:layout_constraintTop_toTopOf="@+id/postCommentBTN" />
 
 
     <androidx.appcompat.widget.AppCompatImageButton

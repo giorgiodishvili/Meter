@@ -21,7 +21,6 @@ import com.example.meter.entity.community.post.Content
 import com.example.meter.extensions.*
 import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
-import com.example.meter.utils.transformers.ZoomPageTransformer
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -244,13 +243,14 @@ class SingleCommunityPostFragment :
         binding.descriptionTB.text = data.description
         if (data.photoCarUrl.isEmpty()) {
             binding.descriptionTB.setGone()
+//            binding.dots.setGone()
             binding.postWithoutImg.show()
             binding.textWhenNoImg.show()
             binding.textWhenNoImg.text = data.description
         } else {
             binding.singlePostRecyclerPhoto.adapter =
                 SingleCommunityPostPhotoRecyclerAdapter(data.photoCarUrl)
-            binding.singlePostRecyclerPhoto.setPageTransformer(ZoomPageTransformer)
+            binding.indicatorView.setupWithViewPager(binding.singlePostRecyclerPhoto)
         }
 
         if (userId == data.user.id) {
@@ -267,6 +267,7 @@ class SingleCommunityPostFragment :
                 viewModel.deletePost(data.id)
             }
         }
+
 
     }
 

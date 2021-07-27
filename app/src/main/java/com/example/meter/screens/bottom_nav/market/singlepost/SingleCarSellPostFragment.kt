@@ -94,7 +94,7 @@ class SingleCarSellPostFragment :
         data.user?.url?.let { binding.authorIV.loadImg(it) }
         binding.descriptionTB.text = data.description
         binding.name.text = data.user!!.name
-        binding.phoneNumber.text = getString(R.string.phone_single_post, data.user.number)
+//        binding.phoneNumber.text = getString(R.string.phone_single_post, data.user.number)
         binding.textView4.text = data.createdData.toFormattedDate()
         binding.singleTitle.text = data.articleHeader
         binding.manufacturerTV.text =
