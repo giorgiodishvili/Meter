@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.meter.R
 import com.example.meter.adapter.mypost.MyMarketPostsRecyclerAdapter
 import com.example.meter.base.BaseFragment
@@ -48,17 +48,14 @@ class MyMarketPostsFragment : BaseFragment<MyMarketPostsFragmentBinding, MyMarke
                 observers(currentUid)
             }
         })
-
-//        uid = arguments?.getString("uid2").toString() ?: firebaseAuthImpl.getUserId().toString()
-
     }
 
     private fun initRecycler() {
         adapter =
             MyMarketPostsRecyclerAdapter()
-        binding.recycler.layoutManager = LinearLayoutManager(
+        binding.recycler.layoutManager = GridLayoutManager(
             requireContext(),
-            LinearLayoutManager.VERTICAL, false
+            3
         )
         binding.recycler.adapter = adapter
         adapter.onCardViewClick = { postId ->

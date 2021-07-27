@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        d("mAINACTIVITYSTART", "STARTED")
         binding.lottieAnimation.playAnimation()
         setUpAnimation()
 //        bottomNavBarSetup()

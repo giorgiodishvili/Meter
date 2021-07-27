@@ -25,7 +25,6 @@ import com.example.meter.utils.transformers.ZoomPageTransformer
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
 class SingleCommunityPostFragment :
     BaseFragment<SingleCommunityPostFragmentBinding, SingleCommunityPostViewModel>(
@@ -45,7 +44,6 @@ class SingleCommunityPostFragment :
 
 
     override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
-
         getDataFromBundle()
         makeInitialCalls()
         setListeners()
@@ -80,12 +78,10 @@ class SingleCommunityPostFragment :
 
         viewModel.comments.observe(viewLifecycleOwner, {
             when (it.status) {
-                Resource.Status.ERROR -> i("debugee", "$it")
+                Resource.Status.ERROR -> i("debugee", "$it 21312")
                 Resource.Status.SUCCESS -> {
                     i("debugee", it.data.toString())
-                    if (it.data!!.isNotEmpty()) {
-                        initCommentRecycler(it)
-                    }
+                    initCommentRecycler(it)
                 }
                 Resource.Status.LOADING -> i("debugee", "loading")
             }
@@ -192,7 +188,7 @@ class SingleCommunityPostFragment :
         }
 
         binding.backButton.setOnClickListener {
-            findNavController().navigateUp()
+            findNavController().navigate(R.id.action_singleCommunityPostFragment_to_navigation_community)
         }
 
         binding.commentBTNLogo.setOnClickListener {

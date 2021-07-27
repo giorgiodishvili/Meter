@@ -7,13 +7,13 @@ import android.content.res.Resources
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
+import android.util.Log.d
 import android.util.Log.i
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.meter.R
@@ -50,6 +50,7 @@ class UploadCommunityPostFragment :
 
 
     override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
+        firebaseAuthImpl.getUserId()?.let { viewModel.getUserInfo(it) }
         initRecycler()
         setListeners()
     }
@@ -215,9 +216,9 @@ class UploadCommunityPostFragment :
                 Resource.Status.SUCCESS -> {
                     postId = it.data?.id!!
                     if (photoFileList.isEmpty()) {
-                        binding.root.findNavController()
+                        findNavController()
                             .navigate(
-                                R.id.action_uploadCommunityPostFragment_to_singleCommunityPostFragment,
+                                R.id.action_global_singleCommunityPostFragment,
                                 bundleOf("postId" to postId)
                             )
                         dialogItem.cancel()
@@ -245,9 +246,9 @@ class UploadCommunityPostFragment :
                     binding.save.isEnabled = true
                     if (it.data!!) {
 
-                        binding.root.findNavController()
+                        findNavController()
                             .navigate(
-                                R.id.action_uploadCommunityPostFragment_to_singleCommunityPostFragment,
+                                R.id.action_global_singleCommunityPostFragment,
                                 bundleOf("postId" to postId)
                             )
                         dialogItem.cancel()
@@ -257,6 +258,21 @@ class UploadCommunityPostFragment :
                 Resource.Status.LOADING -> {
                     i("debugee", "LOADING")
                 }
+            }
+        })
+
+        viewModel.readUserInfo.observe(viewLifecycleOwner, {
+            when (it.status) {
+                Resource.Status.SUCCESS -> {
+                    d("userinfotag", "${it.data}")
+                    if (it.data?.verified != true) {
+                        findNavController().navigate(R.id.action_uploadCommunityPostFragment_to_completeProfileFragment)
+                    }
+                }
+                Resource.Status.ERROR -> {
+
+                }
+                Resource.Status.LOADING -> {}
             }
         })
     }

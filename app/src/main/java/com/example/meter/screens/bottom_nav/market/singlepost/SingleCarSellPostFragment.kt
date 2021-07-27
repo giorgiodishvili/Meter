@@ -42,7 +42,7 @@ class SingleCarSellPostFragment :
 
     private fun setListeners() {
         binding.backButton.setOnClickListener {
-            findNavController().navigateUp()
+            findNavController().navigate(R.id.action_singleCommunityPostFragment_to_navigation_community)
         }
     }
 

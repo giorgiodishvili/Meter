@@ -69,7 +69,11 @@
         android:id="@+id/action_global_navigation_home"
         app:destination="@id/navigation_community"
         app:popUpTo="@id/main_navigation"
-        app:popUpToInclusive="true" />
+        app:popUpToInclusive="true"
+        app:enterAnim="@anim/slide_in_bot"
+        app:exitAnim="@anim/slide_out_top"
+        app:popEnterAnim="@anim/slide_in_top"
+        app:popExitAnim="@anim/slide_out_bot"/>
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.meter.screens.bottom_nav.profile.complete.CompleteProfileFragment"
@@ -127,6 +131,13 @@
         <action
             android:id="@+id/action_uploadCommunityPostFragment_to_navigation_community"
             app:destination="@id/navigation_community" />
+        <action
+            android:id="@+id/action_uploadCommunityPostFragment_to_completeProfileFragment"
+            app:destination="@id/completeProfileFragment"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/slide_out_bot"
+            app:popEnterAnim="@anim/slide_in_bot"
+            app:popExitAnim="@anim/slide_out_top"/>
     </fragment>
     <fragment
         android:id="@+id/uploadCarSellPostFragment"
@@ -186,7 +197,9 @@
 
     <action
         android:id="@+id/action_global_singleCommunityPostFragment"
-        app:destination="@id/singleCommunityPostFragment" />
+        app:destination="@id/singleCommunityPostFragment"
+        app:popUpTo="@id/main_navigation"
+        app:popUpToInclusive="true" />
 
     <action
         android:id="@+id/action_global_singleCarSellPostFragment"
