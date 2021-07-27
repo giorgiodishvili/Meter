@@ -1,28 +1,343 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".screens.bottom_nav.addpost.upload.carpost.UploadCarSellPostFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fontFamily="@font/proxima_extra_bold"
-        android:gravity="center"
-        android:text="Create Sell Car post"
-        android:textColor="@color/main_color"
-        android:textSize="50sp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    tools:context=".screens.bottom_nav.addpost.upload.carpost.UploadCarSellPostFragment">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@color/toolbar_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/logo"
+                android:layout_width="90dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/white_wheel" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/helvetica_heavy"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/logo"
+                app:layout_constraintTop_toTopOf="@+id/logo"
+                tools:text="NAME" />
+
+            <TextView
+                android:id="@+id/fragmentName"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:fontFamily="@font/helvetica_medium"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/logo"
+                app:layout_constraintStart_toEndOf="@+id/logo"
+                app:layout_constraintTop_toBottomOf="@+id/name"
+                tools:text="Category" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/carManufacturerChooser"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="41dp"
+        android:background="@drawable/card_button_shape"
+        android:fontFamily="@font/helvatice_thin"
+        android:paddingStart="21dp"
+        android:paddingTop="14dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="14dp"
+        android:text="მწარმოებელი"
+        android:textColor="@color/dark_gray"
+        android:textSize="15.5sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_toolbar" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/manufacturerRecycler"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/carManufacturerChooser"
+        app:layout_constraintStart_toStartOf="@+id/carManufacturerChooser"
+        app:layout_constraintTop_toBottomOf="@+id/carManufacturerChooser" />
+
+    <TextView
+        android:id="@+id/carModelChooser"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="41dp"
+        android:background="@drawable/card_button_shape"
+        android:fontFamily="@font/helvatice_thin"
+        android:paddingStart="21dp"
+        android:paddingTop="14dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="14dp"
+        android:text="მოდელი"
+        android:textColor="@color/dark_gray"
+        android:textSize="15.5sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/carManufacturerChooser" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/modelRecycler"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/carModelChooser"
+        app:layout_constraintStart_toStartOf="@+id/carModelChooser"
+        app:layout_constraintTop_toBottomOf="@+id/carModelChooser" />
+
+
+    <EditText
+        android:id="@+id/makeYearEt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="41dp"
+        android:background="@drawable/card_button_shape"
+        android:fontFamily="@font/helvatice_thin"
+        android:hint="გამოშვების წელი"
+        android:inputType="number"
+        android:paddingStart="21dp"
+        android:paddingTop="14dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="14dp"
+        android:textColor="@color/dark_gray"
+        android:textColorHint="@color/dark_gray"
+        android:textSize="15.5sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/carModelChooser" />
+
+    <EditText
+        android:id="@+id/location"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="41dp"
+        android:background="@drawable/card_button_shape"
+        android:fontFamily="@font/helvatice_thin"
+        android:hint="ქალაქი"
+        android:paddingStart="21dp"
+        android:paddingTop="14dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="14dp"
+        android:textColor="@color/dark_gray"
+        android:textColorHint="@color/dark_gray"
+        android:textSize="15.5sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/makeYearEt" />
+
+    <EditText
+        android:id="@+id/doors"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="41dp"
+        android:background="@drawable/card_button_shape"
+        android:fontFamily="@font/helvatice_thin"
+        android:hint="კარები ( 2/3 ან 4/5 )"
+        android:paddingStart="21dp"
+        android:paddingTop="14dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="14dp"
+        android:textColor="@color/dark_gray"
+        android:textColorHint="@color/dark_gray"
+        android:textSize="15.5sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/leftwheel" />
+
+    <EditText
+        android:id="@+id/engineCap"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="41dp"
+        android:background="@drawable/card_button_shape"
+        android:digits="0123456789."
+        android:fontFamily="@font/helvatice_thin"
+        android:hint="ძრავი"
+        android:paddingStart="21dp"
+        android:paddingTop="14dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="14dp"
+        android:textColor="@color/dark_gray"
+        android:textColorHint="@color/dark_gray"
+        android:textSize="15.5sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/doors" />
+
+    <EditText
+        android:id="@+id/fuelType"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="41dp"
+        android:background="@drawable/card_button_shape"
+        android:fontFamily="@font/helvatice_thin"
+        android:hint="საწვავის ტიპი"
+        android:paddingStart="21dp"
+        android:paddingTop="14dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="14dp"
+        android:textColor="@color/dark_gray"
+        android:textColorHint="@color/dark_gray"
+        android:textSize="15.5sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/engineCap" />
+
+    <EditText
+        android:id="@+id/transmision"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="41dp"
+        android:background="@drawable/card_button_shape"
+        android:fontFamily="@font/helvatice_thin"
+        android:hint="ტრანსმისია"
+        android:paddingStart="21dp"
+        android:paddingTop="14dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="14dp"
+        android:textColor="@color/dark_gray"
+        android:textColorHint="@color/dark_gray"
+        android:textSize="15.5sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fuelType" />
+
+    <EditText
+        android:id="@+id/cylinders"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="41dp"
+        android:inputType="number"
+        android:background="@drawable/card_button_shape"
+        android:fontFamily="@font/helvatice_thin"
+        android:hint="ცილინდრები"
+        android:paddingStart="21dp"
+        android:paddingTop="14dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="14dp"
+        android:textColor="@color/dark_gray"
+        android:textColorHint="@color/dark_gray"
+        android:textSize="15.5sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/transmision" />
+
+        <Button
+        android:id="@+id/leftwheel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/card_button_shape"
+        android:drawableStart="@drawable/ic_car_steering_wheel"
+        android:drawablePadding="6dp"
+        android:fontFamily="@font/helvatice_thin"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:text="მარცხენა საჭე"
+        android:textColor="@color/gray"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toStartOf="@+id/rightwheel"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/location"
+        app:layout_constraintTop_toBottomOf="@+id/location" />
 
     <Button
-        android:id="@+id/save"
-        android:background="@color/gray_blue"
-        android:textColor="@color/black"
-        android:text="ატვირთვა"
-        android:layout_width="wrap_content"
+        android:id="@+id/rightwheel"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"/>
+        android:layout_marginTop="17dp"
+        android:background="@drawable/card_button_shape"
+        android:drawableStart="@drawable/ic_car_steering_wheel"
+        android:drawablePadding="6dp"
+        android:fontFamily="@font/helvatice_thin"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:text="მარჯვენა საჭე"
+        android:textColor="@color/gray"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="@+id/location"
+        app:layout_constraintStart_toEndOf="@id/leftwheel"
+        app:layout_constraintTop_toBottomOf="@+id/location" />
 
-</FrameLayout>
+        <Button
+            android:id="@+id/nextbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/custom_button"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:text="შემდეგი"
+            android:textColor="@color/button_color"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/transmision"
+            app:layout_constraintTop_toBottomOf="@id/cylinders" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
