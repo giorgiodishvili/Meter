@@ -3,6 +3,8 @@ package com.example.meter.screens.bottom_nav.market.singlepost
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.meter.R
 import com.example.meter.adapter.communitypost.singlepost.SingleCommunityPostPhotoRecyclerAdapter
@@ -10,6 +12,7 @@ import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.SingleCarSellPostFragmentBinding
 import com.example.meter.entity.sell.SellCarPost
 import com.example.meter.extensions.loadImg
+import com.example.meter.extensions.show
 import com.example.meter.extensions.toFormattedDate
 import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
@@ -44,6 +47,10 @@ class SingleCarSellPostFragment :
         binding.backButton.setOnClickListener {
             findNavController().navigateUp()
         }
+
+        binding.deletebutton.setOnClickListener {
+            viewModel.deletePost(postId)
+        }
     }
 
     private fun getDataFromBundle() {
@@ -61,6 +68,23 @@ class SingleCarSellPostFragment :
                     }
                 }
                 Resource.Status.LOADING -> Log.i("debugee", "loading")
+            }
+        })
+
+        viewModel.deletePost.observe(viewLifecycleOwner, {
+            when (it.status) {
+                Resource.Status.ERROR -> {
+                    Log.i("deletePost", "$it")
+                    binding.deletebutton.show()
+                }
+                Resource.Status.SUCCESS -> {
+                    binding.deletebutton.show()
+                    Log.i("deletePost", it.data.toString())
+                    Toast.makeText(requireContext(), "POST DELETED", Toast.LENGTH_SHORT).show()
+                    binding.root.findNavController()
+                        .navigate(R.id.action_singleCarSellPostFragment_to_navigation_marketPosts)
+                }
+                Resource.Status.LOADING -> Log.i("deletePost", "loading")
             }
         })
 
@@ -93,12 +117,16 @@ class SingleCarSellPostFragment :
                 singleCommunityPostPhotoRecyclerAdapter
             binding.singlePostRecyclerPhoto.setPageTransformer(ZoomPageTransformer)
         }
+        if (userId == data.user.id) {
+            binding.deletebutton.show()
+        }
 
     }
 
     private fun makeInitialCalls() {
         firebaseAuthImpl.getUserId()?.let {
             userId = firebaseAuthImpl.getUserId()!!
+
         }
 
         viewModel.getPost(postId)

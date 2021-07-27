@@ -195,5 +195,9 @@
         android:id="@+id/singleCarSellPostFragment"
         android:name="com.example.meter.screens.bottom_nav.market.singlepost.SingleCarSellPostFragment"
         android:label="single_car_sell_post_fragment"
-        tools:layout="@layout/single_car_sell_post_fragment" />
+        tools:layout="@layout/single_car_sell_post_fragment" >
+        <action
+            android:id="@+id/action_singleCarSellPostFragment_to_navigation_marketPosts"
+            app:destination="@id/navigation_marketPosts"/>
+    </fragment>
 </navigation>
