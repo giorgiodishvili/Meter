@@ -72,11 +72,15 @@ dependencies {
     // safe args
 
     // Firebase Auth
-    implementation 'com.google.firebase:firebase-bom:28.2.1'
+    implementation 'com.google.firebase:firebase-bom:28.3.0'
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'
-    implementation 'com.google.firebase:firebase-database-ktx:20.0.0'
+    implementation 'com.google.firebase:firebase-database-ktx:20.0.1'
     implementation 'com.google.firebase:firebase-storage-ktx:20.0.0'
+
+    // Firebase Messaging
+    implementation 'com.google.firebase:firebase-messaging:22.0.0'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 
     // app check firebase
     implementation 'com.google.firebase:firebase-appcheck-safetynet:16.0.0-beta02'
