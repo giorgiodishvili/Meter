@@ -3,11 +3,14 @@ package com.example.meter.screens.bottom_nav.market.singlepost
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.example.meter.R
 import com.example.meter.adapter.communitypost.singlepost.SingleCommunityPostPhotoRecyclerAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.SingleCarSellPostFragmentBinding
 import com.example.meter.entity.sell.SellCarPost
 import com.example.meter.extensions.loadImg
+import com.example.meter.extensions.toFormattedDate
 import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import com.example.meter.utils.transformers.ZoomPageTransformer
@@ -23,6 +26,7 @@ class SingleCarSellPostFragment :
     private var postId: Long = -1L
 
     private lateinit var car: SellCarPost
+    private lateinit var singleCommunityPostPhotoRecyclerAdapter: SingleCommunityPostPhotoRecyclerAdapter
 
     @Inject
     lateinit var firebaseAuthImpl: FirebaseRepositoryImpl
@@ -33,6 +37,13 @@ class SingleCarSellPostFragment :
         getDataFromBundle()
         makeInitialCalls()
         observe()
+        setListeners()
+    }
+
+    private fun setListeners() {
+        binding.backButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     private fun getDataFromBundle() {
@@ -59,11 +70,27 @@ class SingleCarSellPostFragment :
         data.user?.url?.let { binding.authorIV.loadImg(it) }
         binding.descriptionTB.text = data.description
         binding.name.text = data.user!!.name
-        binding.phoneNumber.text = data.user.number
+        binding.phoneNumber.text = getString(R.string.phone_single_post, data.user.number)
+        binding.textView4.text = data.createdData.toFormattedDate()
+        binding.singleTitle.text = data.articleHeader
+        binding.manufacturerTV.text =
+            getString(R.string.manufacturer_single_post, data.manufacturer)
+        binding.yearTV.text = getString(R.string.year_single_post, data.releaseYear)
+        binding.modelTV.text = getString(R.string.model_single_post, data.model)
+        binding.fuelTypeTV.text = getString(R.string.fuel_type_single_post, data.fuel_type)
+        binding.mileageTV.text = getString(R.string.mileage_single_post, data.mileage.toString())
+        binding.vinTV.text = getString(R.string.vin_single_post, data.vin)
+        binding.transmissionTypeTV.text =
+            getString(R.string.transmission_type_single_post, data.transmission_type)
+        binding.wheelSideTV.text = getString(R.string.wheel_side_single_post, data.wheel_side)
+        binding.cylindersTV.text =
+            getString(R.string.cylinder_single_post, data.cylinder.toString())
 
         if (data.photoUrl.isNotEmpty()) {
-            binding.singlePostRecyclerPhoto.adapter =
+            singleCommunityPostPhotoRecyclerAdapter =
                 SingleCommunityPostPhotoRecyclerAdapter(data.photoUrl)
+            binding.singlePostRecyclerPhoto.adapter =
+                singleCommunityPostPhotoRecyclerAdapter
             binding.singlePostRecyclerPhoto.setPageTransformer(ZoomPageTransformer)
         }
 

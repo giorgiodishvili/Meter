@@ -192,7 +192,7 @@ class SingleCommunityPostFragment :
         }
 
         binding.backButton.setOnClickListener {
-            findNavController().navigate(R.id.action_singleCommunityPostFragment_to_navigation_community)
+            findNavController().navigateUp()
         }
 
         binding.commentBTNLogo.setOnClickListener {

@@ -1,6 +1,7 @@
 package com.example.meter.adapter.carpost
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
@@ -10,19 +11,24 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.meter.adapter.communitypost.main.CommunityPostsViewPagerAdapter
 import com.example.meter.adapter.communitypost.main.onCardViewClick
 import com.example.meter.databinding.CarSellPostItemBinding
+import com.example.meter.entity.community.post.Content
 import com.example.meter.entity.sell.SellCarPostForMainPage
 import com.example.meter.extensions.hide
 import com.example.meter.extensions.show
 import com.example.meter.extensions.toFormattedDate
 import com.example.meter.utils.transformers.DepthTransformer
 
-class CarPostRecyclerAdapter :
+class CarPostRecyclerAdapter(
+    private val postClick: (postId: Long) -> Unit,
+
+    ) :
     PagingDataAdapter<SellCarPostForMainPage, CarPostRecyclerAdapter.ItemHolder>(REPO_COMPARATOR) {
+
     inner class ItemHolder(private val binding: CarSellPostItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private lateinit var item: SellCarPostForMainPage
         private lateinit var communityPostsViewPagerAdapter: CommunityPostsViewPagerAdapter
-        public lateinit var onCardViewClick: onCardViewClick
+
 
         fun onBind() {
             item = getItem(absoluteAdapterPosition)!!
@@ -43,11 +49,6 @@ class CarPostRecyclerAdapter :
             binding.rightArrBTN.setOnClickListener {
                 binding.photos.currentItem = binding.photos.currentItem + 1
             }
-
-            binding.root.setOnClickListener {
-                onCardViewClick.invoke(item.id.toLong())
-            }
-
         }
 
 
@@ -66,6 +67,10 @@ class CarPostRecyclerAdapter :
                     CommunityPostsViewPagerAdapter(item.photoUrl!!)
                 binding.photos.adapter = communityPostsViewPagerAdapter
                 binding.photos.setPageTransformer(DepthTransformer)
+
+                communityPostsViewPagerAdapter.onCardViewClick = {
+                    postClick.invoke(item.id.toLong())
+                }
             }
 
 

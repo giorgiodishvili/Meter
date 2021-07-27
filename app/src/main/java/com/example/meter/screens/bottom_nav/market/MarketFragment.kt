@@ -2,8 +2,11 @@ package com.example.meter.screens.bottom_nav.market
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.meter.R
 import com.example.meter.adapter.carpost.CarPostRecyclerAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.MarketFragmentBinding
@@ -50,14 +53,14 @@ class MarketFragment : BaseFragment<MarketFragmentBinding, MarketViewModel>(
         }
 
         adapter =
-            CarPostRecyclerAdapter()
+            CarPostRecyclerAdapter {
+                findNavController().navigate(
+                    R.id.action_navigation_marketPosts_to_singleCarSellPostFragment,
+                    bundleOf("postId" to it)
+                )
+            }
         binding.recyclerMarketPosts.adapter = adapter.withLoadStateFooter(LoaderStateAdapter())
-//        adapter.onC = {
-//            findNavController().navigate(
-//                R.id.action_navigation_marketPosts_to_singleCarSellPostFragment,
-//                bundleOf("postId" to item.id)
-//            )
-//        }
+
     }
 
 

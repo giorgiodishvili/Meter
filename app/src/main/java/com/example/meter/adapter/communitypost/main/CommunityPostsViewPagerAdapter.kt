@@ -13,7 +13,6 @@ class CommunityPostsViewPagerAdapter(
     private val images: List<String>,
 ) : RecyclerView.Adapter<CommunityPostsViewPagerAdapter.ItemHolder>() {
 
-
     lateinit var onCardViewClick: onCardViewClick
 
     inner class ItemHolder(private val binding: CommunityPostPhotoItemBinding) :
