@@ -3,12 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".screens.bottom_nav.market.MarketFragment">
+    tools:context=".screens.bottom_nav.addpost.upload.carpost.thirpart.UploadThirdPartFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerMarketPosts"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:text="Hello" />
 
 </FrameLayout>

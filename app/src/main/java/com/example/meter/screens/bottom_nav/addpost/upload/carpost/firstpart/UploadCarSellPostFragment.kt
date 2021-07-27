@@ -1,4 +1,4 @@
-package com.example.meter.screens.bottom_nav.addpost.upload.carpost
+package com.example.meter.screens.bottom_nav.addpost.upload.carpost.firstpart
 
 import android.util.Log.i
 import android.view.LayoutInflater
