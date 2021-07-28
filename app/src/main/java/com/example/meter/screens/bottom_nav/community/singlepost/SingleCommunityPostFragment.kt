@@ -181,7 +181,7 @@ class SingleCommunityPostFragment :
                 if (userId.isNotEmpty()) {
                     viewModel.createComment(
                         postId,
-                        userId, commentText.toString(), content.user.id != userId
+                        userId, commentText.toString(), content.user.id
                     )
                     commentText.clear()
                 } else {
@@ -210,7 +210,7 @@ class SingleCommunityPostFragment :
                     binding.likeButton.setImageResource(R.drawable.ic_like_unpressed)
                     content.likedUserIds.remove(userId)
                 } else {
-                    viewModel.createLike(userId, postId)
+                    viewModel.createLike(userId, postId, content.user.id)
                     content.likedUserIds.add(userId)
                     binding.likeButton.setImageResource(R.drawable.ic_like)
                 }

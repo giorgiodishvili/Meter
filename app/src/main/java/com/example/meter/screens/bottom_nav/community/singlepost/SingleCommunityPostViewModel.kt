@@ -101,7 +101,7 @@ class SingleCommunityPostViewModel @Inject constructor(
         postId: Long,
         userId: String,
         description: String,
-        sendPush: Boolean = false
+        contentUserId: String
     ) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -114,10 +114,14 @@ class SingleCommunityPostViewModel @Inject constructor(
                 )
             }
         }
-        if (sendPush) {
+        if (contentUserId != userId) {
             sendPush(
-                userId, pushNotificationRequest = PushNotificationRequest(
-                    data = mapOf("comment" to description, "name" to userId,"postId" to postId.toString()),
+                contentUserId, pushNotificationRequest = PushNotificationRequest(
+                    data = mapOf(
+                        "comment" to description,
+                        "name" to userId,
+                        "postId" to postId.toString()
+                    ),
                     message = "has commented on your post",
                     title = "Your Message",
                     token = "",
@@ -153,7 +157,7 @@ class SingleCommunityPostViewModel @Inject constructor(
         }
     }
 
-    fun createLike(userId: String, postId: Long) {
+    fun createLike(userId: String, postId: Long, contentUserId: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 _createLike.postValue(
@@ -161,6 +165,22 @@ class SingleCommunityPostViewModel @Inject constructor(
                         postId, userId
                     )
                 )
+
+                if (contentUserId != userId) {
+                    sendPush(
+                        contentUserId, pushNotificationRequest = PushNotificationRequest(
+                            data = mapOf(
+                                "comment" to "liked",
+                                "name" to userId,
+                                "postId" to postId.toString()
+                            ),
+                            message = "has commented on your post",
+                            title = "Your Message",
+                            token = "",
+                            topic = "Comment"
+                        )
+                    );
+                }
             }
         }
     }
