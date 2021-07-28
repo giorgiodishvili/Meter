@@ -68,12 +68,12 @@
     <action
         android:id="@+id/action_global_navigation_home"
         app:destination="@id/navigation_community"
-        app:popUpTo="@id/main_navigation"
-        app:popUpToInclusive="true"
         app:enterAnim="@anim/slide_in_bot"
         app:exitAnim="@anim/slide_out_top"
         app:popEnterAnim="@anim/slide_in_top"
-        app:popExitAnim="@anim/slide_out_bot"/>
+        app:popExitAnim="@anim/slide_out_bot"
+        app:popUpTo="@id/main_navigation"
+        app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.meter.screens.bottom_nav.profile.complete.CompleteProfileFragment"
@@ -137,7 +137,7 @@
             app:enterAnim="@anim/slide_in_top"
             app:exitAnim="@anim/slide_out_bot"
             app:popEnterAnim="@anim/slide_in_bot"
-            app:popExitAnim="@anim/slide_out_top"/>
+            app:popExitAnim="@anim/slide_out_top" />
     </fragment>
     <fragment
         android:id="@+id/uploadCarSellPostFragment"
@@ -208,9 +208,9 @@
         android:id="@+id/singleCarSellPostFragment"
         android:name="com.example.meter.screens.bottom_nav.market.singlepost.SingleCarSellPostFragment"
         android:label="single_car_sell_post_fragment"
-        tools:layout="@layout/single_car_sell_post_fragment" >
+        tools:layout="@layout/single_car_sell_post_fragment">
         <action
             android:id="@+id/action_singleCarSellPostFragment_to_navigation_marketPosts"
-            app:destination="@id/navigation_marketPosts"/>
+            app:destination="@id/navigation_marketPosts" />
     </fragment>
 </navigation>

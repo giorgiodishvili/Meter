@@ -1,12 +1,6 @@
 package com.example.meter
 
 import android.animation.Animator
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.Context
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.transition.Slide
 import android.transition.Transition
@@ -14,12 +8,9 @@ import android.util.Log
 import android.util.Log.d
 import android.util.Log.i
 import android.view.Gravity
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
@@ -29,16 +20,11 @@ import com.example.meter.databinding.ActivityMainBinding
 import com.example.meter.extensions.fade
 import com.example.meter.extensions.setGone
 import com.example.meter.extensions.show
-import com.example.meter.repository.firebase.FirebaseMessagingRepoImpl
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
@@ -94,7 +80,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         chipNavigation.setOnClickListener {
-            i("setOnItemSelectedListener","${it.id}")
+            i("setOnItemSelectedListener", "${it.id}")
 
         }
 

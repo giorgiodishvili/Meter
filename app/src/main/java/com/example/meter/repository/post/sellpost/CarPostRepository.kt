@@ -9,7 +9,7 @@ import com.example.meter.network.Resource
 
 interface CarPostRepository {
 
-//    suspend fun searchPosts(query: String): Response<List<SellCarPostForMainPage>>
+    fun searchPosts(query: StringBuilder): LiveData<PagingData<SellCarPostForMainPage>>
 //    suspend fun getLatestPosts(): Response<List<SellCarPostForMainPage>>
 
     fun getSellPostsForMainPage(): LiveData<PagingData<SellCarPostForMainPage>>

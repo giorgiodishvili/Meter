@@ -26,10 +26,17 @@ interface ApiService {
 
     @GET("/community/post/search")
     suspend fun searchPosts(
-        @Query("title") query: String,
+        @Query("search") query: String,
         @Query("page") page: Int,
         @Query("size") size: Int
     ): Response<PagedPostResponse<Content>>
+
+    @GET("/api/cars/searchUrl")
+    suspend fun searchCar(
+        @Query("search") query: String,
+        @Query("page") page: Int,
+        @Query("size") size: Int
+    ): Response<PagedPostResponse<SellCarPostForMainPage>>
 
     @GET("/api/cars/latest")
     suspend fun getLatestPosts(): Response<List<Content>>

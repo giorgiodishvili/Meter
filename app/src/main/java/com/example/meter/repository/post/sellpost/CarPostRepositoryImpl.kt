@@ -10,7 +10,8 @@ import com.example.meter.entity.sell.SellCarPostForMainPage
 import com.example.meter.entity.sell.SellCarPostRequest
 import com.example.meter.network.ApiService
 import com.example.meter.network.Resource
-import com.example.meter.paging.source.CarPostPagingSource
+import com.example.meter.paging.source.car.CarPagingSourceForSearch
+import com.example.meter.paging.source.car.CarPostPagingSource
 import javax.inject.Inject
 
 class CarPostRepositoryImpl @Inject constructor(private val apiService: ApiService) :
@@ -18,6 +19,22 @@ class CarPostRepositoryImpl @Inject constructor(private val apiService: ApiServi
 
     companion object {
         private const val NETWORK_PAGE_SIZE = 10
+    }
+
+    override fun searchPosts(query: StringBuilder): LiveData<PagingData<SellCarPostForMainPage>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = NETWORK_PAGE_SIZE,
+                enablePlaceholders = true
+            ),
+            pagingSourceFactory = {
+                CarPagingSourceForSearch(
+                    query.toString(),
+                    apiService,
+                    NETWORK_PAGE_SIZE
+                )
+            }
+        ).liveData
     }
 
     override fun getSellPostsForMainPage(): LiveData<PagingData<SellCarPostForMainPage>> {

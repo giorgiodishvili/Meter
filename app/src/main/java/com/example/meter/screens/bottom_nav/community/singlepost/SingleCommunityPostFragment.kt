@@ -222,11 +222,11 @@ class SingleCommunityPostFragment :
         }
 
         binding.authorIV.setOnClickListener {
-
+            i("userID","$it")
             binding.root.findNavController()
                 .navigate(
                     R.id.action_singleCommunityPostFragment_to_navigation_profile,
-                    bundleOf("uid" to userId)
+                    bundleOf("uid" to content.user.id)
                 )
         }
     }

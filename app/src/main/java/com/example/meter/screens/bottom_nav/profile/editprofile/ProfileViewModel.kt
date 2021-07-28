@@ -45,8 +45,7 @@ class ProfileViewModel @Inject constructor(
         url: String = "",
         verified: Boolean,
         uri: Uri? = null,
-        uploadWithImage: Boolean = true,
-        result: String?
+        uploadWithImage: Boolean = true
     ) {
         if (uploadWithImage)
             uploadSynchronously(email, name, number, verified, url, uri)

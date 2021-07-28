@@ -16,8 +16,10 @@ import com.example.meter.extensions.toFormattedDate
 import com.example.meter.utils.transformers.DepthTransformer
 
 typealias onCallClick = (uid: String) -> Unit
+
 class CarPostRecyclerAdapter(
-    private val postClick: (postId: Long) -> Unit) :
+    private val postClick: (postId: Long) -> Unit
+) :
     PagingDataAdapter<SellCarPostForMainPage, CarPostRecyclerAdapter.ItemHolder>(REPO_COMPARATOR) {
 
     lateinit var onCallClick: onCallClick

@@ -103,14 +103,18 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
                     defaultImage,
                     true,
                     null,
-                    false,
-                    FirebaseMessaging.getInstance().token.result
+                    false
                 )
                 d("tagtag", "hee")
             } else {
                 viewModel.uploadUserInfo(
-                    emailInfo!!, name, number,
-                    imageUri.toString(), true, imageUri, true, FirebaseMessaging.getInstance().token.result
+                    emailInfo!!,
+                    name,
+                    number,
+                    imageUri.toString(),
+                    true,
+                    imageUri,
+                    true
                 )
             }
         } else
@@ -235,8 +239,11 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
         if (number.isNotBlank()) {
             firebaseAuthImpl.getUserId()?.let { uid ->
                 viewModel.uploadUserInfo(
-                    email!!, name!!, number,
-                    firebaseAuthImpl.getUser()!!.photoUrl.toString(), true, result = FirebaseMessaging.getInstance().token.result
+                    email!!,
+                    name!!,
+                    number,
+                    firebaseAuthImpl.getUser()!!.photoUrl.toString(),
+                    true,
                 )
             }
         } else

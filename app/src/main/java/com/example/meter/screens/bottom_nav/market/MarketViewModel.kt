@@ -39,4 +39,37 @@ class MarketViewModel @Inject constructor(
             }
         }
     }
+
+    fun searchPost(
+        manufacturer: String = "",
+        model: String = "",
+        releaseYearFrom: Int?,
+        releaseYearTo: Int?,
+        priceFrom: Long?,
+        priceTo: Long?
+
+
+    ): LiveData<PagingData<SellCarPostForMainPage>> {
+        val keyword = StringBuilder("")
+
+        if (manufacturer.isNotEmpty()) {
+            keyword.appendLine("manufacturer:*$manufacturer* AND")
+        }
+        if (model.isNotEmpty()) {
+            keyword.appendLine("model:*$model* AND")
+        }
+        if (releaseYearFrom != null) {
+            keyword.appendLine("releaseYear>=$releaseYearFrom AND")
+        }
+        if (releaseYearTo != null) {
+            keyword.appendLine("releaseYear<$releaseYearTo AND")
+        }
+        if (priceFrom != null) {
+            keyword.appendLine("price>=$priceFrom AND")
+        }
+        if (priceTo != null) {
+            keyword.appendLine("price<$priceTo AND")
+        }
+        return carPostRepository.searchPosts(keyword).cachedIn(viewModelScope)
+    }
 }

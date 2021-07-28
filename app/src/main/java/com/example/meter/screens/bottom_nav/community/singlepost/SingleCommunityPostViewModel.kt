@@ -118,12 +118,12 @@ class SingleCommunityPostViewModel @Inject constructor(
             sendPush(
                 contentUserId, pushNotificationRequest = PushNotificationRequest(
                     data = mapOf(
-                        "comment" to description,
+                        "comment" to "დააკომენტარა თქვენს პოსტზე",
                         "name" to userId,
                         "postId" to postId.toString()
                     ),
-                    message = "has commented on your post",
-                    title = "Your Message",
+                    message = "დააკომენტარა თქვენს პოსტზე",
+                    title = "Mater",
                     token = "",
                     topic = "Comment"
                 )
@@ -170,14 +170,14 @@ class SingleCommunityPostViewModel @Inject constructor(
                     sendPush(
                         contentUserId, pushNotificationRequest = PushNotificationRequest(
                             data = mapOf(
-                                "comment" to "liked",
+                                "comment" to "დაალაიკა თქვენი პოსტი",
                                 "name" to userId,
                                 "postId" to postId.toString()
                             ),
-                            message = "has commented on your post",
-                            title = "Your Message",
+                            message = "დაალაიკა თქვენი პოსტი",
+                            title = "Mater",
                             token = "",
-                            topic = "Comment"
+                            topic = "Like"
                         )
                     );
                 }

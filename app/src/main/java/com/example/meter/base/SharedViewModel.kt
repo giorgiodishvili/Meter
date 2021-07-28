@@ -22,7 +22,7 @@ class SharedViewModel @Inject constructor(private val firebaseMessagingRepo: Fir
         _userId.value = uid
     }
 
-    fun saveOnlyToken(token:String) {
+    fun saveOnlyToken(token: String) {
 
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -31,7 +31,7 @@ class SharedViewModel @Inject constructor(private val firebaseMessagingRepo: Fir
         }
     }
 
-    fun deleteUserFromToken(token: String){
+    fun deleteUserFromToken(token: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 firebaseMessagingRepo.deleteUserFromToken(token)
@@ -39,10 +39,10 @@ class SharedViewModel @Inject constructor(private val firebaseMessagingRepo: Fir
         }
     }
 
-    fun saveToken(userId: String,token:String){
+    fun saveToken(userId: String, token: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                firebaseMessagingRepo.saveToken(userId,token)
+                firebaseMessagingRepo.saveToken(userId, token)
             }
         }
     }

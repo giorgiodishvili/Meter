@@ -48,7 +48,7 @@ class MarketFragment : BaseFragment<MarketFragmentBinding, MarketViewModel>(
         setListeners()
     }
 
-    fun setListeners(){
+    fun setListeners() {
         binding.swipeRefresh.setOnRefreshListener {
             viewModel.getMarketPosts()
             observe()

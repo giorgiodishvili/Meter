@@ -2,9 +2,7 @@ package com.example.meter.pushnotifications
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
@@ -48,41 +46,32 @@ class MyFirebaseMessagingService() :
 
         val defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
 
-//        val intent = Intent(this,MainActivity::class.java)
-//        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-
-//        val pendingIntent = PendingIntent.getActivity(applicationContext,0,
-//            intent,
-//            PendingIntent.FLAG_UPDATE_CURRENT)
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             checkNotificationChannel("1")
         }
 
-        val notification = NotificationCompat.Builder(applicationContext,"1")
-            .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle(p0.data["comment"])
-            .setContentText(p0.data["userId"])
-//                .setStyle(NotificationCompat.MessagingStyle(person)
-//                        .setGroupConversation(false)
-//                        .addMessage(title,
-//                                currentTimeMillis(), person)
-//                )
+        val notification = NotificationCompat.Builder(applicationContext, "1")
+            .setSmallIcon(R.drawable.ic_car_steering_wheel)
+            .setContentTitle(p0.data["name"])
+            .setContentText(p0.data["comment"])
+            .setAutoCancel(true)
             .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setSound(defaultSound)
 
-        val notificationManager : NotificationManager =
+        val notificationManager: NotificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.notify(1,notification.build())
+        notificationManager.notify(1, notification.build())
 
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun checkNotificationChannel(CHANNEL_ID:String) {
-        val notificationChannel = NotificationChannel(CHANNEL_ID,
+    private fun checkNotificationChannel(CHANNEL_ID: String) {
+        val notificationChannel = NotificationChannel(
+            CHANNEL_ID,
             getString(R.string.app_name),
-            NotificationManager.IMPORTANCE_HIGH)
+            NotificationManager.IMPORTANCE_HIGH
+        )
         notificationChannel.description = "CHANNEL_DESCRIPTION"
         notificationChannel.enableLights(true)
         notificationChannel.enableVibration(true)

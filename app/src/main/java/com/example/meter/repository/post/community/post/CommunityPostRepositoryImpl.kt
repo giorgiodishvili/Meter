@@ -8,8 +8,8 @@ import androidx.paging.liveData
 import com.example.meter.entity.community.post.Content
 import com.example.meter.network.ApiService
 import com.example.meter.network.Resource
-import com.example.meter.paging.source.CommunityPostPagingSource
-import com.example.meter.paging.source.CommunityPostPagingSourceForSearch
+import com.example.meter.paging.source.post.CommunityPostPagingSource
+import com.example.meter.paging.source.post.CommunityPostPagingSourceForSearch
 import javax.inject.Inject
 
 class CommunityPostRepositoryImpl @Inject constructor(private val apiService: ApiService) :

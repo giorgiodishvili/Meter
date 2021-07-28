@@ -47,7 +47,7 @@ class CompleteProfileFragment :
     ): View? {
         if (firebaseAuthImpl.getUserId() == null) {
             findNavController().navigate(R.id.action_navigation_profile_to_main_auth)
-        }else{
+        } else {
             viewModel.readUserInfo
         }
         return super.onCreateView(inflater, container, savedInstanceState)
@@ -73,7 +73,8 @@ class CompleteProfileFragment :
             uid = firebaseAuthImpl.getUserId().toString()
             authorisedWithGoogle = firebaseAuthImpl.getUser()?.photoUrl != null
             MyFirebaseMessagingService.getToken(requireContext())?.let {
-                sharedViewModel.saveToken(uid,
+                sharedViewModel.saveToken(
+                    uid,
                     it
                 )
             }

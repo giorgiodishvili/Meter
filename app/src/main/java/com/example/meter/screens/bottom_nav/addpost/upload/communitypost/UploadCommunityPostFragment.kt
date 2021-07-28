@@ -272,7 +272,8 @@ class UploadCommunityPostFragment :
                 Resource.Status.ERROR -> {
 
                 }
-                Resource.Status.LOADING -> {}
+                Resource.Status.LOADING -> {
+                }
             }
         })
     }

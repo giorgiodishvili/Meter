@@ -179,16 +179,16 @@
             android:id="@+id/indicator_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:vpi_slide_mode="scale"
-            app:vpi_style="circle"
-            app:vpi_slider_radius="3dp"
-            app:vpi_slider_checked_color="@color/main_color"
-            app:vpi_slider_normal_color="@color/button_color"
             android:layout_marginBottom="5dp"
             app:layout_constraintBottom_toBottomOf="@+id/commentBTNLogo"
             app:layout_constraintEnd_toEndOf="@+id/singlePostRecyclerPhoto"
             app:layout_constraintStart_toStartOf="@+id/singlePostRecyclerPhoto"
-            app:layout_constraintTop_toTopOf="@+id/commentBTNLogo" />
+            app:layout_constraintTop_toTopOf="@+id/commentBTNLogo"
+            app:vpi_slide_mode="scale"
+            app:vpi_slider_checked_color="@color/main_color"
+            app:vpi_slider_normal_color="@color/button_color"
+            app:vpi_slider_radius="3dp"
+            app:vpi_style="circle" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/commentRV"

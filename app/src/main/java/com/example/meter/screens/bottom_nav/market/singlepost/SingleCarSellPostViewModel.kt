@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.meter.entity.community.post.Content
 import com.example.meter.entity.sell.SellCarPost
 import com.example.meter.network.Resource
 import com.example.meter.repository.post.sellpost.CarPostRepository
