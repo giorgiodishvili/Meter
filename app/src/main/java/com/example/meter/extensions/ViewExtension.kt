@@ -52,7 +52,6 @@ fun ImageView.loadImg(url: String, center: Boolean = true) {
             .error(R.drawable.ic_placeholder)
             .into(this)
     }
-
 }
 
 fun ImageView.loadImgUri(url: Uri?, center: Boolean = false) {
@@ -85,6 +84,12 @@ fun View.fade(action: NavDirections? = null) {
         }
     }
 }
+
+
+fun View.mirrorView() {
+    layoutDirection = View.LAYOUT_DIRECTION_RTL
+}
+
 
 fun View.slideDown(duration: Int = 400) {
     show()

@@ -47,7 +47,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/singleTitle" />
 
-
         <EditText
             android:id="@+id/commentET"
             android:layout_width="0dp"

@@ -1,9 +1,10 @@
 package com.example.meter.repository.firebase
 
-import com.google.android.gms.tasks.Task
 import com.google.firebase.database.DatabaseReference
 
 interface RealtimeDbRep {
-    fun addToDb(value: Any): Task<Void>
-    fun readFromDB(): DatabaseReference
+//    fun readFromDB(): DatabaseReference
+    fun createNode(from: String, to: String): DatabaseReference
+    fun createReversedNode(to: String, from: String): DatabaseReference
+
 }
