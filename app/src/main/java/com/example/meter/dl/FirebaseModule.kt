@@ -1,5 +1,7 @@
 package com.example.meter.dl
 
+import com.example.meter.repository.firebase.FirebaseMessagingRepo
+import com.example.meter.repository.firebase.FirebaseMessagingRepoImpl
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -32,5 +34,10 @@ class FirebaseModule {
     fun provideFirebaseStorage(): StorageReference {
         return FirebaseStorage.getInstance().getReference("User")
     }
+
+    @Provides
+    @Singleton
+    fun providesFirebaseMessagingRepository(firebaseMessagingRepo: FirebaseMessagingRepoImpl): FirebaseMessagingRepo =
+        firebaseMessagingRepo
 
 }

@@ -167,17 +167,28 @@ interface ApiService {
         @Body pushNotificationRequest: PushNotificationRequest
     ): Response<PushNotificationResponse>
 
-    @POST("/token/save/{userId}")
+    @POST("/user/token/save/{userId}")
     suspend fun saveToken(
         @Path("userId") userId: String,
-        @Body token: String
+        @Path("token") token: String
     ): Response<Boolean>
 
 
-    @POST("/token/delete/{userId}")
+    @DELETE("/user/token/delete/{token}")
     suspend fun deleteToken(
-        @Body token: String
+        @Path("token") token: String
     ): Response<Boolean>
+
+    @POST("/user/token/{tokenId}")
+    suspend fun saveOnlyToken(
+        @Path("tokenId") token: String
+    ): Response<String>
+
+    @POST("/user/token/update")
+    suspend fun updateOldToken(
+        @Query("newToken") newToken: String,
+        @Query("oldToken") oldToken: String
+    ): Response<String>
 
 
     @POST("api/cars/")

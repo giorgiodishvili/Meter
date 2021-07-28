@@ -6,6 +6,8 @@ import com.example.meter.repository.automobile.AutomobileCategoryRepository
 import com.example.meter.repository.automobile.AutomobileCategoryRepositoryImpl
 import com.example.meter.repository.comment.CommentRepository
 import com.example.meter.repository.comment.CommentRepositoryImpl
+import com.example.meter.repository.firebase.FirebaseMessagingRepo
+import com.example.meter.repository.firebase.FirebaseMessagingRepoImpl
 import com.example.meter.repository.photo.PhotoRepository
 import com.example.meter.repository.photo.PhotoRepositoryImpl
 import com.example.meter.repository.post.community.post.CommunityPostRepository
@@ -83,5 +85,7 @@ object AppModule {
     @Singleton
     fun providesCommentRepository(commentRepository: CommentRepositoryImpl): CommentRepository =
         commentRepository
+
+
 
 }

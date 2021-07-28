@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class FirebaseMessagingRepoImpl @Inject constructor(private val apiService: ApiService) :
     FirebaseMessagingRepo {
-    override suspend fun deleteToken(token: String): Resource<Boolean> {
+    override suspend fun deleteUserFromToken(token: String): Resource<Boolean> {
         return try {
 
             val response = apiService.deleteToken(token)
@@ -45,6 +45,36 @@ class FirebaseMessagingRepoImpl @Inject constructor(private val apiService: ApiS
         return try {
 
             val response = apiService.sendPushNotification(userId, pushNotificationRequest)
+            if (response.isSuccessful) {
+                Resource.success(response.body()!!)
+            } else {
+                Resource.error(response.message())
+            }
+
+        } catch (e: Exception) {
+            Resource.error(e.message.toString())
+        }
+    }
+
+    override suspend fun saveOnlyToken(token: String): Resource<String> {
+        return try {
+
+            val response = apiService.saveOnlyToken(token)
+            if (response.isSuccessful) {
+                Resource.success(response.body()!!)
+            } else {
+                Resource.error(response.message())
+            }
+
+        } catch (e: Exception) {
+            Resource.error(e.message.toString())
+        }
+    }
+
+    override suspend fun updateOldToken(newToken: String, oldToken: String): Resource<String> {
+        return try {
+
+            val response = apiService.updateOldToken(newToken, oldToken)
             if (response.isSuccessful) {
                 Resource.success(response.body()!!)
             } else {

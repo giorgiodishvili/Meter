@@ -18,8 +18,10 @@ import com.example.meter.extensions.loadImgUri
 import com.example.meter.extensions.setGone
 import com.example.meter.extensions.showToast
 import com.example.meter.network.Resource
+import com.example.meter.pushnotifications.MyFirebaseMessagingService
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import com.example.meter.screens.bottom_nav.profile.myposts.commPosts.MyCommPostsViewModel
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -46,6 +48,8 @@ class CompleteProfileFragment :
     ): View? {
         if (firebaseAuthImpl.getUserId() == null) {
             findNavController().navigate(R.id.action_navigation_profile_to_main_auth)
+        }else{
+            viewModel.readUserInfo
         }
         return super.onCreateView(inflater, container, savedInstanceState)
 
@@ -69,7 +73,11 @@ class CompleteProfileFragment :
         } else {
             uid = firebaseAuthImpl.getUserId().toString()
             authorisedWithGoogle = firebaseAuthImpl.getUser()?.photoUrl != null
-
+            MyFirebaseMessagingService.getToken(requireContext())?.let {
+                sharedViewModel.saveToken(uid,
+                    it
+                )
+            }
             if (authorisedWithGoogle)
                 binding.profilePic.loadImgUri(firebaseAuthImpl.getUser()?.photoUrl)
         }
@@ -117,6 +125,11 @@ class CompleteProfileFragment :
         }
 
         binding.logOutButton.setOnClickListener {
+            MyFirebaseMessagingService.getToken(requireContext())?.let { it1 ->
+                sharedViewModel.deleteUserFromToken(
+                    it1
+                )
+            }
             firebaseAuthImpl.signOut()
             findNavController().navigate(R.id.action_navigation_profile_to_navigation_home)
         }

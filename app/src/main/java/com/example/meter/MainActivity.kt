@@ -29,12 +29,16 @@ import com.example.meter.databinding.ActivityMainBinding
 import com.example.meter.extensions.fade
 import com.example.meter.extensions.setGone
 import com.example.meter.extensions.show
+import com.example.meter.repository.firebase.FirebaseMessagingRepoImpl
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
@@ -58,6 +62,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        tokenListener()
         binding.lottieAnimation.playAnimation()
         setUpAnimation()
 //        bottomNavBarSetup()
@@ -219,4 +224,25 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+
+    private fun tokenListener() {
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("TAG", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+
+            // Log and toast
+            token?.let {
+                i("token", it)
+                getSharedPreferences("_", MODE_PRIVATE).edit().putString("token", it).apply()
+                sharedViewModel.saveOnlyToken(it)
+            }
+
+        })
+    }
 }
