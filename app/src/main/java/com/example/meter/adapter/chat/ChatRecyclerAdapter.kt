@@ -28,11 +28,12 @@ class ChatRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun bind() {
             model = chatItems[absoluteAdapterPosition]
             binding.msgText.text = model.text
+
             if (itemViewType == MY_MSG) {
 
+                binding.root.mirrorView()
                 binding.userImg.loadProfileImg(myImg)
                 binding.msgText.setBackgroundResource(R.drawable.button_shape)
-                binding.root.mirrorView()
             } else {
                 binding.userImg.loadProfileImg(otherImg)
                 binding.msgText.setBackgroundResource(R.drawable.custom_button)
@@ -58,6 +59,11 @@ class ChatRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun getItemCount(): Int = chatItems.size
+
+    fun loadChat(chatItem: MutableList<Chat>) {
+        this.chatItems.clear()
+        this.chatItems.addAll(chatItem)
+    }
 
     fun addItems(chatItem: Chat) {
         this.chatItems.add(chatItem)

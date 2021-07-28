@@ -62,7 +62,8 @@ class CompleteProfileFragment :
 
         val externalUid = arguments?.getString("uid")
 
-        if (externalUid != null) {
+        if (externalUid != null && externalUid != firebaseAuthImpl.getUserId()) {
+            d("vaime", "$externalUid")
             showOtherProfile(externalUid)
         } else {
             showCurrentProfile()
@@ -83,8 +84,11 @@ class CompleteProfileFragment :
                     val name = user.data?.name
 
                     user.data?.let { it1 -> binding.profilePic.loadImg(it1.url, false) }
+
                     binding.msgButton.setOnClickListener {
-                        user.data?.let { it1 -> openChat(it1) }
+                        user.data?.let {
+                            it1 -> openChat(it1)
+                        }
                     }
 
                     val arr = name?.split(" ".toRegex(), 2)?.toTypedArray()
@@ -128,8 +132,8 @@ class CompleteProfileFragment :
     }
 
     private fun openChat(model: UserDetails) {
-        val bundle = bundleOf("userInfo" to model)
 
+        val bundle = bundleOf("userInfo" to model)
         findNavController().navigate(R.id.action_navigation_profile_to_chatFragment, bundle)
     }
 

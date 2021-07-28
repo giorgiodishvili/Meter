@@ -35,6 +35,7 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
     lateinit var db: RealtimeDbRepImpl
 
     private lateinit var adapter: ChatRecyclerAdapter
+
     private lateinit var nodeForCurrent: DatabaseReference
     private lateinit var nodeForOther: DatabaseReference
 
@@ -52,6 +53,7 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
         getOtherUserInfo()
 
         nodeForCurrent = db.createNode(currentUser.getUserId().toString(), otherUser.id.toString())
+
         nodeForOther = db.createNode(otherUser.id.toString(), currentUser.getUserId().toString())
 
         listeners()
@@ -70,6 +72,7 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
             when (user.status) {
                 Resource.Status.SUCCESS -> {
                     user.data?.let {
+
                         adapter.loadInfo(currentUser.getUserId().toString(), user.data.url, otherUser.url)
                         listenForMessage()
                     }
@@ -113,6 +116,7 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
     }
 
     private fun listenForMessage() {
+
         nodeForCurrent.addChildEventListener(object: ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val messageItem = snapshot.getValue(Chat::class.java)
@@ -139,6 +143,16 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
             }
 
         })
+
+
+        nodeForCurrent.get().addOnSuccessListener {
+            it.children.forEach {
+                val value = it.getValue(Chat::class.java)
+                d("tagtag", "$value")
+            }
+
+        }
+
     }
 
     private fun getCurrentTimeStamp(): String? {
