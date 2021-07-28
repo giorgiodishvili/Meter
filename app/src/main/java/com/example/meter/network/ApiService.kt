@@ -26,7 +26,7 @@ interface ApiService {
 
     @GET("/community/post/search")
     suspend fun searchPosts(
-        @Query("search") query: String,
+        @Query("title") query: String,
         @Query("page") page: Int,
         @Query("size") size: Int
     ): Response<PagedPostResponse<Content>>
