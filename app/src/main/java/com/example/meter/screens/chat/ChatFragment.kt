@@ -10,6 +10,8 @@ import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.ChatFragmentBinding
 import com.example.meter.entity.Chat
 import com.example.meter.entity.UserDetails
+import com.example.meter.extensions.showToast
+import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import com.example.meter.repository.firebase.RealtimeDbRepImpl
 import com.google.firebase.database.ChildEventListener
@@ -44,10 +46,13 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
 
     private fun init() {
         setUpChatRecycler()
+
+        viewModel.getUserInfo(currentUser.getUserId().toString())
+        observers()
         getOtherUserInfo()
 
-        nodeForCurrent = db.createNode(currentUser.getUserId().toString(), otherUser.uid.toString())
-        nodeForOther = db.createNode(otherUser.uid.toString(), currentUser.getUserId().toString())
+        nodeForCurrent = db.createNode(currentUser.getUserId().toString(), otherUser.id.toString())
+        nodeForOther = db.createNode(otherUser.id.toString(), currentUser.getUserId().toString())
 
         listeners()
     }
@@ -58,12 +63,26 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
 
         if (otherUser != null)
             this.otherUser = otherUser
-
-        if (otherUser != null) {
-            adapter.loadInfo(currentUser.getUserId().toString(), user.data.url, otherUser.url)
-        }
     }
 
+    private fun observers() {
+        viewModel.readUserInfo.observe(viewLifecycleOwner, { user ->
+            when (user.status) {
+                Resource.Status.SUCCESS -> {
+                    user.data?.let {
+                        adapter.loadInfo(currentUser.getUserId().toString(), user.data.url, otherUser.url)
+                        listenForMessage()
+                    }
+                }
+                Resource.Status.ERROR -> {
+                    requireContext().showToast("error loading user info")
+                }
+                Resource.Status.LOADING -> {
+
+                }
+            }
+        })
+    }
 
     private fun setUpChatRecycler() {
         adapter = ChatRecyclerAdapter()
@@ -85,7 +104,7 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
         val msgForCurrent = nodeForCurrent.push()
         val msgForOther = nodeForOther.push()
 
-        val message = Chat( currentUser.getUserId().toString(), msgForCurrent.key.toString(), text, getCurrentTimeStamp().toString(), otherUser.uid.toString())
+        val message = Chat( currentUser.getUserId().toString(), msgForCurrent.key.toString(), text, getCurrentTimeStamp().toString(), otherUser.id.toString())
 
         msgForCurrent.setValue(message)
         msgForOther.setValue(message)
