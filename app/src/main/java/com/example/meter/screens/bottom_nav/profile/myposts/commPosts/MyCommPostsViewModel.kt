@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.meter.entity.UserDetails
 import com.example.meter.entity.community.post.Content
 import com.example.meter.network.Resource
+import com.example.meter.repository.firebase.FirebaseMessagingRepo
 import com.example.meter.repository.userInfo.UserInfoRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MyCommPostsViewModel @Inject constructor(
     private val userInfo: UserInfoRepositoryImpl,
+    private val firebaseMessagingRepo: FirebaseMessagingRepo
 ) : ViewModel() {
 
 
@@ -52,4 +54,11 @@ class MyCommPostsViewModel @Inject constructor(
         }
     }
 
+    fun removeTokenFromDB(token: String?) {
+        viewModelScope.launch {
+            withContext(Dispatchers.Default) {
+                token?.let { firebaseMessagingRepo.deleteUserFromToken(it) }
+            }
+        }
+    }
 }

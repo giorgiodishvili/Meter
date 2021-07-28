@@ -7,8 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.meter.entity.Comment
 import com.example.meter.entity.UserDetails
 import com.example.meter.entity.community.post.Content
+import com.example.meter.entity.push_notification.PushNotificationRequest
+import com.example.meter.entity.push_notification.PushNotificationResponse
 import com.example.meter.network.Resource
 import com.example.meter.repository.comment.CommentRepository
+import com.example.meter.repository.firebase.FirebaseMessagingRepo
 import com.example.meter.repository.post.community.post.CommunityPostRepository
 import com.example.meter.repository.userInfo.UserInfoRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +24,8 @@ import javax.inject.Inject
 class SingleCommunityPostViewModel @Inject constructor(
     private val communityPostRepository: CommunityPostRepository,
     private val commentRepository: CommentRepository,
-    private val userInfo: UserInfoRepositoryImpl
+    private val userInfo: UserInfoRepositoryImpl,
+    private val firebaseMessagingRepo: FirebaseMessagingRepo
 ) : ViewModel() {
 
     private val _post = MutableLiveData<Resource<Content>>()
@@ -60,6 +64,11 @@ class SingleCommunityPostViewModel @Inject constructor(
     val deleteComment: LiveData<Resource<Comment>>
         get() = _deleteComment
 
+    private val _sendPush = MutableLiveData<Resource<PushNotificationResponse>>()
+
+    val sendPush: LiveData<Resource<PushNotificationResponse>>
+        get() = _sendPush
+
     private var _readUserInfo = MutableLiveData<Resource<UserDetails>>()
     val readUserInfo: LiveData<Resource<UserDetails>> = _readUserInfo
 
@@ -91,7 +100,8 @@ class SingleCommunityPostViewModel @Inject constructor(
     fun createComment(
         postId: Long,
         userId: String,
-        description: String
+        description: String,
+        contentUserId: String
     ) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -100,6 +110,33 @@ class SingleCommunityPostViewModel @Inject constructor(
                         postId,
                         userId,
                         description
+                    )
+                )
+            }
+        }
+        if (contentUserId != userId) {
+            sendPush(
+                contentUserId, pushNotificationRequest = PushNotificationRequest(
+                    data = mapOf(
+                        "comment" to "დააკომენტარა თქვენს პოსტზე",
+                        "name" to userId,
+                        "postId" to postId.toString()
+                    ),
+                    message = "დააკომენტარა თქვენს პოსტზე",
+                    title = "Mater",
+                    token = "",
+                    topic = "Comment"
+                )
+            );
+        }
+    }
+
+    private fun sendPush(userId: String, pushNotificationRequest: PushNotificationRequest) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                _sendPush.postValue(
+                    firebaseMessagingRepo.sendPushNotification(
+                        userId, pushNotificationRequest
                     )
                 )
             }
@@ -120,7 +157,7 @@ class SingleCommunityPostViewModel @Inject constructor(
         }
     }
 
-    fun createLike(userId: String, postId: Long) {
+    fun createLike(userId: String, postId: Long, contentUserId: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 _createLike.postValue(
@@ -128,6 +165,22 @@ class SingleCommunityPostViewModel @Inject constructor(
                         postId, userId
                     )
                 )
+
+                if (contentUserId != userId) {
+                    sendPush(
+                        contentUserId, pushNotificationRequest = PushNotificationRequest(
+                            data = mapOf(
+                                "comment" to "დაალაიკა თქვენი პოსტი",
+                                "name" to userId,
+                                "postId" to postId.toString()
+                            ),
+                            message = "დაალაიკა თქვენი პოსტი",
+                            title = "Mater",
+                            token = "",
+                            topic = "Like"
+                        )
+                    );
+                }
             }
         }
     }

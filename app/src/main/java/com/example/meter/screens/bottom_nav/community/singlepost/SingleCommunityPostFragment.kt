@@ -154,7 +154,12 @@ class SingleCommunityPostFragment :
     }
 
     private fun getDataFromBundle() {
-        postId = arguments?.getLong("postId", -1L)!!
+        val get = arguments?.get("postId")
+        if (get != null) {
+            val toLongOrNull = (get.toString().toLongOrNull())
+            if (toLongOrNull != null)
+                postId = toLongOrNull
+        }
     }
 
     private fun makeInitialCalls() {
@@ -176,7 +181,7 @@ class SingleCommunityPostFragment :
                 if (userId.isNotEmpty()) {
                     viewModel.createComment(
                         postId,
-                        userId, commentText.toString()
+                        userId, commentText.toString(), content.user.id
                     )
                     commentText.clear()
                 } else {
@@ -205,7 +210,7 @@ class SingleCommunityPostFragment :
                     binding.likeButton.setImageResource(R.drawable.ic_like_unpressed)
                     content.likedUserIds.remove(userId)
                 } else {
-                    viewModel.createLike(userId, postId)
+                    viewModel.createLike(userId, postId, content.user.id)
                     content.likedUserIds.add(userId)
                     binding.likeButton.setImageResource(R.drawable.ic_like)
                 }
@@ -217,11 +222,11 @@ class SingleCommunityPostFragment :
         }
 
         binding.authorIV.setOnClickListener {
-
+            i("userID","$it")
             binding.root.findNavController()
                 .navigate(
                     R.id.action_singleCommunityPostFragment_to_navigation_profile,
-                    bundleOf("uid" to userId)
+                    bundleOf("uid" to content.user.id)
                 )
         }
     }

@@ -7,6 +7,8 @@ import com.example.meter.entity.community.post.Content
 import com.example.meter.entity.community.post.PagedPostResponse
 import com.example.meter.entity.page.Model
 import com.example.meter.entity.page.UploadPhotoResponse
+import com.example.meter.entity.push_notification.PushNotificationRequest
+import com.example.meter.entity.push_notification.PushNotificationResponse
 import com.example.meter.entity.sell.SellCarPost
 import com.example.meter.entity.sell.SellCarPostForMainPage
 import com.example.meter.entity.user.User
@@ -24,10 +26,17 @@ interface ApiService {
 
     @GET("/community/post/search")
     suspend fun searchPosts(
-        @Query("title") query: String,
+        @Query("search") query: String,
         @Query("page") page: Int,
         @Query("size") size: Int
     ): Response<PagedPostResponse<Content>>
+
+    @GET("/api/cars/searchUrl")
+    suspend fun searchCar(
+        @Query("search") query: String,
+        @Query("page") page: Int,
+        @Query("size") size: Int
+    ): Response<PagedPostResponse<SellCarPostForMainPage>>
 
     @GET("/api/cars/latest")
     suspend fun getLatestPosts(): Response<List<Content>>
@@ -50,6 +59,7 @@ interface ApiService {
         @Field("number") number: String,
         @Field("url") url: String,
         @Field("verified") verified: Boolean,
+        @Query("token") token: String = ""
     ): Response<UserDetails>
 
     @GET("/community/post/")
@@ -157,6 +167,35 @@ interface ApiService {
     suspend fun getSellCarPost(
         @Path("carId") carId: Long,
     ): Response<SellCarPost>
+
+    @POST("notification/token")
+    suspend fun sendPushNotification(
+        @Query("userId") userId: String,
+        @Body pushNotificationRequest: PushNotificationRequest
+    ): Response<PushNotificationResponse>
+
+    @POST("/user/token/save/{userId}/{token}")
+    suspend fun saveToken(
+        @Path("userId") userId: String,
+        @Path("token") token: String
+    ): Response<Boolean>
+
+
+    @DELETE("/user/token/delete/{token}")
+    suspend fun deleteToken(
+        @Path("token") token: String
+    ): Response<Boolean>
+
+    @POST("/user/token/{tokenId}")
+    suspend fun saveOnlyToken(
+        @Path("tokenId") token: String
+    ): Response<String>
+
+    @POST("/user/token/update")
+    suspend fun updateOldToken(
+        @Query("newToken") newToken: String,
+        @Query("oldToken") oldToken: String
+    ): Response<String>
 
 
     @POST("api/cars/")

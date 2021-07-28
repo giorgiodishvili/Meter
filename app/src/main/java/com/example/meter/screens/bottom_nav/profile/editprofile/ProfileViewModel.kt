@@ -112,7 +112,7 @@ class ProfileViewModel @Inject constructor(
         number: String,
         verified: Boolean,
         url: String = "",
-        uri: Uri?
+        uri: Uri?,
     ) {
         viewModelScope.launch {
             val infoPost = async {

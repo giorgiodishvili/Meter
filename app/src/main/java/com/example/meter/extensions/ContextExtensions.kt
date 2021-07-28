@@ -10,7 +10,7 @@ fun Context.showToast(text: String, duration: Int = Toast.LENGTH_SHORT) {
     makeText(this, text, duration).show()
 }
 
-fun Context.makePhoneCall(number: String) : Boolean {
+fun Context.makePhoneCall(number: String): Boolean {
     return try {
         val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$number"))
         startActivity(intent)
