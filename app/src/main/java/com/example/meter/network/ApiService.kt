@@ -167,7 +167,7 @@ interface ApiService {
         @Body pushNotificationRequest: PushNotificationRequest
     ): Response<PushNotificationResponse>
 
-    @POST("/user/token/save/{userId}")
+    @POST("/user/token/save/{userId}/{token}")
     suspend fun saveToken(
         @Path("userId") userId: String,
         @Path("token") token: String

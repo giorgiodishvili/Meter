@@ -21,7 +21,6 @@ import com.example.meter.network.Resource
 import com.example.meter.pushnotifications.MyFirebaseMessagingService
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import com.example.meter.screens.bottom_nav.profile.myposts.commPosts.MyCommPostsViewModel
-import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

@@ -154,7 +154,12 @@ class SingleCommunityPostFragment :
     }
 
     private fun getDataFromBundle() {
-        postId = arguments?.getLong("postId", -1L)!!
+        val get = arguments?.get("postId")
+        if (get != null) {
+            val toLongOrNull = (get.toString().toLongOrNull())
+            if (toLongOrNull != null)
+                postId = toLongOrNull
+        }
     }
 
     private fun makeInitialCalls() {
@@ -176,7 +181,7 @@ class SingleCommunityPostFragment :
                 if (userId.isNotEmpty()) {
                     viewModel.createComment(
                         postId,
-                        userId, commentText.toString()
+                        userId, commentText.toString(), content.user.id != userId
                     )
                     commentText.clear()
                 } else {
