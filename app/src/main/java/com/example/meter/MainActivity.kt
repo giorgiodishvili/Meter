@@ -124,6 +124,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        chipNavigation.setOnClickListener {
+            i("setOnItemSelectedListener","${it.id}")
+
+        }
+
         supportFragmentManager.beginTransaction()
         NavigationUI.setupWithNavController(navView, navController)
         val slide: Transition = Slide(Gravity.END)

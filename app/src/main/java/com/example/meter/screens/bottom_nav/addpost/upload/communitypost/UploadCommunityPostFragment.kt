@@ -91,13 +91,13 @@ class UploadCommunityPostFragment :
 
     private fun postFieldCheck() {
         if (binding.titleET.text.isNotEmpty() && binding.descriptionET.text.isNotEmpty()) {
-            observe()
             firebaseAuthImpl.getUserId()?.let { it1 ->
                 viewModel.uploadPost(
                     it1,
                     binding.descriptionET.text.toString(),
                     binding.titleET.text.toString()
                 )
+                observe()
                 popDialog(R.layout.dialog_item_uploading)
             }
         } else {

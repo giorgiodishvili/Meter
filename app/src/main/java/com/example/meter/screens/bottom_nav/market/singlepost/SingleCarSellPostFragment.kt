@@ -3,13 +3,16 @@ package com.example.meter.screens.bottom_nav.market.singlepost
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.meter.R
 import com.example.meter.adapter.communitypost.singlepost.SingleCommunityPostPhotoRecyclerAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.SingleCarSellPostFragmentBinding
 import com.example.meter.entity.sell.SellCarPost
-import com.example.meter.extensions.loadProfileImg
+import com.example.meter.extensions.loadImg
+import com.example.meter.extensions.show
 import com.example.meter.extensions.toFormattedDate
 import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
@@ -42,7 +45,11 @@ class SingleCarSellPostFragment :
 
     private fun setListeners() {
         binding.backButton.setOnClickListener {
-            findNavController().navigate(R.id.action_singleCommunityPostFragment_to_navigation_community)
+            findNavController().navigateUp()
+        }
+
+        binding.deletebutton.setOnClickListener {
+            viewModel.deletePost(postId)
         }
     }
 
@@ -64,14 +71,30 @@ class SingleCarSellPostFragment :
             }
         })
 
+        viewModel.deletePost.observe(viewLifecycleOwner, {
+            when (it.status) {
+                Resource.Status.ERROR -> {
+                    Log.i("deletePost", "$it")
+                    binding.deletebutton.show()
+                }
+                Resource.Status.SUCCESS -> {
+                    binding.deletebutton.show()
+                    Log.i("deletePost", it.data.toString())
+                    Toast.makeText(requireContext(), "POST DELETED", Toast.LENGTH_SHORT).show()
+                    binding.root.findNavController()
+                        .navigate(R.id.action_singleCarSellPostFragment_to_navigation_marketPosts)
+                }
+                Resource.Status.LOADING -> Log.i("deletePost", "loading")
+            }
+        })
+
     }
 
     private fun setUpPost(data: SellCarPost) {
-        data.user?.url?.let { binding.authorIV.loadProfileImg(it) }
+        data.user?.url?.let { binding.authorIV.loadImg(it) }
         binding.descriptionTB.text = data.description
         binding.name.text = data.user!!.name
 //        binding.phoneNumber.text = getString(R.string.phone_single_post, data.user.number)
-        val number = data.user.number
         binding.textView4.text = data.createdData.toFormattedDate()
         binding.singleTitle.text = data.articleHeader
         binding.manufacturerTV.text =
@@ -94,12 +117,16 @@ class SingleCarSellPostFragment :
                 singleCommunityPostPhotoRecyclerAdapter
             binding.singlePostRecyclerPhoto.setPageTransformer(ZoomPageTransformer)
         }
+        if (userId == data.user.id) {
+            binding.deletebutton.show()
+        }
 
     }
 
     private fun makeInitialCalls() {
         firebaseAuthImpl.getUserId()?.let {
             userId = firebaseAuthImpl.getUserId()!!
+
         }
 
         viewModel.getPost(postId)

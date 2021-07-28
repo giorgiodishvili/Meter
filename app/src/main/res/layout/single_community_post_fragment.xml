@@ -15,7 +15,6 @@
         android:background="@color/white"
         tools:context=".screens.bottom_nav.community.singlepost.SingleCommunityPostFragment">
 
-
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/backButton"
             android:layout_width="wrap_content"
@@ -31,9 +30,7 @@
             android:id="@+id/singlePostRecyclerPhoto"
             android:layout_width="match_parent"
             android:layout_height="260dp"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/singleTitle" />
@@ -42,10 +39,8 @@
             android:id="@+id/postWithoutImg"
             android:layout_width="match_parent"
             android:layout_height="260dp"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/ic_no_image_post_background"
+            android:background="@drawable/back_ground"
             android:scaleType="centerCrop"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
@@ -163,7 +158,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="12dp"
             android:background="@color/white"
             android:src="@drawable/ic_like_unpressed"
             app:layout_constraintStart_toEndOf="@+id/likesAmount"
@@ -174,30 +169,45 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="12dp"
             android:background="@color/white"
             android:src="@drawable/ic_comment"
             app:layout_constraintStart_toEndOf="@+id/commentsAmount"
             app:layout_constraintTop_toBottomOf="@+id/singlePostRecyclerPhoto" />
+
+        <com.zhpan.indicator.IndicatorView
+            android:id="@+id/indicator_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:vpi_slide_mode="scale"
+            app:vpi_style="circle"
+            app:vpi_slider_radius="3dp"
+            app:vpi_slider_checked_color="@color/main_color"
+            app:vpi_slider_normal_color="@color/button_color"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/commentBTNLogo"
+            app:layout_constraintEnd_toEndOf="@+id/singlePostRecyclerPhoto"
+            app:layout_constraintStart_toStartOf="@+id/singlePostRecyclerPhoto"
+            app:layout_constraintTop_toTopOf="@+id/commentBTNLogo" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/commentRV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="12dp"
+            android:minHeight="75dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view2" />
-
 
         <View
             android:id="@+id/view2"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="35dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
             android:background="@color/button_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -218,7 +228,8 @@
             android:id="@+id/likesAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/helvatice_thin"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/likeButton"
             app:layout_constraintStart_toStartOf="@+id/singlePostRecyclerPhoto"
@@ -229,29 +240,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:fontFamily="@font/helvatice_thin"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/commentBTNLogo"
             app:layout_constraintStart_toEndOf="@+id/likeButton"
             app:layout_constraintTop_toTopOf="@+id/commentBTNLogo" />
-
-        <TextView
-            android:id="@+id/status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:background="@drawable/custom_button"
-            android:drawablePadding="8dp"
-            android:fontFamily="@font/helvatice_medium"
-            android:paddingStart="12dp"
-            android:paddingTop="6dp"
-            android:paddingEnd="12dp"
-            android:paddingBottom="6dp"
-            android:text="@string/comments"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/view2"
-            app:layout_constraintStart_toStartOf="@+id/commentRV"
-            app:layout_constraintTop_toTopOf="@+id/view2" />
 
         <TextView
             android:id="@+id/singleTitle"
@@ -279,8 +272,8 @@
             android:id="@+id/deletebutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="20dp"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_garbage"
             android:visibility="invisible"
@@ -291,7 +284,7 @@
             android:id="@+id/editbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
+            android:layout_marginEnd="20dp"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_edit_button"
             android:visibility="invisible"

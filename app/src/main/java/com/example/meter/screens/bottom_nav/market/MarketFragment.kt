@@ -31,6 +31,7 @@ class MarketFragment : BaseFragment<MarketFragmentBinding, MarketViewModel>(
     fun observe() {
         viewModel.getMarketPosts().observe(viewLifecycleOwner, { resource ->
             lifecycleScope.launch {
+                binding.swipeRefresh.isRefreshing = false
                 adapter.submitData(resource)
             }
         })
@@ -44,6 +45,14 @@ class MarketFragment : BaseFragment<MarketFragmentBinding, MarketViewModel>(
         initRecycler()
         listeners()
         observe()
+        setListeners()
+    }
+
+    fun setListeners(){
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.getMarketPosts()
+            observe()
+        }
     }
 
     private fun listeners() {
