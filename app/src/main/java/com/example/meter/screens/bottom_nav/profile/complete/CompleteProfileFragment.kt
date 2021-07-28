@@ -17,11 +17,11 @@ import com.example.meter.databinding.CompleteProfileFragmentBinding
 import com.example.meter.entity.UserDetails
 import com.example.meter.extensions.*
 import com.example.meter.network.Resource
+import com.example.meter.pushnotifications.MyFirebaseMessagingService
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import com.example.meter.screens.bottom_nav.profile.myposts.commPosts.MyCommPostsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import com.example.meter.pushnotifications.MyFirebaseMessagingService
 
 
 @AndroidEntryPoint
@@ -46,6 +46,8 @@ class CompleteProfileFragment :
     ): View? {
         if (firebaseAuthImpl.getUserId() == null) {
             findNavController().navigate(R.id.action_navigation_profile_to_main_auth)
+        } else {
+            viewModel.readUserInfo
         }
         return super.onCreateView(inflater, container, savedInstanceState)
 
@@ -60,10 +62,11 @@ class CompleteProfileFragment :
 
         val externalUid = arguments?.getString("uid")
 
-        if (externalUid != null)
+        if (externalUid != null) {
             showOtherProfile(externalUid)
-        else
+        } else {
             showCurrentProfile()
+        }
 
         uid.let { viewModel.getUserInfo(it) }
         listeners()
@@ -76,21 +79,21 @@ class CompleteProfileFragment :
             d("userinfo", "$user")
             when (user.status) {
                 Resource.Status.SUCCESS -> {
-
                     d("loglog", "$user")
                     val name = user.data?.name
-                    user.data?.let {
 
-                        binding.profilePic.loadImg(it.url, false)
-                        binding.msgButton.setOnClickListener {
-                            openChat(user.data)
-                        }
-
+                    user.data?.let { it1 -> binding.profilePic.loadImg(it1.url, false) }
+                    binding.msgButton.setOnClickListener {
+                        user.data?.let { it1 -> openChat(it1) }
                     }
+
                     val arr = name?.split(" ".toRegex(), 2)?.toTypedArray()
                     if (arr != null) {
                         displayName(arr)
                     }
+
+
+
                 }
                 Resource.Status.ERROR -> {
                     requireContext().showToast("error loading user info")
@@ -124,12 +127,12 @@ class CompleteProfileFragment :
 
     }
 
-
     private fun openChat(model: UserDetails) {
         val bundle = bundleOf("userInfo" to model)
 
         findNavController().navigate(R.id.action_navigation_profile_to_chatFragment, bundle)
     }
+
     private fun navigationBarSetup() {
         val navController =
             (childFragmentManager.findFragmentById(R.id.postsHostFragment) as NavHostFragment).navController
@@ -153,10 +156,14 @@ class CompleteProfileFragment :
         binding.msgButton.setGone()
         uid = firebaseAuthImpl.getUserId().toString()
         authorisedWithGoogle = firebaseAuthImpl.getUser()?.photoUrl != null
-
+        MyFirebaseMessagingService.getToken(requireContext())?.let {
+            sharedViewModel.saveToken(
+                uid,
+                it
+            )
+        }
         if (authorisedWithGoogle)
             binding.profilePic.loadImgUri(firebaseAuthImpl.getUser()?.photoUrl)
-
     }
 
     private fun displayName(arr: Array<String>) {
@@ -172,6 +179,7 @@ class CompleteProfileFragment :
             }
 
         }
+
     }
 
 }
