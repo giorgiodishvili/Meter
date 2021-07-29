@@ -240,8 +240,8 @@ class SingleCommunityPostFragment :
             binding.likeButton.setImageResource(R.drawable.ic_like)
         } else {
             binding.likeButton.setImageResource(R.drawable.ic_like_unpressed)
-
         }
+
         binding.textView4.text = data.createdData.toFormattedDate()
         binding.name.text = data.user.name
         binding.singleTitle.text = data.title
