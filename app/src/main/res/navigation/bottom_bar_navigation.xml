@@ -159,7 +159,15 @@
         android:id="@+id/uploadCarSellPostFragment"
         android:name="com.example.meter.screens.bottom_nav.addpost.upload.carpost.UploadCarSellPostFragment"
         android:label="upload_car_sell_post_fragment"
-        tools:layout="@layout/upload_car_sell_post_fragment" />
+        tools:layout="@layout/upload_car_sell_post_fragment" >
+        <action
+            android:id="@+id/action_uploadCarSellPostFragment_to_photoUploadCarSellFragment"
+            app:destination="@id/photoUploadCarSellFragment"
+            app:enterAnim="@anim/slide_in_bot"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_bot"/>
+    </fragment>
     <fragment
         android:id="@+id/navigation_marketPosts"
         android:name="com.example.meter.screens.bottom_nav.market.MarketFragment"
@@ -219,7 +227,9 @@
 
     <action
         android:id="@+id/action_global_singleCarSellPostFragment"
-        app:destination="@id/singleCarSellPostFragment" />
+        app:destination="@id/singleCarSellPostFragment"
+        app:popUpTo="@id/main_navigation"
+        app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/singleCarSellPostFragment"
         android:name="com.example.meter.screens.bottom_nav.market.singlepost.SingleCarSellPostFragment"
@@ -227,7 +237,9 @@
         tools:layout="@layout/single_car_sell_post_fragment">
         <action
             android:id="@+id/action_singleCarSellPostFragment_to_navigation_marketPosts"
-            app:destination="@id/navigation_marketPosts" />
+            app:destination="@id/navigation_marketPosts"
+            app:popUpTo="@id/main_navigation"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/chatFragment"
@@ -258,5 +270,18 @@
         <action
             android:id="@+id/action_chatRequestsFragment_to_chatFragment"
             app:destination="@id/chatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/photoUploadCarSellFragment"
+        android:name="com.example.meter.screens.bottom_nav.addpost.upload.carpost.secondpart.PhotoUploadCarSellFragment"
+        android:label="photo_upload_car_sell_fragment"
+        tools:layout="@layout/photo_upload_car_sell_fragment" >
+        <action
+            android:id="@+id/action_photoUploadCarSellFragment_to_uploadCarSellPostFragment"
+            app:destination="@id/uploadCarSellPostFragment"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/slide_out_bot"
+            app:popEnterAnim="@anim/slide_in_bot"
+            app:popExitAnim="@anim/slide_out_top"/>
     </fragment>
 </navigation>

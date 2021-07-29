@@ -10,7 +10,6 @@ data class SellCarPost(
     val fuel_type: String, //
     val id: Int,
     val manufacturer: String,//
-    val mileage: Int,//
     val model: String,//
     val photoUrl: List<String>,
     val price: Int,

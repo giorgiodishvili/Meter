@@ -5,21 +5,21 @@
     <item
         android:id="@+id/navigation_community"
         android:icon="@drawable/ic_community"
-        android:title="@string/community"
+        android:title="ჯგუფი"
         app:cnb_iconColor="@color/main_color"
         app:cnb_textColor="@color/main_color" />
 
     <item
         android:id="@+id/navigation_post"
         android:icon="@drawable/ic_plus"
-        android:title=""
+        android:title="პოსტის დამატება"
         app:cnb_iconColor="@color/main_color"
         app:cnb_textColor="@color/main_color" />
 
     <item
         android:id="@+id/navigation_marketPosts"
         android:icon="@drawable/ic_buy"
-        android:title="@string/market"
+        android:title="მარჯეტი"
         app:cnb_iconColor="@color/main_color"
         app:cnb_textColor="@color/main_color" />
 

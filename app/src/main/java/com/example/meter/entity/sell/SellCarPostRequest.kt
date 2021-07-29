@@ -1,9 +1,13 @@
 package com.example.meter.entity.sell
 
-class SellCarPostRequest(
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class SellCarPostRequest(
     val address: String?,
     val cylinder: Int?,
-    val description: String?,
+    var description: String?,
     val engine: Double?,
     val fuelType: String?,
     val id: Int?,
@@ -16,4 +20,4 @@ class SellCarPostRequest(
     val user: String?,
     val wheel_side: String?,
     val VIN: String?,
-)
+): Parcelable

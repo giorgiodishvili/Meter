@@ -11,12 +11,11 @@ import com.example.meter.adapter.communitypost.singlepost.SingleCommunityPostPho
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.SingleCarSellPostFragmentBinding
 import com.example.meter.entity.sell.SellCarPost
-import com.example.meter.extensions.loadImg
+import com.example.meter.extensions.loadProfileImg
 import com.example.meter.extensions.show
 import com.example.meter.extensions.toFormattedDate
 import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
-import com.example.meter.utils.transformers.ZoomPageTransformer
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -91,7 +90,7 @@ class SingleCarSellPostFragment :
     }
 
     private fun setUpPost(data: SellCarPost) {
-        data.user?.url?.let { binding.authorIV.loadImg(it) }
+        data.user?.url?.let { binding.authorIV.loadProfileImg(it) }
         binding.descriptionTB.text = data.description
         binding.name.text = data.user!!.name
 //        binding.phoneNumber.text = getString(R.string.phone_single_post, data.user.number)
@@ -102,7 +101,6 @@ class SingleCarSellPostFragment :
         binding.yearTV.text = getString(R.string.year_single_post, data.releaseYear)
         binding.modelTV.text = getString(R.string.model_single_post, data.model)
         binding.fuelTypeTV.text = getString(R.string.fuel_type_single_post, data.fuel_type)
-        binding.mileageTV.text = getString(R.string.mileage_single_post, data.mileage.toString())
         binding.vinTV.text = getString(R.string.vin_single_post, data.vin)
         binding.transmissionTypeTV.text =
             getString(R.string.transmission_type_single_post, data.transmission_type)
@@ -115,7 +113,7 @@ class SingleCarSellPostFragment :
                 SingleCommunityPostPhotoRecyclerAdapter(data.photoUrl)
             binding.singlePostRecyclerPhoto.adapter =
                 singleCommunityPostPhotoRecyclerAdapter
-            binding.singlePostRecyclerPhoto.setPageTransformer(ZoomPageTransformer)
+            binding.indicatorView.setupWithViewPager(binding.singlePostRecyclerPhoto)
         }
         if (userId == data.user.id) {
             binding.deletebutton.show()

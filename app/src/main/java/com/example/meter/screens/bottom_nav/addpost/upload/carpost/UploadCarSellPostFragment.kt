@@ -1,5 +1,6 @@
 package com.example.meter.screens.bottom_nav.addpost.upload.carpost
 
+import android.util.Log.d
 import android.util.Log.i
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -39,8 +40,8 @@ class UploadCarSellPostFragment :
 
     override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
         getData()
-        setListeners()
         observe()
+        setListeners()
         initManufactAdapter()
     }
 
@@ -58,6 +59,7 @@ class UploadCarSellPostFragment :
     }
 
     private fun getData() {
+        binding.carModelChooser.isClickable = false
         binding.leftwheel.setOnClickListener {
             wheelSide = "left"
             it.setBackgroundResource(R.drawable.card_button_shape_selected)
@@ -72,34 +74,46 @@ class UploadCarSellPostFragment :
 //        adapterManufact.addData()
     }
 
+
+
     private fun setListeners() {
 
         binding.nextbutton.setOnClickListener {
-            val sellCarPost = SellCarPostRequest(
-                binding.location.text.toString(),
-                binding.cylinders.text.toString().toInt(),
-                null,
-                binding.engineCap.text.toString().toDouble(),
-                binding.fuelType.text.toString(),
-                0,
-                manufacturer,
-                model,
-                null,
-                binding.priceET.text.toString().toInt(),
-                binding.makeYearEt.text.toString(),
-                binding.transmision.text.toString(),
-                firebaseAuthImpl.getUserId(),
-                wheelSide,
-                binding.vintv.text.toString()
-            )
-            val bundle = bundleOf("sellPost" to sellCarPost)
-            findNavController().navigate(R.id.action_navigation_profile_to_chatFragment, bundle)
-            i("sellCarPost", "$sellCarPost")
-            viewModel.createSellPost(
-                firebaseAuthImpl.getUserId(),
-                sellCarPost
-            )
+            val inputCheck =
+                this::manufacturer.isInitialized && this::model.isInitialized && this::wheelSide.isInitialized && binding.engineCap.text.isNotEmpty()
+                        && !binding.engineCap.text.startsWith(".") && !binding.engineCap.text.endsWith(".")
+                        && binding.cylinders.text.isNotEmpty() && binding.priceET.text.isNotEmpty()
+
+            if (inputCheck) {
+                d("tagtagtag", "aadsf")
+
+                val sellCarPost = SellCarPostRequest(
+                    binding.location.text.toString(),
+                    binding.cylinders.text.toString().toInt(),
+                    null,
+                    binding.engineCap.text.toString().toDouble(),
+                    binding.fuelType.text.toString(),
+                    0,
+                    manufacturer,
+                    model,
+                    null,
+                    binding.priceET.text.toString().toInt(),
+                    binding.makeYearEt.text.toString(),
+                    binding.transmision.text.toString(),
+                    firebaseAuthImpl.getUserId(),
+                    wheelSide,
+                    binding.vintv.text.toString()
+                )
+                val bundle = bundleOf("sellPost" to sellCarPost)
+                findNavController().navigate(
+                    R.id.action_uploadCarSellPostFragment_to_photoUploadCarSellFragment,
+                    bundle
+                )
+                i("sellCarPost", "$sellCarPost")
+
+            }
         }
+
         binding.carManufacturerChooser.setOnClickListener {
 
             if (binding.manufacturerRecycler.isVisible) {
@@ -147,16 +161,13 @@ class UploadCarSellPostFragment :
             when (it.status) {
                 Resource.Status.SUCCESS -> {
                     it.data?.let { it1 ->
+                        binding.carModelChooser.isClickable = true
                         adapterModel.addData(it.data.Results.toMutableList())
                         adapterModel.onModelClick = { model ->
                             binding.carModelChooser.text = model
                             this.model = model
                             binding.modelRecycler.setGone()
-
                         }
-//                        adapterManufact.onManufacturerClick = { manufacturer ->
-//                            viewModel.getModel(manufacturer)
-//                        }
                     }
                 }
                 Resource.Status.ERROR -> i("sellPost", "$it")

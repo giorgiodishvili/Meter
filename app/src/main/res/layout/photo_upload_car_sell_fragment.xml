@@ -1,86 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".screens.bottom_nav.addpost.upload.carpost.secondpart.PhotoUploadCarSellFragment"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    tools:context=".screens.bottom_nav.addpost.upload.carpost.secondpart.PhotoUploadCarSellFragment">
 
-    <include
-        android:id="@+id/include3"
-        layout="@layout/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/backButtonComm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="28dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/ic_back_button"
-        app:layout_constraintBottom_toBottomOf="@+id/include3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/include3" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerPhotos"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/add_photo_btn_shape"
-        android:maxLength="20"
-        android:minHeight="230dp"
-        android:overScrollMode="never"
-        android:paddingStart="5dp"
-        android:paddingTop="5dp"
-        android:paddingEnd="5dp"
-        android:paddingBottom="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include3" />
+        android:background="@color/white"
+        tools:context=".screens.bottom_nav.addpost.upload.carpost.secondpart.PhotoUploadCarSellFragment">
+
+        <include
+            android:id="@+id/include3"
+            layout="@layout/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/backButtonComm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="28dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_back_button"
+            app:layout_constraintBottom_toBottomOf="@+id/include3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/include3" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerPhotos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/add_photo_btn_shape"
+            android:maxLength="20"
+            android:minHeight="230dp"
+            android:overScrollMode="never"
+            android:paddingStart="5dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include3" />
 
 
-    <EditText
-        android:id="@+id/descriptionET"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/costum_input"
-        android:gravity="top"
-        android:hint="@string/description"
-        android:paddingStart="25dp"
-        android:paddingTop="15dp"
-        android:paddingEnd="24dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/gray_blue"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerPhotos" />
+        <EditText
+            android:id="@+id/descriptionET"
+            android:layout_width="match_parent"
+            android:layout_height="270dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/costum_input"
+            android:gravity="top"
+            android:hint="@string/description"
+            android:paddingStart="25dp"
+            android:paddingTop="15dp"
+            android:paddingEnd="24dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray_blue"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerPhotos" />
 
 
-    <Button
-        android:id="@+id/save"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/custom_button"
-        android:fontFamily="@font/helvatice_medium"
-        android:text="@string/upload"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionET" />
+        <Button
+            android:id="@+id/save"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="36dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/custom_button"
+            android:fontFamily="@font/helvatice_medium"
+            android:text="@string/upload"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionET" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>
