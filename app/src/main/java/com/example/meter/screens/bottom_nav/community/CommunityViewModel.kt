@@ -70,11 +70,7 @@ class CommunityViewModel @Inject constructor(
                             "comment" to "დაალაიკა თქვენი პოსტი",
                             "name" to userId,
                             "postId" to postId.toString()
-                        ),
-                        message = "დაალაიკა თქვენი პოსტი",
-                        title = "Mater",
-                        token = "",
-                        topic = "Like"
+                        )
                     )
                 );
             }

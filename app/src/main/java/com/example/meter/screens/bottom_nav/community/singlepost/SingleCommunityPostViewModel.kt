@@ -121,11 +121,7 @@ class SingleCommunityPostViewModel @Inject constructor(
                         "comment" to "დააკომენტარა თქვენს პოსტზე",
                         "name" to userId,
                         "postId" to postId.toString()
-                    ),
-                    message = "დააკომენტარა თქვენს პოსტზე",
-                    title = "Mater",
-                    token = "",
-                    topic = "Comment"
+                    )
                 )
             );
         }
@@ -173,11 +169,7 @@ class SingleCommunityPostViewModel @Inject constructor(
                                 "comment" to "დაალაიკა თქვენი პოსტი",
                                 "name" to userId,
                                 "postId" to postId.toString()
-                            ),
-                            message = "დაალაიკა თქვენი პოსტი",
-                            title = "Mater",
-                            token = "",
-                            topic = "Like"
+                            )
                         )
                     );
                 }
