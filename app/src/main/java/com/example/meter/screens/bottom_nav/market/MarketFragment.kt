@@ -1,8 +1,11 @@
 package com.example.meter.screens.bottom_nav.market
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,9 +14,13 @@ import com.example.meter.adapter.carpost.CarPostRecyclerAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.MarketFragmentBinding
 import com.example.meter.extensions.makePhoneCall
+import com.example.meter.extensions.setGone
 import com.example.meter.paging.loadstate.LoaderStateAdapter
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -53,12 +60,24 @@ class MarketFragment : BaseFragment<MarketFragmentBinding, MarketViewModel>(
             viewModel.getMarketPosts()
             observe()
         }
+
+        binding.searchBar.doOnTextChanged { text, _, _, count ->
+            if (text!!.length >= 2) {
+                Log.d("piifi", "$text $count")
+                getSeachResultWithDelay(text.toString())
+            } else if (text.isEmpty()) {
+                viewModel.getMarketPosts()
+                observe()
+            }
+        }
+
     }
 
     private fun listeners() {
         adapter.onCallClick = { uid ->
             viewModel.getUserInfo(uid)
         }
+
     }
 
     private fun initRecycler() {
@@ -67,12 +86,6 @@ class MarketFragment : BaseFragment<MarketFragmentBinding, MarketViewModel>(
             requireContext(),
             LinearLayoutManager.VERTICAL, false
         )
-        var userId = firebaseAuthImpl.getUserId()
-
-        if (userId.isNullOrEmpty()) {
-            userId = ""
-        }
-
         adapter =
             CarPostRecyclerAdapter {
                 findNavController().navigate(
@@ -84,4 +97,18 @@ class MarketFragment : BaseFragment<MarketFragmentBinding, MarketViewModel>(
 
     }
 
+    private fun getSeachResultWithDelay(text: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(500)
+            viewModel.searchPost(text, "", null, null, null, null).observe(viewLifecycleOwner, {
+                lifecycleScope.launch {
+                    if (binding.progressCircular.isVisible) {
+                        binding.progressCircular.setGone()
+                    }
+                    adapter.submitData(it)
+                    adapter.notifyDataSetChanged()
+                }
+            })
+        }
+    }
 }

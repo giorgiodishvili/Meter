@@ -41,6 +41,7 @@ class UserInfoRepositoryImpl @Inject constructor(
 
     override suspend fun getUserPersonalInfo(uid: String): Resource<UserDetails> {
         return try {
+
             val response = postService.getUserPersonalInfo(uid)
             if (response.isSuccessful) {
                 Resource.success(response.body()!!)

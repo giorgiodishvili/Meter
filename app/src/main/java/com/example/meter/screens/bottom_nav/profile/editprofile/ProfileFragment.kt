@@ -14,7 +14,6 @@ import com.example.meter.databinding.ProfileFragmentBinding
 import com.example.meter.extensions.*
 import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
-import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

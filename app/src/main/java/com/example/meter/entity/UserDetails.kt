@@ -11,5 +11,5 @@ data class UserDetails(
     val id: String? = null,
     val verified: Boolean? = false,
     val url: String
-): Parcelable {
+) : Parcelable {
 }

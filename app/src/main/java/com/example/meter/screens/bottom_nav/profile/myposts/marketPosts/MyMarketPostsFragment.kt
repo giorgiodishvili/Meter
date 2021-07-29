@@ -12,6 +12,8 @@ import com.example.meter.adapter.mypost.MyMarketPostsRecyclerAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.base.SharedViewModel
 import com.example.meter.databinding.MyMarketPostsFragmentBinding
+import com.example.meter.extensions.hide
+import com.example.meter.extensions.show
 import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,11 +37,13 @@ class MyMarketPostsFragment : BaseFragment<MyMarketPostsFragmentBinding, MyMarke
 
     private fun init() {
         val currentUid = firebaseAuthImpl.getUserId().toString()
+//            binding.progressCircular.show()
 
         sharedViewModel.userId.observe(requireActivity(), { uid ->
 
             Log.d("uiduid", uid)
             if (uid != "none") {
+
                 viewModel.getUserInfo(uid)
                 observers(uid)
             } else {
@@ -74,11 +78,14 @@ class MyMarketPostsFragment : BaseFragment<MyMarketPostsFragmentBinding, MyMarke
         viewModel.readUserPosts.observe(this, {
             when (it.status) {
                 Resource.Status.SUCCESS -> {
+                    binding.progressCircular.hide()
                     it.data?.let { posts -> adapter.fetchPosts(posts.toMutableList()) }
                 }
                 Resource.Status.ERROR -> {
+                    binding.progressCircular.hide()
                 }
                 Resource.Status.LOADING -> {
+                    binding.progressCircular.show()
                 }
             }
         })

@@ -4,9 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.meter.entity.Chat
 import com.example.meter.entity.UserDetails
-import com.example.meter.entity.community.post.Content
 import com.example.meter.entity.push_notification.PushNotificationRequest
 import com.example.meter.entity.push_notification.PushNotificationResponse
 import com.example.meter.network.Resource

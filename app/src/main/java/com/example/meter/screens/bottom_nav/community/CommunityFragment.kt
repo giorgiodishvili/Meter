@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -17,7 +15,6 @@ import com.example.meter.R
 import com.example.meter.adapter.communitypost.main.CommunityPostsRecyclerViewAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.CommunityFragmentBinding
-import com.example.meter.entity.push_notification.PushNotificationResponse
 import com.example.meter.extensions.loadProfileImg
 import com.example.meter.extensions.setGone
 import com.example.meter.network.Resource
@@ -84,7 +81,7 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
         adapter =
             CommunityPostsRecyclerViewAdapter(userId) { _, content, b ->
                 if (b) {
-                    viewModel.createLike(content.id, userId,content.user.id)
+                    viewModel.createLike(content.id, userId, content.user.id)
                 } else {
                     viewModel.dislikePost(content.id, userId)
                 }
@@ -146,7 +143,9 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
             when (it.status) {
                 Resource.Status.ERROR -> i("dislike", "$it")
                 Resource.Status.SUCCESS -> i("dislike", "sucess")
-                Resource.Status.LOADING -> i("dislike", "loading")
+                Resource.Status.LOADING -> {
+                    popDialog(R.layout.dialog_item_error, R.id.errorMsg, "შეავსეთ ინფორმაცია")
+                }
             }
         })
 
@@ -157,7 +156,6 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
         CoroutineScope(Dispatchers.Main).launch {
             delay(500)
             viewModel.searchPost(text).observe(viewLifecycleOwner, {
-                d("tagtag123", "$it")
                 lifecycleScope.launch {
                     if (binding.progressCircular.isVisible) {
                         binding.progressCircular.setGone()

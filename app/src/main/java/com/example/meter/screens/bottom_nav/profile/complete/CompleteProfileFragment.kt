@@ -39,6 +39,7 @@ class CompleteProfileFragment :
 
     @Inject
     lateinit var firebaseAuthImpl: FirebaseRepositoryImpl
+
     @Inject
     lateinit var db: RealtimeDbRepImpl
 
@@ -65,14 +66,14 @@ class CompleteProfileFragment :
 
         val externalUid = arguments?.getString("uid")
 
-        if (externalUid != null  && firebaseAuthImpl.getUserId() != externalUid) {
+        if (externalUid != null && firebaseAuthImpl.getUserId() != externalUid) {
             showOtherProfile(externalUid)
         } else {
             showCurrentProfile()
         }
 
         val nodeForCurrent = db.createNode(firebaseAuthImpl.getUserId().toString(), uid)
-        val  nodeForOther = db.createNode(uid, firebaseAuthImpl.getUserId().toString())
+        val nodeForOther = db.createNode(uid, firebaseAuthImpl.getUserId().toString())
 
         uid.let { viewModel.getUserInfo(it) }
         listeners()
@@ -97,7 +98,6 @@ class CompleteProfileFragment :
                     if (arr != null) {
                         displayName(arr)
                     }
-
 
 
                 }
