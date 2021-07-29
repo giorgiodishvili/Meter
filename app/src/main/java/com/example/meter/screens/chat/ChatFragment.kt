@@ -11,6 +11,7 @@ import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.ChatFragmentBinding
 import com.example.meter.entity.Chat
 import com.example.meter.entity.UserDetails
+import com.example.meter.entity.push_notification.PushNotificationRequest
 import com.example.meter.extensions.showToast
 import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
@@ -22,6 +23,7 @@ import com.google.firebase.database.DatabaseReference
 import dagger.hilt.android.AndroidEntryPoint
 import java.sql.Timestamp
 import java.time.Instant
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
@@ -117,14 +119,32 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
     }
 
     private fun listenForMessage() {
+        var isLoaded : Boolean = false;
         nodeForCurrent.get().addOnSuccessListener { snapshot ->
-            d("tagtag", "$snapshot")
+            d("tagtag", "HEREE")
             nodeForCurrent.addChildEventListener(object: ChildEventListener {
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                     val messageItem = snapshot.getValue(Chat::class.java)
                     d("userIdLog123", "$messageItem")
                     if (messageItem != null) {
                         adapter.addItems(messageItem)
+
+                        if(isLoaded){
+                            viewModel.sendPush(messageItem.toUid,PushNotificationRequest(
+                                data = mapOf(
+                                    "comment" to "მოგწერათ",
+                                    "name" to messageItem.fromUid,
+                                    "postId" to "",
+                                    "to" to messageItem.toUid,
+                                    "from" to messageItem.fromUid,
+                                    "type" to "message"
+                                ),
+                                message = "დააკომენტარა თქვენს პოსტზე",
+                                title = "Mater",
+                                token = "",
+                                topic = "Comment"
+                            ))
+                        }
                     }
                 }
 
@@ -145,7 +165,9 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
                 }
 
             })
+            isLoaded=true
         }
+
     }
 
 

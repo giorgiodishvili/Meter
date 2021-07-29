@@ -2,7 +2,9 @@ package com.example.meter.pushnotifications
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
@@ -37,12 +39,22 @@ class MyFirebaseMessagingService() :
         super.onMessageReceived(p0)
         d("messageRecived", "${p0.data}")
 
-        val pendingIntent = NavDeepLinkBuilder(application.applicationContext)
-            .setComponentName(MainActivity::class.java)
-            .setGraph(R.navigation.bottom_bar_navigation)
-            .setDestination(R.id.singleCommunityPostFragment)
-            .setArguments(bundleOf("postId" to p0.data["postId"]))
-            .createPendingIntent()
+        val pendingIntent: PendingIntent = if(p0.data["message"].isNullOrEmpty()){
+            NavDeepLinkBuilder(application.applicationContext)
+                .setComponentName(MainActivity::class.java)
+                .setGraph(R.navigation.bottom_bar_navigation)
+                .setDestination(R.id.singleCommunityPostFragment)
+                .setArguments(bundleOf("postId" to p0.data["postId"]))
+                .createPendingIntent()
+        }else{
+            NavDeepLinkBuilder(application.applicationContext)
+                .setComponentName(MainActivity::class.java)
+                .setGraph(R.navigation.bottom_bar_navigation)
+                .setDestination(R.id.chatFragment)
+                .setArguments(bundleOf("to" to p0.data["to"],"from" to p0.data["from"]))
+                .createPendingIntent()
+        }
+
 
         val defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
 
