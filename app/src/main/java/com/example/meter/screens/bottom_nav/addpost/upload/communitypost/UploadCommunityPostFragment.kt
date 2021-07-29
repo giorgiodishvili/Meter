@@ -10,6 +10,7 @@ import android.provider.MediaStore
 import android.util.Log.d
 import android.util.Log.i
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -87,6 +88,14 @@ class UploadCommunityPostFragment :
         binding.save.setOnClickListener {
             binding.save.isEnabled = false
             postFieldCheck()
+        }
+
+        binding.descriptionET.setOnTouchListener { view, event ->
+            view.parent.requestDisallowInterceptTouchEvent(true)
+            if ((event.action and MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
+                view.parent.requestDisallowInterceptTouchEvent(false)
+            }
+            return@setOnTouchListener false
         }
     }
 

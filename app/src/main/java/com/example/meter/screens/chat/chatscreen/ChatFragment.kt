@@ -136,22 +136,15 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
 
         viewModel.sendPush(
             otherUser.id.toString(),
-            mapOf(
-                "comment" to "მოგწერათ",
-                "name" to currentUser.getUserId()!!,
-                "postId" to "",
-                "to" to otherUser.id,
-                "from" to currentUser.getUserId(),
-                "type" to "message"
-            ).let {
-                PushNotificationRequest(
-                    data = it as Map<String, String>,
-                    message = "მოგწერათ",
-                    title = "Mater",
-                    token = "",
-                    topic = "Comment"
+
+            PushNotificationRequest(
+                data = mapOf(
+                    "comment" to "მოგწერათ",
+                    "name" to currentUser.getUserId()!!.toString(),
+                    "type" to "message"
                 )
-            })
+            )
+        )
     }
 
     private fun listenForMessage() {
@@ -163,6 +156,9 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
                     d("userIdLog123", "$messageItem")
                     if (messageItem != null) {
                         adapter.addItems(messageItem)
+                        try{
+                            binding.recycler.scrollToPosition(adapter.itemCount - 1)
+                        }finally {}
                     }
                 }
 

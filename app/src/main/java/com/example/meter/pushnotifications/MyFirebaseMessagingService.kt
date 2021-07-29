@@ -3,11 +3,14 @@ package com.example.meter.pushnotifications
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.app.TaskStackBuilder
 import android.content.Context
+import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
 import android.util.Log.d
+import android.util.Log.i
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.os.bundleOf
@@ -29,16 +32,11 @@ class MyFirebaseMessagingService() :
     private val job = SupervisorJob()
     private val scope = CoroutineScope(Dispatchers.IO + job)
 
-    enum class ActionType {
-        COMMENT,
-        LIKE
-    }
-
     override fun onMessageReceived(p0: RemoteMessage) {
         super.onMessageReceived(p0)
         d("messageRecived", "${p0.data}")
 
-        val pendingIntent: PendingIntent = if (!p0.data["type"].isNullOrEmpty()) {
+        val pendingIntent: PendingIntent = if (p0.data["type"].isNullOrEmpty()) {
             NavDeepLinkBuilder(application.applicationContext)
                 .setComponentName(MainActivity::class.java)
                 .setGraph(R.navigation.bottom_bar_navigation)
@@ -46,12 +44,12 @@ class MyFirebaseMessagingService() :
                 .setArguments(bundleOf("postId" to p0.data["postId"]))
                 .createPendingIntent()
         } else {
-            NavDeepLinkBuilder(application.applicationContext)
-                .setComponentName(MainActivity::class.java)
-                .setGraph(R.navigation.bottom_bar_navigation)
-                .setDestination(R.id.chatFragment)
-                .setArguments(bundleOf("to" to p0.data["to"], "from" to p0.data["from"]))
-                .createPendingIntent()
+            val resultIntent = Intent(this, MainActivity::class.java)
+
+            TaskStackBuilder.create(this).run {
+                addNextIntentWithParentStack(resultIntent)
+                getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+            }
         }
 
 
@@ -61,10 +59,11 @@ class MyFirebaseMessagingService() :
             checkNotificationChannel("1")
         }
 
+
         val notification = NotificationCompat.Builder(applicationContext, "1")
             .setSmallIcon(R.drawable.ic_car_steering_wheel)
             .setContentTitle(p0.data["name"])
-            .setContentText(p0.data["comment"])
+            .setContentText(p0.data["text"])
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_HIGH)

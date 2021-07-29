@@ -12,6 +12,8 @@ import com.example.meter.adapter.mypost.MyCommPostsRecyclerAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.base.SharedViewModel
 import com.example.meter.databinding.MyCommPostsFragmentBinding
+import com.example.meter.extensions.hide
+import com.example.meter.extensions.show
 import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,6 +45,7 @@ class MyCommPostsFragment : BaseFragment<MyCommPostsFragmentBinding, MyCommPosts
                 viewModel.getUserInfo(uid)
                 observers(uid)
             } else {
+                binding.progressCircular.show()
                 sharedViewModel.saveUserId(currentUid)
                 viewModel.getUserInfo(currentUid)
                 observers(currentUid)
@@ -87,8 +90,10 @@ class MyCommPostsFragment : BaseFragment<MyCommPostsFragmentBinding, MyCommPosts
                     it.data?.let { posts -> adapter.fetchPosts(posts.toMutableList()) }
                 }
                 Resource.Status.ERROR -> {
+                    binding.progressCircular.hide()
                 }
                 Resource.Status.LOADING -> {
+                    binding.progressCircular.show()
                 }
             }
         })

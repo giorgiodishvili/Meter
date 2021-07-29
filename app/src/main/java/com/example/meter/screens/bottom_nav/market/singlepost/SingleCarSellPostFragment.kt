@@ -59,14 +59,18 @@ class SingleCarSellPostFragment :
     fun observe() {
         viewModel.post.observe(viewLifecycleOwner, {
             when (it.status) {
-                Resource.Status.ERROR -> Log.i("debugee", "ERROR")
+                Resource.Status.ERROR -> {
+                    popDialog(R.layout.dialog_item_error, R.id.errorMsg, "მოხვდა რაღაც შეცდომა")
+                }
                 Resource.Status.SUCCESS -> {
                     it!!.data?.let { it1 ->
                         setUpPost(it1)
                         car = it.data!!
                     }
                 }
-                Resource.Status.LOADING -> Log.i("debugee", "loading")
+                Resource.Status.LOADING -> {
+
+                }
             }
         })
 

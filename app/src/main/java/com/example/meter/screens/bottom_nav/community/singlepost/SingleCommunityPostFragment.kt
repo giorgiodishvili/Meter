@@ -151,6 +151,7 @@ class SingleCommunityPostFragment :
                 bundleOf("uid" to it)
             )
         }
+        binding.commentRV.scrollToPosition(communityPostCommentRecyclerAdapter.itemCount - 1)
     }
 
     private fun getDataFromBundle() {
@@ -222,7 +223,7 @@ class SingleCommunityPostFragment :
         }
 
         binding.authorIV.setOnClickListener {
-            i("userID","$it")
+            i("userID", "$it")
             binding.root.findNavController()
                 .navigate(
                     R.id.action_singleCommunityPostFragment_to_navigation_profile,

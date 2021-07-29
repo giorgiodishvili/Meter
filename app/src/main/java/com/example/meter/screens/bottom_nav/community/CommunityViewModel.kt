@@ -9,7 +9,10 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.meter.entity.UserDetails
 import com.example.meter.entity.community.post.Content
+import com.example.meter.entity.push_notification.PushNotificationRequest
+import com.example.meter.entity.push_notification.PushNotificationResponse
 import com.example.meter.network.Resource
+import com.example.meter.repository.firebase.FirebaseMessagingRepo
 import com.example.meter.repository.post.community.post.CommunityPostRepository
 import com.example.meter.repository.userInfo.UserInfoRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +24,8 @@ import javax.inject.Inject
 @HiltViewModel
 class CommunityViewModel @Inject constructor(
     private val communityPostRepository: CommunityPostRepository,
-    private val userInfo: UserInfoRepositoryImpl
+    private val userInfo: UserInfoRepositoryImpl,
+    private val firebaseMessagingRepo: FirebaseMessagingRepo
 ) :
     ViewModel() {
 
@@ -35,6 +39,12 @@ class CommunityViewModel @Inject constructor(
     }
     var loading: LiveData<Boolean> = _loading
 
+    private val _sendPush = MutableLiveData<Resource<PushNotificationResponse>>()
+
+    val sendPush: LiveData<Resource<PushNotificationResponse>>
+        get() = _sendPush
+
+
     private var _readUserInfo = MutableLiveData<Resource<UserDetails>>()
     val readUserInfo: LiveData<Resource<UserDetails>> = _readUserInfo
 
@@ -47,10 +57,22 @@ class CommunityViewModel @Inject constructor(
         return communityPostRepository.getCommunityPost().cachedIn(viewModelScope)
     }
 
-    fun createLike(postId: Long, userId: String) {
+    fun createLike(postId: Long, userId: String, contentUserId: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 _createLikeResponse.postValue(communityPostRepository.createLike(postId, userId))
+            }
+
+            if (contentUserId != userId) {
+                sendPush(
+                    contentUserId, pushNotificationRequest = PushNotificationRequest(
+                        data = mapOf(
+                            "comment" to "დაალაიკა თქვენი პოსტი",
+                            "name" to userId,
+                            "postId" to postId.toString()
+                        )
+                    )
+                );
             }
         }
     }
@@ -80,4 +102,17 @@ class CommunityViewModel @Inject constructor(
     fun searchCarsForSale(query: String?) {
         Log.i("SearchWord", query!!)
     }
+
+    private fun sendPush(userId: String, pushNotificationRequest: PushNotificationRequest) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                _sendPush.postValue(
+                    firebaseMessagingRepo.sendPushNotification(
+                        userId, pushNotificationRequest
+                    )
+                )
+            }
+        }
+    }
+
 }

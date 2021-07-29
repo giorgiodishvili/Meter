@@ -40,6 +40,7 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
 
     private lateinit var adapter: CommunityPostsRecyclerViewAdapter
 
+
     override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
         initRecycler()
         makeInitialCalls()
@@ -87,7 +88,7 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
         adapter =
             CommunityPostsRecyclerViewAdapter(userId) { _, content, b ->
                 if (b) {
-                    viewModel.createLike(content.id, userId)
+                    viewModel.createLike(content.id, userId, content.user.id)
                 } else {
                     viewModel.dislikePost(content.id, userId)
                 }
@@ -149,7 +150,9 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
             when (it.status) {
                 Resource.Status.ERROR -> i("dislike", "$it")
                 Resource.Status.SUCCESS -> i("dislike", "sucess")
-                Resource.Status.LOADING -> i("dislike", "loading")
+                Resource.Status.LOADING -> {
+                    popDialog(R.layout.dialog_item_error, R.id.errorMsg, "შეავსეთ ინფორმაცია")
+                }
             }
         })
 
@@ -160,7 +163,6 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
         CoroutineScope(Dispatchers.Main).launch {
             delay(500)
             viewModel.searchPost(text).observe(viewLifecycleOwner, {
-                d("tagtag123", "$it")
                 lifecycleScope.launch {
                     if (binding.progressCircular.isVisible) {
                         binding.progressCircular.setGone()
