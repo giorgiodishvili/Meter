@@ -33,14 +33,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/manufacturerRecycler"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@+id/carManufacturerChooser"
-            app:layout_constraintStart_toStartOf="@+id/carManufacturerChooser"
-            app:layout_constraintTop_toBottomOf="@+id/carManufacturerChooser" />
 
         <TextView
             android:id="@+id/carModelChooser"
@@ -49,6 +41,7 @@
             android:layout_marginStart="41dp"
             android:layout_marginTop="17dp"
             android:layout_marginEnd="41dp"
+            android:clickable="false"
             android:background="@drawable/card_button_shape"
             android:fontFamily="@font/helvatice_thin"
             android:paddingStart="21dp"
@@ -62,15 +55,6 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/carManufacturerChooser" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/modelRecycler"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@+id/carModelChooser"
-            app:layout_constraintStart_toStartOf="@+id/carModelChooser"
-            app:layout_constraintTop_toBottomOf="@+id/carModelChooser" />
 
 
         <EditText
@@ -303,7 +287,6 @@
             android:paddingTop="10dp"
             android:paddingEnd="28dp"
             android:paddingBottom="10dp"
-            android:text="35000"
             android:textColor="@color/dark_gray"
             android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -312,6 +295,30 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cylinders" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/modelRecycler"
+            android:layout_width="0dp"
+            android:background="@color/white"
+            android:elevation="50dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/carModelChooser"
+            app:layout_constraintStart_toStartOf="@+id/carModelChooser"
+            app:layout_constraintTop_toBottomOf="@+id/carModelChooser" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/manufacturerRecycler"
+            android:layout_width="0dp"
+            android:elevation="50dp"
+            android:background="@color/white"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/carManufacturerChooser"
+            app:layout_constraintStart_toStartOf="@+id/carManufacturerChooser"
+            app:layout_constraintTop_toBottomOf="@+id/carManufacturerChooser" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

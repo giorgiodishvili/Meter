@@ -98,8 +98,6 @@ class CompleteProfileFragment :
                         displayName(arr)
                     }
 
-
-
                 }
                 Resource.Status.ERROR -> {
                     requireContext().showToast("error loading user info")

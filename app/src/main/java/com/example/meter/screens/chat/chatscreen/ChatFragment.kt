@@ -146,7 +146,7 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
             ).let {
                 PushNotificationRequest(
                     data = it as Map<String, String>,
-                    message = "დააკომენტარა თქვენს პოსტზე",
+                    message = "მოგწერათ",
                     title = "Mater",
                     token = "",
                     topic = "Comment"

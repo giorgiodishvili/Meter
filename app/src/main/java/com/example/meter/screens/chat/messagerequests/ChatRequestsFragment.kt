@@ -43,6 +43,10 @@ class ChatRequestsFragment : BaseFragment<ChatRequestsFragmentBinding, ChatReque
         initAdapter()
         loadUsers()
         observers()
+
+        binding.backButton.setOnClickListener {
+            findNavController().navigate(R.id.action_chatRequestsFragment_to_navigation_community)
+        }
     }
 
     private fun initAdapter() {
@@ -61,7 +65,9 @@ class ChatRequestsFragment : BaseFragment<ChatRequestsFragmentBinding, ChatReque
             Log.d("childrencound", "$listOfUsers")
             viewModel.getUsersForChat(listOfUsers)
         }
+
     }
+
 
     private fun observers() {
         viewModel.usersForChat.observe(viewLifecycleOwner, {

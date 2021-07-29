@@ -268,6 +268,7 @@ class SingleCommunityPostFragment :
             }
 
             binding.deletebutton.setOnClickListener {
+                popDialog(R.layout.dialog_item)
                 binding.deletebutton.hide()
                 viewModel.deletePost(data.id)
             }
