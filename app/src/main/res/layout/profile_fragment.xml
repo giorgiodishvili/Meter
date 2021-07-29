@@ -20,6 +20,16 @@
         app:layout_constraintVertical_chainStyle="packed"
         app:srcCompat="@drawable/ic_profile_user" />
 
+    <ImageView
+        android:id="@+id/shine"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        android:src="@drawable/shine_drawable"
+        app:layout_constraintBottom_toBottomOf="@+id/uploadImage"
+        app:layout_constraintEnd_toEndOf="@+id/uploadImage"
+        app:layout_constraintStart_toStartOf="@+id/uploadImage"
+        app:layout_constraintTop_toTopOf="@+id/uploadImage" />
+
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/addImage"
         android:layout_width="wrap_content"

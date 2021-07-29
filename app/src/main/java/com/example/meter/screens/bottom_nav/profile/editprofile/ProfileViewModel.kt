@@ -2,6 +2,7 @@ package com.example.meter.screens.bottom_nav.profile.editprofile
 
 import android.net.Uri
 import android.util.Log
+import android.util.Log.d
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -92,8 +93,10 @@ class ProfileViewModel @Inject constructor(
                     try {
                         firebaseRepositoryImpl.getUserId()?.let {
                             firebaseStorageImpl.getImage(it).addOnCompleteListener { process ->
-                                if (process.isSuccessful)
+                                if (process.isSuccessful) {
                                     _readImageStatus.postValue(process.result)
+                                    d("uriuri", "${process.result}")
+                                }
                             }
                         }
                     } catch (e: StorageException) {
@@ -115,11 +118,26 @@ class ProfileViewModel @Inject constructor(
         uri: Uri?,
     ) {
         viewModelScope.launch {
+            val getUserImage = async {
+                withContext(Dispatchers.Default) {
+                    try {
+                        firebaseRepositoryImpl.getUserId()?.let {
+                            firebaseStorageImpl.getImage(it).addOnCompleteListener { process ->
+                                if (process.isSuccessful) {
+                                    _readImageStatus.postValue(process.result)
+                                    d("uriuri", "${process.result}")
+                                }
+                            }
+                        }
+                    } catch (e: StorageException) {
+                        Log.d("tagtag", "${e.message}")
+                    }
+                }
+            }
             val infoPost = async {
                 withContext(Dispatchers.Default) {
                     try {
-                        val result =
-                            userInfo.postUserPersonalInfo(email, name, number, url, verified)
+                        val result = userInfo.postUserPersonalInfo(email, name, number, url, verified)
                         _postUserInfo.postValue(result)
                     } catch (e: HttpException) {
                         Log.d("tagtag", "${e.message}")
