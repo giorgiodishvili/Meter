@@ -151,6 +151,7 @@ class SingleCommunityPostFragment :
                 bundleOf("uid" to it)
             )
         }
+        binding.commentRV.scrollToPosition(communityPostCommentRecyclerAdapter.itemCount-1)
     }
 
     private fun getDataFromBundle() {

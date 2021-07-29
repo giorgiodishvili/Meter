@@ -187,12 +187,13 @@
             app:vpi_slider_checked_color="@color/main_color"
             app:vpi_slider_normal_color="@color/button_color"
             app:vpi_slider_radius="3dp"
-            app:vpi_style="circle" />
+            app:vpi_style="circle"
+            tools:ignore="MissingClass" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/commentRV"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="12dp"

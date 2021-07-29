@@ -23,7 +23,6 @@ import com.google.firebase.database.DatabaseReference
 import dagger.hilt.android.AndroidEntryPoint
 import java.sql.Timestamp
 import java.time.Instant
-import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
@@ -34,6 +33,7 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
 ) {
     @Inject
     lateinit var currentUser: FirebaseRepositoryImpl
+
     @Inject
     lateinit var db: RealtimeDbRepImpl
 
@@ -76,7 +76,11 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
             when (user.status) {
                 Resource.Status.SUCCESS -> {
                     user.data?.let {
-                        adapter.loadInfo(currentUser.getUserId().toString(), user.data.url, otherUser.url)
+                        adapter.loadInfo(
+                            currentUser.getUserId().toString(),
+                            user.data.url,
+                            otherUser.url
+                        )
                         listenForMessage()
                     }
                 }
@@ -110,41 +114,51 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
         val msgForCurrent = nodeForCurrent.push()
         val msgForOther = nodeForOther.push()
 
-        val message = Chat( currentUser.getUserId().toString(), msgForCurrent.key.toString(), text, getCurrentTimeStamp().toString(), otherUser.id.toString())
+        val message = Chat(
+            currentUser.getUserId().toString(),
+            msgForCurrent.key.toString(),
+            text,
+            getCurrentTimeStamp().toString(),
+            otherUser.id.toString()
+        )
 
         msgForCurrent.setValue(message)
         msgForOther.setValue(message)
         binding.commentET.text.clear()
 
+        viewModel.sendPush(
+            otherUser.id.toString(),
+            mapOf(
+                "comment" to "მოგწერათ",
+                "name" to currentUser.getUserId()!!,
+                "postId" to "",
+                "to" to otherUser.id,
+                "from" to currentUser.getUserId(),
+                "type" to "message"
+            ).let {
+                PushNotificationRequest(
+                    data = it as Map<String, String>,
+                    message = "დააკომენტარა თქვენს პოსტზე",
+                    title = "Mater",
+                    token = "",
+                    topic = "Comment"
+
+                )
+            }
+        )
+
     }
 
     private fun listenForMessage() {
-        var isLoaded : Boolean = false;
         nodeForCurrent.get().addOnSuccessListener { snapshot ->
             d("tagtag", "HEREE")
-            nodeForCurrent.addChildEventListener(object: ChildEventListener {
+            nodeForCurrent.addChildEventListener(object : ChildEventListener {
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                     val messageItem = snapshot.getValue(Chat::class.java)
                     d("userIdLog123", "$messageItem")
                     if (messageItem != null) {
                         adapter.addItems(messageItem)
-
-                        if(isLoaded){
-                            viewModel.sendPush(messageItem.toUid,PushNotificationRequest(
-                                data = mapOf(
-                                    "comment" to "მოგწერათ",
-                                    "name" to messageItem.fromUid,
-                                    "postId" to "",
-                                    "to" to messageItem.toUid,
-                                    "from" to messageItem.fromUid,
-                                    "type" to "message"
-                                ),
-                                message = "დააკომენტარა თქვენს პოსტზე",
-                                title = "Mater",
-                                token = "",
-                                topic = "Comment"
-                            ))
-                        }
+                        binding.recycler.scrollToPosition(adapter.itemCount - 1)
                     }
                 }
 
@@ -165,11 +179,9 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
                 }
 
             })
-            isLoaded=true
         }
 
     }
-
 
 
     private fun getCurrentTimeStamp(): String? {

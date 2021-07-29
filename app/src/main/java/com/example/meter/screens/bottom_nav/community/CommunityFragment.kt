@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -15,6 +17,7 @@ import com.example.meter.R
 import com.example.meter.adapter.communitypost.main.CommunityPostsRecyclerViewAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.CommunityFragmentBinding
+import com.example.meter.entity.push_notification.PushNotificationResponse
 import com.example.meter.extensions.loadProfileImg
 import com.example.meter.extensions.setGone
 import com.example.meter.network.Resource
@@ -36,6 +39,7 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
     lateinit var firebaseAuthImpl: FirebaseRepositoryImpl
 
     private lateinit var adapter: CommunityPostsRecyclerViewAdapter
+
 
     override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
         initRecycler()
@@ -80,7 +84,7 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
         adapter =
             CommunityPostsRecyclerViewAdapter(userId) { _, content, b ->
                 if (b) {
-                    viewModel.createLike(content.id, userId)
+                    viewModel.createLike(content.id, userId,content.user.id)
                 } else {
                     viewModel.dislikePost(content.id, userId)
                 }
