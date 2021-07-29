@@ -14,6 +14,7 @@ import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.ChatFragmentBinding
 import com.example.meter.entity.Chat
 import com.example.meter.entity.UserDetails
+import com.example.meter.entity.push_notification.PushNotificationRequest
 import com.example.meter.extensions.loadProfileImg
 import com.example.meter.extensions.showToast
 import com.example.meter.network.Resource
@@ -133,6 +134,24 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
         msgForOther.setValue(message)
         binding.commentET.text.clear()
 
+        viewModel.sendPush(
+            otherUser.id.toString(),
+            mapOf(
+                "comment" to "მოგწერათ",
+                "name" to currentUser.getUserId()!!,
+                "postId" to "",
+                "to" to otherUser.id,
+                "from" to currentUser.getUserId(),
+                "type" to "message"
+            ).let {
+                PushNotificationRequest(
+                    data = it as Map<String, String>,
+                    message = "დააკომენტარა თქვენს პოსტზე",
+                    title = "Mater",
+                    token = "",
+                    topic = "Comment"
+                )
+            })
     }
 
     private fun listenForMessage() {

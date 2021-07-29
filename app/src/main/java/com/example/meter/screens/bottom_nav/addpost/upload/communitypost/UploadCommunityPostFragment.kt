@@ -70,6 +70,7 @@ class UploadCommunityPostFragment :
     }
 
     private fun setListeners() {
+        hideOnToolbar(binding.include3.chatfragments, binding.include3.userProfile)
 
         binding.backButtonComm.setOnClickListener {
             findNavController().navigate(R.id.action_uploadCommunityPostFragment_to_navigation_community)

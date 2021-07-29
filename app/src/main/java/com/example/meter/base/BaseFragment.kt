@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
+import com.example.meter.extensions.setGone
 import com.example.meter.extensions.showDialog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -97,6 +98,10 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
             )
         )
 
+    }
+    fun hideOnToolbar(image: View, toChat: View) {
+        image.setGone()
+        toChat.setGone()
     }
 
 

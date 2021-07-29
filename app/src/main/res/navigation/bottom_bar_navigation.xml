@@ -140,7 +140,9 @@
             app:popExitAnim="@anim/slide_out_top" />
         <action
             android:id="@+id/action_uploadCommunityPostFragment_to_navigation_community"
-            app:destination="@id/navigation_community" />
+            app:destination="@id/navigation_community"
+            app:popUpTo="@id/main_navigation"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_uploadCommunityPostFragment_to_completeProfileFragment"
             app:destination="@id/completeProfileFragment"
@@ -247,10 +249,10 @@
         android:label="chat_requests_fragment"
         tools:layout="@layout/chat_requests_fragment" >
         <action
-            android:id="@+id/action_chatRequestsFragment_to_chatFragment"
-            app:destination="@id/chatFragment" />
-        <action
             android:id="@+id/action_chatRequestsFragment_to_navigation_community"
             app:destination="@id/navigation_community" />
+        <action
+            android:id="@+id/action_chatRequestsFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
     </fragment>
 </navigation>

@@ -135,7 +135,6 @@ class CompleteProfileFragment :
 
     private fun openChat(model: UserDetails) {
         val bundle = bundleOf("userInfo" to model)
-
         findNavController().navigate(R.id.action_navigation_profile_to_chatFragment, bundle)
     }
 

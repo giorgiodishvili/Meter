@@ -7,9 +7,11 @@ import com.example.meter.databinding.UserchatItemBinding
 import com.example.meter.entity.UserDetails
 import com.example.meter.extensions.loadProfileImg
 
+typealias onUserClick = (userPosition: Int) -> Unit
 class ChatRequestsRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val users: MutableList<UserDetails> = mutableListOf()
+    lateinit var onUserClick: onUserClick
 
     inner class ViewHolder(private val binding: UserchatItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -18,6 +20,9 @@ class ChatRequestsRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder
             model = users[absoluteAdapterPosition]
             binding.userImg.loadProfileImg(model.url)
             binding.userName.text = model.name
+            binding.userImg.setOnClickListener {
+                onUserClick.invoke(absoluteAdapterPosition)
+            }
         }
     }
 
