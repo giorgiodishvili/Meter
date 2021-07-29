@@ -104,7 +104,6 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
                     null,
                     false
                 )
-                d("tagtag", "hee")
             } else {
                 viewModel.uploadUserInfo(
                     emailInfo!!,
@@ -112,9 +111,10 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
                     number,
                     imageUri.toString(),
                     true,
-                    imageUri,
+                    null,
                     true
                 )
+                binding.tvUserName.text = name
             }
 
         } else
@@ -140,7 +140,9 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
         })
 
         viewModel.uploadImageStatus.observe(viewLifecycleOwner, { status ->
-            if (!status)
+            if (status) {
+
+            }else
                 requireActivity().showToast("Failed")
         })
 
@@ -167,6 +169,7 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
         })
 
         viewModel.readImageStatus.observe(viewLifecycleOwner, { image ->
+
             binding.uploadImage.loadImgUri(image)
             imageUri = image
         })

@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.meter.R
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.LoginFragmentBinding
+import com.example.meter.extensions.hideKeyboard
 import com.example.meter.extensions.isEmail
 import com.example.meter.extensions.isNotEmail
 import com.example.meter.extensions.showToast
@@ -103,6 +104,7 @@ class LoginFragment : BaseFragment<LoginFragmentBinding, LoginViewModel>(
                 val navController =
                     requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
                 navController.navController.navigate(R.id.action_global_navigation_profile)
+                requireActivity().hideKeyboard(binding.passInput)
             } else {
                 popDialog(R.layout.dialog_item_error, R.id.errorMsg, "მონაცემები არასწორია")
             }

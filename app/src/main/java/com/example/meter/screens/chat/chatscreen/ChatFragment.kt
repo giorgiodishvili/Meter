@@ -1,4 +1,4 @@
-package com.example.meter.screens.chat
+package com.example.meter.screens.chat.chatscreen
 
 import android.os.Build
 import android.os.Bundle

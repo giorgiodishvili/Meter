@@ -71,8 +71,8 @@ class CompleteProfileFragment :
             showCurrentProfile()
         }
 
-        val nodeForCurrent = db.createNode(firebaseAuthImpl.getUserId().toString(), uid)
-        val  nodeForOther = db.createNode(uid, firebaseAuthImpl.getUserId().toString())
+        db.createNode(firebaseAuthImpl.getUserId().toString(), uid)
+        db.createReversedNode(uid, firebaseAuthImpl.getUserId().toString())
 
         uid.let { viewModel.getUserInfo(it) }
         listeners()

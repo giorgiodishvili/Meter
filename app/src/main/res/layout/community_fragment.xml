@@ -8,7 +8,6 @@
     android:background="@color/splash_screen_background"
     tools:context=".screens.bottom_nav.community.CommunityFragment">
 
-
     <include
         android:id="@+id/include4"
         layout="@layout/toolbar"
@@ -20,9 +19,9 @@
         android:id="@+id/search_bar"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginEnd="30dp"
         android:background="@drawable/dialog_shape"
         android:drawableEnd="@drawable/ic_search"
         android:hint="@string/search_hint"
@@ -33,7 +32,7 @@
         android:paddingEnd="10dp"
         android:textColor="@color/black"
         android:textColorHint="@color/gray_blue"
-        app:layout_constraintEnd_toStartOf="@+id/userProfile"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include4" />
 
@@ -68,19 +67,5 @@
             app:layout_constraintStart_toStartOf="@+id/recentPostsRV"
             app:layout_constraintTop_toBottomOf="@+id/search_bar" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-
-    <ImageView
-        android:id="@+id/userProfile"
-        android:layout_width="40dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="11dp"
-        app:layout_constraintBottom_toTopOf="@+id/swipe"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include4"
-        app:srcCompat="@drawable/ic_profile_user" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

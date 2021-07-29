@@ -20,6 +20,7 @@ import com.example.meter.extensions.setGone
 import com.example.meter.network.Resource
 import com.example.meter.paging.loadstate.LoaderStateAdapter
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
+import com.example.meter.repository.firebase.RealtimeDbRepImpl
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -34,6 +35,8 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
 ) {
     @Inject
     lateinit var firebaseAuthImpl: FirebaseRepositoryImpl
+    @Inject
+    lateinit var db: RealtimeDbRepImpl
 
     private lateinit var adapter: CommunityPostsRecyclerViewAdapter
 
@@ -46,6 +49,7 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
     private fun makeInitialCalls() {
         observe()
         firebaseAuthImpl.getUserId()?.let { viewModel.getUserInfo(it) }
+        db.incomingChat(firebaseAuthImpl.getUserId().toString())
         viewModel.getCommunityPosts()
     }
 
@@ -60,8 +64,11 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
             }
         }
 
-        binding.userProfile.setOnClickListener {
+        binding.include4.userProfile.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_community_to_navigation_profile)
+        }
+        binding.include4.chatfragments.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_community_to_chatRequestsFragment)
         }
     }
 
@@ -113,7 +120,7 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
         viewModel.readUserInfo.observe(viewLifecycleOwner, { data ->
             when (data.status) {
                 Resource.Status.SUCCESS -> {
-                    data.data?.let { binding.userProfile.loadProfileImg(it.url) }
+                    data.data?.let { binding.include4.userProfile.loadProfileImg(it.url) }
                 }
                 Resource.Status.ERROR -> i("Like", "$data")
                 Resource.Status.LOADING -> i("Like", "loading")
