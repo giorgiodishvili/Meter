@@ -5,12 +5,16 @@ import android.os.Bundle
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.meter.R
 import com.example.meter.adapter.chat.ChatRecyclerAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.ChatFragmentBinding
 import com.example.meter.entity.Chat
 import com.example.meter.entity.UserDetails
+import com.example.meter.extensions.loadProfileImg
 import com.example.meter.extensions.showToast
 import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
@@ -65,8 +69,9 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
 
         val otherUser = arguments?.getParcelable<UserDetails>("userInfo")
 
-        if (otherUser != null)
+        if (otherUser != null) {
             this.otherUser = otherUser
+        }
     }
 
     private fun observers() {
@@ -75,6 +80,8 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
                 Resource.Status.SUCCESS -> {
                     user.data?.let {
                         adapter.loadInfo(currentUser.getUserId().toString(), user.data.url, otherUser.url)
+                        binding.include.personname.text = otherUser.name
+                        binding.include.profilepicture.loadProfileImg(otherUser.url)
                         listenForMessage()
                     }
                 }
@@ -95,6 +102,18 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
     }
 
     private fun listeners() {
+        binding.include.backbutton.setOnClickListener {
+            val bundle = bundleOf("uid" to otherUser.id)
+            findNavController().navigate(R.id.action_chatFragment_to_navigation_profile, bundle)
+        }
+        binding.include.personname.setOnClickListener {
+            val bundle = bundleOf("uid" to otherUser.id)
+            findNavController().navigate(R.id.action_chatFragment_to_navigation_profile, bundle)
+        }
+        binding.include.profilepicture.setOnClickListener {
+            val bundle = bundleOf("uid" to otherUser.id)
+            findNavController().navigate(R.id.action_chatFragment_to_navigation_profile, bundle)
+        }
 
         binding.commentBTN.setOnClickListener {
             val text = binding.commentET.text.trim().toString()
