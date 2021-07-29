@@ -62,6 +62,13 @@ class ChatRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     fun addItems(chatItem: Chat) {
         this.chatItems.add(chatItem)
         notifyItemInserted(chatItems.size - 1)
+
+    }
+
+    fun preloadChatItems(chatItems: MutableList<Chat>) {
+        this.chatItems.clear()
+        this.chatItems.addAll(chatItems)
+        notifyDataSetChanged()
     }
 
     fun loadInfo(myUid: String, myImg: String, otherImg: String) {

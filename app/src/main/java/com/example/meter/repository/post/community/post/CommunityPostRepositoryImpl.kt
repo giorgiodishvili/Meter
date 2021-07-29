@@ -16,7 +16,7 @@ class CommunityPostRepositoryImpl @Inject constructor(private val apiService: Ap
     CommunityPostRepository {
 
     companion object {
-        private const val NETWORK_PAGE_SIZE = 10
+        private const val NETWORK_PAGE_SIZE = 5
     }
 
     override fun getCommunityPost(): LiveData<PagingData<Content>> {

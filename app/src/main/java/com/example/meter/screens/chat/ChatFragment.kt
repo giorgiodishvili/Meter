@@ -1,6 +1,7 @@
 package com.example.meter.screens.chat
 
 import android.os.Build
+import android.os.Bundle
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -40,20 +41,23 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
 
     private lateinit var otherUser: UserDetails
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        getOtherUserInfo()
+        nodeForCurrent = db.createNode(currentUser.getUserId().toString(), otherUser.id.toString())
+        nodeForOther = db.createNode(otherUser.id.toString(), currentUser.getUserId().toString())
+
+    }
+
     override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
         init()
     }
 
     private fun init() {
-        setUpChatRecycler()
 
         viewModel.getUserInfo(currentUser.getUserId().toString())
+        setUpChatRecycler()
         observers()
-        getOtherUserInfo()
-
-        nodeForCurrent = db.createNode(currentUser.getUserId().toString(), otherUser.id.toString())
-        nodeForOther = db.createNode(otherUser.id.toString(), currentUser.getUserId().toString())
-
         listeners()
     }
 
@@ -123,7 +127,7 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                d("userIdLog123", "change")
+                d("userIdLog123change", "change")
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
@@ -139,7 +143,20 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
             }
 
         })
+
+        nodeForCurrent.get().addOnSuccessListener { snapshot ->
+            snapshot.children.forEach {
+//                val chatList = mutableListOf<Chat>()
+//                d("tagtag", "${chatList}")
+//                adapter.preloadChatItems(chatList)
+            }
+        }.addOnFailureListener {
+            d("tagtag", "${it.message}")
+
+        }
     }
+
+
 
     private fun getCurrentTimeStamp(): String? {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

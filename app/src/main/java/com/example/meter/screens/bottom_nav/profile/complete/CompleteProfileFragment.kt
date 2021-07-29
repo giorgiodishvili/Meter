@@ -19,6 +19,7 @@ import com.example.meter.extensions.*
 import com.example.meter.network.Resource
 import com.example.meter.pushnotifications.MyFirebaseMessagingService
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
+import com.example.meter.repository.firebase.RealtimeDbRepImpl
 import com.example.meter.screens.bottom_nav.profile.myposts.commPosts.MyCommPostsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -38,6 +39,8 @@ class CompleteProfileFragment :
 
     @Inject
     lateinit var firebaseAuthImpl: FirebaseRepositoryImpl
+    @Inject
+    lateinit var db: RealtimeDbRepImpl
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,6 +70,9 @@ class CompleteProfileFragment :
         } else {
             showCurrentProfile()
         }
+
+        val nodeForCurrent = db.createNode(firebaseAuthImpl.getUserId().toString(), uid)
+        val  nodeForOther = db.createNode(uid, firebaseAuthImpl.getUserId().toString())
 
         uid.let { viewModel.getUserInfo(it) }
         listeners()
