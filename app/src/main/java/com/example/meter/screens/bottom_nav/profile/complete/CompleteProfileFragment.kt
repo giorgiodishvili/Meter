@@ -65,7 +65,7 @@ class CompleteProfileFragment :
 
         val externalUid = arguments?.getString("uid")
 
-        if (externalUid != null) {
+        if (externalUid != null  && firebaseAuthImpl.getUserId() != externalUid) {
             showOtherProfile(externalUid)
         } else {
             showCurrentProfile()

@@ -98,8 +98,8 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
 
         binding.commentBTN.setOnClickListener {
             val text = binding.commentET.text.trim().toString()
-            sendMessage(text)
-            binding.recycler.scrollToPosition(-1)
+            if (text.isNotBlank())
+                sendMessage(text)
         }
     }
 
@@ -112,47 +112,39 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
 
         msgForCurrent.setValue(message)
         msgForOther.setValue(message)
-
         binding.commentET.text.clear()
+
     }
 
     private fun listenForMessage() {
-        nodeForCurrent.addChildEventListener(object: ChildEventListener {
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val messageItem = snapshot.getValue(Chat::class.java)
-                d("userIdLog123", "$messageItem")
-                if (messageItem != null) {
-                    adapter.addItems(messageItem)
-                }
-            }
-
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                d("userIdLog123change", "change")
-            }
-
-            override fun onChildRemoved(snapshot: DataSnapshot) {
-                d("userIdLog123", "remove")
-            }
-
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                d("userIdLog123", "move")
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                d("userIdLog123", "canceled")
-            }
-
-        })
-
         nodeForCurrent.get().addOnSuccessListener { snapshot ->
-            snapshot.children.forEach {
-//                val chatList = mutableListOf<Chat>()
-//                d("tagtag", "${chatList}")
-//                adapter.preloadChatItems(chatList)
-            }
-        }.addOnFailureListener {
-            d("tagtag", "${it.message}")
+            d("tagtag", "$snapshot")
+            nodeForCurrent.addChildEventListener(object: ChildEventListener {
+                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                    val messageItem = snapshot.getValue(Chat::class.java)
+                    d("userIdLog123", "$messageItem")
+                    if (messageItem != null) {
+                        adapter.addItems(messageItem)
+                    }
+                }
 
+                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                    d("userIdLog123change", "change")
+                }
+
+                override fun onChildRemoved(snapshot: DataSnapshot) {
+                    d("userIdLog123", "remove")
+                }
+
+                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                    d("userIdLog123", "move")
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    d("userIdLog123", "canceled")
+                }
+
+            })
         }
     }
 

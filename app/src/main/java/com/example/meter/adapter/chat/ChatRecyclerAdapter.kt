@@ -1,6 +1,7 @@
 package com.example.meter.adapter.chat
 
 import android.util.Log.d
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -30,9 +31,11 @@ class ChatRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             binding.msgText.text = model.text
             if (itemViewType == MY_MSG) {
 
+                binding.root.mirrorView()
+                binding.msgText.gravity = Gravity.END
                 binding.userImg.loadProfileImg(myImg)
                 binding.msgText.setBackgroundResource(R.drawable.button_shape)
-                binding.root.mirrorView()
+
             } else {
                 binding.userImg.loadProfileImg(otherImg)
                 binding.msgText.setBackgroundResource(R.drawable.custom_button)
