@@ -2,10 +2,15 @@ package com.example.meter.extensions
 
 import android.net.Uri
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
 import android.widget.ImageView
+import androidx.core.view.marginBottom
+import androidx.core.view.marginLeft
+import androidx.core.view.marginRight
+import androidx.core.view.marginTop
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
@@ -14,6 +19,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.meter.R
+
 
 fun View.show() {
     visibility = View.VISIBLE
@@ -53,6 +59,17 @@ fun ImageView.loadImg(url: String, center: Boolean = true) {
             .placeholder(R.drawable.ic_placeholder)
             .error(R.drawable.ic_placeholder)
             .into(this)
+    }
+}
+
+fun View.setMargins(
+    left: Int = this.marginLeft,
+    top: Int = this.marginTop,
+    right: Int = this.marginRight,
+    bottom: Int = this.marginBottom,
+) {
+    layoutParams = (layoutParams as ViewGroup.MarginLayoutParams).apply {
+        setMargins(left, top, right, bottom)
     }
 }
 

@@ -67,12 +67,10 @@ class CompleteProfileFragment :
 
         if (externalUid != null  && firebaseAuthImpl.getUserId() != externalUid) {
             showOtherProfile(externalUid)
+            initDbForNextPage()
         } else {
             showCurrentProfile()
         }
-
-        db.createNode(firebaseAuthImpl.getUserId().toString(), uid)
-        db.createReversedNode(uid, firebaseAuthImpl.getUserId().toString())
 
         uid.let { viewModel.getUserInfo(it) }
         listeners()
@@ -126,7 +124,8 @@ class CompleteProfileFragment :
         }
 
         binding.backButton.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_profile_to_navigation_home)
+//            findNavController().navigate(R.id.action_navigation_profile_to_navigation_home)
+            findNavController().navigateUp()
         }
 
     }
@@ -183,6 +182,10 @@ class CompleteProfileFragment :
 
         }
 
+    }
+    private fun initDbForNextPage() {
+        db.createNode(firebaseAuthImpl.getUserId().toString(), uid)
+        db.createReversedNode(uid, firebaseAuthImpl.getUserId().toString())
     }
 
 }

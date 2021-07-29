@@ -45,7 +45,7 @@ class ChatRequestsFragment : BaseFragment<ChatRequestsFragmentBinding, ChatReque
         observers()
 
         binding.backButton.setOnClickListener {
-            findNavController().navigate(R.id.action_chatRequestsFragment_to_navigation_community)
+            findNavController().navigateUp()
         }
     }
 

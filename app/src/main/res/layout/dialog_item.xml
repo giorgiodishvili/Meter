@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_loop="false"
-        app:lottie_rawRes="@raw/loading" />
+        app:lottie_rawRes="@raw/sure" />
 
     <TextView
         android:id="@+id/textView2"
@@ -51,7 +51,7 @@
         android:elevation="10dp"
         android:paddingStart="51dp"
         android:paddingEnd="51dp"
-        android:text="No"
+        android:text="არა"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +70,7 @@
         android:elevation="10dp"
         android:paddingStart="51dp"
         android:paddingEnd="51dp"
-        android:text="yes"
+        android:text="კი"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"

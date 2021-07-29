@@ -78,6 +78,13 @@ class MarketFragment : BaseFragment<MarketFragmentBinding, MarketViewModel>(
             viewModel.getUserInfo(uid)
         }
 
+        binding.include5.userProfile.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_marketPosts_to_navigation_profile)
+        }
+        binding.include5.chatfragments.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_marketPosts_to_chatRequestsFragment)
+        }
+
     }
 
     private fun initRecycler() {

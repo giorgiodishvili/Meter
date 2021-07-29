@@ -7,7 +7,12 @@
     android:background="@color/splash_screen_background"
     tools:context=".screens.bottom_nav.market.MarketFragment">
 
-    <include layout="@layout/toolbar" />
+    <include
+        android:id="@+id/include5"
+        layout="@layout/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/search_bar"
@@ -28,7 +33,7 @@
         android:textColorHint="@color/gray_blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/my_toolbar" />
+        app:layout_constraintTop_toBottomOf="@id/include5" />
 
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

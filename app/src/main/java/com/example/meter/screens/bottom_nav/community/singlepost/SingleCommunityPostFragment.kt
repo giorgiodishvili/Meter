@@ -1,5 +1,6 @@
 package com.example.meter.screens.bottom_nav.community.singlepost
 
+import android.app.Dialog
 import android.util.Log.d
 import android.util.Log.i
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import com.example.meter.R
 import com.example.meter.adapter.communitypost.singlepost.CommunityPostCommentRecyclerAdapter
 import com.example.meter.adapter.communitypost.singlepost.SingleCommunityPostPhotoRecyclerAdapter
 import com.example.meter.base.BaseFragment
+import com.example.meter.databinding.DialogItemBinding
 import com.example.meter.databinding.SingleCommunityPostFragmentBinding
 import com.example.meter.entity.Comment
 import com.example.meter.entity.community.post.Content
@@ -232,6 +234,21 @@ class SingleCommunityPostFragment :
         }
     }
 
+    private fun delete(postId: Long) {
+        dialogItem = Dialog(requireActivity())
+        val dialogInflated = DialogItemBinding.inflate(layoutInflater)
+        dialogItem.showDialog(R.layout.dialog_item, dialogInflated)
+        dialogInflated.yesButton.setOnClickListener {
+            binding.deletebutton.hide()
+            dialogItem.cancel()
+            viewModel.deletePost(postId)
+        }
+        dialogInflated.noButton.setOnClickListener {
+            dialogItem.cancel()
+        }
+        dialogItem.show()
+    }
+
     private fun setUpPost(data: Content) {
 
         binding.authorIV.loadProfileImg(data.user.url)
@@ -260,21 +277,12 @@ class SingleCommunityPostFragment :
         }
 
         if (userId == data.user.id) {
-            binding.editbutton.show()
             binding.deletebutton.show()
-
-            binding.editbutton.setOnClickListener {
-                binding.root.findNavController()
-                    .navigate(R.id.action_singleCommunityPostFragment_to_uploadCommunityPostFragment)
-            }
-
             binding.deletebutton.setOnClickListener {
-                popDialog(R.layout.dialog_item)
-                binding.deletebutton.hide()
-                viewModel.deletePost(data.id)
+                delete(data.id)
             }
-        }
 
+        }
 
     }
 

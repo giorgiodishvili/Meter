@@ -105,7 +105,7 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
     private fun listeners() {
         binding.include.backbutton.setOnClickListener {
             val bundle = bundleOf("uid" to otherUser.id)
-            findNavController().navigate(R.id.action_chatFragment_to_navigation_profile, bundle)
+            findNavController().navigateUp()
         }
         binding.include.personname.setOnClickListener {
             val bundle = bundleOf("uid" to otherUser.id)
@@ -156,9 +156,6 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
                     d("userIdLog123", "$messageItem")
                     if (messageItem != null) {
                         adapter.addItems(messageItem)
-                        try{
-                            binding.recycler.scrollToPosition(adapter.itemCount - 1)
-                        }finally {}
                     }
                 }
 

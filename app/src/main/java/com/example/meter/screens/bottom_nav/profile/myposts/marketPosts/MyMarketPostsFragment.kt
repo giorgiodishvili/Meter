@@ -62,15 +62,6 @@ class MyMarketPostsFragment : BaseFragment<MyMarketPostsFragmentBinding, MyMarke
             3
         )
         binding.recycler.adapter = adapter
-        adapter.onCardViewClick = { postId ->
-            val bundle = bundleOf("postId" to postId)
-            val navController =
-                requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-            navController.navController.navigate(
-                R.id.action_global_singleCarSellPostFragment,
-                bundle
-            )
-        }
     }
 
     private fun observers(uid: String) {
@@ -79,7 +70,21 @@ class MyMarketPostsFragment : BaseFragment<MyMarketPostsFragmentBinding, MyMarke
             when (it.status) {
                 Resource.Status.SUCCESS -> {
                     binding.progressCircular.hide()
+                    if (it.data != null) {
+                        if (it.data.size < 3) {
+                            binding.recycler.layoutManager = GridLayoutManager(requireContext(), 2)
+                        }
+                    }
                     it.data?.let { posts -> adapter.fetchPosts(posts.toMutableList()) }
+                    adapter.onImageClick = { postId ->
+                        val bundle = bundleOf("postId" to postId)
+                        val navController =
+                            requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+                        navController.navController.navigate(
+                            R.id.action_global_singleCarSellPostFragment,
+                            bundle
+                        )
+                    }
                 }
                 Resource.Status.ERROR -> {
                     binding.progressCircular.hide()

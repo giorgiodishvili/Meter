@@ -1,5 +1,6 @@
 package com.example.meter.screens.bottom_nav.market.singlepost
 
+import android.app.Dialog
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,11 +10,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.meter.R
 import com.example.meter.adapter.communitypost.singlepost.SingleCommunityPostPhotoRecyclerAdapter
 import com.example.meter.base.BaseFragment
+import com.example.meter.databinding.DialogItemBinding
 import com.example.meter.databinding.SingleCarSellPostFragmentBinding
 import com.example.meter.entity.sell.SellCarPost
-import com.example.meter.extensions.loadProfileImg
-import com.example.meter.extensions.show
-import com.example.meter.extensions.toFormattedDate
+import com.example.meter.extensions.*
 import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,11 +44,11 @@ class SingleCarSellPostFragment :
 
     private fun setListeners() {
         binding.backButton.setOnClickListener {
-            findNavController().navigateUp()
+            findNavController().navigate(R.id.action_singleCarSellPostFragment_to_navigation_marketPosts)
         }
 
         binding.deletebutton.setOnClickListener {
-            viewModel.deletePost(postId)
+            delete(postId)
         }
     }
 
@@ -91,6 +91,20 @@ class SingleCarSellPostFragment :
             }
         })
 
+    }
+
+    private fun delete(postId: Long) {
+        dialogItem = Dialog(requireActivity())
+        val dialogInflated = DialogItemBinding.inflate(layoutInflater)
+        dialogItem.showDialog(R.layout.dialog_item, dialogInflated)
+        dialogInflated.yesButton.setOnClickListener {
+            binding.deletebutton.hide()
+            viewModel.deletePost(postId)
+        }
+        dialogInflated.noButton.setOnClickListener {
+            dialogItem.cancel()
+        }
+        dialogItem.show()
     }
 
     private fun setUpPost(data: SellCarPost) {

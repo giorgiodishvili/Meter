@@ -50,7 +50,6 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
     private fun makeInitialCalls() {
         observe()
         firebaseAuthImpl.getUserId()?.let { viewModel.getUserInfo(it) }
-        db.incomingChat(firebaseAuthImpl.getUserId().toString())
         viewModel.getCommunityPosts()
     }
 

@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
+import com.example.meter.R
+import com.example.meter.databinding.DialogItemBinding
 import com.example.meter.extensions.setGone
 import com.example.meter.extensions.showDialog
 import kotlinx.coroutines.CoroutineScope
@@ -65,9 +67,9 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
         if (tv != null) {
             dialogItem.findViewById<TextView>(tv).text = text
         }
+
         dialogItem.show()
     }
-
 
     private fun checkCameraHardware(context: Context): Boolean {
         return context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)

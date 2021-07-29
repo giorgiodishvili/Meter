@@ -3,18 +3,19 @@ package com.example.meter.adapter.mypost
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.meter.adapter.communitypost.main.onCardViewClick
 import com.example.meter.databinding.MymarketPhotoItemBinding
 import com.example.meter.entity.UserDetails
 import com.example.meter.entity.sell.SellCarPostForMainPage
 import com.example.meter.extensions.loadImg
 
+typealias onImageClick = (postId: Long) -> Unit
 class MyMarketPostsRecyclerAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    lateinit var onImageClick: onImageClick
+
     private val posts: MutableList<SellCarPostForMainPage> = mutableListOf()
     private lateinit var userInfo: UserDetails
-
-    lateinit var onCardViewClick: onCardViewClick
 
     inner class ViewHolder(private val binding: MymarketPhotoItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -22,6 +23,11 @@ class MyMarketPostsRecyclerAdapter(
         fun bind() {
             item = posts[absoluteAdapterPosition]
             binding.image.loadImg(item.photoUrl[0])
+
+            binding.image.setOnClickListener {
+                onImageClick.invoke(item.id.toLong())
+            }
+
         }
 
     }

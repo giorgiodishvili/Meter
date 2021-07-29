@@ -1,6 +1,5 @@
 package com.example.meter
 
-import android.animation.Animator
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.transition.Slide
@@ -50,16 +49,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         tokenListener()
-        binding.lottieAnimation.playAnimation()
-        setUpAnimation()
-//        bottomNavBarSetup()
         listeners()
+        bottomNavBarSetup()
     }
 
     @SuppressLint("LongLogTag")
     private fun bottomNavBarSetup() {
-
-        binding.lottieAnimation.setGone()
 
         val navView = binding.navView
         navHostFragment =
@@ -122,7 +117,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun hideIfAuth(destination: NavDestination, navBar: ChipNavigationBar) {
         hideButtons()
-        if (destination.id == R.id.main_auth || destination.id == R.id.navigation_profile || destination.id == R.id.completeProfileFragment || destination.id == R.id.chatFragment)
+        if (destination.id == R.id.splashScreenFragment || destination.id == R.id.navigation_profile
+            || destination.id == R.id.completeProfileFragment
+            || destination.id == R.id.chatFragment
+            || destination.id == R.id.main_auth)
             navBar.fade()
         else {
             navBar.show()
@@ -156,26 +154,6 @@ class MainActivity : AppCompatActivity() {
         binding.sellButton.setGone()
         binding.postButton.setGone()
     }
-
-    private fun setUpAnimation() {
-        d("taglag", "animation")
-        binding.lottieAnimation.addAnimatorListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(animation: Animator?) {
-            }
-
-            override fun onAnimationEnd(animation: Animator?) {
-                bottomNavBarSetup()
-            }
-
-            override fun onAnimationCancel(animation: Animator?) {
-            }
-
-            override fun onAnimationRepeat(animation: Animator?) {
-            }
-
-        })
-    }
-
 
     private fun tokenListener() {
 
