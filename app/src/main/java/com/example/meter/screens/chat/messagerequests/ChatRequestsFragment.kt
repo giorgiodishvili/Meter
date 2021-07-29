@@ -3,11 +3,13 @@ package com.example.meter.screens.chat.messagerequests
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.meter.R
 import com.example.meter.adapter.chat.ChatRequestsRecyclerAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.ChatRequestsFragmentBinding
-import com.example.meter.extensions.setGone
 import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import com.example.meter.repository.firebase.RealtimeDbRepImpl
@@ -32,14 +34,15 @@ class ChatRequestsFragment : BaseFragment<ChatRequestsFragmentBinding, ChatReque
 
     override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
         init()
-        loadUsers()
-        observers()
+
     }
 
     private fun init() {
-        binding.include2.chatfragments.setGone()
+        hideOnToolbar(binding.include2.chatfragments, binding.include2.userProfile)
         nodeForCurrent = db.incomingChat(currentUser.getUserId().toString())
         initAdapter()
+        loadUsers()
+        observers()
     }
 
     private fun initAdapter() {
@@ -49,6 +52,7 @@ class ChatRequestsFragment : BaseFragment<ChatRequestsFragmentBinding, ChatReque
     }
 
     private fun loadUsers() {
+
         nodeForCurrent.get().addOnSuccessListener { snapshot ->
             val listOfUsers = mutableListOf<String>()
             snapshot.children.forEach {
@@ -65,6 +69,10 @@ class ChatRequestsFragment : BaseFragment<ChatRequestsFragmentBinding, ChatReque
                 Resource.Status.SUCCESS -> {
                     Log.d("childrencound", "success")
                     it.data?.let { it1 -> adapter.addItems(it1) }
+                    adapter.onUserClick = { userPosition ->
+                        val bundle = bundleOf("userInfo" to it.data?.get(userPosition))
+                        findNavController().navigate(R.id.action_chatRequestsFragment_to_chatFragment, bundle)
+                    }
                 }
                 Resource.Status.ERROR -> {
                     Log.d("childrencound", "${it.message}")
