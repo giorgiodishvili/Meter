@@ -2,6 +2,7 @@ package com.example.meter.screens.bottom_nav.profile.editprofile
 
 import android.net.Uri
 import android.util.Log
+import android.util.Log.d
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -42,15 +43,17 @@ class ProfileViewModel @Inject constructor(
         email: String,
         name: String,
         number: String,
-        url: String = "",
+        url: String?,
         verified: Boolean,
         uri: Uri? = null,
         uploadWithImage: Boolean = true
     ) {
-        if (uploadWithImage)
-            uploadSynchronously(email, name, number, verified, url, uri)
+        if (uploadWithImage) {
+            uploadSynchronously(email, name, number, url, verified, uri)
+            d("tagtag", "heenoimage viewmodel")
+        }
         else {
-            uploadInfoOnly(email, name, number, url, verified)
+            uploadInfoOnly(email, name, number, url.toString(), verified)
         }
     }
 
@@ -83,7 +86,7 @@ class ProfileViewModel @Inject constructor(
                         val result = userInfo.getUserPersonalInfo(uid)
                         _readUserInfo.postValue(result)
                     } catch (e: DatabaseException) {
-                        Log.d("tagtag", "${e.message}")
+                        d("tagtag", "${e.message}")
                     }
                 }
             }
@@ -92,8 +95,10 @@ class ProfileViewModel @Inject constructor(
                     try {
                         firebaseRepositoryImpl.getUserId()?.let {
                             firebaseStorageImpl.getImage(it).addOnCompleteListener { process ->
-                                if (process.isSuccessful)
+                                if (process.isSuccessful) {
                                     _readImageStatus.postValue(process.result)
+                                    d("uriuri", "${process.result}")
+                                }
                             }
                         }
                     } catch (e: StorageException) {
@@ -110,37 +115,43 @@ class ProfileViewModel @Inject constructor(
         email: String,
         name: String,
         number: String,
+        url: String?,
         verified: Boolean,
-        url: String = "",
         uri: Uri?,
     ) {
         viewModelScope.launch {
-            val infoPost = async {
-                withContext(Dispatchers.Default) {
-                    try {
-                        val result =
-                            userInfo.postUserPersonalInfo(email, name, number, url, verified)
-                        _postUserInfo.postValue(result)
-                    } catch (e: HttpException) {
-                        Log.d("tagtag", "${e.message}")
-                    }
-                }
-            }
-            val imagePost = async {
-                withContext(Dispatchers.Default) {
-                    try {
-                        uri?.let { uri ->
-                            firebaseStorageImpl.uploadImage(uri).addOnCompleteListener { process ->
+            withContext(Dispatchers.Default) {
+                try {
+                    if (uri != null) {
+                        firebaseStorageImpl.uploadImage(uri).addOnCompleteListener { process ->
+                            if (process.isSuccessful) {
                                 _uploadImageStatus.postValue(process.isSuccessful)
+                                getImageAndUpload(email, name, number, url, verified)
                             }
                         }
-                    } catch (e: StorageException) {
-                        Log.d("tagtag", "${e.message}")
+                    } else {
+                        uploadInfoOnly(email, name, number, url, verified)
+                }
+                } catch (e: StorageException) {
+                    d("tagtag", "${e.message}")
+                }
+            }
+        }
+    }
+
+    private fun getImageAndUpload(email: String, name: String, number: String, url: String?, verified: Boolean) {
+        if (url == null) {
+            firebaseRepositoryImpl.getUserId()?.let {
+                firebaseStorageImpl.getImage(it).addOnCompleteListener { process ->
+                    if (process.isSuccessful) {
+                        uploadInfoOnly(email, name, number, process.result.toString(), verified)
+                        _readImageStatus.postValue(process.result)
+                        d("uriuri", "${process.result}")
                     }
                 }
             }
-            val writeProcess = listOf(infoPost, imagePost)
-            writeProcess.awaitAll()
+        } else {
+            uploadInfoOnly(email, name, number, url, verified)
         }
     }
 
@@ -148,13 +159,13 @@ class ProfileViewModel @Inject constructor(
         email: String,
         name: String,
         number: String,
-        url: String,
+        url: String? = "",
         verified: Boolean
     ) {
         viewModelScope.launch {
             withContext(Dispatchers.Default) {
                 try {
-                    val result = userInfo.postUserPersonalInfo(email, name, number, url, verified)
+                    val result = userInfo.postUserPersonalInfo(email, name, number, url.toString(), verified)
                     _postUserInfo.postValue(result)
                 } catch (e: HttpException) {
                     Log.d("tagtag", "${e.message}")

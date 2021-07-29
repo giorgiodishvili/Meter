@@ -1,6 +1,7 @@
 package com.example.meter
 
 import android.animation.Animator
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.transition.Slide
 import android.transition.Transition
@@ -55,6 +56,7 @@ class MainActivity : AppCompatActivity() {
         listeners()
     }
 
+    @SuppressLint("LongLogTag")
     private fun bottomNavBarSetup() {
 
         binding.lottieAnimation.setGone()
@@ -120,7 +122,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun hideIfAuth(destination: NavDestination, navBar: ChipNavigationBar) {
         hideButtons()
-        if (destination.id == R.id.main_auth || destination.id == R.id.navigation_profile || destination.id == R.id.completeProfileFragment)
+        if (destination.id == R.id.main_auth || destination.id == R.id.navigation_profile || destination.id == R.id.completeProfileFragment || destination.id == R.id.chatFragment)
             navBar.fade()
         else {
             navBar.show()

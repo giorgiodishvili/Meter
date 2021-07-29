@@ -38,7 +38,7 @@ class ChatRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             } else {
                 binding.userImg.loadProfileImg(otherImg)
-                binding.msgText.setBackgroundResource(R.drawable.custom_button)
+                binding.msgText.setBackgroundResource(R.drawable.custom_chat_holder)
             }
         }
 

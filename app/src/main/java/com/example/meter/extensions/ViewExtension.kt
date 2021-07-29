@@ -2,6 +2,8 @@ package com.example.meter.extensions
 
 import android.net.Uri
 import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
 import android.widget.ImageView
 import androidx.navigation.NavDirections
@@ -109,3 +111,11 @@ fun View.slideUp(duration: Int = 650) {
     startAnimation(animate)
 }
 
+fun View.shine(view: View) {
+    val animation: Animation =
+        TranslateAnimation(0f, (this.width + view.width).toFloat(), 0f, 0f)
+    animation.duration = 550
+    animation.fillAfter = false
+    animation.interpolator = AccelerateDecelerateInterpolator()
+    view.startAnimation(animation)
+}

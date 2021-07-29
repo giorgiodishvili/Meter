@@ -1,5 +1,6 @@
 package com.example.meter.repository.firebase
 
+import com.example.meter.entity.UserDetails
 import com.example.meter.entity.push_notification.PushNotificationRequest
 import com.example.meter.entity.push_notification.PushNotificationResponse
 import com.example.meter.network.Resource
@@ -30,4 +31,8 @@ interface FirebaseMessagingRepo {
         newToken: String,
         oldToken: String
     ): Resource<String>
+
+    suspend fun getUsersForChat(
+        list: String
+    ): Resource<List<UserDetails>>
 }

@@ -1,5 +1,6 @@
 package com.example.meter.repository.firebase
 
+import com.example.meter.entity.UserDetails
 import com.example.meter.entity.push_notification.PushNotificationRequest
 import com.example.meter.entity.push_notification.PushNotificationResponse
 import com.example.meter.network.ApiService
@@ -81,6 +82,19 @@ class FirebaseMessagingRepoImpl @Inject constructor(private val apiService: ApiS
                 Resource.error(response.message())
             }
 
+        } catch (e: Exception) {
+            Resource.error(e.message.toString())
+        }
+    }
+
+    override suspend fun getUsersForChat(list: String): Resource<List<UserDetails>> {
+        return try {
+            val response = apiService.getUsersForChat(list)
+            if (response.isSuccessful) {
+                Resource.success(response.body()!!)
+            } else {
+                Resource.error(response.message())
+            }
         } catch (e: Exception) {
             Resource.error(e.message.toString())
         }

@@ -24,6 +24,9 @@
             app:exitAnim="@anim/slide_out_bot"
             app:popEnterAnim="@anim/slide_in_bot"
             app:popExitAnim="@anim/slide_out_top" />
+        <action
+            android:id="@+id/action_navigation_community_to_chatRequestsFragment"
+            app:destination="@id/chatRequestsFragment" />
 
 
     </fragment>
@@ -106,7 +109,11 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_navigation_profile_to_chatFragment"
-            app:destination="@id/chatFragment" />
+            app:destination="@id/chatFragment"
+            app:enterAnim="@anim/slide_in_bot"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_bot"/>
 
 
     </fragment>
@@ -218,11 +225,32 @@
     </fragment>
     <fragment
         android:id="@+id/chatFragment"
-        android:name="com.example.meter.screens.chat.ChatFragment"
+        android:name="com.example.meter.screens.chat.chatscreen.ChatFragment"
         android:label="chat_fragment"
         tools:layout="@layout/chat_fragment">
         <action
             android:id="@+id/action_chatFragment_to_navigation_profile"
-            app:destination="@id/navigation_profile" />
+            app:destination="@id/navigation_profile"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/slide_out_bot"
+            app:popEnterAnim="@anim/slide_in_bot"
+            app:popExitAnim="@anim/slide_out_top"
+            app:popUpTo="@id/chatFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_chatFragment_to_chatRequestsFragment"
+            app:destination="@id/chatRequestsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatRequestsFragment"
+        android:name="com.example.meter.screens.chat.messagerequests.ChatRequestsFragment"
+        android:label="chat_requests_fragment"
+        tools:layout="@layout/chat_requests_fragment" >
+        <action
+            android:id="@+id/action_chatRequestsFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_chatRequestsFragment_to_navigation_community"
+            app:destination="@id/navigation_community" />
     </fragment>
 </navigation>

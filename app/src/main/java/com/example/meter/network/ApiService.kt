@@ -108,6 +108,11 @@ interface ApiService {
         @Part file: List<MultipartBody.Part>
     ): Response<Boolean>
 
+    @POST("/user/list/{userId}")
+    suspend fun getUsersForChat(
+        @Path("userId") list: String
+    ): Response<List<UserDetails>>
+
     @DELETE("community/post")
     @FormUrlEncoded
     suspend fun deleteCommunityPostById(

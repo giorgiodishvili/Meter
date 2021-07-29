@@ -1,17 +1,20 @@
-package com.example.meter.screens.chat
+package com.example.meter.screens.chat.chatscreen
 
 import android.os.Build
 import android.os.Bundle
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.meter.R
 import com.example.meter.adapter.chat.ChatRecyclerAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.ChatFragmentBinding
 import com.example.meter.entity.Chat
 import com.example.meter.entity.UserDetails
-import com.example.meter.entity.push_notification.PushNotificationRequest
+import com.example.meter.extensions.loadProfileImg
 import com.example.meter.extensions.showToast
 import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
@@ -33,7 +36,6 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
 ) {
     @Inject
     lateinit var currentUser: FirebaseRepositoryImpl
-
     @Inject
     lateinit var db: RealtimeDbRepImpl
 
@@ -67,8 +69,9 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
 
         val otherUser = arguments?.getParcelable<UserDetails>("userInfo")
 
-        if (otherUser != null)
+        if (otherUser != null) {
             this.otherUser = otherUser
+        }
     }
 
     private fun observers() {
@@ -76,11 +79,9 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
             when (user.status) {
                 Resource.Status.SUCCESS -> {
                     user.data?.let {
-                        adapter.loadInfo(
-                            currentUser.getUserId().toString(),
-                            user.data.url,
-                            otherUser.url
-                        )
+                        adapter.loadInfo(currentUser.getUserId().toString(), user.data.url, otherUser.url)
+                        binding.include.personname.text = otherUser.name
+                        binding.include.profilepicture.loadProfileImg(otherUser.url)
                         listenForMessage()
                     }
                 }
@@ -101,6 +102,18 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
     }
 
     private fun listeners() {
+        binding.include.backbutton.setOnClickListener {
+            val bundle = bundleOf("uid" to otherUser.id)
+            findNavController().navigate(R.id.action_chatFragment_to_navigation_profile, bundle)
+        }
+        binding.include.personname.setOnClickListener {
+            val bundle = bundleOf("uid" to otherUser.id)
+            findNavController().navigate(R.id.action_chatFragment_to_navigation_profile, bundle)
+        }
+        binding.include.profilepicture.setOnClickListener {
+            val bundle = bundleOf("uid" to otherUser.id)
+            findNavController().navigate(R.id.action_chatFragment_to_navigation_profile, bundle)
+        }
 
         binding.commentBTN.setOnClickListener {
             val text = binding.commentET.text.trim().toString()
@@ -114,51 +127,23 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
         val msgForCurrent = nodeForCurrent.push()
         val msgForOther = nodeForOther.push()
 
-        val message = Chat(
-            currentUser.getUserId().toString(),
-            msgForCurrent.key.toString(),
-            text,
-            getCurrentTimeStamp().toString(),
-            otherUser.id.toString()
-        )
+        val message = Chat( currentUser.getUserId().toString(), msgForCurrent.key.toString(), text, getCurrentTimeStamp().toString(), otherUser.id.toString())
 
         msgForCurrent.setValue(message)
         msgForOther.setValue(message)
         binding.commentET.text.clear()
 
-        viewModel.sendPush(
-            otherUser.id.toString(),
-            mapOf(
-                "comment" to "მოგწერათ",
-                "name" to currentUser.getUserId()!!,
-                "postId" to "",
-                "to" to otherUser.id,
-                "from" to currentUser.getUserId(),
-                "type" to "message"
-            ).let {
-                PushNotificationRequest(
-                    data = it as Map<String, String>,
-                    message = "დააკომენტარა თქვენს პოსტზე",
-                    title = "Mater",
-                    token = "",
-                    topic = "Comment"
-
-                )
-            }
-        )
-
     }
 
     private fun listenForMessage() {
         nodeForCurrent.get().addOnSuccessListener { snapshot ->
-            d("tagtag", "HEREE")
-            nodeForCurrent.addChildEventListener(object : ChildEventListener {
+            d("tagtag", "$snapshot")
+            nodeForCurrent.addChildEventListener(object: ChildEventListener {
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                     val messageItem = snapshot.getValue(Chat::class.java)
                     d("userIdLog123", "$messageItem")
                     if (messageItem != null) {
                         adapter.addItems(messageItem)
-                        binding.recycler.scrollToPosition(adapter.itemCount - 1)
                     }
                 }
 
@@ -180,8 +165,8 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
 
             })
         }
-
     }
+
 
 
     private fun getCurrentTimeStamp(): String? {
