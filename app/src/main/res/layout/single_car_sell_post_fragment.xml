@@ -79,7 +79,6 @@
             android:fontFamily="@font/helvatice_thin"
             android:text="-მა დაამატა პოსტი"
             android:textColor="@color/gray_blue"
-            app:layout_constraintBottom_toBottomOf="@+id/name"
             app:layout_constraintStart_toEndOf="@+id/name"
             app:layout_constraintTop_toTopOf="@+id/name" />
 
