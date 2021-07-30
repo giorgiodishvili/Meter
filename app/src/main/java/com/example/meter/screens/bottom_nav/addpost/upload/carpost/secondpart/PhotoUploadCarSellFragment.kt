@@ -2,16 +2,13 @@ package com.example.meter.screens.bottom_nav.addpost.upload.carpost.secondpart
 
 import android.Manifest
 import android.content.ContentResolver
-import android.content.ContentValues
+import android.content.Context
 import android.content.res.Resources
 import android.net.Uri
-import android.os.Build
-import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -20,13 +17,17 @@ import com.example.meter.adapter.communitypost.upload.UploadCommunityPostPhotoRe
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.PhotoUploadCarSellFragmentBinding
 import com.example.meter.entity.sell.SellCarPostRequest
+import com.example.meter.extensions.toBitmap
 import com.example.meter.extensions.toFile
 import com.example.meter.network.Resource
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import org.tensorflow.lite.support.image.TensorImage
+import org.tensorflow.lite.task.vision.detector.ObjectDetector
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -39,6 +40,8 @@ class PhotoUploadCarSellFragment : BaseFragment<PhotoUploadCarSellFragmentBindin
     private val photoFileList: MutableList<MultipartBody.Part> = mutableListOf()
     private var postId: Long = -1L
     private var latestTmpUri: Uri? = null
+
+    private lateinit var resultCheck: MutableList<String>
 
     private lateinit var adapter: UploadCommunityPostPhotoRecyclerAdapter
 
@@ -53,6 +56,7 @@ class PhotoUploadCarSellFragment : BaseFragment<PhotoUploadCarSellFragmentBindin
         hideOnToolbar(binding.include3.chatfragments, binding.include3.userProfile)
         initRecycler()
         listeners()
+
     }
 
     private fun initRecycler() {
@@ -71,8 +75,17 @@ class PhotoUploadCarSellFragment : BaseFragment<PhotoUploadCarSellFragmentBindin
 
     val requestPermissionResult =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
-            if (it[Manifest.permission.CAMERA] == true && it[Manifest.permission.READ_EXTERNAL_STORAGE] == true) {
-                showDialog()
+            if (it[Manifest.permission.READ_EXTERNAL_STORAGE] == true) {
+                pickImages.launch("image/*")
+            }
+        }
+
+    private val pickImages =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            if (uri != null) {
+                latestTmpUri = uri
+                popDialog(R.layout.dialog_item_loading)
+                runObjectDetection(uri, requireActivity())
             }
         }
 
@@ -88,8 +101,8 @@ class PhotoUploadCarSellFragment : BaseFragment<PhotoUploadCarSellFragmentBindin
         }
 
         adapter.uploadButton = {
-            if (hasCamera() && hasRead()) {
-                showDialog()
+            if (hasRead()) {
+                pickImages.launch("image/*")
             } else {
                 requestPermission(requestPermissionResult)
             }
@@ -168,97 +181,55 @@ class PhotoUploadCarSellFragment : BaseFragment<PhotoUploadCarSellFragmentBindin
         adapter.notifyDataSetChanged()
     }
 
-    private val pickImages =
-        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-            uri?.let { it ->
-                photoUriList.add(it)
-                adapter.submitData(photoUriList)
-                val file = it.toFile(requireContext())
-                Log.i("latestempURI", it.toString())
-                Log.i("filefile", "$file")
-
-                val photoFile = file!!.asRequestBody(file.extension.toMediaTypeOrNull())
-                val filePart = MultipartBody.Part.createFormData("file", file.name, photoFile)
-                photoFileList.add(filePart)
-            }
-        }
-
-    private fun showDialog() {
-        if (photoUriList.size < 6) {
-            val options = arrayOf<CharSequence>("Take Photo", "Choose From Gallery", "Cancel")
-            val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-            builder.setTitle("Select Option")
-            builder.setItems(options) { dialog, item ->
-                when {
-                    options[item] == "Take Photo" -> {
-                        openCamera()
-                    }
-                    options[item] == "Choose From Gallery" -> {
-                        pickImages.launch("image/*")
-                    }
-                    options[item] == "Cancel" -> {
-                        dialog.dismiss()
-                    }
-                }
-            }
-            builder.show()
-        } else {
-            popDialog(
-                R.layout.dialog_item_error,
-                R.id.errorMsg,
-                "მაქსიმუმ შესაძლებელია 5 ფოტოს ატვირთვა"
+    fun runObjectDetection(uri: Uri, context: Context) {
+        CoroutineScope(Dispatchers.Default).launch {
+            val bitmap = uri.toBitmap(context)
+            val image = TensorImage.fromBitmap(bitmap)
+            val options = ObjectDetector.ObjectDetectorOptions.builder()
+                .setMaxResults(3)
+                .setScoreThreshold(0.5f)
+                .build()
+            val detector = ObjectDetector.createFromFileAndOptions(
+                context,
+                "model.tflite",
+                options
             )
-        }
-    }
 
-    private val takePic = registerForActivityResult(ActivityResultContracts.TakePicture()) {
+            val results = detector.detect(image)
+            results.map {
+                val category = it.categories.first()
+                val output = listOf<String>("${category.score * 100}", category.label)
+                resultCheck = output.toMutableList()
+                dialogItem.cancel()
+            }
+            delay(6000)
+            if (!this@PhotoUploadCarSellFragment::resultCheck.isInitialized) {
+                resultCheck = mutableListOf("ვერ მოხდა ფოტოს ამოკითხვა")
+                results.clear()
+                dialogItem.cancel()
+            }
+            CoroutineScope(Dispatchers.Main).launch {
+                if (resultCheck.size == 2) {
+                    if (resultCheck[1] == "car" || resultCheck[0] == "truck") {
+                        latestTmpUri?.let { uri ->
+                            photoUriList.add(uri)
+                            adapter.submitData(photoUriList)
+                            val file = uri.toFile(requireContext())
+                            Log.i("latestempURI", uri.toString())
+                            Log.i("filefile", "$file")
 
-        if (it == true) {
-
-            latestTmpUri?.let { it1 ->
-                photoUriList.add(it1)
-                adapter.submitData(photoUriList)
-
-                val file = it1.toFile(requireContext())
-                Log.i("latestempURI", it1.toString())
-                Log.i("filefile", file.toString())
-
-
-                if (file != null) {
-                    val photoFile = file.asRequestBody(file.extension.toMediaTypeOrNull())
-
-                    val filePart =
-                        photoFile.let { it2 ->
-                            MultipartBody.Part.createFormData(
-                                "file", file.name,
-                                it2
-                            )
+                            val photoFile = file!!.asRequestBody(file.extension.toMediaTypeOrNull())
+                            val filePart = MultipartBody.Part.createFormData("file", file.name, photoFile)
+                            photoFileList.add(filePart)
                         }
-                    photoFileList.add(filePart)
+                    } else {
+                        popDialog(R.layout.dialog_item_error, R.id.errorMsg, "გამოსახულება დიდი ალბათობით ავტომობილი არ არის, სცადეთ ხელახლა")
+                    }
+                } else {
+                    popDialog(R.layout.dialog_item_error, R.id.errorMsg, "ვერ მორხდა ობიექტის ამოცნობა")
                 }
             }
         }
     }
-
-    private fun openCamera() {
-        val filename = "photo.jpg"
-        val imageUri =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
-            } else {
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-            }
-        val imagesDetails = ContentValues().apply {
-            put(MediaStore.Audio.Media.DISPLAY_NAME, filename)
-        }
-        requireActivity().contentResolver.insert(imageUri, imagesDetails).let {
-            if (it != null) {
-                latestTmpUri = it
-                takePic.launch(latestTmpUri)
-            }
-        }
-    }
-
-
 
 }
