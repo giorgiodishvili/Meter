@@ -326,7 +326,6 @@ class SingleCommunityPostFragment :
             binding.deletebutton.setOnClickListener {
                 delete(data.id)
             }
-
         }
 
     }

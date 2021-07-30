@@ -1,6 +1,7 @@
 package com.example.meter
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.NetworkCallback
 import android.net.Network
@@ -23,15 +24,16 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.meter.base.SharedViewModel
 import com.example.meter.databinding.ActivityMainBinding
-import com.example.meter.extensions.fade
-import com.example.meter.extensions.setGone
-import com.example.meter.extensions.show
-import com.example.meter.extensions.showToast
+import com.example.meter.extensions.*
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -40,6 +42,8 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var firebaseAuthImpl: FirebaseRepositoryImpl
+    private lateinit var dialogItem: Dialog
+
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navHostFragment: NavHostFragment
@@ -64,22 +68,21 @@ class MainActivity : AppCompatActivity() {
     private fun networkConnectionCheck() {
         val networkCallback: NetworkCallback = object : NetworkCallback() {
             override fun onAvailable(network: Network) {
-                applicationContext.showToast("internet is")
+
             }
 
             override fun onLost(network: Network) {
-                applicationContext.showToast("internet is not available")
+                popDialog()
             }
 
             override fun onLosing(network: Network, maxMsToLive: Int) {
-                applicationContext.showToast("internet is loosing")
+                popDialog()
 
             }
 
             override fun onUnavailable() {
-                applicationContext.showToast("internet is unavailable")
+                popDialog()
             }
-
 
         }
 
@@ -217,6 +220,16 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    fun popDialog() {
+        dialogItem = Dialog(this)
+        dialogItem.showDialog(R.layout.dialog_item_nointenet)
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(4200)
+            dialogItem.cancel()
+        }
+        dialogItem.show()
     }
 
 

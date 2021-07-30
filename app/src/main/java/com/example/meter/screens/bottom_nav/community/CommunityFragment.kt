@@ -126,11 +126,6 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
                     data.data?.let { binding.include4.userProfile.loadProfileImg(it.url) }
                 }
                 Resource.Status.ERROR -> {
-                    popDialog(
-                        R.layout.dialog_item_error,
-                        R.id.errorMsg,
-                        "ინფორმაციის წამოღება ვერ მოხდა"
-                    )
                 }
                 Resource.Status.LOADING -> {
                     i("Like", "loading")

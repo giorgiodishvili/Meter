@@ -69,6 +69,9 @@
     <string name="address_single_post">მისამართი: %1$s</string>
     <string name="phone_single_post">ტელ.: %1$s</string>
     <string name="parameters_single_post">პარამეტრები</string>
+    <string name="group">ჯგუფი</string>
+    <string name="add_post_nav">პოსტის დამატება</string>
+    <string name="market_bottom">მარკეტი</string>
 
 
 </resources>
