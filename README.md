@@ -16,7 +16,9 @@ The idea behing this app is to unite CAR community. There have been numerous of 
 
 ### Usage
 
-Using this app is straight forward. 
+Using this app is straight forward. Functionality has next features-> community posts, market posts, add posts, navigation to single profile and your profile where you can see all posts by you. Features such as messaging, calling to specific seller and notifications are in built. The main feature of our app is that it only allows posts of cars on sell screen with *Tensor Flow* support.
+The flow is the next ->
+Once you open up a post you are met with screen where there are general community posts about any topic related to cars. *AT LEAST WE HOPE SO*. From there you can navigate either to market screen, profile or add post. we have different screens for different type of posts. 
 
 ### Technology Used
 
