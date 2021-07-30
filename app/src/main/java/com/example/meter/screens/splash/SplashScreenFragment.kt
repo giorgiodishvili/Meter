@@ -23,6 +23,7 @@ class SplashScreenFragment : BaseFragment<SplashScreenFragmentBinding, SplashScr
 ) {
     @Inject
     lateinit var firebaseAuthImpl: FirebaseRepositoryImpl
+
     @Inject
     lateinit var db: RealtimeDbRepImpl
 

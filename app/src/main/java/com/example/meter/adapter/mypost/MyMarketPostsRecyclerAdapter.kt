@@ -9,6 +9,7 @@ import com.example.meter.entity.sell.SellCarPostForMainPage
 import com.example.meter.extensions.loadImg
 
 typealias onImageClick = (postId: Long) -> Unit
+
 class MyMarketPostsRecyclerAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

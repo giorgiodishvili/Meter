@@ -16,7 +16,8 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class ChatRequestsViewModel @Inject constructor(private val messagingRepo: FirebaseMessagingRepoImpl) : ViewModel() {
+class ChatRequestsViewModel @Inject constructor(private val messagingRepo: FirebaseMessagingRepoImpl) :
+    ViewModel() {
 
     private var _usersForChat = MutableLiveData<Resource<List<UserDetails>>>()
     val usersForChat: LiveData<Resource<List<UserDetails>>> = _usersForChat
@@ -27,7 +28,7 @@ class ChatRequestsViewModel @Inject constructor(private val messagingRepo: Fireb
         viewModelScope.launch {
             withContext(Dispatchers.Default) {
                 val changedList: String = list.toString().trim()
-                val input = changedList.substring( 1, changedList.length - 1 )
+                val input = changedList.substring(1, changedList.length - 1)
                 val result = messagingRepo.getUsersForChat(input)
                 _usersForChat.postValue(result)
             }

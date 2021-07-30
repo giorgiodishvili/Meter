@@ -7,11 +7,13 @@ import com.example.meter.databinding.DropDownItemBinding
 import com.example.meter.entity.AutomobileCategory
 
 typealias onManufacturerClick = (manufacturer: String) -> Unit
-class ManufacturerRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+class ManufacturerRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     lateinit var onManufacturerClick: onManufacturerClick
     private val items = mutableListOf<AutomobileCategory>()
 
-    inner class ViewHolder(private val binding: DropDownItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: DropDownItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         private lateinit var model: AutomobileCategory
         fun bind() {
             model = items[absoluteAdapterPosition]
@@ -23,12 +25,18 @@ class ManufacturerRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return ViewHolder(DropDownItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(
+            DropDownItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is ViewHolder ->  holder.bind()
+            is ViewHolder -> holder.bind()
         }
     }
 

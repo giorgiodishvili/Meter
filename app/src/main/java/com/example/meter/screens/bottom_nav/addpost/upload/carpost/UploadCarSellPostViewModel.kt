@@ -18,7 +18,10 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class UploadCarSellPostViewModel @Inject constructor(private val carPostRepository: CarPostRepository, private val manufacturers: AutomobileCategoryRepositoryImpl):
+class UploadCarSellPostViewModel @Inject constructor(
+    private val carPostRepository: CarPostRepository,
+    private val manufacturers: AutomobileCategoryRepositoryImpl
+) :
     ViewModel() {
 
     private val _sellPost = MutableLiveData<Resource<SellCarPost>>()

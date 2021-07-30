@@ -9,7 +9,6 @@
     tools:context=".screens.bottom_nav.community.singlepost.SingleCommunityPostFragment">
 
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -253,11 +252,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/helvatice_medium"
-            tools:text="title"
             android:textColor="@color/dark_gray"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="@+id/authorIV"
-            app:layout_constraintTop_toBottomOf="@+id/authorIV" />
+            app:layout_constraintTop_toBottomOf="@+id/authorIV"
+            tools:text="title" />
 
         <TextView
             android:id="@+id/textView4"
@@ -273,13 +272,14 @@
             android:id="@+id/deletebutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
             android:layout_marginTop="12dp"
+            android:layout_marginEnd="15dp"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_garbage"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/singlePostRecyclerPhoto" />
+
         <ProgressBar
             android:id="@+id/progress_circular"
             android:layout_width="wrap_content"

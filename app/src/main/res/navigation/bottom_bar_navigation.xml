@@ -30,7 +30,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
 
 
     </fragment>
@@ -117,7 +117,7 @@
             app:enterAnim="@anim/slide_in_bot"
             app:exitAnim="@anim/slide_out_top"
             app:popEnterAnim="@anim/slide_in_top"
-            app:popExitAnim="@anim/slide_out_bot"/>
+            app:popExitAnim="@anim/slide_out_bot" />
         <action
             android:id="@+id/action_navigation_profile_to_navigation_marketPosts"
             app:destination="@id/navigation_marketPosts" />
@@ -127,7 +127,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
 
 
     </fragment>
@@ -169,14 +169,14 @@
         android:id="@+id/uploadCarSellPostFragment"
         android:name="com.example.meter.screens.bottom_nav.addpost.upload.carpost.UploadCarSellPostFragment"
         android:label="upload_car_sell_post_fragment"
-        tools:layout="@layout/upload_car_sell_post_fragment" >
+        tools:layout="@layout/upload_car_sell_post_fragment">
         <action
             android:id="@+id/action_uploadCarSellPostFragment_to_photoUploadCarSellFragment"
             app:destination="@id/photoUploadCarSellFragment"
             app:enterAnim="@anim/slide_in_bot"
             app:exitAnim="@anim/slide_out_top"
             app:popEnterAnim="@anim/slide_in_top"
-            app:popExitAnim="@anim/slide_out_bot"/>
+            app:popExitAnim="@anim/slide_out_bot" />
     </fragment>
     <fragment
         android:id="@+id/navigation_marketPosts"
@@ -189,7 +189,7 @@
             app:enterAnim="@anim/slide_in_top"
             app:exitAnim="@anim/slide_out_bot"
             app:popEnterAnim="@anim/slide_in_bot"
-            app:popExitAnim="@anim/slide_out_top"/>
+            app:popExitAnim="@anim/slide_out_top" />
         <action
             android:id="@+id/action_navigation_marketPosts_to_navigation_profile"
             app:destination="@id/navigation_profile"
@@ -203,7 +203,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/singleCommunityPostFragment"
@@ -250,22 +250,22 @@
     <action
         android:id="@+id/action_global_singleCommunityPostFragment"
         app:destination="@id/singleCommunityPostFragment"
-        app:popUpTo="@id/main_navigation"
-        app:popUpToInclusive="true"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
-        app:popExitAnim="@anim/slide_out_right"/>
+        app:popExitAnim="@anim/slide_out_right"
+        app:popUpTo="@id/main_navigation"
+        app:popUpToInclusive="true" />
 
     <action
         android:id="@+id/action_global_singleCarSellPostFragment"
         app:destination="@id/singleCarSellPostFragment"
-        app:popUpTo="@id/main_navigation"
-        app:popUpToInclusive="true"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
-        app:popExitAnim="@anim/slide_out_right"/>
+        app:popExitAnim="@anim/slide_out_right"
+        app:popUpTo="@id/main_navigation"
+        app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/singleCarSellPostFragment"
         android:name="com.example.meter.screens.bottom_nav.market.singlepost.SingleCarSellPostFragment"
@@ -301,13 +301,13 @@
             app:enterAnim="@anim/slide_in_bot"
             app:exitAnim="@anim/slide_out_top"
             app:popEnterAnim="@anim/slide_in_top"
-            app:popExitAnim="@anim/slide_out_bot"/>
+            app:popExitAnim="@anim/slide_out_bot" />
     </fragment>
     <fragment
         android:id="@+id/chatRequestsFragment"
         android:name="com.example.meter.screens.chat.messagerequests.ChatRequestsFragment"
         android:label="chat_requests_fragment"
-        tools:layout="@layout/chat_requests_fragment" >
+        tools:layout="@layout/chat_requests_fragment">
         <action
             android:id="@+id/action_chatRequestsFragment_to_navigation_community"
             app:destination="@id/navigation_community" />
@@ -317,26 +317,26 @@
             app:enterAnim="@anim/slide_in_top"
             app:exitAnim="@anim/slide_out_bot"
             app:popEnterAnim="@anim/slide_in_bot"
-            app:popExitAnim="@anim/slide_out_top"/>
+            app:popExitAnim="@anim/slide_out_top" />
     </fragment>
     <fragment
         android:id="@+id/photoUploadCarSellFragment"
         android:name="com.example.meter.screens.bottom_nav.addpost.upload.carpost.secondpart.PhotoUploadCarSellFragment"
         android:label="photo_upload_car_sell_fragment"
-        tools:layout="@layout/photo_upload_car_sell_fragment" >
+        tools:layout="@layout/photo_upload_car_sell_fragment">
         <action
             android:id="@+id/action_photoUploadCarSellFragment_to_uploadCarSellPostFragment"
             app:destination="@id/uploadCarSellPostFragment"
             app:enterAnim="@anim/slide_in_top"
             app:exitAnim="@anim/slide_out_bot"
             app:popEnterAnim="@anim/slide_in_bot"
-            app:popExitAnim="@anim/slide_out_top"/>
+            app:popExitAnim="@anim/slide_out_top" />
     </fragment>
     <fragment
         android:id="@+id/splashScreenFragment"
         android:name="com.example.meter.screens.splash.SplashScreenFragment"
         android:label="splash_screen_fragment"
-        tools:layout="@layout/splash_screen_fragment" >
+        tools:layout="@layout/splash_screen_fragment">
         <action
             android:id="@+id/action_splashScreenFragment_to_navigation_community"
             app:destination="@id/navigation_community"

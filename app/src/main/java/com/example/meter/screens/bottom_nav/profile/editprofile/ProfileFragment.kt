@@ -142,7 +142,7 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>(
         viewModel.uploadImageStatus.observe(viewLifecycleOwner, { status ->
             if (status) {
 
-            }else
+            } else
                 requireActivity().showToast("Failed")
         })
 

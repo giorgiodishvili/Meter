@@ -80,6 +80,7 @@ class SingleCarSellPostFragment :
                 Resource.Status.ERROR -> {
                     Log.i("deletePost", "$it")
                     binding.deletebutton.show()
+                    popDialog(R.layout.dialog_item_error, R.id.errorMsg, "მოხვდა რაღაც შეცდომა")
                 }
                 Resource.Status.SUCCESS -> {
                     binding.deletebutton.show()

@@ -8,6 +8,7 @@ import com.example.meter.entity.UserDetails
 import com.example.meter.extensions.loadProfileImg
 
 typealias onUserClick = (userPosition: Int) -> Unit
+
 class ChatRequestsRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val users: MutableList<UserDetails> = mutableListOf()

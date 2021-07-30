@@ -1,6 +1,12 @@
 package com.example.meter
 
 import android.annotation.SuppressLint
+import android.net.ConnectivityManager
+import android.net.ConnectivityManager.NetworkCallback
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
+import android.os.Build
 import android.os.Bundle
 import android.transition.Slide
 import android.transition.Transition
@@ -20,6 +26,7 @@ import com.example.meter.databinding.ActivityMainBinding
 import com.example.meter.extensions.fade
 import com.example.meter.extensions.setGone
 import com.example.meter.extensions.show
+import com.example.meter.extensions.showToast
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
@@ -47,10 +54,46 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        networkConnectionCheck()
 
         tokenListener()
         listeners()
         bottomNavBarSetup()
+    }
+
+    private fun networkConnectionCheck() {
+        val networkCallback: NetworkCallback = object : NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                applicationContext.showToast("internet is")
+
+            }
+
+            override fun onLost(network: Network) {
+                applicationContext.showToast("internet is not available")
+            }
+
+            override fun onLosing(network: Network, maxMsToLive: Int) {
+                applicationContext.showToast("internet is loosing")
+
+            }
+
+            override fun onUnavailable() {
+                applicationContext.showToast("internet is unavailable")
+            }
+
+
+        }
+
+        val connectivityManager =
+            applicationContext.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            connectivityManager.registerDefaultNetworkCallback(networkCallback)
+        } else {
+            val request: NetworkRequest = NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).build()
+            connectivityManager.registerNetworkCallback(request, networkCallback)
+        }
     }
 
     @SuppressLint("LongLogTag")
@@ -120,7 +163,8 @@ class MainActivity : AppCompatActivity() {
         if (destination.id == R.id.splashScreenFragment || destination.id == R.id.navigation_profile
             || destination.id == R.id.completeProfileFragment
             || destination.id == R.id.chatFragment
-            || destination.id == R.id.main_auth)
+            || destination.id == R.id.main_auth
+        )
             navBar.fade()
         else {
             navBar.show()
@@ -175,4 +219,6 @@ class MainActivity : AppCompatActivity() {
 
         })
     }
+
+
 }

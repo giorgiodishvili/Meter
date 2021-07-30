@@ -11,9 +11,11 @@ class RealtimeDbRepImpl @Inject constructor(
     override fun createNode(from: String, to: String): DatabaseReference {
         return firebaseDB.getReference("/messages").child(from).child(to)
     }
+
     override fun incomingChat(uid: String): DatabaseReference {
         return firebaseDB.getReference("/messages").child(uid)
     }
+
     override fun createReversedNode(to: String, from: String): DatabaseReference {
         return firebaseDB.getReference("/messages").child(to).child(from)
     }

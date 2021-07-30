@@ -25,6 +25,7 @@ class ChatRequestsFragment : BaseFragment<ChatRequestsFragmentBinding, ChatReque
 
     @Inject
     lateinit var currentUser: FirebaseRepositoryImpl
+
     @Inject
     lateinit var db: RealtimeDbRepImpl
 
@@ -77,13 +78,17 @@ class ChatRequestsFragment : BaseFragment<ChatRequestsFragmentBinding, ChatReque
                     it.data?.let { it1 -> adapter.addItems(it1) }
                     adapter.onUserClick = { userPosition ->
                         val bundle = bundleOf("userInfo" to it.data?.get(userPosition))
-                        findNavController().navigate(R.id.action_chatRequestsFragment_to_chatFragment, bundle)
+                        findNavController().navigate(
+                            R.id.action_chatRequestsFragment_to_chatFragment,
+                            bundle
+                        )
                     }
                 }
                 Resource.Status.ERROR -> {
                     Log.d("childrencound", "${it.message}")
                 }
-                Resource.Status.LOADING -> {}
+                Resource.Status.LOADING -> {
+                }
             }
         })
     }

@@ -37,6 +37,7 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
 ) {
     @Inject
     lateinit var currentUser: FirebaseRepositoryImpl
+
     @Inject
     lateinit var db: RealtimeDbRepImpl
 
@@ -80,7 +81,11 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
             when (user.status) {
                 Resource.Status.SUCCESS -> {
                     user.data?.let {
-                        adapter.loadInfo(currentUser.getUserId().toString(), user.data.url, otherUser.url)
+                        adapter.loadInfo(
+                            currentUser.getUserId().toString(),
+                            user.data.url,
+                            otherUser.url
+                        )
                         binding.include.personname.text = otherUser.name
                         binding.include.profilepicture.loadProfileImg(otherUser.url)
                         listenForMessage()
@@ -128,7 +133,13 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
         val msgForCurrent = nodeForCurrent.push()
         val msgForOther = nodeForOther.push()
 
-        val message = Chat( currentUser.getUserId().toString(), msgForCurrent.key.toString(), text, getCurrentTimeStamp().toString(), otherUser.id.toString())
+        val message = Chat(
+            currentUser.getUserId().toString(),
+            msgForCurrent.key.toString(),
+            text,
+            getCurrentTimeStamp().toString(),
+            otherUser.id.toString()
+        )
 
         msgForCurrent.setValue(message)
         msgForOther.setValue(message)
@@ -150,7 +161,7 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
     private fun listenForMessage() {
         nodeForCurrent.get().addOnSuccessListener { snapshot ->
             d("tagtag", "$snapshot")
-            nodeForCurrent.addChildEventListener(object: ChildEventListener {
+            nodeForCurrent.addChildEventListener(object : ChildEventListener {
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                     val messageItem = snapshot.getValue(Chat::class.java)
                     d("userIdLog123", "$messageItem")
@@ -178,7 +189,6 @@ class ChatFragment : BaseFragment<ChatFragmentBinding, ChatViewModel>(
             })
         }
     }
-
 
 
     private fun getCurrentTimeStamp(): String? {

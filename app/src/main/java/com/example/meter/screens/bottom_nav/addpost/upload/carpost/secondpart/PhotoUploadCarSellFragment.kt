@@ -31,10 +31,11 @@ import org.tensorflow.lite.task.vision.detector.ObjectDetector
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PhotoUploadCarSellFragment : BaseFragment<PhotoUploadCarSellFragmentBinding, PhotoUploadCarSellViewModel>(
-    PhotoUploadCarSellFragmentBinding::inflate,
-    PhotoUploadCarSellViewModel::class.java
-) {
+class PhotoUploadCarSellFragment :
+    BaseFragment<PhotoUploadCarSellFragmentBinding, PhotoUploadCarSellViewModel>(
+        PhotoUploadCarSellFragmentBinding::inflate,
+        PhotoUploadCarSellViewModel::class.java
+    ) {
 
     private val photoUriList: MutableList<Uri> = mutableListOf()
     private val photoFileList: MutableList<MultipartBody.Part> = mutableListOf()
@@ -94,7 +95,11 @@ class PhotoUploadCarSellFragment : BaseFragment<PhotoUploadCarSellFragmentBindin
 
         binding.save.setOnClickListener {
             if (previousStep != null) {
-                viewModel.uploadPost(firebaseAuthImpl.getUserId().toString(), binding.descriptionET.text.toString(), previousStep)
+                viewModel.uploadPost(
+                    firebaseAuthImpl.getUserId().toString(),
+                    binding.descriptionET.text.toString(),
+                    previousStep
+                )
                 observer()
                 popDialog(R.layout.dialog_item_uploading)
             }
@@ -219,14 +224,23 @@ class PhotoUploadCarSellFragment : BaseFragment<PhotoUploadCarSellFragmentBindin
                             Log.i("filefile", "$file")
 
                             val photoFile = file!!.asRequestBody(file.extension.toMediaTypeOrNull())
-                            val filePart = MultipartBody.Part.createFormData("file", file.name, photoFile)
+                            val filePart =
+                                MultipartBody.Part.createFormData("file", file.name, photoFile)
                             photoFileList.add(filePart)
                         }
                     } else {
-                        popDialog(R.layout.dialog_item_error, R.id.errorMsg, "გამოსახულება დიდი ალბათობით ავტომობილი არ არის, სცადეთ ხელახლა")
+                        popDialog(
+                            R.layout.dialog_item_error,
+                            R.id.errorMsg,
+                            "გამოსახულება დიდი ალბათობით ავტომობილი არ არის, სცადეთ ხელახლა"
+                        )
                     }
                 } else {
-                    popDialog(R.layout.dialog_item_error, R.id.errorMsg, "ვერ მორხდა ობიექტის ამოცნობა")
+                    popDialog(
+                        R.layout.dialog_item_error,
+                        R.id.errorMsg,
+                        "ვერ მორხდა ობიექტის ამოცნობა"
+                    )
                 }
             }
         }

@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SplashScreenViewModel @Inject constructor(firebaseRepositoryImpl: FirebaseRepositoryImpl) : ViewModel() {
+class SplashScreenViewModel @Inject constructor(firebaseRepositoryImpl: FirebaseRepositoryImpl) :
+    ViewModel() {
 
 }

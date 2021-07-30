@@ -75,13 +75,14 @@ class UploadCarSellPostFragment :
     }
 
 
-
     private fun setListeners() {
 
         binding.nextbutton.setOnClickListener {
             val inputCheck =
                 this::manufacturer.isInitialized && this::model.isInitialized && this::wheelSide.isInitialized && binding.engineCap.text.isNotEmpty()
-                        && !binding.engineCap.text.startsWith(".") && !binding.engineCap.text.endsWith(".")
+                        && !binding.engineCap.text.startsWith(".") && !binding.engineCap.text.endsWith(
+                    "."
+                )
                         && binding.cylinders.text.isNotEmpty() && binding.priceET.text.isNotEmpty()
 
             if (inputCheck) {

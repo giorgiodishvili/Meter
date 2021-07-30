@@ -51,8 +51,7 @@ class ProfileViewModel @Inject constructor(
         if (uploadWithImage) {
             uploadSynchronously(email, name, number, url, verified, uri)
             d("tagtag", "heenoimage viewmodel")
-        }
-        else {
+        } else {
             uploadInfoOnly(email, name, number, url.toString(), verified)
         }
     }
@@ -131,7 +130,7 @@ class ProfileViewModel @Inject constructor(
                         }
                     } else {
                         uploadInfoOnly(email, name, number, url, verified)
-                }
+                    }
                 } catch (e: StorageException) {
                     d("tagtag", "${e.message}")
                 }
@@ -139,7 +138,13 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    private fun getImageAndUpload(email: String, name: String, number: String, url: String?, verified: Boolean) {
+    private fun getImageAndUpload(
+        email: String,
+        name: String,
+        number: String,
+        url: String?,
+        verified: Boolean
+    ) {
         if (url == null) {
             firebaseRepositoryImpl.getUserId()?.let {
                 firebaseStorageImpl.getImage(it).addOnCompleteListener { process ->
@@ -165,7 +170,8 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             withContext(Dispatchers.Default) {
                 try {
-                    val result = userInfo.postUserPersonalInfo(email, name, number, url.toString(), verified)
+                    val result =
+                        userInfo.postUserPersonalInfo(email, name, number, url.toString(), verified)
                     _postUserInfo.postValue(result)
                 } catch (e: HttpException) {
                     Log.d("tagtag", "${e.message}")

@@ -20,4 +20,4 @@ data class SellCarPostRequest(
     val user: String?,
     val wheel_side: String?,
     val VIN: String?,
-): Parcelable
+) : Parcelable

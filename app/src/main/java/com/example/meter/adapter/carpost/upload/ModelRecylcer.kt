@@ -8,11 +8,12 @@ import com.example.meter.entity.page.MetaData
 
 typealias onModelClick = (model: String) -> Unit
 
-class ModelRecylcer: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ModelRecylcer : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     lateinit var onModelClick: onModelClick
     private val items = mutableListOf<MetaData>()
 
-    inner class ViewHolder(private val binding: DropDownItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: DropDownItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         private lateinit var model: MetaData
         fun bind() {
             model = items[absoluteAdapterPosition]
@@ -24,12 +25,18 @@ class ModelRecylcer: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return ViewHolder(DropDownItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(
+            DropDownItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is ViewHolder ->  holder.bind()
+            is ViewHolder -> holder.bind()
         }
     }
 

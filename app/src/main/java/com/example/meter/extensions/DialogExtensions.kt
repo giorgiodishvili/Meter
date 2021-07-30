@@ -11,8 +11,7 @@ fun Dialog.showDialog(dialogView: Int, binding: ViewBinding? = null) {
     if (binding != null) {
         setContentView(binding.root)
         binding.root.setMargins(40, 0, 40, 0)
-    }
-    else
+    } else
         setContentView(dialogView)
     window!!.attributes.width = WindowManager.LayoutParams.MATCH_PARENT
     window!!.attributes.height = WindowManager.LayoutParams.WRAP_CONTENT
