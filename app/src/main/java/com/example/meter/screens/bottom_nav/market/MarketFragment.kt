@@ -13,8 +13,10 @@ import com.example.meter.R
 import com.example.meter.adapter.carpost.CarPostRecyclerAdapter
 import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.MarketFragmentBinding
+import com.example.meter.extensions.loadProfileImg
 import com.example.meter.extensions.makePhoneCall
 import com.example.meter.extensions.setGone
+import com.example.meter.network.Resource
 import com.example.meter.paging.loadstate.LoaderStateAdapter
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,7 +46,15 @@ class MarketFragment : BaseFragment<MarketFragmentBinding, MarketViewModel>(
         })
 
         viewModel.readUserInfo.observe(viewLifecycleOwner, { data ->
-            data.data?.number?.let { requireActivity().makePhoneCall(it) }
+            when (data.status) {
+                Resource.Status.SUCCESS -> {
+                    data.data?.number?.let {
+                        requireActivity().makePhoneCall(it) }
+                    data.data?.let { binding.include5.userProfile.loadProfileImg(it.url) }
+                }
+                Resource.Status.ERROR -> {}
+                Resource.Status.LOADING -> {}
+            }
         })
     }
 

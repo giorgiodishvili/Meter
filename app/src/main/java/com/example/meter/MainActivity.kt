@@ -65,7 +65,6 @@ class MainActivity : AppCompatActivity() {
         val networkCallback: NetworkCallback = object : NetworkCallback() {
             override fun onAvailable(network: Network) {
                 applicationContext.showToast("internet is")
-
             }
 
             override fun onLost(network: Network) {
