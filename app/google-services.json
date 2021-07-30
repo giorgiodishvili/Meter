@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "969450493409",
+    "firebase_url": "https://tbcfinaluri-default-rtdb.firebaseio.com",
+    "project_id": "tbcfinaluri",
+    "storage_bucket": "tbcfinaluri.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:969450493409:android:d1380d29c3ce66b014eea0",
+        "android_client_info": {
+          "package_name": "com.example.meter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "969450493409-d8jmcfamteq4vmnkpi9tmrjp557c9nc4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.meter",
+            "certificate_hash": "2bb747e9297679d894fd1e7254ae9c214010cfa5"
+          }
+        },
+        {
+          "client_id": "969450493409-9t4q8hk74vghmlmdi83omhlk91tp45o8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZMe5wCZ9GcO41CYtArbGtRV8d88SSMd0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "969450493409-9t4q8hk74vghmlmdi83omhlk91tp45o8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

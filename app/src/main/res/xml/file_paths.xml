@@ -1,0 +1,9 @@
+<paths>
+    <external-path
+        name="my_images"
+        path="Android/data/com.example.meter/files/Pictures" />
+
+    <files-path
+        name="images"
+        path="." />
+</paths>

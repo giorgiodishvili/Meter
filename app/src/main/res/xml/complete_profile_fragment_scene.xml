@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="1000">
+        <KeyFrameSet>
+            <KeyAttribute
+                android:alpha="0.1"
+                motion:framePosition="15"
+                motion:motionTarget="@+id/editProfileButton" />
+            <KeyAttribute
+                android:alpha="0.1"
+                motion:framePosition="15"
+                motion:motionTarget="@+id/logOutButton" />
+            <KeyAttribute
+                android:translationX="15dp"
+                motion:framePosition="50"
+                motion:motionTarget="@+id/surnameTv" />
+            <KeyAttribute
+                android:translationY="15dp"
+                motion:framePosition="50"
+                motion:motionTarget="@+id/surnameTv" />
+        </KeyFrameSet>
+        <OnSwipe
+            motion:touchAnchorId="@+id/bottomBar"
+            motion:touchAnchorSide="bottom" />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="32dp"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/profilePic"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="80dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            motion:layout_constraintBottom_toBottomOf="@+id/surnameTv"
+            motion:layout_constraintStart_toEndOf="@+id/nameTv"
+            motion:layout_constraintTop_toTopOf="@+id/nameTv" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/profilePic"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="16dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/surnameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            motion:layout_constraintBottom_toBottomOf="@+id/nameTv"
+            motion:layout_constraintStart_toEndOf="@+id/nameTv"
+            motion:layout_constraintTop_toTopOf="@+id/nameTv"
+            motion:transitionEasing="cubic(0,1,1,0)" />
+        <Constraint
+            android:id="@+id/nameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            motion:layout_constraintBottom_toBottomOf="@+id/profilePic"
+            motion:layout_constraintStart_toEndOf="@+id/profilePic"
+            motion:layout_constraintTop_toTopOf="@+id/profilePic" />
+        <Constraint
+            android:id="@+id/editProfileButton"
+            android:layout_width="wrap_content"
+            android:layout_height="13dp"
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="0dp"
+            android:alpha="0"
+            android:visibility="visible"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/profilePic"
+            motion:layout_constraintVertical_chainStyle="packed" />
+        <Constraint
+            android:id="@+id/logOutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="13dp"
+            android:layout_marginStart="8dp"
+            android:alpha="0"
+            android:visibility="visible"
+            motion:layout_constraintStart_toEndOf="@+id/editProfileButton"
+            motion:layout_constraintTop_toTopOf="@+id/editProfileButton" />
+        <Constraint
+            android:id="@+id/bottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="0dp"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/editProfileButton" />
+        <Constraint
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            motion:layout_constraintBottom_toBottomOf="@+id/surnameTv"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintTop_toTopOf="@+id/profilePic" />
+    </ConstraintSet>
+</MotionScene>

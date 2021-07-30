@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="14dp"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="13dp"
+        android:elevation="7dp"
+        android:fontFamily="@font/helvatice_medium"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/photos"
+        app:layout_constraintEnd_toEndOf="@+id/photos"
+        app:layout_constraintStart_toStartOf="@+id/photos"
+        tools:text="Toyouta Prius gayidva" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/authorIV"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        android:elevation="7dp"
+        app:layout_constraintStart_toStartOf="@+id/photos"
+        app:layout_constraintTop_toTopOf="@+id/photos"
+        app:shapeAppearanceOverlay="@style/circleImageView"
+        tools:src="@mipmap/ic_launcher_round" />
+
+    <TextView
+        android:id="@+id/first_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:elevation="7dp"
+        android:fontFamily="@font/helvetica_heavy"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/authorIV"
+        app:layout_constraintStart_toEndOf="@+id/authorIV"
+        app:layout_constraintTop_toTopOf="@+id/authorIV" />
+
+    <TextView
+        android:id="@+id/last_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:elevation="7dp"
+        android:fontFamily="@font/helvetica_thin"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/first_name"
+        app:layout_constraintStart_toEndOf="@+id/first_name" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/photos"
+        android:layout_width="0dp"
+        android:layout_height="175dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        app:layout_constraintEnd_toStartOf="@+id/rightArrBTN"
+        app:layout_constraintStart_toEndOf="@+id/leftArrBTN"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/postLikeTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="12dp"
+        android:elevation="7dp"
+        android:fontFamily="@font/helvatice_thin"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/photos"
+        app:layout_constraintTop_toBottomOf="@id/photos"
+        tools:text="17" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/postLikeBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_like_unpressed"
+        app:layout_constraintBottom_toBottomOf="@id/postLikeTV"
+        app:layout_constraintStart_toEndOf="@id/postLikeTV"
+        app:layout_constraintTop_toTopOf="@+id/postLikeTV" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/postCommentTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:elevation="7dp"
+        android:fontFamily="@font/helvatice_thin"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/postLikeBTN"
+        app:layout_constraintStart_toEndOf="@id/postLikeBTN"
+        app:layout_constraintTop_toTopOf="@id/postLikeBTN"
+        tools:text="17" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/postCommentBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="12dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_comment"
+        app:layout_constraintBottom_toBottomOf="@id/postCommentTV"
+        app:layout_constraintStart_toEndOf="@id/postCommentTV"
+        app:layout_constraintTop_toTopOf="@+id/postCommentTV" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/postViewTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:elevation="7dp"
+        android:fontFamily="@font/helvatice_thin"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/postViewBTN"
+        app:layout_constraintEnd_toStartOf="@id/postViewBTN"
+        app:layout_constraintTop_toTopOf="@id/postViewBTN"
+        tools:text="180" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/postViewBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_seen"
+        app:layout_constraintEnd_toEndOf="@id/photos"
+        app:layout_constraintTop_toTopOf="@+id/postCommentBTN" />
+
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/rightArrBTN"
+        android:layout_width="12dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/ic_left_arrow"
+        app:layout_constraintBottom_toBottomOf="@id/photos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/photos" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/leftArrBTN"
+        android:layout_width="12dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/ic_right_arrow"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/photos"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/photos" />
+
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:elevation="7dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/montera_regular"
+        android:maxLines="3"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/photos"
+        app:layout_constraintStart_toStartOf="@+id/photos"
+        app:layout_constraintTop_toBottomOf="@+id/postLikeTV"
+        tools:text="loremipsum sloressad loarasdarsad asda" />
+
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="80dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="15dp"
+        android:background="#5A4949"
+        android:elevation="7dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

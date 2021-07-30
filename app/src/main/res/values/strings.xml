@@ -1,3 +1,74 @@
 <resources>
     <string name="app_name">Meter</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="favourites">Favourites</string>
+    <string name="profile">Profile</string>
+    <string name="connect_with_google">გააგრძელე Google -ით</string>
+    <string name="log_out">გასვლა</string>
+    <string name="sign_in_to_continue">გასაგრძლებლად დალოგინდით</string>
+    <string name="welcome">მოგესალმებით</string>
+    <string name="sign_up">დარეგისტრირდი</string>
+    <string name="manufacturer">მწარმოებელი</string>
+    <string name="already_user">ხარ ჩვენი მომხმარებელი ?</string>
+    <string name="login">შესვლა</string>
+    <string name="forgot_password">დაგავიწყათ პაროლი ?</string>
+    <string name="sign_up_to_get_started">გასაგრძელებლად დარეგისტრირდი</string>
+    <string name="create_account">აკაუნტის შექმნა</string>
+    <string name="sign_in">დალოგინდი</string>
+    <string name="email">ელ-ფოსტა</string>
+    <string name="password">პაროლი</string>
+    <string name="register">რეგისტრაცია</string>
+    <string name="confirm_password">პაროლის დადსტურება</string>
+    <string name="reset_password">პაროლის აღდგენა</string>
+    <string name="enter_an_email_address_you_use_to_sign_in_to">შეიყვანეთ ელ-ფოსტა, რომელსაც იყენებთ აუტორიზაციისთვის</string>
+    <string name="reset">აღდგენა</string>
+    <string name="add_post">Add Post</string>
+    <string name="your_name">სახელი გვარი</string>
+    <string name="phone_number">მობილურის ნომერი</string>
+    <string name="personal_info">პროფილის შევსება</string>
+    <string name="verified">verified</string>
+    <string name="save">შენახვა</string>
+    <string name="fill_the_information">შეიყვანე ინფორმაცია</string>
+    <string name="edit_info">პროფილის ედიტირება</string>
+    <string name="add_phone">შეიყვანე ნომერი გასაგრძელებლად</string>
+    <string name="community">Community</string>
+    <string name="new_user">ახალი ხარ ?</string>
+    <string name="complete_profile">პროფილის შევსება</string>
+    <string name="market">Market</string>
+    <string name="my_posts">ჩემი პოსტები</string>
+    <string name="saved_sell">შენახული განცხადებები</string>
+    <string name="saved_posts">შენახული სტატიები</string>
+    <string name="my_sells">ჩემი განცხადებები</string>
+    <string name="my_pots">ჩემი სტატიები</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_hint">SEARCH</string>
+    <string name="see_more">SEE MORE...</string>
+    <string name="market_posts">Market Posts</string>
+    <string name="community_posts">Community Posts</string>
+    <string name="scanning">დაგველოდეთ მოწმდება გამოსახულების ვალიდურობა</string>
+    <string name="upload">ატვირთვა</string>
+    <string name="title">სათაური</string>
+    <string name="description">აღწერა</string>
+    <string name="position_image">%1$d\/%2$d</string>
+    <string name="comments">კომენტარები</string>
+    <string name="price">ფასი %2$s</string>
+    <string name="manufacturer_single_post">მწარმოებელი: %1$s</string>
+    <string name="model_single_post">მოდელი: %1$s</string>
+    <string name="year_single_post">წელი: %1$s</string>
+    <string name="fuel_type_single_post">საწვავი: %1$s</string>
+    <string name="price_single_post">ფასი: %1$s</string>
+    <string name="mileage_single_post">გარბენი: %1$s</string>
+    <string name="vin_single_post">VIN: %1$s</string>
+    <string name="transmission_type_single_post">გადაცემათა კოლოფი: %1$s</string>
+    <string name="wheel_side_single_post">საჭე: %1$s</string>
+    <string name="cylinder_single_post">ცილინდრი: %1$s</string>
+    <string name="address_single_post">მისამართი: %1$s</string>
+    <string name="phone_single_post">ტელ.: %1$s</string>
+    <string name="parameters_single_post">პარამეტრები</string>
+
+
 </resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/posts_navigation"
+    app:startDestination="@id/navigation_marketPosts">
+
+    <fragment
+        android:id="@+id/navigation_commPosts"
+        android:name="com.example.meter.screens.bottom_nav.profile.myposts.commPosts.MyCommPostsFragment"
+        android:label="my_postsk_fragment"
+        tools:layout="@layout/my_comm_posts_fragment">
+        <argument
+            android:name="uid"
+            android:defaultValue="none"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_marketPosts"
+        android:name="com.example.meter.screens.bottom_nav.profile.myposts.marketPosts.MyMarketPostsFragment"
+        android:label="my_market_posts_fragment"
+        tools:layout="@layout/my_market_posts_fragment" />
+    <action
+        android:id="@+id/action_global_navigation_commPosts"
+        app:destination="@id/navigation_commPosts"
+        app:popUpTo="@id/posts_navigation"
+        app:popUpToInclusive="true" />
+
+</navigation>

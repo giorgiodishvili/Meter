@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/splashScreenFragment">
+
+    <fragment
+        android:id="@+id/navigation_community"
+        android:name="com.example.meter.screens.bottom_nav.community.CommunityFragment"
+        android:label="community_fragment"
+        tools:layout="@layout/community_fragment">
+        <action
+            android:id="@+id/action_navigation_community_to_navigation_profile"
+            app:destination="@id/navigation_profile"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_navigation_community_to_singleCommunityPostFragment"
+            app:destination="@id/singleCommunityPostFragment"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/slide_out_bot"
+            app:popEnterAnim="@anim/slide_in_bot"
+            app:popExitAnim="@anim/slide_out_top" />
+        <action
+            android:id="@+id/action_navigation_community_to_chatRequestsFragment"
+            app:destination="@id/chatRequestsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+
+    </fragment>
+    <fragment
+        android:id="@+id/main_auth"
+        android:name="com.example.meter.screens.auth.MainAuthFragment"
+        android:label="main_auth_fragment"
+        tools:layout="@layout/main_auth_fragment">
+        <action
+            android:id="@+id/action_main_auth_to_navigation_profile"
+            app:destination="@id/navigation_profile"
+            app:enterAnim="@anim/slide_in_bot"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_bot" />
+    </fragment>
+    <fragment
+        android:id="@+id/completeProfileFragment"
+        android:name="com.example.meter.screens.bottom_nav.profile.editprofile.ProfileFragment"
+        android:label="profile_fragment"
+        tools:layout="@layout/profile_fragment">
+        <action
+            android:id="@+id/action_navigation_completeProfileInfo_to_navigation_profile"
+            app:destination="@id/navigation_profile"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/slide_out_bot"
+            app:popEnterAnim="@anim/slide_in_bot"
+            app:popExitAnim="@anim/slide_out_top"
+            app:popUpTo="@id/navigation_profile"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_completeProfileFragment_to_main_auth"
+            app:destination="@id/main_auth"
+            app:popUpTo="@id/main_navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_navigation_profile"
+        app:destination="@id/navigation_profile"
+        app:popUpTo="@id/main_navigation"
+        app:popUpToInclusive="true" />
+    <action
+        android:id="@+id/action_global_navigation_home"
+        app:destination="@id/navigation_community"
+        app:enterAnim="@anim/slide_in_bot"
+        app:exitAnim="@anim/slide_out_top"
+        app:popEnterAnim="@anim/slide_in_top"
+        app:popExitAnim="@anim/slide_out_bot"
+        app:popUpTo="@id/main_navigation"
+        app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.meter.screens.bottom_nav.profile.complete.CompleteProfileFragment"
+        android:label="complete_profile_fragment"
+        tools:layout="@layout/complete_profile_fragment">
+
+
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_completeProfileInfo"
+            app:destination="@id/completeProfileFragment"
+            app:enterAnim="@anim/slide_in_bot"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_bot" />
+        <action
+            android:id="@+id/action_navigation_profile_to_main_auth"
+            app:destination="@id/main_auth"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/slide_out_bot"
+            app:popEnterAnim="@anim/slide_in_bot"
+            app:popExitAnim="@anim/slide_out_top" />
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_home"
+            app:destination="@id/navigation_community"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/main_navigation"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_navigation_profile_to_chatFragment"
+            app:destination="@id/chatFragment"
+            app:enterAnim="@anim/slide_in_bot"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_bot" />
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_marketPosts"
+            app:destination="@id/navigation_marketPosts" />
+        <action
+            android:id="@+id/action_navigation_profile_to_chatRequestsFragment"
+            app:destination="@id/chatRequestsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+
+    </fragment>
+    <fragment
+        android:id="@+id/uploadCommunityPostFragment"
+        android:name="com.example.meter.screens.bottom_nav.addpost.upload.communitypost.UploadCommunityPostFragment"
+        android:label="upload_community_post_fragment"
+        tools:layout="@layout/upload_community_post_fragment">
+        <action
+            android:id="@+id/action_uploadCommunityPostFragment_to_singleCommunityPostFragment"
+            app:destination="@id/singleCommunityPostFragment"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/slide_out_bot"
+            app:popEnterAnim="@anim/slide_in_bot"
+            app:popExitAnim="@anim/slide_out_top"
+            app:popUpTo="@id/main_navigation"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_uploadCommunityPostFragment_to_navigation_profile"
+            app:destination="@id/navigation_profile"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/slide_out_bot"
+            app:popEnterAnim="@anim/slide_in_bot"
+            app:popExitAnim="@anim/slide_out_top" />
+        <action
+            android:id="@+id/action_uploadCommunityPostFragment_to_navigation_community"
+            app:destination="@id/navigation_community"
+            app:popUpTo="@id/main_navigation"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_uploadCommunityPostFragment_to_completeProfileFragment"
+            app:destination="@id/completeProfileFragment"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/slide_out_bot"
+            app:popEnterAnim="@anim/slide_in_bot"
+            app:popExitAnim="@anim/slide_out_top" />
+    </fragment>
+    <fragment
+        android:id="@+id/uploadCarSellPostFragment"
+        android:name="com.example.meter.screens.bottom_nav.addpost.upload.carpost.UploadCarSellPostFragment"
+        android:label="upload_car_sell_post_fragment"
+        tools:layout="@layout/upload_car_sell_post_fragment">
+        <action
+            android:id="@+id/action_uploadCarSellPostFragment_to_photoUploadCarSellFragment"
+            app:destination="@id/photoUploadCarSellFragment"
+            app:enterAnim="@anim/slide_in_bot"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_bot" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_marketPosts"
+        android:name="com.example.meter.screens.bottom_nav.market.MarketFragment"
+        android:label="market_fragment"
+        tools:layout="@layout/market_fragment">
+        <action
+            android:id="@+id/action_navigation_marketPosts_to_singleCarSellPostFragment"
+            app:destination="@id/singleCarSellPostFragment"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/slide_out_bot"
+            app:popEnterAnim="@anim/slide_in_bot"
+            app:popExitAnim="@anim/slide_out_top" />
+        <action
+            android:id="@+id/action_navigation_marketPosts_to_navigation_profile"
+            app:destination="@id/navigation_profile"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_navigation_marketPosts_to_chatRequestsFragment"
+            app:destination="@id/chatRequestsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/singleCommunityPostFragment"
+        android:name="com.example.meter.screens.bottom_nav.community.singlepost.SingleCommunityPostFragment"
+        android:label="single_community_post_fragment"
+        tools:layout="@layout/single_community_post_fragment">
+        <action
+            android:id="@+id/action_singleCommunityPostFragment_to_navigation_community"
+            app:destination="@id/navigation_community"
+            app:enterAnim="@anim/slide_in_bot"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_bot"
+            app:popUpTo="@id/main_navigation"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_singleCommunityPostFragment_to_navigation_profile2"
+            app:destination="@id/navigation_profile"
+            app:popUpTo="@id/main_navigation"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_singleCommunityPostFragment_to_uploadCommunityPostFragment"
+            app:destination="@id/uploadCommunityPostFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_uploadCommunityPostFragment"
+        app:destination="@id/uploadCommunityPostFragment"
+        app:enterAnim="@anim/slide_in_bot"
+        app:exitAnim="@anim/slide_out_top"
+        app:popEnterAnim="@anim/slide_in_top"
+        app:popExitAnim="@anim/slide_out_bot" />
+    <action
+        android:id="@+id/action_global_uploadCarSellPostFragment"
+        app:destination="@id/uploadCarSellPostFragment"
+        app:enterAnim="@anim/slide_in_bot"
+        app:exitAnim="@anim/slide_out_top"
+        app:popEnterAnim="@anim/slide_in_top"
+        app:popExitAnim="@anim/slide_out_bot" />
+    <action
+        android:id="@+id/action_singleCommunityPostFragment_to_navigation_profile"
+        app:destination="@id/navigation_profile" />
+
+
+    <action
+        android:id="@+id/action_global_singleCommunityPostFragment"
+        app:destination="@id/singleCommunityPostFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
+        app:popUpTo="@id/main_navigation"
+        app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/action_global_singleCarSellPostFragment"
+        app:destination="@id/singleCarSellPostFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
+        app:popUpTo="@id/main_navigation"
+        app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/singleCarSellPostFragment"
+        android:name="com.example.meter.screens.bottom_nav.market.singlepost.SingleCarSellPostFragment"
+        android:label="single_car_sell_post_fragment"
+        tools:layout="@layout/single_car_sell_post_fragment">
+        <action
+            android:id="@+id/action_singleCarSellPostFragment_to_navigation_marketPosts"
+            app:destination="@id/navigation_marketPosts"
+            app:enterAnim="@anim/slide_in_bot"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_bot"
+            app:popUpTo="@id/main_navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.example.meter.screens.chat.chatscreen.ChatFragment"
+        android:label="chat_fragment"
+        tools:layout="@layout/chat_fragment">
+        <action
+            android:id="@+id/action_chatFragment_to_navigation_profile"
+            app:destination="@id/navigation_profile"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/slide_out_bot"
+            app:popEnterAnim="@anim/slide_in_bot"
+            app:popExitAnim="@anim/slide_out_top"
+            app:popUpTo="@id/chatFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_chatFragment_to_chatRequestsFragment"
+            app:destination="@id/chatRequestsFragment"
+            app:enterAnim="@anim/slide_in_bot"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_bot" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatRequestsFragment"
+        android:name="com.example.meter.screens.chat.messagerequests.ChatRequestsFragment"
+        android:label="chat_requests_fragment"
+        tools:layout="@layout/chat_requests_fragment">
+        <action
+            android:id="@+id/action_chatRequestsFragment_to_navigation_community"
+            app:destination="@id/navigation_community" />
+        <action
+            android:id="@+id/action_chatRequestsFragment_to_chatFragment"
+            app:destination="@id/chatFragment"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/slide_out_bot"
+            app:popEnterAnim="@anim/slide_in_bot"
+            app:popExitAnim="@anim/slide_out_top" />
+    </fragment>
+    <fragment
+        android:id="@+id/photoUploadCarSellFragment"
+        android:name="com.example.meter.screens.bottom_nav.addpost.upload.carpost.secondpart.PhotoUploadCarSellFragment"
+        android:label="photo_upload_car_sell_fragment"
+        tools:layout="@layout/photo_upload_car_sell_fragment">
+        <action
+            android:id="@+id/action_photoUploadCarSellFragment_to_uploadCarSellPostFragment"
+            app:destination="@id/uploadCarSellPostFragment"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/slide_out_bot"
+            app:popEnterAnim="@anim/slide_in_bot"
+            app:popExitAnim="@anim/slide_out_top" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.example.meter.screens.splash.SplashScreenFragment"
+        android:label="splash_screen_fragment"
+        tools:layout="@layout/splash_screen_fragment">
+        <action
+            android:id="@+id/action_splashScreenFragment_to_navigation_community"
+            app:destination="@id/navigation_community"
+            app:popUpTo="@id/main_navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>
