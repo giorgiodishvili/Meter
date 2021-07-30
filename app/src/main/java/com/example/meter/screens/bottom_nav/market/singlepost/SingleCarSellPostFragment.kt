@@ -57,15 +57,16 @@ class SingleCarSellPostFragment :
     }
 
     fun observe() {
-        viewModel.post.observe(viewLifecycleOwner, {
-            when (it.status) {
+        viewModel.post.observe(viewLifecycleOwner, { data ->
+            when (data.status) {
                 Resource.Status.ERROR -> {
                     popDialog(R.layout.dialog_item_error, R.id.errorMsg, "მოხვდა რაღაც შეცდომა")
                 }
                 Resource.Status.SUCCESS -> {
-                    it!!.data?.let { it1 ->
+                    data!!.data?.let { it1 ->
                         setUpPost(it1)
-                        car = it.data!!
+                        car = data.data!!
+
                     }
                 }
                 Resource.Status.LOADING -> {
@@ -108,6 +109,7 @@ class SingleCarSellPostFragment :
     }
 
     private fun setUpPost(data: SellCarPost) {
+        binding.callToFriend.text = data.user?.number
         data.user?.url?.let { binding.authorIV.loadProfileImg(it) }
         binding.descriptionTB.text = data.description
         binding.name.text = data.user!!.name
@@ -136,6 +138,10 @@ class SingleCarSellPostFragment :
         if (userId == data.user.id) {
             binding.deletebutton.show()
         }
+        binding.callToFriend.setOnClickListener {
+            requireActivity().makePhoneCall(data.user.number)
+        }
+
 
     }
 

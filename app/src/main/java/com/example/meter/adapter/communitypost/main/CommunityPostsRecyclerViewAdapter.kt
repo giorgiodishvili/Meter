@@ -59,7 +59,10 @@ class CommunityPostsRecyclerViewAdapter(
             item = getItem(absoluteAdapterPosition)!!
             i("ITEM", "$item")
             binding.firstName.text = item.user.name.split(" ")[0]
-            binding.lastName.text = item.user.name.split(" ")[1]
+            if (item.user.name.split(" ").size != 2) {
+                binding.firstName.text = item.user.name.split(" ")[0]
+                binding.lastName.text = item.user.name.split(" ")[1]
+            }
             binding.title.text = item.title
             binding.authorIV.loadImg(item.user.url)
             binding.descriptionCenter.text = item.description
