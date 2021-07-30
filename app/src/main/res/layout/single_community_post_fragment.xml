@@ -9,6 +9,7 @@
     tools:context=".screens.bottom_nav.community.singlepost.SingleCommunityPostFragment">
 
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -112,20 +113,21 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
+            android:layout_marginEnd="5dp"
             android:fontFamily="@font/helvatice_thin"
             android:text="-მა დაამატა პოსტი"
             android:textColor="@color/gray_blue"
             app:layout_constraintBottom_toBottomOf="@+id/name"
+            app:layout_constraintEnd_toStartOf="@+id/backButton"
             app:layout_constraintStart_toEndOf="@+id/name"
             app:layout_constraintTop_toTopOf="@+id/name" />
 
         <TextView
             android:id="@+id/descriptionTB"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="125dp"
             android:fontFamily="@font/helvetica_medium"
             android:textColor="@color/dark_gray"
             app:layout_constraintEnd_toEndOf="parent"
@@ -252,7 +254,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/helvatice_medium"
-            android:text="title"
+            tools:text="title"
             android:textColor="@color/dark_gray"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="@+id/authorIV"
@@ -273,12 +275,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="12dp"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_garbage"
             android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@+id/singlePostRecyclerPhoto"
-            app:layout_constraintEnd_toEndOf="@+id/singlePostRecyclerPhoto" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/singlePostRecyclerPhoto" />
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:elevation="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -104,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/helvatice_medium"
-            android:text="title"
+            tools:text="title"
             android:textColor="@color/dark_gray"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="@+id/authorIV"

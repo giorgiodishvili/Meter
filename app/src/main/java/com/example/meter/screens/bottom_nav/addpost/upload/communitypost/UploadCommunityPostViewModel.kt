@@ -45,6 +45,7 @@ class UploadCommunityPostViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
+                _photoUploaded.postValue(Resource.loading())
                 _postUploaded.postValue(
                     communityPostRepository.uploadPost(
                         userId,
@@ -59,6 +60,7 @@ class UploadCommunityPostViewModel @Inject constructor(
     fun getUserInfo(uid: String) {
         viewModelScope.launch {
             withContext(Dispatchers.Default) {
+
                 val result = userInfo.getUserPersonalInfo(uid)
                 _readUserInfo.postValue(result)
             }
@@ -69,6 +71,8 @@ class UploadCommunityPostViewModel @Inject constructor(
         i("File List ", "$file")
 
         viewModelScope.launch {
+            _photoUploaded.postValue(Resource.loading())
+
             withContext(Dispatchers.IO) {
                 _photoUploaded.postValue(photoRepository.uploadPhoto(postId, file))
             }

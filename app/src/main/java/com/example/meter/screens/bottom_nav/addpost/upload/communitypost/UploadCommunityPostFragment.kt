@@ -221,6 +221,7 @@ class UploadCommunityPostFragment :
             when (it.status) {
                 Resource.Status.ERROR -> {
                     binding.save.isEnabled = true
+                    dialogItem.cancel()
                 }
 
                 Resource.Status.SUCCESS -> {
@@ -266,6 +267,8 @@ class UploadCommunityPostFragment :
                     }
                 }
                 Resource.Status.LOADING -> {
+                    binding.save.isEnabled = false
+
                     i("debugee", "LOADING")
                 }
             }

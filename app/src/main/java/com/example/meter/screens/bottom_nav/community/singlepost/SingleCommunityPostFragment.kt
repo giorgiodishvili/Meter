@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ScrollView
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -59,41 +60,72 @@ class SingleCommunityPostFragment :
                     d("tagtag", it.data!!.url)
                     it.data.let { it1 -> binding.selfProfilePhoto.loadProfileImg(it1.url) }
                 }
-                Resource.Status.ERROR -> i("debugee", "ERROR")
+                Resource.Status.ERROR -> {
+                    popDialog(
+                        R.layout.dialog_item_error,
+                        R.id.errorMsg,
+                        "მოხდა შეცდომა, გთხოვთ დაარეფრეშოდ"
+                    )
+                    i("debugee", "ERROR")
+                }
                 Resource.Status.LOADING -> i("debugee", "loading")
             }
         })
 
         viewModel.post.observe(viewLifecycleOwner, {
             when (it.status) {
-                Resource.Status.ERROR -> i("debugee", "ERROR")
+                Resource.Status.ERROR -> {
+                    popDialog(
+                        R.layout.dialog_item_error,
+                        R.id.errorMsg,
+                        "მოხდა შეცდომა, გთხოვთ დაარეფრეშოდ"
+                    )
+                }
                 Resource.Status.SUCCESS -> {
+                    binding.progressCircular.hide()
                     it!!.data?.let { it1 ->
                         setUpPost(it1)
                         content = it.data!!
                     }
                 }
-                Resource.Status.LOADING -> i("debugee", "loading")
+                Resource.Status.LOADING -> {
+                    if (!binding.progressCircular.isVisible) {
+                        binding.progressCircular.show()
+                    }
+                }
             }
         })
 
         viewModel.comments.observe(viewLifecycleOwner, {
             when (it.status) {
-                Resource.Status.ERROR -> i("debugee", "$it 21312")
+                Resource.Status.ERROR -> {
+                    popDialog(
+                        R.layout.dialog_item_error,
+                        R.id.errorMsg,
+                        "მოხდა შეცდომა, გთხოვთ დაარეფრეშოდ"
+                    )
+                }
                 Resource.Status.SUCCESS -> {
                     i("debugee", it.data.toString())
                     initCommentRecycler(it)
                 }
-                Resource.Status.LOADING -> i("debugee", "loading")
+                Resource.Status.LOADING -> {
+                    i("debugee", "loading")
+                }
             }
         })
 
         viewModel.createComment.observe(viewLifecycleOwner, {
             when (it.status) {
-                Resource.Status.ERROR -> i("debugee", "$it")
+                Resource.Status.ERROR -> {
+                    popDialog(R.layout.dialog_item_error, R.id.errorMsg, "ვერ დაკომენტარდა")
+                    i("debugee", "$it")
+                }
                 Resource.Status.SUCCESS -> {
                     i("debugee", it.data.toString())
                     communityPostCommentRecyclerAdapter.addComment(it.data!!)
+                    binding.commentsAmount.text =
+                        communityPostCommentRecyclerAdapter.itemCount.toString()
                 }
                 Resource.Status.LOADING -> i("debugee", "loading")
             }
@@ -101,7 +133,10 @@ class SingleCommunityPostFragment :
 
         viewModel.deleteComment.observe(viewLifecycleOwner, {
             when (it.status) {
-                Resource.Status.ERROR -> i("debugee", "$it")
+                Resource.Status.ERROR -> {
+                    popDialog(R.layout.dialog_item_error, R.id.errorMsg, "კომენტარი ვერ დალაიქდა")
+                    i("debugee", "$it")
+                }
                 Resource.Status.SUCCESS -> i("debugee", it.data.toString())
                 Resource.Status.LOADING -> i("debugee", "loading")
             }
@@ -109,7 +144,12 @@ class SingleCommunityPostFragment :
 
         viewModel.createLike.observe(viewLifecycleOwner, {
             when (it.status) {
-                Resource.Status.ERROR -> i("like", "$it")
+                Resource.Status.ERROR -> {
+                    i("like", "$it")
+                    content.likedUserIds.remove(userId)
+                    binding.likesAmount.text = content.likedUserIds.size.toString()
+                    popDialog(R.layout.dialog_item_error, R.id.errorMsg, "პოსტი ვერ დალაიქდა")
+                }
                 Resource.Status.SUCCESS -> i("like", it.data.toString())
                 Resource.Status.LOADING -> i("like", "loading")
             }
@@ -117,7 +157,12 @@ class SingleCommunityPostFragment :
 
         viewModel.dislike.observe(viewLifecycleOwner, {
             when (it.status) {
-                Resource.Status.ERROR -> i("dislike", "$it")
+                Resource.Status.ERROR -> {
+                    i("dislike", "$it")
+                    content.likedUserIds.add(userId)
+                    binding.likesAmount.text = content.likedUserIds.size.toString()
+                    popDialog(R.layout.dialog_item_error, R.id.errorMsg, "პოსტი ვერ გადაწონდა")
+                }
                 Resource.Status.SUCCESS -> i("dislike", it.data.toString())
                 Resource.Status.LOADING -> i("dislike", "loading")
             }

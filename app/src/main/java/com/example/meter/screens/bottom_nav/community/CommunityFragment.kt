@@ -17,6 +17,7 @@ import com.example.meter.base.BaseFragment
 import com.example.meter.databinding.CommunityFragmentBinding
 import com.example.meter.extensions.loadProfileImg
 import com.example.meter.extensions.setGone
+import com.example.meter.extensions.show
 import com.example.meter.network.Resource
 import com.example.meter.paging.loadstate.LoaderStateAdapter
 import com.example.meter.repository.firebase.FirebaseRepositoryImpl
@@ -35,6 +36,7 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
 ) {
     @Inject
     lateinit var firebaseAuthImpl: FirebaseRepositoryImpl
+
     @Inject
     lateinit var db: RealtimeDbRepImpl
 
@@ -42,6 +44,7 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
 
 
     override fun setUp(inflater: LayoutInflater, container: ViewGroup?) {
+        binding.progressCircular.show()
         initRecycler()
         makeInitialCalls()
         listeners()
@@ -122,16 +125,18 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
                 Resource.Status.SUCCESS -> {
                     data.data?.let { binding.include4.userProfile.loadProfileImg(it.url) }
                 }
-                Resource.Status.ERROR -> i("Like", "$data")
-                Resource.Status.LOADING -> i("Like", "loading")
+                Resource.Status.ERROR -> {
+                    popDialog(R.layout.dialog_item_error, R.id.errorMsg, "ინფორმაციის წამოღება არ მოხდა")
+                }
+                Resource.Status.LOADING -> {
+                    i("Like", "loading")
+                }
             }
         })
 
         viewModel.getCommunityPosts().observe(viewLifecycleOwner, { resource ->
             lifecycleScope.launch {
-                if (binding.progressCircular.isVisible) {
-                    binding.progressCircular.setGone()
-                }
+                binding.progressCircular.setGone()
                 binding.swipe.isRefreshing = false
                 adapter.submitData(resource)
             }
@@ -139,7 +144,9 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
 
         viewModel.createLikeResponse.observe(viewLifecycleOwner, {
             when (it.status) {
-                Resource.Status.ERROR -> i("Like", "$it")
+                Resource.Status.ERROR -> {
+                    i("like", "$it")
+                }
                 Resource.Status.SUCCESS -> i("Like", "sucess")
                 Resource.Status.LOADING -> i("Like", "loading")
             }
@@ -147,10 +154,11 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
 
         viewModel.dislikeResponse.observe(viewLifecycleOwner, {
             when (it.status) {
-                Resource.Status.ERROR -> i("dislike", "$it")
+                Resource.Status.ERROR -> {
+                }
                 Resource.Status.SUCCESS -> i("dislike", "sucess")
                 Resource.Status.LOADING -> {
-                    popDialog(R.layout.dialog_item_error, R.id.errorMsg, "შეავსეთ ინფორმაცია")
+//                    popDialog(R.layout.dialog_item_error, R.id.errorMsg, "")
                 }
             }
         })
@@ -161,6 +169,9 @@ class CommunityFragment : BaseFragment<CommunityFragmentBinding, CommunityViewMo
     private fun getSeachResultWithDelay(text: String) {
         CoroutineScope(Dispatchers.Main).launch {
             delay(500)
+            if (!binding.progressCircular.isVisible) {
+                binding.progressCircular.show()
+            }
             viewModel.searchPost(text).observe(viewLifecycleOwner, {
                 lifecycleScope.launch {
                     if (binding.progressCircular.isVisible) {

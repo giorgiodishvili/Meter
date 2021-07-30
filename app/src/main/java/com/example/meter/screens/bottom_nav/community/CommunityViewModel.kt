@@ -54,12 +54,14 @@ class CommunityViewModel @Inject constructor(
         get() = _dislikeResponse
 
     fun getCommunityPosts(): LiveData<PagingData<Content>> {
+
         return communityPostRepository.getCommunityPost().cachedIn(viewModelScope)
     }
 
     fun createLike(postId: Long, userId: String, contentUserId: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
+                _createLikeResponse.postValue(Resource.loading())
                 _createLikeResponse.postValue(communityPostRepository.createLike(postId, userId))
             }
 
@@ -78,8 +80,11 @@ class CommunityViewModel @Inject constructor(
     }
 
     fun dislikePost(postId: Long, userId: String) {
+
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
+                _dislikeResponse.postValue(Resource.loading())
+
                 _dislikeResponse.postValue(communityPostRepository.deleteLike(postId, userId))
             }
         }
@@ -88,6 +93,8 @@ class CommunityViewModel @Inject constructor(
     fun getUserInfo(uid: String) {
         viewModelScope.launch {
             withContext(Dispatchers.Default) {
+                _readUserInfo.postValue(Resource.loading())
+
                 val result = userInfo.getUserPersonalInfo(uid)
                 _readUserInfo.postValue(result)
             }

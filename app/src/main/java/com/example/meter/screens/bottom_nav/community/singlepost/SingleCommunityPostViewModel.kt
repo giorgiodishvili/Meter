@@ -75,6 +75,7 @@ class SingleCommunityPostViewModel @Inject constructor(
     fun getPost(postId: Long) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
+                _post.postValue(Resource.loading())
                 _post.postValue(communityPostRepository.getSinglePost(postId))
             }
         }
@@ -83,6 +84,7 @@ class SingleCommunityPostViewModel @Inject constructor(
     fun getUserInfo(uid: String) {
         viewModelScope.launch {
             withContext(Dispatchers.Default) {
+                _readUserInfo.postValue(Resource.loading())
                 val result = userInfo.getUserPersonalInfo(uid)
                 _readUserInfo.postValue(result)
             }
@@ -92,6 +94,7 @@ class SingleCommunityPostViewModel @Inject constructor(
     fun getComments(postId: Long) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
+                _comments.postValue(Resource.loading())
                 _comments.postValue(commentRepository.getComments(postId))
             }
         }
@@ -105,6 +108,7 @@ class SingleCommunityPostViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
+                _createComment.postValue(Resource.loading())
                 _createComment.postValue(
                     commentRepository.createComment(
                         postId,
@@ -130,6 +134,8 @@ class SingleCommunityPostViewModel @Inject constructor(
     private fun sendPush(userId: String, pushNotificationRequest: PushNotificationRequest) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
+                _sendPush.postValue(Resource.loading())
+
                 _sendPush.postValue(
                     firebaseMessagingRepo.sendPushNotification(
                         userId, pushNotificationRequest
@@ -144,6 +150,7 @@ class SingleCommunityPostViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
+                _deleteComment.postValue(Resource.loading())
                 _deleteComment.postValue(
                     commentRepository.deleteComment(
                         commentId
@@ -156,6 +163,7 @@ class SingleCommunityPostViewModel @Inject constructor(
     fun createLike(userId: String, postId: Long, contentUserId: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
+                _createLike.postValue(Resource.loading())
                 _createLike.postValue(
                     communityPostRepository.createLike(
                         postId, userId
@@ -180,6 +188,7 @@ class SingleCommunityPostViewModel @Inject constructor(
     fun deleteLike(userId: String, postId: Long) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
+                _dislike.postValue(Resource.loading())
                 _dislike.postValue(
                     communityPostRepository.deleteLike(
                         postId, userId
@@ -192,6 +201,7 @@ class SingleCommunityPostViewModel @Inject constructor(
     fun deletePost(postId: Long) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
+                _deletePost.postValue(Resource.loading())
                 _deletePost.postValue(
                     communityPostRepository.deletePost(
                         postId
