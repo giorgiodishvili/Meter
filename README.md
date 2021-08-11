@@ -27,7 +27,6 @@ Once you open up a post you are met with screen where there are general communit
 - [ViewBinding](https://developer.android.com/topic/libraries/view-binding)
 - [Fragments](https://developer.android.com/guide/fragments)
 - [Firebase](https://firebase.google.com/docs/android/setup)
-- [safetynet](https://developer.android.com/training/safetynet)
 - [lottie-android](https://github.com/airbnb/lottie-android)
 - [Retrofit](https://futurestud.io/tutorials/retrofit-getting-started-and-android-client)
 - [Coroutines](https://developer.android.com/kotlin/coroutines)
